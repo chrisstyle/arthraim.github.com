@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>64位Ubuntu上安装32位JRE - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="装64位操作系统是一件很折腾人的事情，因为一些支持不好的软件往往只是考虑32位，比如flex for Linux alpha。我只是想尝试着在Linux环境搭建以下Flex Builder，没想到遇到很多问题…… 好吧，本文正题是安装32位JRE。Google到这篇文章，介绍了一个比较智能的办法 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/01/27/install-32bit-jre-on-64bit-ubuntu/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">64位Ubuntu上安装32位JRE</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-27T01:07:32+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>装64位操作系统是一件很折腾人的事情，因为一些支持不好的软件往往只是考虑32位，比如flex for Linux alpha。我只是想尝试着在Linux环境搭建以下Flex Builder，没想到遇到很多问题…… 好吧，本文正题是安装32位JRE。Google到<a href="http://www.albertsong.com/read-167.html">这篇文章</a>，介绍了一个比较智能的办法～</p>
+
+<ol>
+<li><p>去Sun的官方网站下载一个32位的JRE包。比如，jre-6u18-linux-i586.bin。</p></li>
+<li><p>安装java-package</p></li>
+</ol>
+
+
+<pre><code>sudo apt-get install java-package
+</code></pre>
+
+<ol>
+<li>使用java-package将32位的jre做成一个.deb包</li>
+</ol>
+
+
+<pre><code>DEB_BUILD_GNU_TYPE=i486-linux-gnu DEB_BUILD_ARCH=i386 fakeroot make-jpkg jre-6u18-linux-i586.bin
+</code></pre>
+
+<ol>
+<li>安装.deb包（无视deb包的名字里的amd64字样）</li>
+</ol>
+
+
+<pre><code>sudo dpkg -i sun-j2re1.6_1.6.0+update18_amd64.deb
+</code></pre>
+
+<ol>
+<li>32位的JRE到这里已安装完成，位置在/usr/lib/j2re1.6-sun。</li>
+</ol>
+
+
+<p>可以使用以下命令切换JRE了～（可以运行flexbuilder_linux_install_a5_112409.bin了）</p>
+
+<pre><code>sudo update-alternatives --config java 
+</code></pre>
+
+<p>小记一下～</p>
+
+<p>其实还有个我原创的比较弱智的办法</p>
+
+<ol>
+<li><p>直接运行jre-6u18-linux-i586.bin，会自解压</p></li>
+<li><p>之后cd到jre-6u18-linux-i586/bin这个目录里的话可以发现可以运行的二进制文件java。</p></li>
+<li><p>那么就改一下.bashrc文件，加上一行：</p></li>
+</ol>
+
+
+<pre><code>alias java='你的路径/jre-6u18-linux-i586/bin/java'
+</code></pre>
+
+<p>以上……</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-27T01:07:32+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/o-s-/'>O.S.</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/01/27/install-32bit-jre-on-64bit-ubuntu/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/01/27/install-32bit-jre-on-64bit-ubuntu/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/01/23/eclipse-git-plugin-egit-usage/" title="Previous Post: eclipse的git插件Egit使用小记">&laquo; eclipse的git插件Egit使用小记</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/01/27/ps3-is-hacking-exploit-code-released/" title="Next Post: PS3破解渐入佳境，公布漏洞代码">PS3破解渐入佳境，公布漏洞代码 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

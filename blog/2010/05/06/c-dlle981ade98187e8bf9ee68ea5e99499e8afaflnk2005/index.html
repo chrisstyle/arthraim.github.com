@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C++ Dll遭遇连接错误LNK2005 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="某个VC6.0时代的组件，因为不想翻新它所以拿出原来的代码进行编译。三个项目在一个dsw中，dll1,dll2和一个应用（app1），我要用到的是dll2。当时学长留下这个组件的时候告诉我：&#8221;千万不要clean，不然就要碰运气了&#8221;。在整整一年的开发里， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/05/06/c-dlle981ade98187e8bf9ee68ea5e99499e8afaflnk2005/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C++ Dll遭遇连接错误LNK2005</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-06T09:00:40+08:00" pubdate data-updated="true">May 6<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>某个VC6.0时代的组件，因为不想翻新它所以拿出原来的代码进行编译。三个项目在一个dsw中，dll1,dll2和一个应用（app1），我要用到的是dll2。当时学长留下这个组件的时候告诉我：&#8221;千万不要clean，不然就要碰运气了&#8221;。在整整一年的开发里，我也从来没有clean过。当然这次整理代码的时候，我把它折腾了一下，我就不信这个邪了…… 结果就遇到了标题所说的错误。</p>
+
+<p>具体发生在我编译了dll1，然后去编译dll2，因为dll2依赖dll1。编译dll1的时候还算顺利，少了一个.lib，给它在相应位置放着，就万事大吉了。结果编译dll2的时候错误来了：</p>
+
+<blockquote><p>nafxcwd.lib(afxmem.obj) : error LNK2005: &#8220;void * __cdecl operator new(unsigned int)&#8221; (??2@YAPAXI@Z) bereits in (already on) LIBCMTD.lib(new.obj) definiert (defined)</p></blockquote>
+
+<pre><code>    nafxcwd.lib(afxmem.obj) : error LNK2005: "void __cdecl operator delete(void *)" (??3@YAXPAX@Z) bereits in (already on) libcpmtd.lib(delop.obj) definiert (defined)
+</code></pre>
+
+<blockquote></blockquote>
+
+<p>这不明所以的东西是啥，紧接着error下面还有个warning，说的也是这个东西。我就奇怪了…… Google了一会儿，在<a href="http://www.codeguru.com/forum/archive/index.php/t-102337.html">这里</a>发现是CRT和MFC中都有定义new和delete，编译器显然不知道要去找哪个new哪个delete了。</p>
+
+<p>我的解决方法：</p>
+
+<ul>
+<li><p>在VC6.0中按art+F7</p></li>
+<li><p>选择出现的对话框中右侧选择出错的项目，然后选&#8221;连接&#8221;标签</p></li>
+<li><p>&#8220;分类&#8221;下拉框里选择&#8221;输入&#8221;</p></li>
+<li><p>如图填写相应的模块（多个模块的填写顺序是敏感的）</p></li>
+</ul>
+
+
+<p><a href="/wp-content/uploads/2010-05-06_cpp_dll_link_error_solution.png"><img src="/wp-content/uploads/2010-05-06_cpp_dll_link_error_solution.png" alt="" /></a></p>
+
+<p>上文的链接中还提供了另外一种解决方案~ 没有尝试~</p>
+
+<p>记录一下，证明我为毕业设计和历史遗留问题奋斗过 ToT，以上！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-06T09:00:40+08:00" pubdate data-updated="true">May 6<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/05/06/c-dlle981ade98187e8bf9ee68ea5e99499e8afaflnk2005/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/05/06/c-dlle981ade98187e8bf9ee68ea5e99499e8afaflnk2005/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/05/04/happy-birthday-2/" title="Previous Post: 生日快乐">&laquo; 生日快乐</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/05/09/pageload_an_is_post_back/" title="Next Post: ASP.NET的page_load和IsPostBack">ASP.NET的page_load和IsPostBack &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

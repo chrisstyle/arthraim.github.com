@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>第一次用Silverlight写游戏demo - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="话说本文4个背景。上一篇说装了XNA4.0的环境，于是还水了一篇玩模拟器的文，总觉得XNA不给力，于是想试试看silverlight写游戏会怎么样，上星期花了两个晚上试了一试，以上是第一个背景。我对游戏总是念念不忘，算是自己的梦想吧。以前写的XNA教程里从来没有提过动画的事情。最后一个原因， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/08/18/first-silverlight-game-demo/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">第一次用Silverlight写游戏demo</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-18T07:30:44+08:00" pubdate data-updated="true">Aug 18<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>话说本文4个背景。上一篇说装了XNA4.0的环境，于是还水了一篇玩模拟器的文，总觉得XNA不给力，于是想试试看silverlight写游戏会怎么样，上星期花了两个晚上试了一试，以上是第一个背景。我对游戏总是念念不忘，算是自己的梦想吧。以前写的XNA教程里从来没有提过动画的事情。最后一个原因，就是我好久没有更新博客了。</p>
+
+<p>话说这个东东是按照cnblogs上注明的MVP<a href="http://www.cnblogs.com/alamiye010/">深蓝色右手</a>的教程写的，如果你要学习，那也许他的东西更好吧。我是很给力的想给自己的demo加上一点骚包的东西。看看实际的效果吧要不~</p>
+
+<p>要不demo还是不直接贴在文章里了，跳转一下看吧：<a href="http://arthraim.cn/page/sl1/">http://arthraim.cn/page/sl1/</a></p>
+
+<p>特别留意林克的眨眼，给眨眼做了个特殊的序列来实现很多重复帧的动画。另外固定的是移动时间，所以移动起来很傻吧，看着玩玩好了，貌似还有bug我三更半夜的搞得有点头大，乱的一塌糊涂，有心的谁来帮我看看？然后那啥，贴下代码吧~</p>
+
+<pre><code>public partial class MainPage : UserControl
+{
+    Storyboard storyboard;
+    Image spirit;
+    int count = 1;
+    Point relativePos = new Point(13, 23);
+    int direction = 1;
+    bool isWalking = false;
+
+    public MainPage()
+    {
+        InitializeComponent();
+
+        spirit = new System.Windows.Controls.Image();
+        spirit.Stretch = Stretch.Uniform;
+        spirit.Width = 23;
+        spirit.Height = 23;
+        Carrier.Children.Add(spirit);
+        Canvas.SetLeft(spirit, 0);
+        Canvas.SetTop(spirit, 0);
+
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+        dispatcherTimer.Interval = TimeSpan.FromMilliseconds(100);
+        dispatcherTimer.Start();
+    }
+
+    void dispatcherTimer_Tick(object sender, EventArgs e)
+    {
+        label1.Content = direction + " " + count;
+
+        string directionStr = "east";
+        switch (direction)
+        {
+            case 0: directionStr = "north"; break;
+            case 1: directionStr = "east"; break;
+            case 2: directionStr = "south"; break;
+            case 3: directionStr = "west"; break;
+            default: directionStr = "east"; break;
+        }
+        if (storyboard != null &amp;&amp; storyboard.GetCurrentTime() == TimeSpan.FromSeconds(1))//(isWalking == false)
+        {
+            int[] table = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2 };
+            if (direction == 0)
+            {
+                count = 1;
+                spirit.Source = new BitmapImage(
+                        new Uri(@"Assets/LinkG_stand_" + directionStr + "00" + table[count] + ".png", UriKind.Relative));
+            }
+            else
+            {
+                count = (count &gt; (table.Length - 1)) ? 1 : count;
+                spirit.Source = new BitmapImage(
+                        new Uri(@"Assets/LinkG_stand_" + directionStr + "00" + table[count] + ".png", UriKind.Relative));
+                count++;
+            }
+        }
+        else
+        {
+            if (count &gt; 10 || count &lt;= 0)
+            {
+                count = 1;
+            }
+            else if (count &gt; 0 &amp;&amp; count &lt; 10)
+            {
+                spirit.Source = new BitmapImage(
+                    new Uri(@"Assets/LinkG_walk_" + directionStr + "00" + count + ".png", UriKind.Relative));
+            }
+            else if (count == 10)
+            {
+                spirit.Source = new BitmapImage(
+                    new Uri(@"Assets/LinkG_walk_" + directionStr + "0" + count + ".png", UriKind.Relative));
+                count = 1;
+            }
+            count++;
+        }
+    }
+
+    /// N - 0
+    /// E - 1
+    /// S - 2
+    /// W - 3
+    private int CalculateDirection(Point pTo, Point pFrom)
+    {
+        pTo.X -= relativePos.X;
+        pTo.Y -= relativePos.Y;
+        double tan = (pTo.Y - pFrom.Y) / (pTo.X - pFrom.X);
+        double delta = pTo.X - pFrom.X;
+        if (delta &gt; 0)
+        {
+            if (tan &lt;= 1 &amp;&amp; tan &gt;= -1)
+                return 1;
+            else if (tan &gt; 1)
+                return 2;
+            else// if (tan &lt; -1)
+                return 0;
+        }
+        else
+        {
+            if (tan &lt;= 1 &amp;&amp; tan &gt;= -1)
+                return 3;
+            else if (tan &gt; 1)
+                return 0;
+            else// if (tan &lt; -1)
+                return 2;
+        }
+    }
+
+    private void Carrier_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        isWalking = true;
+
+        Point pFrom = new Point(Canvas.GetLeft(spirit), Canvas.GetTop(spirit));
+        Point pTo = e.GetPosition(Carrier);
+        direction = CalculateDirection(pTo, pFrom);
+        pTo.X -= relativePos.X;
+        pTo.Y -= relativePos.Y;
+
+
+        storyboard = new Storyboard();
+
+        DoubleAnimation doubleAnimation = new DoubleAnimation()
+        {
+            From = pFrom.X,
+            To = pTo.X,
+            Duration = TimeSpan.FromSeconds(1)
+        };
+        Storyboard.SetTarget(doubleAnimation, spirit);
+        Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("(Canvas.Left)"));
+        storyboard.Children.Add(doubleAnimation);
+
+        doubleAnimation = new DoubleAnimation()
+        {
+            From = pFrom.Y,
+            To = pTo.Y,
+            Duration = TimeSpan.FromSeconds(1)
+        };
+        Storyboard.SetTarget(doubleAnimation, spirit);
+        Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath("(Canvas.Top)"));
+        storyboard.Children.Add(doubleAnimation);
+
+        if (!Resources.Contains("rectAnimation"))
+        {
+            Resources.Add("rectAnimation", storyboard);
+        }
+
+        storyboard.Begin();
+        storyboard.Completed += new EventHandler((object ssender, EventArgs ee) =&gt;
+        {
+            isWalking = false;
+        });
+    }
+
+}
+</code></pre>
+
+<p>就这样，结尾了！萌点在于林克~  虽然最近很忙，不过写一个AVG游戏的念头又冒出来了。。</p>
+
+<p>以上</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-18T07:30:44+08:00" pubdate data-updated="true">Aug 18<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/08/18/first-silverlight-game-demo/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/08/18/first-silverlight-game-demo/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/08/05/windows-phone-emulator/" title="Previous Post: Windows Phone Emulator的GUI很给力啊">&laquo; Windows Phone Emulator的GUI很给力啊</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/08/20/pymt-even-python-can-multi-touch/" title="Next Post: PyMT,小蟒蛇也懂多点触摸">PyMT,小蟒蛇也懂多点触摸 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

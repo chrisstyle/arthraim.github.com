@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>pymongo.errors.AutoReconnect: could not find master/primary - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="不说前因后果了, 在使用pymongo连接服务器mongodb的时候遇到了pymongo.errors.AutoReconnect: could not find master/primary这个错误. 折腾了很久才发现是个简单的问题, 不过鉴于我Google了很久也没有找到合适的答案, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/09/29/pymongo-errors-autoreconnect-could-not-find-masterprimary/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">pymongo.errors.AutoReconnect: Could Not Find Master/primary</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-29T09:43:13+08:00" pubdate data-updated="true">Sep 29<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>不说前因后果了, 在使用pymongo连接服务器mongodb的时候遇到了pymongo.errors.AutoReconnect: could not find master/primary这个错误. 折腾了很久才发现是个简单的问题, 不过鉴于我Google了很久也没有找到合适的答案, 不妨在博客记录一下, 我的问题说不定是将来你遇到的问题.</p>
+
+<p>具体错误如下:</p>
+
+<pre><code>Traceback (most recent call last):
+  File "/home/arthur/workspace/DUMMY/python/DUMMY.py", line 7, in &lt;module&gt;
+    mongo_con = pymongo.Connection( )
+  File "/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py", line 291, in __init__
+    self.__find_master()
+  File "/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py", line 495, in __find_master
+    raise AutoReconnect("could not find master/primary")
+pymongo.errors.AutoReconnect: could not find master/primary&lt;/module&gt;
+</code></pre>
+
+<p>引起这个错误的原因有很多, 比如mongod根本没有起来, Google到还有早期版本可能存在的bug. 我连接任何一台计算机上的mongodb都是正常的, 唯独连接那台的有问题. 在我闷头升级服务器的python版本(2.7), 升级了服务器的mongodb版本(1.8.1), 都于事无补(事实上在我的尝试看来, pymongo 1.8.1连接1.4.3以上的mongodb都没有问题).</p>
+
+<p>最后问题是因为Master-Slave. 因为升级mongo的时候要更新各个节点, 之后同事重启后才突然想到, 连不上是因为这台服务器是slave. 找会不会是这个原因引发的问题的时候, 在<a href="http://api.mongodb.org/python/1.7/api/pymongo/master_slave_connection.html">这里</a>仔细一看发现构建Connection的时候, 有一个slave_okay的参数, 设置为True之后就可以单独连接一个slave节点了. 当然文档里pymongo.master_slave_connection.MasterSlaveConnection类就更重了.</p>
+
+<pre><code>mongo_con = pymongo.Connection(slave_okay=True)
+</code></pre>
+
+<p>最后随便说一句, mongodb真的是个好东西, <a href="http://renjian.com">人间网</a>的技术人员从我来之前就一直尝试使用它.</p>
+
+<p>以上.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-29T09:43:13+08:00" pubdate data-updated="true">Sep 29<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/09/29/pymongo-errors-autoreconnect-could-not-find-masterprimary/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/09/29/pymongo-errors-autoreconnect-could-not-find-masterprimary/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/09/26/tgs2010-highlights/" title="Previous Post: TGS2010的小总结">&laquo; TGS2010的小总结</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/01/arthur_movie_report_2010_09/" title="Next Post: Arthur电影补完计划第5次中间报告(2010-09)">Arthur电影补完计划第5次中间报告(2010-09) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-3D游戏-09-添加敌方UFO - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="应当说之前的Chapter08是插进来的一个部分，让我们的工程还没有变得非常巨大之前，在我们第一个需要声音的对象创建之后，插进如何制作音频的教程。而按照正常的逻辑，我们现在应该添加敌人，让我们的导弹&#8221;有的放矢&#8221;（有地方使）。和2D类似，UFO是我们的敌人， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/07/20/xna-tutorial-3d-ch9-create-enemy-ufo/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-3D游戏-09-添加敌方UFO</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-20T07:40:59+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>应当说之前的Chapter08是插进来的一个部分，让我们的工程还没有变得非常巨大之前，在我们第一个需要声音的对象创建之后，插进如何制作音频的教程。而按照正常的逻辑，我们现在应该添加敌人，让我们的导弹&#8221;有的放矢&#8221;（有地方使）。和2D类似，UFO是我们的敌人，他从屏幕的最远端向我们靠近，而最终飞过我们的头顶后消失，其实就游戏逻辑来说和2D是一回事，只是所在空间和视角不同了。</p>
+
+<p>惯例，在第一段之后说一些废话。最近更新的非常缓慢，不当心看了看最近博客的点击量发现这数字也是小的可怕至极。不过我不太关注那些东西的，只是自己也期待着快点把这个教程结束，然后继续我原来的博客路线。本来以为暑假可以用XNA做点东西，所以觉得写这个也挺有趣，不过最近做别的东西中，所以这个教程快快结束吧，希望能帮助到有需要的人就对了。说起来2D教程只用了一个星期啊……</p>
+
+<p>言归正传，开始这一节的教程吧。</p>
+
+<p><strong>第一步、初始化UFO</strong></p>
+
+<p>和terrain以及missilelauncher的base或head一样，载入一个GameObject的典型方法也同样适用于UFO，只是不止一个UFO，所以我们还是类似2D的，使用了GameObject的数组。</p>
+
+<p><strong>1、声明</strong></p>
+
+<p>在Game类，你声明了一大串一大串的地方添加如下的声明。</p>
+
+<pre><code>Random r = new Random();
+const int numEnemyShips = 3;
+GameObject[] enemyShips;
+</code></pre>
+
+<ul>
+<li><p>r是一个Random对象，可以让我们用来随机确定UFO的初始位置及速度。</p></li>
+<li><p>numEnemyShips看来是一个会被我恶搞的变量，指同屏（最大）出现的UFO数量。</p></li>
+<li><p>enemyShips当然就是GameObject的数组，数量由上一个变量确定。</p></li>
+</ul>
+
+
+<p><strong>2、实例化</strong></p>
+
+<p>找到LoadContent方法，在方法的最后加上实例化一个GameObject的代码。</p>
+
+<pre><code>enemyShips = new GameObject[numEnemyShips];
+for (int i = 0; i &lt; numEnemyShips; i++)
+{
+    enemyShips[i] = new GameObject();
+    enemyShips[i].model = Content.Load&lt;Model&gt;(
+        @"Modelsenemy");
+    enemyShips[i].scale = 0.1f;
+    enemyShips[i].rotation = new Vector3(
+        0.0f, MathHelper.Pi, 0.0f);
+}
+</code></pre>
+
+<p>实例化数组后，用一个 for 循环遍历这个数组。</p>
+
+<p>每一次遍历，先实例化GameObject，然后确定模型以及缩放和旋转，还记得旋转吗？Pitch, Yaw, Roll，所以这里的初始化值是0,pi,0，yaw了180度，即朝向屏幕外的我们。</p>
+
+<p>这里没有对其他的一些成员做初始化，它们被留到Update里面去处理。</p>
+
+<hr />
+
+<p><strong>第二步、更新UFO</strong></p>
+
+<p>留了一部分工作放在Update里完成，所以Update的工作也比较大，和Missiles一样，我们写另外一个方法来处理。</p>
+
+<p>方法命名为：UpdateEnemyShips()。把它的调用放在Game类中Update方法处理音频update的后面。</p>
+
+<p>然后写UpdateEnemyShips方法的内容如下：</p>
+
+<pre><code>void UpdateEnemyShips()
+{
+    foreach (GameObject ship in enemyShips)
+    {
+        if (ship.alive)
+        {
+            ship.position += ship.velocity;
+            if (ship.position.Z &gt; 500.0f)
+            {
+                ship.alive = false;
+            }
+        }
+        // next step...
+    }
+}
+</code></pre>
+
+<p>因为已经实例化，所以可以用foreach来遍历了。如果UFO存活，那么位置加上速度即更新为当前位置。但是也必须处理如何杀掉它，记得第一段说的，&#8221;飞过头顶的时候&#8221;杀掉，那么就是检查Z轴就可以了。</p>
+
+<p>注释部分是留给下一步，完成第一步欠下的，UFO的一些初始化工作。</p>
+
+<hr />
+
+<p><strong>第三步、继续初始化UFO</strong></p>
+
+<p>就像这一步的名字一样，继续初始化，这是第一步欠下的债。第一步没有个position和velocity初始化，因为所有的enemy的这两个属性不是一次性初始化就好了的，随着Update里的死亡，他们要重新被初始化，所以我们不把这个工作放在第一步的LoadContent方法里，而是放在Update方法里。</p>
+
+<p><strong>1、声明</strong></p>
+
+<p>同样的我们需要先声明几个变量，帮助我们使用随机数。在Game类内声明以下变量：</p>
+
+<pre><code>Vector3 shipMinPosition = new Vector3(-2000.0f, 300.0f, -6000.0f);
+Vector3 shipMaxPosition = new Vector3(2000.0f, 800.0f, -4000.0f);
+const float shipMinVelocity = 5.0f;
+const float shipMaxVelocity = 10.0f;
+</code></pre>
+
+<p>如果你看过2D教程，那么这四个变量的用意就一定知道。</p>
+
+<p>两个Vector3把起始位置限定在了一个立方体内。X轴-2000～2000（屏幕的左右位置），Y轴300～800（屏幕的上下位置，即高度），Z轴-6000～-4000（屏幕的深度，即距离屏幕6000到4000这个距离）。</p>
+
+<p>而velocity，即速度，因为我们的UFO走平行于Y轴的直线，所以只用float限定他在Z轴上的速率。5到10之间。</p>
+
+<p><strong>2、继续更新UFO</strong></p>
+
+<p>第二步的时候，我们处理了或者的UFO如何的更新，和如何杀死。现在要处理杀死的UFO，如何复活，包括游戏刚刚运行时所有的都在死掉状态的UFO如何初始化。在第二步的方法注释部分添加如下代码：</p>
+
+<pre><code>else
+{
+    ship.alive = true;
+    ship.position = new Vector3(
+        MathHelper.Lerp(
+            shipMinPosition.X,
+            shipMaxPosition.X,
+            (float)r.NextDouble()),
+        MathHelper.Lerp(
+            shipMinPosition.Y,
+            shipMaxPosition.Y,
+            (float)r.NextDouble()),
+        MathHelper.Lerp(
+            shipMinPosition.Z,
+            shipMaxPosition.Z,
+            (float)r.NextDouble()));
+    ship.velocity = new Vector3(
+        0.0f,
+        0.0f,
+        MathHelper.Lerp(
+            shipMinVelocity,
+            shipMaxVelocity,
+            (float)r.NextDouble()));
+}
+</code></pre>
+
+<p>代码看起来很长，但其实逻辑很简单，我们只修改了三个属性：alive、position、velocity。</p>
+
+<p>只是我们用到了MathHelper.Lerp方法和Random.NextDouble方法嵌在代码里。Lerp限定r.NextDouble生成的一个随机的双精度浮点数的范围，分到X,Y,Z三个分量上而已。而velocity就像之前说的，只需要Z轴有速度，所以只在Z轴用了相应的方法。</p>
+
+<p>那么处理完这些，最后一步就是绘制UFO了。</p>
+
+<hr />
+
+<p><strong>第四步、绘制UFO</strong></p>
+
+<p>找到Draw方法，和missiles的画法一样，用一个foreach循环就搞定了。多亏了我们有写DrawGameObject这样的方法。</p>
+
+<pre><code>foreach (GameObject enemyShip in enemyShips)
+{
+    if (enemyShip.alive)
+    {
+        DrawGameObject(enemyShip);
+    }
+}
+</code></pre>
+
+<p>好了好了，这样就没有问题了。编译、运行。（效果如图，点击放大）我承认我改了UFO数量。</p>
+
+<p><a href="/upload/2009-07-19_Runtime.jpg"><img src="/upload/2009-07-19_Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=164"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-20T07:40:59+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/07/20/xna-tutorial-3d-ch9-create-enemy-ufo/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/07/20/xna-tutorial-3d-ch9-create-enemy-ufo/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/07/14/xna-tutorial-3d-ch9-add-audio/" title="Previous Post: XNA教程-3D游戏-08-添加声效">&laquo; XNA教程-3D游戏-08-添加声效</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/07/20/xna-tutorial-3d-ch10-destroy-ufo/" title="Next Post: XNA教程-3D游戏-10-摧毁UFO">XNA教程-3D游戏-10-摧毁UFO &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

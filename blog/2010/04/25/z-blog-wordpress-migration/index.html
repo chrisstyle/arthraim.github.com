@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>正式从Z-blog搬到Wordpress - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="Arthraim.cn的关注者们，在时隔2天后，相信今天你们来到本博客会看到一个全新的样子。是的，正如标题所说，我正式搬迁了服务器，并且从Z-BLOG转到了Wordpress。 因为之前arthraim.cn一直使用的是某个国内虚拟主机，而在上个月低，该主机遭到黑客侵入， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/04/25/z-blog-wordpress-migration/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">正式从Z-blog搬到Wordpress</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-25T21:17:36+08:00" pubdate data-updated="true">Apr 25<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Arthraim.cn的关注者们，在时隔2天后，相信今天你们来到本博客会看到一个全新的样子。是的，正如标题所说，我正式搬迁了服务器，并且从Z-BLOG转到了Wordpress。</p>
+
+<p>因为之前arthraim.cn一直使用的是某个国内虚拟主机，而在上个月低，该主机遭到黑客侵入，虽然我在第一时间修复了自己的博客程序，但是似乎托管的服务器依然被挂马，之前唯一连接空间的方式是ftp，所以非常被动。本来该公司的客服是非常耐心非常好的，QQ上大部分时间都在线，有什么问题基本上第一时间都能解决。本来一直没有放弃主要就是因为让我信服的良好客服，但是因为年初互联网收紧时该公司的业务发生过调整，所以现在移交总公司的业务已经变得毫无态度可言了，在Arthur彻底失去信心的同时，也决定正式搬家。</p>
+
+<p>现在你们看到的博客已经搬到了新的主机上，是@caoxg大侠的服务器（不知是不是那台传奇的Javaeye的第一台服务器）。因为这个使用lamp，所以原来我的asp博客不得不放弃了，转投wordpress。</p>
+
+<p>事实上从Z-blog搬到Wordpress最麻烦的是数据，我看了Z-blog的数据结构，和一张wordpress的<a href="http://tech.idv2.com/wp-content/uploads/2007/01/wordpress-db-er-diagram.png">ER图</a>，就转换来说还是有些困难的。不过搜索一下都能知道，Z-blog可以先转到movable type的数据，再导入wordpress，只是那个插件是在2006年的时候写的。我用了一个可以保留tag的新版本，在<a href="http://hidigi.net/post/zblog-wordpress-migration.html">这里</a>可以找到下载。</p>
+
+<pre><code>用插件转方便一点，不过因为我要保持原来的url无缝过来，原来的url又是ID.HTML的静态页面，所以有些麻烦，因为导进来的ID不一样，所以在数据库里update了很久，把ID都调整正确。这样是有好处的，一是保证了搜索引擎尽可能小的降权，让收录的页面仍然正常指向，也保证了自己博客的一些内部静态链接正确无误，不影响阅读。虽然事实上原来的url是对SEO无益的，不过我还是愿意保持原状。另外，Z-blog导出的movabletype.asp文件里也可以简单的替换完成很多数据的处理。比如ZBLOG_HOST这样的变量的替换。
+</code></pre>
+
+<p>Z-blog也是一个支持插件的博客系统，并且我使用的几个插件都让我非常满意，其中最麻烦的是SyntaxHighlighter，作为一个时常贴代码的博客我是必须需要这个插件的。但是原来博客使用的是1.5，在2.0时做了很多修改，也让我一直难以升级。这次利用数据迁移的时候，顺便把它也升级了。值得一提的是很多文章里老的调用还是保留着，所以可能浏览器会报错，不过不影响阅读。实在是一片一片的修改文章会很辛苦，我懒，把能一起处理的处理掉了，剩下的就那样吧。</p>
+
+<p>数据还有一部分就是大量的图片，图片的URL我打算全部放弃原来的了，我也不在乎搜索引擎收录的图片，所以在导出的movabletype.asp里我就把所有的图片url替换掉了。图片上传到新服务器的就能直接访问了，昨晚已经传完了。</p>
+
+<p>之后还有要做的是SEO相关的，重新下插件生成sitemap.xml，然后到Google,Yahoo,bing的webmaster tools去重新提交sitemap以及重新验证。这倒是相对轻松的。wordpress的baidu sitemap插件也有了，只是可惜百度站长管理平台至今还是邀请制的，没办法提交。</p>
+
+<p>当然对feed订阅者来说，可能感受不到变化，不过我也在feedsky和feedburner都重新修改的新的feed地址，所以对订阅者来说最多会发现今天更新了10篇老文章而已，不需要修改订阅地址~ 也算是无缝切换了~</p>
+
+<p>那么这样，搬家工作经历一个通宵就顺利完成了，相信用几天后还会出现这样那样的问题的，并且我还有一点点的数据死在原来的服务器上现在没办法拯救回来。wordpress还是很强大，就是编辑器我很不喜欢，为了保持以前fckeditor的使用习惯，我还特地给WP装上了ckeditor。</p>
+
+<p>最后要感谢@caoxg，还要感谢Google到的那些先人们，当然还要感谢Google。如果大家发现有什么问题，请联系我。这时候我突然想起kill ie6还没有干……</p>
+
+<p>以上……</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-25T21:17:36+08:00" pubdate data-updated="true">Apr 25<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/life/'>Life</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/04/25/z-blog-wordpress-migration/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/04/25/z-blog-wordpress-migration/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/04/19/after-hdslon2/" title="Previous Post: 写在人本设计沙龙之后">&laquo; 写在人本设计沙龙之后</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/04/27/more-about-blog-migration/" title="Next Post: 博客搬家后续">博客搬家后续 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

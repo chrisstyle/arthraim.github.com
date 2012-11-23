@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>官方的人间网Widget - Javascript - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="说到前文《简单的人间网Widget - javascript》，之后想写一个像样点的widget的想法一直在Arthur的脑子里转啊转，不过就像之前提到的那样，去学校了一段时间，搞定一些烦人的事情，所以搁下了。今天看到了某人间网工作人员的留言，方知人间网已经有了官方的widget，拿来炫耀炫耀， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/09/17/official-renjian-widget-javascript/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">官方的人间网Widget - Javascript</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-17T10:17:53+08:00" pubdate data-updated="true">Sep 17<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>说到前文《<a href="http://arthraim.cn/post/2009/09/100.html">简单的人间网Widget - javascript</a>》，之后想写一个像样点的widget的想法一直在Arthur的脑子里转啊转，不过就像之前提到的那样，去学校了一段时间，搞定一些烦人的事情，所以搁下了。今天看到了某人间网工作人员的留言，方知人间网已经有了官方的widget，拿来炫耀炫耀，话说有什么值得我来炫耀的吗？嘿嘿。</p>
+
+<p>看看效果先。</p>
+
+<p>不错的吧，样式是和人间网的整体风格相统一的，说实话对于有官方情结的人来说这主题还是很有爱的。</p>
+
+<pre><code>&lt;script src="http://rensea.com/js/renseaApi.js?screenName=arthraim&amp;width=550" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script src="http://rensea.com/statuses/user_timeline/arthraim.json?count=10&amp;callback=renseaApiCallback" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>只是在自己博客用之前，还要改造一番，兴许等我改了之后又能再发一篇分享一下。</p>
+
+<p>说到用法，把两行代码放到你要放widget的地方。代码要稍稍修改一下：</p>
+
+<blockquote><p><script src="http://rensea.com/js/renseaApi.js?screenName=你的名字&width=你要的宽度" type="text/javascript"></script></p></blockquote>
+
+<script src="http://rensea.com/statuses/user_timeline/你的名字.json?count=你要的数量&callback=renseaApiCallback" type="text/javascript"></script>
+
+
+<blockquote></blockquote>
+
+<p>此文还真是很水…… 不过我现在可以写一篇非常长的心得来告诉大家不更新对于访问量和SEO的坏处，所以，还是允许我水一下吧。</p>
+
+<p>PS：话说Chrome还蛮有意思的，renseaApi.js里的一些样式和我的页面样式有冲突，比如链接的颜色，于是可以看到有趣的样子。Firefox 倒是很正常～</p>
+
+<p>以上……</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-17T10:17:53+08:00" pubdate data-updated="true">Sep 17<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/internet/'>internet</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/09/17/official-renjian-widget-javascript/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/09/17/official-renjian-widget-javascript/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/09/15/arthur-2009-09-15/" title="Previous Post: Arthur 杂记 | 2009-09-15">&laquo; Arthur 杂记 | 2009-09-15</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/09/19/more-renjian-widget-javascript/" title="Next Post: 继续人间网Widget - Javascript">继续人间网Widget - Javascript &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

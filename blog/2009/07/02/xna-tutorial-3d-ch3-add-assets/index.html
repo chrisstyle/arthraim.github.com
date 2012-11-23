@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-3D游戏-03-添加Asset - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="到了这里其实还是和2D的教程是重叠的，这里我们要做的是添加asset们。所以这里你要问自己三个问题： 你已经建立了工程（project）了吗？&#8212;- 点我补课
+你已经下载了上一部分要求下载的资源了吗？&#8212;- 点我下载
+你知道什么是asset吗？ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-3D游戏-03-添加Asset</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-02T00:17:14+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>到了这里其实还是和2D的教程是重叠的，这里我们要做的是添加asset们。所以这里你要问自己三个问题：</p>
+
+<ol>
+<li><p>你已经建立了工程（project）了吗？&#8212;- <a href="http://arthraim.cn/post/2009/06/72.html">点我补课</a></p></li>
+<li><p>你已经下载了上一部分要求下载的资源了吗？&#8212;- <a href="http://creators.xna.com/downloads/?id=157">点我下载</a></p></li>
+<li><p>你知道什么是asset吗？你看过之前2D教程的添加asset内容吗？&#8212;- <a href="http://arthraim.cn/post/2009/06/63.html">点我补课</a>（重点浏览链接指向的文章的后半部分，讲解什么是asset）</p></li>
+</ol>
+
+
+<p>三个问题过关的，再来看我的这里的屁话。放假回家，所以把编译一个XNA游戏都要3分钟的windows xp给格掉了（关注我的twitter的一定知道了），所以把windows 7的引导也格掉了。因为找不到之前安装windows 7的那张光盘，所以一下子没有修复引导，所以这一次的教程就先用XP完成了。装了3、4的系统，终于把一个一个的东西下载下来给装上了，现在可以继续了。</p>
+
+<p>OK言归正传，看看这一次要做的是如何简单。和2D类似的右键添加等等工作，就能完成了。</p>
+
+<p><strong>第一步、添加models到工程的content中</strong></p>
+
+<p>Content中的asset可以在content pipeline中被我们调用。这是一个非常方便的设计，当然这也使得我们这一步的工作显得非常重要，你可以从磁盘去读取一些你需要的资源，但是让他在content管道中，会大大方便你的管理。</p>
+
+<p>2D教程中，我们加入一些.tga资源到Content/Sprites中，我们右键新建文件夹，然后添加存在的资源等等这样完成了这部工作，那么这一次和视频一样，我们偷懒一下。直接把解压缩出来的models文件夹拖到VS2008的树状Solution Explorer的Content目录上，来完成这一步工作。</p>
+
+<p>添加进来之后，我们看到了一些.fbx文件和.tga文件，fbx就是我们的模型，而tga是这些模型对应的贴图，不会被我们实际的工作主动调用到，他们只要在他们应该在的磁盘位置上就可以了，在我们调用模型的时候，相关联的贴图会自动被寻找，所以把他们排除我们的工程吧。右键选择所有的.tga文件，选择&#8221;Exclude From Project&#8221;将其排除工程。</p>
+
+<p><a href="/upload/2009-07-01_ExcludeTgas.JPG"><img src="/upload/2009-07-01_ExcludeTgas.JPG" alt="" /></a></p>
+
+<p><strong>第二步、添加audio到工程的content中</strong></p>
+
+<p>这还分成两步看起来有点傻，一样的，把解压缩出来的audio文件夹也一并拖到Solution Explorer的Content目录上。展开Audio文件夹，右键点击Waves目录，选择&#8221;Exlude From Project&#8221;，把这些.wav文件全部排除在工程之内。因为对于声音的asset处理会有很大的不同，所以这里我们暂时先这样处理就好。</p>
+
+<p>准备就绪之后，就可以开始代码阶段的工作了。</p>
+
+<p>【官方工程下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=158"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-02T00:17:14+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/" title="Previous Post: XNA教程-3D游戏-02-创建游戏工程">&laquo; XNA教程-3D游戏-02-创建游戏工程</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/" title="Next Post: XNA教程-3D游戏-04-绘制3D地表">XNA教程-3D游戏-04-绘制3D地表 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

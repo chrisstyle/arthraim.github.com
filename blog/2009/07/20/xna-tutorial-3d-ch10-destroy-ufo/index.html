@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-3D游戏-10-摧毁UFO - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&# &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/07/20/xna-tutorial-3d-ch10-destroy-ufo/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-3D游戏-10-摧毁UFO</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-20T08:23:33+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&#8212;-导弹无法射落UFO。那么这次的教程显而易见，就是用到3D碰撞检测，来让missile和enemyship来个大碰撞。</p>
+
+<p>这次的教程不是很复杂，所以今天心情好就赶快把他结束掉，可以让博客转入让我自由发挥的方向。那马上开始吧～</p>
+
+<p><strong>1、修改UpdateMissiles()</strong></p>
+
+<p>先要修改一下这个方法，在if (missile.position.Z &lt; -6000.0f) { missile.alive = false; } 后面加上一个else，然后调用一个莫须有的方法，代码如下：</p>
+
+<pre><code>else
+{
+    TestCollision(missile);
+}
+</code></pre>
+
+<p>当然这个方法还没有加上。</p>
+
+<p><strong>2、写TestCollision()</strong></p>
+
+<p>先把这个方法全部的代码贴上吧：</p>
+
+<pre><code>void TestCollision(GameObject missile)
+{
+    BoundingSphere missilesphere =
+        missile.model.Meshes[0].BoundingSphere;
+    missilesphere.Center = missile.position;
+    missilesphere.Radius *= missile.scale;
+    foreach (GameObject ship in enemyShips)
+    {
+        if (ship.alive)
+        {
+            BoundingSphere shipsphere =
+                ship.model.Meshes[0].BoundingSphere;
+            shipsphere.Center = ship.position;
+            shipsphere.Radius *= ship.scale;
+            if (shipsphere.Intersects(missilesphere))
+            {
+                soundBank.PlayCue("explosion");
+                missile.alive = false;
+                ship.alive = false;
+                break;
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>解释一下，BoundingSphere类是记录的是一个球形，也就是3D模型最大的外轮廓。用这个类的intersects方法和其他模型的boundingsphere确定是否相交，虽然粗糙，但是基本上已经符合我们的要求了。（相信我，即便是这样，依然难度很高）要确定BoundingSphere的中心点为模型所在的position，而半径要记得乘上scale，不然就不对了。</p>
+
+<p>那么实际检验的地方就很简单，拿到一个missile后，遍历每一个UFO（两层循环），然后检查是否相交，如果相交就杀掉双方，并且播放声音&#8212;-我们之前准备的爆炸的声音。</p>
+
+<p>OK，编译运行，我们这个教程的最后一部分就完成了。（放效果图，不过放了也看不出碰撞）</p>
+
+<p><a href="/upload/2009-07-20_Runtime.jpg"><img src="/upload/2009-07-20_Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=165"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-20T08:23:33+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/07/20/xna-tutorial-3d-ch10-destroy-ufo/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/07/20/xna-tutorial-3d-ch10-destroy-ufo/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/07/20/xna-tutorial-3d-ch9-create-enemy-ufo/" title="Previous Post: XNA教程-3D游戏-09-添加敌方UFO">&laquo; XNA教程-3D游戏-09-添加敌方UFO</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/07/20/xna-tutorial-3d-index/" title="Next Post: XNA教程-3D游戏-目录索引">XNA教程-3D游戏-目录索引 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

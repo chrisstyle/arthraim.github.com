@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SQL Server各版本编号及迁移方法 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="使用sql server附加数据库的时候会遭遇到一些错误，其中有一个很常见的就是&#8221;数据库XXX的版本为655，无法打开。此服务器支持643版及更低版本。不支持降级路径。&#8221;其实是很困扰的错误，因为你明明知道你的版本低，可是不知道自己应该装什么版本。比如我是把一个10.0. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/04/27/ms-sql-server-build-version-and-migration-method/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SQL Server各版本编号及迁移方法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-27T23:05:28+08:00" pubdate data-updated="true">Apr 27<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>使用sql server附加数据库的时候会遭遇到一些错误，其中有一个很常见的就是&#8221;数据库XXX的版本为655，无法打开。此服务器支持643版及更低版本。不支持降级路径。&#8221;其实是很困扰的错误，因为你明明知道你的版本低，可是不知道自己应该装什么版本。比如我是把一个10.0.2531上的数据库attach到10.0.1300的数据库上发生了上面的错误。</p>
+
+<p>于是Google了一下，找到了<a href="http://sqlserverbuilds.blogspot.com/">这个文章</a>(墙外)的那些东东，就是我们解决这个错误的最好办法。查一下就可以知道10..0.2531就是SP1，那么装上SP1就好了吧~</p>
+
+<p>当然要把数据库移到旧版本的需求肯定是有的，那要怎么做呢？首先可以确定的是&#8221;附加&#8221;肯定是不行，另外&#8221;备份-还原&#8221;也是不行。<a href="http://social.microsoft.com/Forums/zh-CN/sqlserverzhchs/thread/aa561da8-db83-4304-84f2-8c4995b95994">这里</a>有个好办法：</p>
+
+<ol>
+<li><p>在2008中右键点击数据库 - 任务 - 生成脚本。</p></li>
+<li><p>在向导中为整个库的对象生成脚本，并设置好相关的脚本生成选项，脚本的服务器版本要选择你需要的低版本，比如sql server 2005。</p></li>
+<li><p>去低版本（如2005）中执行刚才生成的脚本，数据结构就好了。</p></li>
+<li><p>最后再用数据导入/导出向导把数据导过去</p></li>
+</ol>
+
+
+<p>今天把某些数据给同学的时候发生的错误，因为对方的版本低一点，记录一下。</p>
+
+<p><strong>Update：</strong></p>
+
+<p>比较郁闷的是我同学的10.0.1300是可恶的CTP版本，这个版本不能直接安装SP1，非常郁闷，而SP1最起码装在10.0.1600也就是RTM版上，这真是有些郁闷的。</p>
+
+<p>以上。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-27T23:05:28+08:00" pubdate data-updated="true">Apr 27<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/04/27/ms-sql-server-build-version-and-migration-method/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/04/27/ms-sql-server-build-version-and-migration-method/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/04/27/more-about-blog-migration/" title="Previous Post: 博客搬家后续">&laquo; 博客搬家后续</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/04/29/farewell-levelup-cn/" title="Next Post: Farewell, Levelup.cn">Farewell, Levelup.cn &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

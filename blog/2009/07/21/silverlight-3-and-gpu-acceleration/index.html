@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Silverlight 3 和 GPU Acceleration - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="Silverlight3追加了很多新特性，其中不乏其特别重视的媒体支持，还有一些3D的小特性，以及这里写的GPU加速。我没有找到十足的佐证来证明打开关闭GPU加速之后究竟应用的效率发生了多少变化，事实上，这个变化也的确取决于CPU和GPU的性能，而在我有限的尝试中， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/07/21/silverlight-3-and-gpu-acceleration/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Silverlight 3 和 GPU Acceleration</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-21T05:27:24+08:00" pubdate data-updated="true">Jul 21<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Silverlight3追加了很多新特性，其中不乏其特别重视的媒体支持，还有一些3D的小特性，以及这里写的GPU加速。我没有找到十足的佐证来证明打开关闭GPU加速之后究竟应用的效率发生了多少变化，事实上，这个变化也的确取决于CPU和GPU的性能，而在我有限的尝试中，没有找出非常有力的证据来证明打开GPU加速之后提高了多少效率。</p>
+
+<p>结束掉XNA的教程，可以随便说说别的东西了，这样很有感觉。最近因为Google Reader的更新，通过新的Like功能follow了很多口味相似的朋友，更多的分享让我看到了更多感兴趣的东西。这次写Silverlight3里的GPU加速新特性，网上查了点资料想看看是怎样的，结果七零八落的，所以写一个吧。</p>
+
+<p><strong>一、编码方法</strong></p>
+
+<p>开启GPU加速的方法其实很简单，只需要在Object标签里设置一个属性就可以实现这一效果了，另外一些例子中提到了其他的一个辅助的属性，这里用最简单的例子讲一下。</p>
+
+<p><strong>1、写UI</strong></p>
+
+<p>UI元素我们简单一些，用MediaElement来播放一段视频。起初用了wmv，也可以顺利的说明这一问题，不过后来想到不如用H.264看看，也算是3的新特性了，放在一起用用，就找了个该编码的mp4视频，片子稍微有点老。</p>
+
+<pre><code>&lt;Canvas x:Name="LayoutRoot" Background="White"&gt;
+&lt;TextBlock Width="800" Height="25"
+    Canvas.Top="10" Canvas.Left="10"
+    Text="Arthraim.cn GPU Acceleration Demo"
+    FontSize="14"/&gt;
+&lt;MediaElement Width="640" Height="272"
+    Canvas.Top="40" Canvas.Left="180"
+    Source="http://localhost/H264_example.mp4"
+    CacheMode="BitmapCache"&gt;
+&lt;/MediaElement&gt;
+&lt;Image Width="183" Height="272"
+    Canvas.Top="40" Canvas.Left="10"
+    Source="http://localhost/poster.jpg"
+    Opacity="70"&gt;
+    &lt;Image.Projection&gt;
+        &lt;PlaneProjection RotationY="-30" GlobalOffsetX="0"/&gt;
+    &lt;/Image.Projection&gt;
+&lt;/Image&gt;
+&lt;/Canvas&gt;
+</code></pre>
+
+<p>编译运行一下，可以看到截图如下，正常的播放着。背景是加上了白色属性的，默认的也是白色，不过不加上这个属性，背景的处理效果就不一样了，可以试试看。</p>
+
+<p><a href="/upload/2009-07-20_GPUacceleration1.png"><img src="/upload/2009-07-20_GPUacceleration1.png" alt="" /></a></p>
+
+<p><strong>2、修改客户端网页</strong></p>
+
+<p>然后真正来看看如何使用GPU加速。要做的非常简单，找到使用silverlight的客户端页面，添加下面的变量。</p>
+
+<pre><code>&lt;param name="EnableGPUAcceleration" value="true" /&gt;
+</code></pre>
+
+<p>这样还没完，光这样我们不知道究竟做了什么有价值的事情，在微软的帮助下，我们可以使用另一个属性 &#8212;- enableCacheVisualization，这名字就取得很好，意思很明了。至于编码上也是一样，加上了变量，设置为true：</p>
+
+<pre><code>&lt;param name="EnableCacheVisualization" value="true" /&gt;
+</code></pre>
+
+<p>然后编译运行，哇，真是惨不忍睹，好好的视频怎么变成红色了，包括背景和左边的海报都一并红色了。其实这就是添加第二个属性的作用，红色的区域就是指没有应用GPU硬件加速的区域。</p>
+
+<p><a href="/upload/2009-07-20_GPUacceleration2.png"><img src="/upload/2009-07-20_GPUacceleration2.png" alt="" /></a></p>
+
+<p><strong>3、修改UI</strong></p>
+
+<p>要使得硬件加速应用在对象上，那么最后还要修改UI的MediaElement。Silverlight3在UIElement中添加了一个public属性，名为CacheMode，以配合GPU加速的使用。而MediaElement 当然是可以华丽丽的使用CacheMode这个属性的。给刚才的代码修改一下。</p>
+
+<pre><code>&lt;MediaElement Width="640" Height="272"
+    Canvas.Top="40" Canvas.Left="180"
+    Source="http://localhost/H264_example.mp4"
+    CacheMode="BitmapCache"&gt;
+</code></pre>
+
+<p>编译运行。中间没有红色遮盖的部分，就是真正表示了被GPU加速处理的部分。</p>
+
+<p><a href="/upload/2009-07-20_GPUacceleration3.png"><img src="/upload/2009-07-20_GPUacceleration3.png" alt="" /></a></p>
+
+<p>值得一提的是旁边的图片（本来是做对比用的，结果恰好遇到了这种情况）变成了绿色（无论Image是否设置了CacheMode属性），我Google了会儿，在官方论坛上也没有人答出个所以然来，据说没有加速的会被tint a color，但是没说绿色和红色分别代表了什么。我是先看到这个帖子，才自己碰到这个情况的，很巧这个例子刚好可以碰到，究竟绿色是怎么回事，知道的朋友告诉我下～</p>
+
+<hr />
+
+<p><strong>二、简单性能测试</strong></p>
+
+<p>我没有编写什么代码来做什么性能测试，这里只是简单的看看CPU占用率而已，想想GPU处理去了CPU总可以减负吧，但是结果应当说相当相当的不明显，不深究了。图左边的CPU使用情况那个数值是没什么作用的，那只是一个偶然的情况，我觉得看下来两者的确是有差异的，没加速的时候大部分时间看到的数字是50以上，而打开则在50左右跳动。旁边的波形图才是比较客观的反应的，放视频的几分钟监控到的情况。其中没有打开加速的时候出现一个大的波峰，是我尝试的切换最大化的IE窗口到VS08的窗口的时候发生的情况。在打开加速之后，我也切换了一次，也感到有一些卡，不过波形上表现并不十分明显。</p>
+
+<p>另外，也不知这个所谓的GPU加速功能有没有用到CUBA技术。</p>
+
+<p><a href="/upload/2009-07-20_GPUacceleration5.jpg"><img src="/upload/2009-07-20_GPUacceleration5.jpg" alt="" /></a></p>
+
+<hr />
+
+<p><strong>三、附加3D测试</strong></p>
+
+<p>无聊试试看同一个例子下，把MediaElement 给3D处理后还能不能硬件加速，绕Y轴旋转了点角度。从红色分布的情况来看似乎是不能加速，希望有朋友能继续探究一下这个问题。</p>
+
+<p><a href="/upload/2009-07-20_GPUacceleration4.png"><img src="/upload/2009-07-20_GPUacceleration4.png" alt="" /></a></p>
+
+<p>简单的写到这里吧，还有很多值得深入下去，当然，关于硬件加速方面留给微软的工作恐怕也还有很多很多。这个例子很好，不但遇到了一些特殊情况，还包括了H.264和3D等新特性的应用。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-21T05:27:24+08:00" pubdate data-updated="true">Jul 21<span>st</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/07/21/silverlight-3-and-gpu-acceleration/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/07/21/silverlight-3-and-gpu-acceleration/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/07/20/xna-tutorial-3d-index/" title="Previous Post: XNA教程-3D游戏-目录索引">&laquo; XNA教程-3D游戏-目录索引</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/07/25/google-recursion-and-reader-ninja-easter-eggs/" title="Next Post: Google Recursion 和 Reader Ninja 有趣的彩蛋">Google Recursion 和 Reader Ninja 有趣的彩蛋 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

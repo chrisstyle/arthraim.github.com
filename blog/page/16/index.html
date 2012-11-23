@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset 这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/page/16/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/13/xna-tutorial-2d-ch3-add-assets/">XNA教程-2D游戏-03-添加Assets</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T21:24:27+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/upload/2009-06-13_WhatIsAssets.jpg"><img src="/upload/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
+
+<p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset</strong></p>
+
+<p>这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节，看不懂的可以看视频的，那么接下去就正式开始写了。</p>
+
+<p><strong>一、Visual Studio的用法。</strong></p>
+
+<p>这就是我说的三个部分中的第一个，VS的解说。肯定很多看到这里的人要不耐烦了，你弄这种东西干什么啊，都来看XNA了当然会C#会.net会VS啊。其实，之所以加上这一块，是因为我惨痛的童年回忆造成的。很多向往做游戏的儿童青少年们，好不容易找到了一个教程，可是往往教程默认了很多很多的前提以至于一头雾水。那么看到这里的小朋友们～ 记住，我也默认了很多前提在这里，你们可以先去学C#，用C#做一个按一下按钮出来一个对话框显示一个Hello,world的，OK基本上你就可以来看这里的内容了（囧，可以吗？）好讲一下VS。VS有solution（解决方案）的概念，这是比project（项目）更加高级的东西。一个solution中可以有多个project，很常见的就是dll一个界面一个。VS提供了一些控件，比如类视图、解决方案视图、控制台、追踪、错误列表等等，这些和普通的IDE都是一样的。（写到这里自己都觉得多余了）</p>
+
+<p><strong>二、什么是Asset？</strong></p>
+
+<p>说完多余的东西，我们终于可以将一些重点了。究竟Asset是什么呢？我觉得程序里涉及到一些哪怕日常的单词也不应该去翻译，比如并行设计到的actor模型，难道翻译成角色模型？不合适吧。所以Asset如果翻译成&#8221;资产、有用的东西&#8221;之类的意思，那也就真的不合适了。所以还是用asset原来的样子来讲解比较好，通过后面的讲解你一定很快明白什么是asset了，微软忽悠这么一个概念也挺强大的。</p>
+
+<p>（注：以下文字由本人翻译自微软官方解释。）</p>
+
+<p>在XNA Game Studio项目中，你会频繁的听到&#8221;代码&#8221;和&#8221;asset&#8221;这样的措辞。&#8221;代码&#8221;指在程序说明中包含的.cs文件。这些说明告诉游戏怎么行动：怎么对用户操作进行反应，怎么移动物体，以及怎么显示给玩家看。</p>
+
+<p>另一方面的asset，不是唯一的一个文件类型。位图图形、声音文件、3D模型 &#8212;- 他们都是asset。总之，accets指数据（图形、声音或其他一些东西），他们被&#8221;代码&#8221;操控着。举个UFO图片的例子。这个UFO图片本身，存储为.tga或者.png文件，他是一个asset。代码可能载入这个UFO图像，并且把它显示在屏幕的不同位置，并给他一些移动的效果。如果有一组asset的话，它不被称为content。</p>
+
+<p>在游戏中，你必须同时拥有&#8221;代码&#8221;和&#8221;asset&#8221;。典型的，asset表现出物体的外表和声音，你的代码代表了它的动作（行动）。</p>
+
+<p>这个规则有一个例外，就是一个asset的特殊类型，叫做shader。他是一些特别的代码，帮助绘制图形在屏幕上，但是它不是图片。Shader不会在这次的教程中使用到，但是在使用高级图形的游戏中它们经常被用到，并且要像代码一样的进行编辑就。</p>
+
+<p>在教程中，我们只使用两种类型的asset &#8212;- 2D texture（材质，还是不要翻译了）和font（字体）。2D texture只是一些图片文件。在教程中，我们每个游戏元素拥有一个图片 &#8212;- 我们玩家的加农炮，敌人的UFO，玩家可以发射的加农炮的子弹，还有一个背景。font字体是特殊的一种texture，代表了我们可以画在屏幕上的文本。它将在游戏中当我们需要跟踪玩家得分时帮助到我们。</p>
+
+<p><strong>三、如何添加？</strong></p>
+
+<p>步骤其实非常的简单，在工程中我们可以看到Contend的存在。当前里面只有一个引用项，不去管它。第一步我们要做的是下载我们这次要用到的素材，或者现在应该叫做asset。（直接看到此文的请转至Chapter2补下，当然你也可以在本文最后的完整工程代码下载中找到你要的文件）</p>
+
+<p>下载下来的是一个BG_2D_Chapter2.Zip文件，解压缩后得到Microsoft Permissive License.rtf和Sprites文件夹。Sprites文件夹里有之前说到的4张图，background.tga, cannon.tga , cannonball.tga, enemy.tga。</p>
+
+<p>要加入到工程中很简单，两步走。</p>
+
+<p>1、右键单击Content &#8211; Add &#8211; New Folder。然后命名为Sprites。2D游戏里都这么称呼，那么我们就这么命名。（中文版自重）</p>
+
+<p>2、右键单击Sprites文件夹 &#8211; Add &#8211; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
+
+<p><a href="/upload/2009-06-13_AddAssets.jpg"><img src="/upload/2009-06-13_AddAssets.jpg" alt="" /></a></p>
+
+<p>很神奇吧，做完这个，其实内容就已经完成了，看上去真是有点脑残了。完成如下图。</p>
+
+<p><a href="/upload/2009-06-13_AddedAssets.jpg"><img src="/upload/2009-06-13_AddedAssets.jpg" alt="" /></a></p>
+
+<p>这就是本章要讲解的内容，万事开头难，大家要有耐心，虽然做起来很简单，不过无论是Content还是Asset都是微软给我们的概念，一定要记住了。</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=150"><img src="/upload/2009-06-12_download_XNA.png" alt="" />示例代码下载</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/13/xna-tutorial-2d-ch2-create-solution/">XNA教程-2D游戏-02-创建游戏工程</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T20:47:02+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/upload/2009-06-13_PlatformerGameDemo.jpg"><img src="/upload/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
+
+<p><strong> XNA教程 &#8211; 2D游戏 &#8211; Chapter 2 &#8211; 创建游戏工程</strong></p>
+
+<p>从最开始学习XNA，那么首先我们需要自己的环境。微软提供XNA Game Studio给大家，当然还要有Visual Studio，如果愿意你可以在安装好Visual Studio 2005或更高版本的前提下安装XNA Game Studio（以下简称GS）。当然，本着XNA游戏开发是基本免费的原则，我们也可以使用Express版本，也是支持的。具体VS和GS的安装和配置请大家自己解决了，这里不赘述了。</p>
+
+<p>使用GS3.1+VS2008是基于.NET Framework 3.5的，否则一些新特性将不会被用到，如果你的开发使用其他环境，那么也许会不一样。</p>
+
+<p><strong>步骤一：Visual Studio简单介绍</strong></p>
+
+<p>这一步骤简单的雷人。稍微讲讲就过去了吧。首先要安装好VS和GS，就像之前说到的，然后我们看一下VS的新建。新建中总共有这么几项（GS3.1+VS2008，不保证其他版本有一样的工程）</p>
+
+<p><a href="/upload/2009-06-13_VS2008GS31.jpg"><img src="/upload/2009-06-13_VS2008GS31.jpg" alt="" /></a></p>
+
+<blockquote><ul>
+<li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
+<li><p>Windows Game Library (3.1) &#8212;- Windows游戏类库</p></li>
+<li><p>Xbox 360 Game (3.1) &#8212;- Xbox360游戏</p></li>
+<li><p>Xbox 360 Game Library (3.1) &#8212;- Xbox360游戏类库</p></li>
+<li><p>Zune Game (3.1) &#8212;- Zune游戏</p></li>
+<li><p>Zune Game Library (3.1) &#8212;- Zune游戏类库</p></li>
+<li><p>Content Pipeline Extension Library (3.1) &#8212;- Content管道扩展库</p></li>
+<li><p>Platformer Starter Kit (3.1) &#8212;- 一个游戏示例（提供windows x360 zune三种版本都有，本章顶部图为Windows版）</p></li>
+</ul>
+</blockquote>
+
+<p>VS的具体操作就不介绍了，至于最终我们的游戏如何使用，如果你没有加入XNA Creator Club成为白金会员，那么你的游戏也是没办法在XBOX360上用的，我这里就简单的使用Windows开发了。另外，视频中使用的是VS2005+GS2，所以我们直接可以看到两个视频中制作的游戏的示例工程，偷懒的直接下2吧。究竟3有什么新特性，我也不是很了解，也许讲到最后我也就了解了吧。（总觉得自己都不会就开始写是非常不妥的方法。）</p>
+
+<p><strong>步骤二：新建工程，获取资源</strong></p>
+
+<p>这一步也非常的简单，根据刚才介绍的新建，建立相应的工程。</p>
+
+<p>比如我新建一个Windows Game (3.1)工程，并且取名为Chapter2。</p>
+
+<p><img src="/upload/2009-06-13_Project.jpg" alt="" /></p>
+
+<p>可以看到IDE为我们创建了如图一些文件，具体都是什么呢？</p>
+
+<blockquote><ul>
+<li><p>Content &#8212;- 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
+<li><p>Game1.cs &#8212;- 游戏逻辑代码。</p></li>
+<li><p>Game.ico &#8212;- 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
+<li><p>GameThumbnail.png &#8212;- 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
+<li><p>Program.cs &#8212;- 就是程序的入口Main方法了。</p></li>
+</ul>
+</blockquote>
+
+<p>GameThumbnail.png原图如下</p>
+
+<p><img src="/upload/2009-06-13_GameThumb.jpg" alt="" /></p>
+
+<p>接下去本章很重要的一部就是下载必须的游戏素材。这里提供官方链接，下载解压缩后放入Content文件夹中，这是我们制作我们示例要用到的全部素材了。只有一个lisense文件和sprite文件夹，sprite文件夹中有四张图，看看就知道干什么了～</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=149"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a>素材下载点击图标</p>
+
+<p>OK，好了这一章很简单，就说到这里吧。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/13/xna-tutorial-2d-ch1-introduction/">XNA教程-2D游戏-01-2D游戏教程简介</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T19:38:00+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="/upload/2009-06-13_XNA_logo.jpg"><img src="/upload/2009-06-13_XNA_logo.jpg" alt="" /></a></p>
+
+<p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 1.1 &#8211; 2D游戏教程简介</strong></p>
+
+<p>从今天开始，我将分享对于XNA学习的所有过程，这是一个教程，但其实我也不懂，这是自己学习和所有一起学习的人的过程，我想通过这段时间的简单学习可以初步实现XNA的简单的小游戏，无论将来能够做出什么，能做出基本的demo就可以。也通过这段学习，比对一下先前使用过的一些游戏开发手段。比如GDI+,DirectX3D,DirectDraw还有psp sdk, nds PALib等。</p>
+
+<p>首先说明，本教程所有素材来源与XNA Creator Club的Beginner&#8217;s Guide。<a href="http://creators.xna.com/en-US/education/gettingstarted">该站点</a>提供了全部的视频教学，而我也是根据此视频教学进行学习的，如果说各位看官觉得我的翻译或讲解可以，那么和我一起学习下去，如果各位觉得我的进程相对缓慢，那么不妨自己去加速了。只不过，对于网速受限或者语言受限的朋友，我的教程应当会有用。</p>
+
+<p>正如前面的图片一样，我们使用的将是XNA Game Studio作为开发环境，应当说是配置起来最为方便的游戏开发环境了，他不但强大而且是免费的，介绍及下载请参见《<a href="http://arthraim.cn/post/2009/06/60.html">XNA Game Studio 3.1 Avalable</a>》这篇文章，它将告诉你如何配置好这个环境。</p>
+
+<p>本2D教程最终我们要完成的，是一个炮塔攻击UFO的简单的demo（效果如图）。而在对3D感兴趣的朋友，在完成2D的教程之后，我将继续写3D的部分，不过即便是想学习3D的内容，也不要放弃对2D的学习，这对于3D游戏的开发将具有非常重要的作用。</p>
+
+<p><img src="/upload/2009-06-13_2DGameDemo.jpg" alt="" /></p>
+
+<p>另外，为了方便大家看到效果，特地在博客中加入了lightbox，所以任何一张图片都是可以通过点击放大查看的～ 希望能给大家带来更好的体验。那么看完这篇文章，下一篇就将是这个教程真正的开始了。你准备好了吗？</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/12/xna-game-studio-3-1-available/">XNA Game Studio 3.1 Available</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-12T18:22:06+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/upload/2009-06-12_XNA.png" alt="" /></p>
+
+<p>微软的XNA一直是个好东西，依靠他不但可以做出Game For Windows，还可以直接在XBOX360上使用，当然前提是你的游戏做的足够好，你的会员资格是白金。</p>
+
+<p>引用一段WikiPedia对XNA的介绍～</p>
+
+<blockquote><p>Microsoft XNA (&#8216;XNA&#8217;s Not Acronymed&#8217;) is a set of tools with a managed runtime environment provided by Microsoft that facilitates computer game development and management. XNA attempts to free game developers from writing &#8220;repetitive boilerplate code&#8221; and bring different aspects of game production into a single system. The XNA toolset was announced March 24, 2004, at the Game Developers Conference in San Jose, California. A first Community Technology Preview of XNA Build was released on March 14, 2006. XNA Game Studio 2.0 was released in December 2007, followed by XNA Game Studio 3.0 on October 30, 2008.</p></blockquote>
+
+<p>首先XNA提供了一个框架，基于.NET Compact Framework 2.0和.NET Framework 2.0的框架，分别对应支持Xbox 360和Windows。这使得很多.net的工程师可以轻松来到XNA的开发工作当中。另外使用的语言是C#，这是.net框架决定的，但是它只支持C#，VB.NET就不可以。XNA framework和.net framework一样，不用开发者过度关注底层细节，让教学和开发变得更加简便。</p>
+
+<p>而XNA提供开发者的工具也是相当的便捷 &#8212;- XNA Game Studio。它不但提供了XNA库，还有一堆一堆的工具插件附加到Visual Studio上，所以几乎让习惯于.net开发的程序员不用做任何的习惯上的改变。昨天XNA GS 3.1正式公布了。</p>
+
+<p><img src="/upload/2009-06-12_XNAGameSudio3.1.jpg" alt="" /></p>
+
+<p><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=80782277-d584-42d2-8024-893fcd9d3e82&amp;displaylang=en"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=80782277-d584-42d2-8024-893fcd9d3e82&amp;displaylang=en">下载地址</a></p>
+
+<p>微软还提供了一个<a href="http://creators.xna.com/en-US/">XNA爱好者平台</a>，可以论坛交流，上传游戏等等，让XNA这个以免费为宗旨的基于开发爱好者的游戏开发平台更加完善。</p>
+
+<p>介绍结束。实践一下，来简单看一下这个环境如何。</p>
+
+<p>需要说明的是，我当前的操作系统版本为Windows7 build7057，程序运行没有问题～</p>
+
+<p><strong>安装</strong>：</p>
+
+<p><img src="/upload/2009-06-12_forVS2008.png" alt="" /></p>
+
+<p>安装完毕，看看我们能用的东西。IDE直接使用VS2008，device center可以加载device来运行。提供了文档以及一些音频等制作工具，还有命令行工具。</p>
+
+<p><img src="/upload/2009-06-12_XNA_files.png" alt="" /></p>
+
+<p>打开VS2008，<strong>新建工程：</strong></p>
+
+<p><a href="/upload/2009-06-12_XNA_VS2008_NEW.png"><img src="/upload/2009-06-12_XNA_VS2008_NEW.png" alt="" /></a></p>
+
+<p>会自动<strong>genarate一些代码和文件</strong>。</p>
+
+<p><a href="/upload/2009-06-12_XNA_VS2008_CODE.png"><img src="/upload/2009-06-12_XNA_VS2008_CODE.png" alt="" /></a></p>
+
+<p>直接<strong>运行</strong>：</p>
+
+<p><a href="/upload/2009-06-12_XNAGame.jpg"><img src="/upload/2009-06-12_XNAGame.jpg" alt="" /></a></p>
+
+<p>OK，这里就不详细说怎么去写一个XNA游戏了。微软在这里提供了<a href="http://creators.xna.com/en-US/education/gettingstarted">视频教程</a>，2D或者3D的教程都有。感兴趣的同学可以去学习一下，希望大家一切顺利。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/09/asp-net-twitter-api-client/">ASP.NET调用twitter Api实现简单的功能</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine.net的开源项目里找到了一段.net实现的通过feed方式获取tweets的方法。把代码整理了一下，去掉了blogengine的widget成分，做成个页面……</p>
+
+<p><strong><a href="http://twitter.com/arthraim/">Follow me</a></strong></p>
+
+<p><strong>Links:</strong></p>
+
+<p><a href="http://www.dotnetblogengine.net/">BlogEngine.net</a> | blogEngine.net的官方网站，下载完整博客文件后，查看widget中的twitter部分就可以了。</p>
+
+<pre><code>[TwitterFeed-Widget for BlogEngine.NET](http://twitterfeedwidget.codeplex.com/) | 这是在上面那些代码的基础上修改的一个codeplex开源项目，稍微优化了一下，其实读下来差不多。  
+
+[twitter api 中文文档](http://www.54chen.com/c/591) | twitter api的翻译，来自陈臻（@54chen）。
+</code></pre>
+
+<p><strong>前台代码</strong>。加入页面，如Default.aspx。</p>
+
+<pre><code>&lt;asp:HyperLink runat="server" ID="hlTwitterAccount" Text="Follow me on Twitter" rel="me" /&gt;
+&lt;asp:Repeater runat="server" ID="repItems" OnItemDataBound="repItems_ItemDataBound"&gt;
+    &lt;ItemTemplate&gt;
+        &lt;img src="twitter.ico" alt="Twitter" /&gt;
+        &lt;asp:Label runat="server" ID="lblDate" style="color:gray" /&gt;&lt;br /&gt;
+        &lt;asp:Label runat="server" ID="lblItem" /&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
+</code></pre>
+
+<p><strong>后台代码</strong>。</p>
+
+<pre><code>using System;
+using System.Configuration;
+using System.Data;
+using System.Xml;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Net;
+using System.Globalization;
+public partial class _Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        ShowTweets();
+    }
+    private static DateTime LastModified = DateTime.MinValue;
+    private const string CACHE_KEY = "twits";
+    private void ShowTweets()
+    {
+        //用户名
+        string _username = "arthraim";
+        //用户的twitter地址
+        string _url = "http://twitter.com/" + _username + "/";
+        //FEED地址（user_timeline为自己的，可以根据需要修改）
+        string _feedurl = "http://twitter.com/statuses/user_timeline/" + _username + ".rss";
+        //显示的最大条目数
+        int maxItems = 30;
+        hlTwitterAccount.NavigateUrl = _url;
+        if (_feedurl != null)
+        {
+            if (HttpRuntime.Cache[CACHE_KEY] != null)
+            {
+                string xml = (string)HttpRuntime.Cache[CACHE_KEY];
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xml);
+                BindFeed(doc, maxItems);
+            }
+            if (DateTime.Now &gt; LastModified.AddMinutes(15))
+            {
+                LastModified = DateTime.Now;
+                BeginGetFeed(_feedurl);
+            }
+        }
+    }
+    protected void repItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        Label text = (Label)e.Item.FindControl("lblItem");
+        Label date = (Label)e.Item.FindControl("lblDate");
+        Twit twit = (Twit)e.Item.DataItem;
+        text.Text = twit.Title;
+        date.Text = twit.PubDate.ToString("MMMM d. HH:mm");
+    }
+    private void BeginGetFeed(string url)
+    {
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        request.Credentials = CredentialCache.DefaultNetworkCredentials;
+        request.BeginGetResponse(EndGetResponse, request);
+    }
+    private void EndGetResponse(IAsyncResult result)
+        {
+        HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(response.GetResponseStream());
+            HttpRuntime.Cache[CACHE_KEY] = doc.OuterXml;
+        }
+    }
+    private void BindFeed(XmlDocument doc, int maxItems)
+    {
+        XmlNodeList items = doc.SelectNodes("//channel/item");
+        List&lt;Twit&gt; twits = new List&lt;Twit&gt;();
+        int count = 0;
+        for (int i = 0; i &lt; items.Count; i++)
+        {
+            if (count == maxItems)
+                break;
+            XmlNode node = items[i];
+            Twit twit = new Twit();
+            string title = node.SelectSingleNode("description").InnerText;
+            if (title.Contains("@"))
+                continue;
+            if (title.Contains(":"))
+            {
+                int start = title.IndexOf(":") + 1;
+                title = title.Substring(start);
+            }
+            twit.Title = ResolveLinks(title);
+            twit.PubDate = DateTime.Parse(node.SelectSingleNode("pubDate").InnerText, CultureInfo.InvariantCulture);
+            twit.Url = new Uri(node.SelectSingleNode("link").InnerText, UriKind.Absolute);
+            twits.Add(twit);
+            count++;
+        }
+        twits.Sort();
+        repItems.DataSource = twits;
+        repItems.DataBind();
+    }
+    private static readonly Regex regex = new Regex("((http://|https://|www\.)([A-Z0-9.\-]{1,})\.[0-9A-Z?;~&amp;\(\)#,=\-_\./\+]{2,})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private const string link = "&lt;a href="{0}{1}" rel="nofollow"&gt;{1}&lt;/a&gt;";
+    /// &lt;summary&gt;
+    /// The event handler that is triggered every time a comment is served to a client.
+    /// &lt;/summary&gt;
+    private string ResolveLinks(string body)
+    {
+        CultureInfo info = CultureInfo.InvariantCulture;
+        foreach (Match match in regex.Matches(body))
+        {
+            if (!match.Value.Contains("://"))
+            {
+                body = body.Replace(match.Value, string.Format(info, link, "http://", match.Value));
+            }
+            else
+            {
+                body = body.Replace(match.Value, string.Format(info, link, string.Empty, match.Value));
+            }
+        }
+        return body;
+    }
+    private struct Twit : IComparable&lt;Twit&gt;
+    {
+        public string Title;
+        public Uri Url;
+        public DateTime PubDate;
+        public int CompareTo(Twit other)
+        {
+            return other.PubDate.CompareTo(this.PubDate);
+        }
+    }
+}
+</code></pre>
+
+<p>[修改自开源项目blogengine.net]</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/08/cfwenabler-3-01-relesed-supports-psp3000/">CFWEnabler 3.01 支持PSP3000</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-08T18:28:35+08:00" pubdate data-updated="true">Jun 8<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>PSP3000的玩家最近似乎有些接受不了太多的现实，PSP3000的破解进展工作像重演了PSP早期破解一样，从TIFF漏洞开始一路扶摇直上。随着CFWEnabler 3.01的放出，似乎PSP3000在多个破解小组这里都多面开花，不难相信，kernel mode也终将会被黑客破解。</p>
+
+<p>我不谈破解的利弊，只谈破解的进程，破解是违法的，这是肯定的。之前，PSP3000只能利用一些游戏，诸如gridshift之类的，他们自身造成的数据溢出，使得可以加之利用插入代码来运行，但是代码空间有限，难以作为。之后TIFF漏洞出现，正如之前两篇博文开始关注的一样（<a href="http://arthraim.cn/post/2009/05/22.html">1</a>、<a href="http://arthraim.cn/post/2009/05/24.html">2</a>）利用这一漏洞出现了一个让自制软件可以运行的程序ChickHEN，使得大量的模拟器等homebrew在PSP3000上跑起来。之后出现的就是CFWEnabler（<a href="http://arthraim.cn/post/2009/05/45.html">here</a>）了，利用TIFF漏洞，让CFW可以在PSP上跑起来了，但是是无法进入核心模式，并且只支持TA-088v3主板不支持PSP3000的TA-090及其他之后的版本。紧跟着在6月5日，PSPGEN放出视频生成其已经成功让PSP3000运行HEN系统（<a href="http://arthraim.cn/post/2009/06/56.html">here</a>），之后就放出下载，PSP3000的玩家欢呼雀跃。</p>
+
+<p>以上是大概的破解历程，当然破解还在继续，而根据<a href="http://sceners.org/?itemid=117">DA博客</a>的消息，是CFWEnabler更新到了3.01，并且正式支持PSP3000，并且支持了version.txt的版本欺骗功能，这样无论是什么版本都没有问题，PSN也将可以正常使用，详细下载情况请至原帖查看。这里写下详细的改变。</p>
+
+<blockquote><p>Changes?</p></blockquote>
+
+<ul>
+<li>PSP 3000 is now supported.</li>
+</ul>
+
+
+<p><strong>- 现在支持PSP3000</strong></p>
+
+<ul>
+<li>Graphical interface improved.</li>
+</ul>
+
+
+<p><strong>- 图形界面升级</strong></p>
+
+<ul>
+<li>Network update option added (Server Needed)</li>
+</ul>
+
+
+<p><strong>- 网络升级选项增加（需要服务器）</strong></p>
+
+<ul>
+<li>Official network update blocking option.</li>
+</ul>
+
+
+<p><strong>- 禁止官方网络升级选项</strong></p>
+
+<ul>
+<li>New configuration options.</li>
+</ul>
+
+
+<p><strong>- 新增设置选项</strong></p>
+
+<ul>
+<li>Free UMD Region.</li>
+</ul>
+
+
+<p><strong>- 自由UMD区域欺骗</strong></p>
+
+<ul>
+<li>Pic0/Pic1 Hide.</li>
+</ul>
+
+
+<p><strong>- 可隐藏pic0/pic1（游戏菜单）</strong></p>
+
+<ul>
+<li>version.txt</li>
+</ul>
+
+
+<p><strong>- 支持version.txt</strong></p>
+
+<ul>
+<li>Registry Hacks.</li>
+</ul>
+
+
+<p><strong>- 注册信息（修改确认键，使flash,wav有效）</strong></p>
+
+<ul>
+<li>CPU overclocking.</li>
+</ul>
+
+
+<p><strong>- CPU超频（解除限制）</strong></p>
+
+<ul>
+<li>Solved several bugs.</li>
+</ul>
+
+
+<p><strong>- 解决几个bug</strong></p>
+
+<blockquote></blockquote>
+
+<p>图片（本人没有PSP3000，所以图片转自scener.org，版本归原发布者拥有）：</p>
+
+<p><img src="/upload/20090608-cfwenabler1.png" alt="" /></p>
+
+<p><img src="/upload/20090608-cfwenabler2.png" alt="" /></p>
+
+<p><img src="/upload/20090608-cfwenabler4.png" alt="" /></p>
+
+<p><img src="/upload/20090608-cfwenabler5.png" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/07/talk-about-psp3000-and-pspgo/">闲谈PSP3000和PSP GO</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-07T06:06:00+08:00" pubdate data-updated="true">Jun 7<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>PSP GO已经正式公布了几天，E3展也接近尾声，这一个短短的盛会牵动了无数人的心，曾经已经走向灭亡的E3，一年一年的接近甚至超过之前的面貌了。凭借着微软的强大声势，凭借着任天堂每年对E3的重视，凭借着索尼一次一次的绝地大反击，E3的战争打得越来越激烈。这是所有好事的玩家都希望看到的。要感谢任天堂的不遗余力，要感谢索尼的坚持到底，还要感谢微软的配合。比尔盖茨说过，如果可以，微软有足够实力买下整个游戏市场！所以说，微软愿意在这里亏钱和大家玩，的确是值得感谢的。</p>
+
+<p>随便谈谈PSP的相关新闻。</p>
+
+<p>1、</p>
+
+<p>PSP GO的硬件规格已经不是秘密了，只是看到了3.7英寸的屏幕没有过多的失望，看到16G的闪存也没有过多的惊喜。但是看到扩展存储卡改用了索尼的M2而不是原先的Memory Stick Duo，就瞬间感到失望了，好歹几百大洋的MS，难道就这样要被玩家放弃了？难道所有的MS都放回Cyber-shot里面用？这实在是兽性。有的时候真的觉得索尼很过分。PS3时代，逼玩家走进BD，就是为了自己的光盘标准大战，强迫玩家接受新技术。PSP时代，强迫玩家接受UMD，为的还是标准。想不到到了GO的时代，更是祭出老招数，利用主机强迫玩家接受新标准，这次就是M2，所谓的新的闪存卡标准。索尼其实总是喜欢赚标准的钱，从DVD时代开始就没有放弃过对标准的追求。而本着这个战略目的，无论是Cyber-shot还是playstation都要给标准开道。索尼一次次失去用户的很大一个原因，就是强迫玩家接受自己的标准，这种带着明显侵略性的意图，总是让玩家产生反感。这才造成了PS3时代成本高昂，核心玩家流失，连年赤字的惨痛局面。要不是第五代光盘标准之战战胜HD-DVD完全统一挽回了颜面，要不然今天可能已经看不见索尼这家企业了。但是，蓝光标准的统一，也让索尼真正吃上了第一碗标准饭，也让它的侵略欲望更加强烈，再一次的，先于其他设备一步，我们看到了做出重大改变的PSP又一次为索尼开辟新标准做出了牺牲。</p>
+
+<p>2、</p>
+
+<p>PSP GO另外一个重要的改变就是取消UMD仓。没错，随着UMD彻底淡出市场，唯一使用这个标准的当红设备也只剩下PSP了，平板电视bravia早就改回了ms甚至m2，不再使用UMD光盘。理所应当，PSP的确不必放上这个成本无法缩减，作用逐渐衰退的光驱了。只是，只有一个问题，老玩家怎么办。有PSP之前的UMD的所有玩家怎么办？索尼官方今天表示，会努力解决这一问题，初步的假设有用实体碟换数字的，具体的策略在制定，但是如大家所想，这的确很难很难。16G，你让我放几个游戏？我想删掉了如何再一次下载？等等等等问题。在我看来，通过店头用实体UMD和PSN账号认证是最好的办法。但是，这个设备哪怕不法分子得到一台，后果也是不堪设想，而之前的UMD留有什么正版验证吗？唯一的序列号还是什么呢？看来有的可能性微乎其微。如何保证一张盘只能被认证一次，总不能认证之后没收光盘吧？也不可能索尼全部买回去吧？总之这是一个让人担忧的问题，看索尼如何应对吧。不过这是一方面，UMD电影则是另外一个重要方面了，曾经因为PSP支持UMD电影的用户怎么办呢？难道也是采用游戏一样的策略？还是说折扣更换蓝光碟呢？索尼啊，看你PSP3000停产不停产，如果停产，这烂摊子就有的好看了。</p>
+
+<p>3、</p>
+
+<p>个人认为PSP3000一定不会停产，之前一直这么觉得，因为UMD的确是个麻烦的过渡产品。但是，上一篇文章《<a href="http://arthraim.cn/post/2009/06/56.html">psp3000有望正式宣告破解</a>》说到的&#8221;有望&#8221;两个字，最终被证实可以去掉了。连之前说过PSPGen是欺世盗名的小人的Dark_aleX也最终在<a href="http://sceners.org/?itemid=106">这里</a>确认这个消息属实，就足以证明是真的了，而事实上已经有大量的我认识的人刷了这个版本，绝对没有问题。<a href="http://www.pspgen.com/custom-firmware-5-03hen-for-hen-cf-pour-psp-3000-actualite-187940.html">PSPgen官网</a> | <a href="http://rapidshare.com/files/241302533/503gen-for-hen-pspgen_1244244166.zip">下载镜像</a></p>
+
+<p>但是，正如DA大神所说，这次的版本在recovery mode里还是存在着bug，而且的确，它是架构在5.03版本上的，修复了TIFF漏洞的5.50能不能最终升级到可以使用ISO的版本还很成问题，预装了新版本的新机器依然难以破解（除非是出来降级程序）。另外，众所周知的DA和PSPGen有过节，究竟能不能合作很成问题。只希望DA抱着击败他们的心情努力的破解这个东西，而不要抱着&#8221;就是不帮你&#8221;的心态。 &#8212;- 当然这是站在希望破解工作进展下去的立场上说的。如果站在希望PS家族长久发展下去，希望PSN发展下去的心情，我是大大的希望破解就这样停止的。因为盗版真的危害太大了，没有在E3公布进一步网络扩张计划的索尼，想让PSN赢过XBOX LIVE真的是太难太遥远了。只希望只能通过PSN方式的PSP GO不要被破解了。</p>
+
+<hr />
+
+<p>这就是今天主要要讨论的问题了。另外，顺便说一些其他无关主题但是不可不说的东西。</p>
+
+<p>1、</p>
+
+<p>WOW今天正式离开九城了，明天零点，也就是北京时间2009年6月7日0:01:00时刻，九城就将暂停所有区的WOW运营，接下去的两到三周，或者更久的时间内都将正式开始交接工作。网易，将成为WOW在中国的新监护人。执迷于WOW的同学们，终于可以消停半个月好好应付今年的期末考试了。只可惜，高考结束的学弟学妹们，只能先玩别的了。看来永恒之塔在内的其他网游或许可以在这个真空期好好来打个翻身仗了。</p>
+
+<p>2、</p>
+
+<p>博客又做了一点点的调整。把我的用户名改成了Arthur，那么从今天起的所有文章都会是Arthur写的了，其实就是原来的Arthraim。只是我有计划的想过渡一些其他的人一起来更新这个博客，所以把名字改成了和域名不一样，而和我英文名字一样的样子。根据计划，最早想加入的用户，是我的弟弟，Ephraim。也就是Arthraim这个单词组成的另一个人了。希望一切顺利。</p>
+
+<p>说起我的名字，最近发现，不经意的签下英文名的时候总是很习惯的写下Arthur Wang（本人姓王），但从来没有主要到过，姓王的人叫Arthur实在是不好，因为这样一来中文翻译过来还真的变成了&#8221;亚瑟王&#8221;和King Arthur同名了。真是不好意思。不过King Arthur的真名是Artorius，而他的所有格也是特有的Arthrian，所以，如果真名不是Artorius而且住的不是Camelot用的不是Excalibur所有格是Arthur&#8217;s的所有姓王的人，那么肯定不是他本人了（^ ^）</p>
+
+<p>3、</p>
+
+<p>今天开始博客收录&#8221;亚瑟后语录&#8221;，是我女朋友的冷笑话，笑不笑随你，我觉得有趣就行。也许考试结束之后有空专门会写一个程序来放这些东西，或者开个微博的账户也是不错的想法，不过第一条，今天就记在这里吧。</p>
+
+<p>亚瑟后语录 &#8212;- No.1：</p>
+
+<p>亚瑟王：岩田聪这个名字还真是不错。</p>
+
+<p>亚瑟后：沿田葱？那和墙头草应该是一家的不~</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/06/psp3000-may-hacked/">PSP3000有望正式宣告破解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-06T00:57:56+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在公布了ChickHen的两个版本，和CWFenabler的多个版本之后，我们终于看到了GEN系统的出现，<a href="http://www.pspgen.com/custom-firmware-5-03gen-for-hen-compatibilite-psp-3000-totale-actualite-187918.html">这里</a>有官方的公告，虽然没有放出程序，但是有视频可以确定支持运行ISO了。虽然dark_alex没有对这个视频做任何表态，不过今晚究竟破解与否，真实与否就可以一见分晓了。</p>
+
+<p>视频引用自<a href="http://www.levelup.cn/news/NewsDetails/2009-6-5/34092.shtml">Levelup.cn</a>上来自土豆网的视频。</p>
+
+<p>此时我也不知道是高兴还是难过，先看结果把，在做评论。</p>
+
+<p><img src="/upload/psp3000_5.03gen_for_hen.png" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/06/how-to-update-twitter/">顶风作案 - 更新twitter的方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-06T00:31:08+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>话说昨天的文章写完之后就发现有些言辞过激了，生怕被和谐。后来经过我的调查，果然是我太愤青了。首先昨天是June 4th，对于中国来说是个敏感的日子，在facebook上也的确看到了一些激进的文章，说要让这一天成为全球大学生日。虽然外界的声音很多，但是我并不关心，我想作为国人也不用关心，不是我拍马屁，小胡和宝宝的政策的确都是挺讨人喜欢的，除了对网络的限制以外。另外xiaonei似乎也是因为这个原因而和谐了很多很多词语，甚至到了后来就干脆对评论进行了维护，果然不失为是一个好办法，非常时期么，理解了，太多的声音还是不要听到，太多的东西还是不要看到比较好，只是，我还是说我的，以我的角度而已。</p>
+
+<p>另外昨天提到了一个VeryCD维护的事情，虽然flickr等网站被和谐的确会对网站产生恶劣的影响。但是其实6月3日是&#8221;中国网络维护日&#8221;，所以在这一天前后，各大网站都会展开一次旷日持久的更新和修复，维护工作可常可短所以从那天开始很多网站都看到了维护的通告，包括VeryCD，当然还有饭否啊之类的网站。大概也是为了躲过敏感时期吧，把这个时期定为维护日是个不错的创意，有建设性，网络的煽动性太大，一不小心消息就会爆炸，以几何倍数上升成为世界级大型的新闻。</p>
+
+<hr />
+
+<p>顺便我想提一下twitter的顶风作案的方法，改Host用代理都不用说了，我的方法。</p>
+
+<p>用hellotxt。我也不知道怎么发现这个东西的，总之的确很好用，在facebook装上twitter插件也可以看到timeline（hellotxt只能看到一个用户最新的）。另外嘀神可以发hellotxt。hellotxt支持gtalk msn等im，嘀咕有个滴滴可以用QQ或者MSN或者gtalk更新，所以同步这个东西的确是一通百通。</p>
+
+<p>虽然有些火星，不过还是会对不知道的人有所帮助吧，尤其是以前twitter的好友，现在被我拉到嘀咕上的。</p>
+
+<p>看到另外一篇文章，来自月光博客，总结的很好，顶风作案的方法，原来早有人写了更好的文了啊。点<a href="http://www.williamlong.info/archives/1816.html">这里</a>看。</p>
+
+<p>以上。</p>
+
+<p>补充一张图，昨天是微软CEO鲍尔默同学在某演讲上用苹果电脑的照片。那么今天发一张显示大公司有大气度的照片，是E3展上，宫本茂（任天堂）亲自排队体验PSP GO!（sony的掌机）的场面。很美～很感动～</p>
+
+<p><img src="/upload/090604023545765.jpg" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/06/03/e3-sony-press-conference/">Sony E3展前发布会</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-03T14:04:26+08:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><ul>
+<li><p>Uncharted 2 among thieves</p></li>
+<li><p>MAG</p></li>
+<li><p>Gran Turismo PSP</p></li>
+<li><p>Gran Turismo 5</p></li>
+<li><p>Metal Gear Solid peace walker</p></li>
+<li><p>Metal Gear Solid Rising</p></li>
+<li><p>PSP GO!</p></li>
+<li><p>Final Fantasy XIII</p></li>
+<li><p>Final Fantasy XIV</p></li>
+<li><p>God of War 3</p></li>
+<li><p>忍龙Sigam2</p></li>
+<li><p>Monster Hunter Portable</p></li>
+<li><p>Dissidia Final Fantasy</p></li>
+<li><p>SoulCalibur PSP</p></li>
+<li><p>Batman</p></li>
+<li><p>The Beatles: Rockband</p></li>
+<li><p>Heavy Rain</p></li>
+<li><p>Asassin&#8217;s Creed II</p></li>
+<li><p>Eye toy</p></li>
+<li><p>Little Big Planet PSP</p></li>
+<li><p>Dante&#8217;s Inferno</p></li>
+<li><p>TRICO Last Guardian</p></li>
+</ul>
+</blockquote>
+
+<p>怎么说呢，微软的发布会可以说是成功的一塌糊涂，所有人都吓傻了，冒出来的MGS，还有动作感应。于是各大论坛上的MS向的人们开始叫嚣起来，所有任天堂和索尼的fans一动都不敢动。到了早前结束的任天堂发布会，大家都更傻了，任天堂就拿出这么点小东西来唬人？人家都在亏本呢，你们就这么样子搞搞？于是任天堂的fans傻了，不开心了。索尼的fans更加紧张了，生怕索尼输了。</p>
+
+<p>看完索尼的发布会，好吧，索尼赢了，赢大了，从发布会开始5分钟之后就开始赢了，从头赢到尾！你看见上面的阵容了么？奇怪的东西好多吧～ FF14都公布了！<strong>FF14online</strong>，又是一个MMO，在2010年就可以在PS3上玩到了，以前看着360玩FFXI很不爽，现在可以自己爽了。<strong>船长2</strong>演示视频的时候，我就激动了 - - 这画面也太夸张了点。<strong>MAG</strong>虽然对战的样子很强大，但是实际演示的时候却感觉一般，FPS看多了也就这样。<strong>GT5</strong>的正式公布也是情理之中，不过以为有了GT PSP就不会有的，结果在展会的最后，还是宣布了，终于可以有GT MODE玩了！至于<strong>GT PSP</strong>，在10月1日和PSP GO！一起发售，有800辆车收录，从现场情况看，画面绝对不会差！<strong>战神3</strong>不会不来，只要慢慢的期待着就好了，不算是惊喜。<strong>PSP GO</strong>早前也报道了，貌似发售是国庆节，售价是249.9美元，如果有同捆的限定版，就非常值得一买了。TRICO的新作名字确定了&#8212;-<strong>Last Guardian最后的守护者</strong>，也算是个盼头。当然MGS也是至关重要的，不但有XB360上的<strong>MGS Rising崛起</strong>，还有以snake为主角的<strong>Peace Walker</strong>在PSP上，无论剧情、画面都勾起了人们无限的遐想，n多个snake和big boss的巨幅照片，精彩。另外展会上还有大把大把的预告片。我真的不想多说了，<a href="http://e3.gamespot.com">gamespot的e3板块</a>上也是满满当当的全是索尼的雷人消息！我看到snake出现之后，就已经情绪失控了，后面没有看到直播。早上看见的时候又一次失控了。我是真正的FF fan啊，FF14都公布了我能不高兴么！太可怕了！</p>
+
+<p>这样再要比独占，索尼又赢了。光GT和snake就够微软fan傻眼了，还有船长2，船长2的演示一开始，就群情激昂的，真的太可怕了那个画面，这才叫次世代。不多说了，贴图，都是从<a href="http://www.levelup.cn/news/NewsDetails/2009-6-3/34027.shtml">levelup的直播贴</a>弄来的。直播就是和上面一群人一起在群里讨论着看的，很high，大家都疯了……</p>
+
+<p>FFXIV啊！我爱你！</p>
+
+<p><img src="/upload/uncharted.jpg" alt="" /></p>
+
+<p><img src="/upload/mag.jpg" alt="" /></p>
+
+<p><img src="/upload/mgs_psp.jpg" alt="" /></p>
+
+<p><img src="/upload/gtpsp.jpg" alt="" /></p>
+
+<p><img src="/upload/ff14.jpg" alt="" /></p>
+
+<p><img src="/upload/ff14_2.jpg" alt="" /></p>
+
+<p><img src="/upload/gt5.jpg" alt="" /></p>
+
+<p><img src="/upload/god_of_war3.jpg" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/17/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/15/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

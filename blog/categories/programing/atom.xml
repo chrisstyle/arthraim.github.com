@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Programing | Artoirus]]></title>
+  <link href="http://Arthraim.github.com/blog/categories/programing/atom.xml" rel="self"/>
+  <link href="http://Arthraim.github.com/"/>
+  <updated>2012-11-23T16:38:59+08:00</updated>
+  <id>http://Arthraim.github.com/</id>
+  <author>
+    <name><![CDATA[Arthur Wang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[git修剪分支]]></title>
+    <link href="http://Arthraim.github.com/blog/2012/03/02/git-prune-branch/"/>
+    <updated>2012-03-02T08:07:32+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2012/03/02/git-prune-branch</id>
+    <content type="html"><![CDATA[<p>项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。</p>
+
+<ul>
+<li><p><code>git branch</code> 可以查看本地有的分支，当前分支之前有个*。</p></li>
+<li><p><code>git branch -r</code> 查看所有远程的分支（不代表远程还有的分支）</p></li>
+<li><p><code>git branch -a --color</code> 查看所有分支（<code>--color</code>加颜色，绿色是tracking的）</p></li>
+<li><p><code>git branch -d TAG</code> 删除本地分支，如果这个分支有没有合并的提交，git会提示你改用 <code>-D</code> 强制删除（或干脆别删除！）</p></li>
+<li><p><code>git push REMOTE :TAG</code> 删除远程REMOTE（比如一般叫origin）分支，注意分支名前加冒号</p></li>
+<li><p><code>git remote prune REMOTE</code> 这个指令比较特殊，如果你在A仓库上<code>git fetch</code>过，在B仓库用上一条命令删除了远程分支，那么A仓库里 <code>git branch -r</code> 还是可以看到已经删掉的分支。这个时候可以用这个命令修剪这些分支。</p></li>
+<li><p><code>git prune</code> 在本地也可以使用，不过作用我还真不清楚，官方用推荐用 <code>git gc</code></p></li>
+</ul>
+
+
+<p>记录下，git真的很萌的你们不要黑他。</p>
+
+<p>以上。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac OS 10.7.3用xcode提交二进制文件验证失败]]></title>
+    <link href="http://Arthraim.github.com/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/"/>
+    <updated>2012-02-13T04:27:59+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation</id>
+    <content type="html"><![CDATA[<p>近日在提交一个app的时候发生了奇怪的错误。错误如下：</p>
+
+<p><a href="http://artori.us/mac-os-10-7-3-breaks-xcode-binary-validation/icon-dimensions-dont-meet-the-size-requirements/"><img src="http://artori.us/wp-content/uploads/icon-dimensions-dont-meet-the-size-requirements.png" alt="" /></a></p>
+
+<blockquote><p>iPhone/iPod Touch: Icon.png: icon dimensions (0 x 0) don't meet the size requirements. The icon file must be 57x57 pixels, in .png format</p></blockquote>
+
+<p>我使用的Xcode版本是4.2.1，其实一下子也懵了完全没头绪。我第一时间当然是以为我的Icon.png真的出问题了，因为偶尔我会自己用一个叫做prepo的app来把512的图标转成57像素的，所以我第一时间以为是它的问题。（因为它之前也把比如10k的blabla@2x.png转成了20k的blabla.png）。于是我用Photoshop重新转换了一个图标来试图解决这个错误，结果当然是失败了。</p>
+
+<p>各种Google之后，问题被锁定到了Mac OS 10.7.3这个升级包上，升级了之后是第一次提交二进制文件。<a href="https://devforums.apple.com/message/611733">这个讨论</a>都已经说明了病灶在哪里。</p>
+
+<p>Xcode提交当然还是存在问题，无法通过验证，而且暂时没法解决。但是办法还是有，使用更加原始的Application Loader来上传。于是我打开Application Loader并登陆之后问题又出现了。</p>
+
+<p><a href="http://artori.us/mac-os-10-7-3-breaks-xcode-binary-validation/screen-shot-2012-02-10-at-12-16-13-pm/"><img src="http://artori.us/wp-content/uploads/Screen-Shot-2012-02-10-at-12.16.13-PM.png" alt="" /></a></p>
+
+<p>嗯，自带的版本看来太老了。于是各种Google之后<a href="https://itunesconnect.apple.com/apploader/ApplicationLoader_2.5.1.dmg">新的版本</a>终于还是找到了。使用方法很简单，跟着向导一步一步做（前提是itunes connect上的应用已经waiting for upload状态）直到需要在硬盘选择文件。首先在Xcode里Product -> Build for -> Building for archiving。然后Xcode工程下Products目录，有个 工程名.app，右键Show in finder，在它的上一级目录里找到release版本的app。当然上传前要把它打包成zip文件，application loader不能指定.app。最后完成向导，文件终于上传成功鸟 -。- 然后可以等着review了。</p>
+
+<p><strong>更新：</strong>好吧看到了新说法是只要装好Application Loader 2.5.1，重启xcode，clean工程，重新archive，然后就能通过验证了，不需要真的使用Application Loader上传。 没试过，不一定管用，可以试试看。</p>
+
+<p>以上。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Windows Phone版微博通]]></title>
+    <link href="http://Arthraim.github.com/blog/2011/12/12/windows-phone-wbt/"/>
+    <updated>2011-12-12T00:53:41+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2011/12/12/windows-phone-wbt</id>
+    <content type="html"><![CDATA[<p>很久没有写博客了，已经有友联的童鞋抱怨了，最近这段时间很忙，几乎下班就没心情做自己的事情了。话说最近入手了一台WP7，三星focus，白菜价，手机丢了所以来不及等Nokia Lumia 800了，很急就入手了。话说这不是重点，我手痒然后卸掉了WP7sdk的beta2，装上了新的7.1，小玩了一下。</p>
+
+<p>话说其实给WP7写应用还真的蛮好玩的，事实上marketplace实际上也比我想象的要热闹一点，所以还蛮有动力写点东西的，最近在公司写iOS的app，每天都是objective-c，捡起了以前的C#真是一下子觉得好厉害，一个天一个地啊，终于不用自己retain, release了。</p>
+
+<p>对了写了两段还是没有说到重点，因为重点就一句话，在熟悉WP7的开发，所以写了个微博通的客户端，好吧只是调用api发个post的请求而已很简单，主要是自己熟悉一下。</p>
+
+<p>对了东西已经开源了在<a href="https://github.com/Arthraim/WbtoMongo">这里</a></p>
+
+<p>那写到这里就写完了。感叹一下，visual studio真的不错，现在.net的包管理也很方便！现在dotnet我已经算是局外人了，所以不嘴贫了 -。-</p>
+
+<p>以上</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ruby好可怕]]></title>
+    <link href="http://Arthraim.github.com/blog/2011/09/11/ruby-is-horribl/"/>
+    <updated>2011-09-11T20:40:56+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2011/09/11/ruby-is-horribl</id>
+    <content type="html"><![CDATA[<p>接触ruby时间不长，用的机会就更少了，所以偶尔用一下的时候难免还要去翻翻文档什么的。维护某个后台的时候，有个随机输出的需求，所以我写了下面这样一段代码。</p>
+
+<pre><code>def index
+  ver = params[:version] == nil ? 'i' : params[:version]
+
+  @preview_items = MyItem.where({:version =&gt; ver, :order.gt =&gt; 0}).order_by([:order, :desc])
+
+  map = {}
+  @preview_items.each do |item|
+    order = item['order']
+    map[order] = [] if map[order] == nil
+    map[order].push(item)
+  end
+
+  @json_items = []
+  map.keys.each do |key|
+    arr = map[key]
+    if arr.count == 1
+      @json_items.push(arr[0])
+    else
+      @json_items.push(arr[rand(arr.count)])
+    end
+  end
+  render json: @json_items, callback: params[:callback]
+end
+</code></pre>
+
+<p>rails某个模型的index页面，具体做了什么呢？大概是四件事情：</p>
+
+<ol>
+<li><p>取参数version</p></li>
+<li><p>在数据库查询该version并且order字段大于0的数据，根据order字段倒叙排列（数据库是mongodb，driver用mongoid）</p></li>
+<li><p>遍历查询的结果建立一张以order为key，相应order的实体数组为value的表</p></li>
+<li><p>遍历3中的表，每个order的数组中随机抽取一个元素作为这个order的唯一值</p></li>
+</ol>
+
+
+<p>最后把获取的新数据render。</p>
+
+<p>看起来很满足什么的，就提交代码了。之后同事部署前，看了看这里的更新，然后最终把代码完全改掉了。只用了一行 =。=</p>
+
+<pre><code>def index
+  @json_items = MyItem.where({:version =&gt; params[:version] || 'i', :order.gt =&gt; 0}).order_by([:order, :desc])
+    .group_by(&amp;:order).map {|k,v| v.sample}
+  render json: @json_items, callback: params[:callback]
+end
+</code></pre>
+
+<p>做的事情是完全一样的。</p>
+
+<ol>
+<li><p>他先看了取参数，不用三元，直接 || 一个默认值</p></li>
+<li><p>然后他把第4步中的取随机的部分改了，因为数组中随机取一个元素，ruby直接有sample方法</p></li>
+<li><p>然后他又觉得第四步可以更简单的调用hash的map方法，映射成另一个value = value.sample的map</p></li>
+<li><p>最后他吃了顿中饭回来灵光一闪，终于发现第三步做的就是一个group_by的事情，ruby可以做这个事情</p></li>
+</ol>
+
+
+<p>于是，除了查询不变，所有的逻辑全部调用了ruby现成的方法完成了！哥落伍了…… 越发觉得ruby好强大。</p>
+
+<p>BTW，帮我改代码的是@niedhui</p>
+
+<p>以上……</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[NoMethodError: undefined method `specifications' ...]]></title>
+    <link href="http://Arthraim.github.com/blog/2011/07/21/nomethoderror-undefined-method-specifications/"/>
+    <updated>2011-07-21T05:11:17+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2011/07/21/nomethoderror-undefined-method-specifications</id>
+    <content type="html"><![CDATA[<p>今天在和同事说，我最喜欢写这样的文章了，很多人会碰到的异常，而且没有什么中文资料，可以给搜索引擎个好排名（喂你心机好重。好吧其实我的想法很伟大的哦，我是给以后会遇到一样问题的你造福哦~</p>
+
+<p>重新搭新环境，先装了rvm，然后装上gem，用gem装了rails。之后呢问题就出来，尝试用bundle exec rake db:seeds的时候会出错，加上--track参数一看大概是这样子。</p>
+
+<blockquote><p>undefined method `specifications' for "/Users/arthraim/.rvm/gems/ruby-1.9.2-p290":String</p></blockquote>
+
+<p>好像后面也不是特别重要了，只是这个问题比较费解，之前同事好像也遇到过。去Google了一下，居然是gem版本太高的关系，要把gem降级到早一些的版本。不想深究下去了，就说一下解决的办法好了。</p>
+
+<blockquote><p>gem update --system 1.7.2</p></blockquote>
+
+<p>之前我的版本是1.8.5，虽然不知道具体什么情况，不过1.7.2就可以了。话说gem update到老版本的方法好神奇 -。-</p>
+]]></content>
+  </entry>
+  
+</feed>

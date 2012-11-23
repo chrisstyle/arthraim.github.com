@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ASP.NET 用GridView实现主从表 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="在做项目的时候碰到了类似的需求，要做一个主从表，本来是用ajax，悬停在某一行的时候显示一个气泡，用来显示具体信息，但是对方要求说要在表里显示这些信息，于是主从表应该是比较合适的。扩展一下的话还可以加上各种控制。 效果： 虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/05/20/asp-net-gridview-father-child-tables/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ASP.NET 用GridView实现主从表</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-20T02:56:00+08:00" pubdate data-updated="true">May 20<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>在做项目的时候碰到了类似的需求，要做一个主从表，本来是用ajax，悬停在某一行的时候显示一个气泡，用来显示具体信息，但是对方要求说要在表里显示这些信息，于是主从表应该是比较合适的。扩展一下的话还可以加上各种控制。</p>
+
+<p><strong>效果</strong>：</p>
+
+<p><img src="/upload/2009-05-19_showtable.png" alt="" /></p>
+
+<p>虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。大体的思路就是在template列里面嵌套另外一个gridview。看下具体的实现方法……（无视业务相关的部分）</p>
+
+<p><strong>前台</strong> &#8212;- 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
+
+<pre><code>&lt;asp:GridView ID="gvhandle" runat="server" Caption="已检查项目" AutoGenerateColumns="False" OnRowDataBound="gvhandle_RowDataBound"&gt;
+&lt;Columns&gt;
+&lt;asp:TemplateField Visible="False"&gt;
+&lt;ItemTemplate&gt;
+&lt;asp:Label ID="lbhidden" runat="server" Text='&lt;%#Eval("projID") %&gt;'&gt;&lt;/asp:Label&gt;
+&lt;/ItemTemplate&gt;
+&lt;/asp:TemplateField&gt;
+&lt;asp:BoundField DataField="projectName" HeaderText="项目名称"/&gt;
+&lt;asp:BoundField DataField="hostName" HeaderText="主持人" /&gt;
+&lt;asp:BoundField DataField="college" HeaderText="所在学院/部门" /&gt;
+&lt;asp:BoundField DataField="Rank" HeaderText="学院/部门排名情况" /&gt;
+&lt;!--就是这里！！--&gt;
+&lt;asp:TemplateField HeaderText="评审细节"&gt;
+&lt;ItemTemplate&gt;
+&lt;asp:GridView ID="gvChild" runat="server" AutoGenerateColumns="False"&gt;
+&lt;Columns&gt;
+&lt;asp:BoundField DataField="userName" HeaderText="专家姓名"/&gt;
+&lt;asp:BoundField DataField="judgeLvl" HeaderText="评分"/&gt;
+&lt;asp:BoundField DataField="judgeContent" HeaderText="定性评价"/&gt;
+&lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+&lt;/ItemTemplate&gt;
+&lt;/asp:TemplateField&gt;
+&lt;asp:BoundField DataField="result" HeaderText="最终处理" /&gt;
+&lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+</code></pre>
+
+<p><strong>后台</strong> &#8212;- 写gvhandle的RowDataBound事件</p>
+
+<pre><code>protected void gvhandle_RowDataBound(object sender, GridViewRowEventArgs e)
+{
+    if (((GridView)e.Row.FindControl("gvChild")) != null)
+    {
+        // 无论什么乱七八糟的代码，主要是在这里绑定GridView里的那个GridView
+        string tProjectID = (e.Row.FindControl("lbhidden") as Label).Text;
+        string tMissionID = missionID;
+        GridView tempGV = (e.Row.FindControl("gvChild") as GridView);
+        tempGV.DataSource = new ProjectOperate().GetComplexChildTable(tMissionID, tProjectID);
+        tempGV.DataBind();
+    }
+}
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-20T02:56:00+08:00" pubdate data-updated="true">May 20<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/05/20/asp-net-gridview-father-child-tables/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/05/20/asp-net-gridview-father-child-tables/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/05/19/5800xpressmusic-in-hand/" title="Previous Post: 纪念5800XpressMusic入手">&laquo; 纪念5800XpressMusic入手</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/05/21/s60v5-ide-and-helloworld/" title="Next Post: S60v5 IDE的搭建 和 Hello,World的实现">S60v5 IDE的搭建 和 Hello,World的实现 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

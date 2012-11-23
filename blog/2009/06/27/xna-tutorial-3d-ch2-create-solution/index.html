@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-3D游戏-02-创建游戏工程 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="进行了之前的工作，搭建了环境之后，现在就要进入实际开发过程了。我想过程和2D也许存在着一些区别，但是还是相对比较依赖2D教程的，尤其像这一章和3D的确是别无二致，不过我这里还是按照步骤说一下。（参考：《XNA教程-2D游戏-Chapter2-创建游戏工程》） 使用GS3.1+VS2008是基于. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-3D游戏-02-创建游戏工程</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-27T10:08:42+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>进行了之前的工作，搭建了环境之后，现在就要进入实际开发过程了。我想过程和2D也许存在着一些区别，但是还是相对比较依赖2D教程的，尤其像这一章和3D的确是别无二致，不过我这里还是按照步骤说一下。（参考：<a href="http://arthraim.cn/post/2009/06/62.html">《XNA教程-2D游戏-Chapter2-创建游戏工程》</a>）</p>
+
+<p>使用GS3.1+VS2008是基于.NET Framework 3.5的，否则一些新特性将不会被用到，如果你的开发使用其他环境，那么也许会不一样。</p>
+
+<p>具体涉及到一些可能和2D教程重复的东西，看过2D的直接跳过就好。</p>
+
+<p><strong>第一步、Visual Studio简单介绍</strong></p>
+
+<p>安装高于Visual Studio 2005 Express的版本，并且装好XNA Game Studio（2.0以上）。那么如果安装成功的话，在VS的新建对话框中应该可以看到这么几项（GS3.1+VS2008，不保证其他版本有一样的工程）</p>
+
+<p><a href="/upload/2009-06-27_NewProject.jpg"><img src="/upload/2009-06-27_NewProject.jpg" alt="" /></a></p>
+
+<blockquote><ul>
+<li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
+<li><p>Windows Game Library (3.1) &#8212;- Windows游戏类库</p></li>
+<li><p>Xbox 360 Game (3.1) &#8212;- Xbox360游戏</p></li>
+<li><p>Xbox 360 Game Library (3.1) &#8212;- Xbox360游戏类库</p></li>
+<li><p>Zune Game (3.1) &#8212;- Zune游戏</p></li>
+<li><p>Zune Game Library (3.1) &#8212;- Zune游戏类库</p></li>
+<li><p>Content Pipeline Extension Library (3.1) &#8212;- Content管道扩展库</p></li>
+<li><p>Platformer Starter Kit (3.1) &#8212;- 一个游戏示例（提供windows x360 zune三种版本都有）</p></li>
+</ul>
+</blockquote>
+
+<p><strong>第二步、新建工程，获取资源</strong></p>
+
+<p>根据刚才介绍的新建，建立相应的工程。</p>
+
+<p>比如我新建一个Windows Game (3.1)工程，并且取名为TChapter2，那么我们可以得到一些IDE为我们创建的文件，具体情况如下。</p>
+
+<blockquote><ul>
+<li><p>Content &#8212;- 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
+<li><p>Game1.cs &#8212;- 游戏逻辑代码。</p></li>
+<li><p>Game.ico &#8212;- 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
+<li><p>GameThumbnail.png &#8212;- 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
+<li><p>Program.cs &#8212;- 就是程序的入口Main方法了。</p></li>
+</ul>
+</blockquote>
+
+<p><strong>第三步、下载资源</strong></p>
+
+<p>接下去本章很重要的一部就是下载必须的游戏素材。这里提供官方链接，下载解压缩后就可以看到我们本教程的例子要用到的全部素材了。</p>
+
+<p><a href="/upload/2009-06-27_files1.JPG"><img src="/upload/2009-06-27_files1.JPG" alt="" /></a> &#8230;/Audio/Waves/</p>
+
+<p><a href="/upload/2009-06-27_files2.JPG"><img src="/upload/2009-06-27_files2.JPG" alt="" /></a> &#8230;/Models/</p>
+
+<p>【点击下载官方素材】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=157"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-27T10:08:42+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/25/xna-tutorial-3d-ch1-introduction/" title="Previous Post: XNA教程-3D游戏-01-3D游戏教程简介">&laquo; XNA教程-3D游戏-01-3D游戏教程简介</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/" title="Next Post: XNA教程-3D游戏-03-添加Asset">XNA教程-3D游戏-03-添加Asset &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

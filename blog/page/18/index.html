@@ -1,0 +1,928 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="额，没错，上一篇文章的确是有些不知所云，因为当时心情的确是不是很好。不过主要要说的事情还是换肤的问题，看到这篇文章的时候大家应该已经看到新的样子了，只是这只能被称为是alpha版吧。 昨天弄到半夜2点多，女朋友想回去睡觉了，所以就做到一半放下了。今天早上6点被人叫过来继续搞那个VC6. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/page/18/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/23/about-new-blog-theme-2/">关于博客新风格·续</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-23T17:00:36+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>额，没错，上一篇文章的确是有些不知所云，因为当时心情的确是不是很好。不过主要要说的事情还是换肤的问题，看到这篇文章的时候大家应该已经看到新的样子了，只是这只能被称为是alpha版吧。</p>
+
+<p>昨天弄到半夜2点多，女朋友想回去睡觉了，所以就做到一半放下了。今天早上6点被人叫过来继续搞那个VC6.0遗留下来的组件的问题，搞到刚才8点半的样子居然搞定了。用了非常强大的方法，详细说说怎么回事。本来那个组件是一个原始的dll，用的是写.def的方式把方法导出的，用exeScope可以看到唯一的方法，但是在C#无论如何也声明不到，就是提示 System.AccessViolationException: 尝试读取或写入受保护的内存。这通常指示其他内存已损坏。后来毅然决然的把8个参数的组件暴露方法重新写了一遍，缩减成了7个，6个，5个，甚至4个，把能不传的什么指针啊数组啊全都用其他策略替换掉，让参数变得简单到极致，最后还真是成功了，可惜学长已经在8点答辩完了，炫耀不了这个强大的功能了。</p>
+
+<p>继续说，弄到2点半的这个博客风格，虽然很顺利的改下来了，不过还是有很多的bug和不足，列举一下我发现的，也希望其他朋友发现新问题。Z-blog是没办法让访客选择风格的（哪有这样的博客啊 - -），要不然还能让你们看到正常一点的版本。已知问题和需要做的修改记录如下，这两天内解决。</p>
+
+<p><strong>待修正</strong></p>
+
+<ul>
+<li><p><strike>首页翻页选项放到末端</strike></p></li>
+<li><p>Picasa和Attachment的两个相册都不能正常显示</p></li>
+<li><p><strike>TagCloud的显示不美观，没达到自己设想的</strike></p></li>
+<li><p><strike>搜索结果页面可谓一塌糊涂</strike></p></li>
+</ul>
+
+
+<p><strong>待优化</strong></p>
+
+<ul>
+<li><p><strike>左侧sidebar功能要调整。</strike></p></li>
+<li><p><strike>搜索要放上面。</strike></p></li>
+<li><p><strike>还要加上订阅，不要那些RSS图标</strike></p></li>
+<li><p><strike>主页单篇文章下面信息显示顺序要调整</strike></p></li>
+<li><p>加一个看上去新颖一些的月历（我很喜欢月历的说 - -）</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/23/about-new-blog-theme/">关于博客新风格</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-23T06:42:08+08:00" pubdate data-updated="true">May 23<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>赶着别人的毕业设计，自己的课程设计还落在那里呢，真觉得不值得，辛辛苦苦都是给别人在做，而且项目非常复杂。在我们学校是这样子，一个项目一届学生是绝对做不完的，一代一代的传承下去，所以这中间就牵涉了很多很多的弊病。</p>
+
+<p>首先是开发难度。</p>
+
+<p>像我的项目是从我手上开始做的，而我同学的项目是到他手上结束的。这样的差异是非常的巨大的，在我手上开始，那么我要做很多很多的设计工作，为了以后扩展的方便，采用更加开放更加合理的架构很伤脑筋，即便是自己开发了一段时间之后也会觉得设计有很多不合理，想着趁发现的早就开始从底层做大手术。但是像他的工作就非常的简单，没有人会要你从底层开始翻，修修补补完成功能就好，一个方法封装在哪个类里，排序是数据库做还是服务层做都无所谓，反正效率过得去就行。再者，我的开发工作需要文档先行，有大量的文档设计工作要做，要和各种各样的人去谈需求，有时候真的是众口难调。即使开发过程中，每一个dll都需要花大功夫去写文档，因为等我毕业了接下去的人不知道会怎么茫然呢。但是他们只要看看文档做就好了，并且设计和他们无关，只要做自己的东西就好了。今天还要求加一个功能，于是拿给了我一个VC6.0的dll，非常的可怕这个东西，一个工程里三个项目，要是clean一下就可能再也编译不过了。dll的导出方式是写了一个.def文件的静态方式，调用的时候总是出错（现在还错着呢……）要那这个项目当毕业设计的老大5分钟来催我一次，我有什么办法呢，我也不会啊。</p>
+
+<p>然后就是敏感的利益问题了。</p>
+
+<p>做到最后的项目好处真的是多多，专利，产品，money，还有staff表里的名字，怎么看怎么风光无限。像我们这样做在前面的就全都填海了，谁都看不见。大家只看见填海造陆造出来的机场啊码头的，看不见下面的石头小泥巴。</p>
+
+<p>所以说，在学校里做项目是最不合算的，浪费自己的时间。不如空下来自己多研究研究做做小东西，大块时间都花在那些项目上，用来用去就那么几个函数，没意思，到头来像我一样，只能空闲下来东摸摸西摸摸，最后什么都没有钻的很深。</p>
+
+<hr />
+
+<p>以上随便胡扯的。</p>
+
+<p>主要是想给博客换个样子，因为实在是看腻了，我觉得博客这种宣扬个性的东西就不该是做成这副德行的，一板一眼的content sidebar什么的，最理想的实现是flash，足够个性，可惜就是网络不好没人愿意等你Loading，还没loa起来，大家都跑了。</p>
+
+<p>正在酝酿给网站好好改版，不如还是偷个模板过来改改算了…………</p>
+
+<p>今天心情不好。喝了杯冰冷的奶茶，现在头很痛………………</p>
+
+<p><img src="/upload/090219051829937.jpg" alt="" /></p>
+
+<p><img src="/upload/090219051831468.jpg" alt="" /></p>
+
+<p><img src="/upload/090219051855984.jpg" alt="" /></p>
+
+<p><img src="/upload/090219053103375.jpg" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/21/s60v5-ide-and-helloworld/">S60v5 IDE的搭建 和 Hello,World的实现</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-21T07:38:37+08:00" pubdate data-updated="true">May 21<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>入手了5800之后，在闲暇之余就很想尝试着能不能自己开发一些东西，在V2和V3的时代都有过这样的念头，不过当时nokia的支持还是比较薄弱的。在收购的Symbian之后，nokia的支持，让现在的开发变得方便而且快捷，并且提供的选择也是非常的丰富。我简单的了解了一些S60应用开发的途径，大概列举一下有以下几种（不乏很多其他方法，诸如widget等）</p>
+
+<ul>
+<li><p>JAVA ME</p></li>
+<li><p>Symbian C++（或者Open C/C++）</p></li>
+<li><p>QT for S60</p></li>
+<li><p>Flash Lite</p></li>
+</ul>
+
+
+<p>我将搭建的是C++的环境，版本取决于你的sdk版本。首先要做一些准备。(S60的开发是不一定在Windows下进行的，不过我这里默认是Windows了说)</p>
+
+<ul>
+<li><p>一台电脑</p></li>
+<li><p>一台S60的终端</p></li>
+<li><p><a href="http://www.java.com/zh_CN/download/manual.jsp">JAVA运行环境</a></p></li>
+<li><p><a href="http://www.activestate.com/activeperl/downloads/">ActivePerl</a></p></li>
+<li><p><a href="http://www.forum.nokia.com/info/sw.nokia.com/id/ec866fab-4b76-49f6-b5a5-af0631419e9c/S60_All_in_One_SDKs.html">S60 SDK</a> (这里有一个所谓all in one版本，包括了JAVA等其他的开发手段)</p></li>
+<li><p><a href="http://www.forum.nokia.com/info/sw.nokia.com/id/dbb8841d-832c-43a6-be13-f78119a2b4cb.html">Carbide.C++</a></p></li>
+</ul>
+
+
+<p><img src="/upload/2009-05-20_Package.png" alt="" /></p>
+
+<p>做完准备之后，就按顺序装下来，Java应该一般人都有吧，没有的话装个也简单，最新版的jre，不需要完整的jdk，只是IDE是JAVA环境运行的而已。除非你是采用JAVA开发。</p>
+
+<p>另外ActivePerl也是必备的，不然会出现提示。</p>
+
+<p><img src="/upload/2009-05-18_perl_needed.png" alt="" /></p>
+
+<p>5th Edition SDK大概是600+MB，安装过程可谓相当的缓慢且痛苦难熬，我的电脑大概装了1个多小时才把sdk装好而已。安装目录会要求英文并且没有空格之类的，注意一下就好了。装完之后也是一个比较大的玩意儿了。</p>
+
+<p><img src="/upload/2009-05-18_Big!.png" alt="" /></p>
+
+<p>至于Carbide.C++，是基于eclipse的产物，所以其实用eclipse也是可以开发的，安装sdk时可以选择安装eclipse插件。</p>
+
+<p><img src="/upload/2009-05-18_JAVAsupport.png" alt="" /></p>
+
+<p>改装的都装了，打开Carbide看看究竟是什么个情况。不出意外就可以新建Symbian C++ OS Project了，选择带有设计器的有GUI的工程试试看，能不能做出点东西来。跟着向导走，会要求选择sdk，从你选择的里面选吧～ 像我就只有一个5th Edition了。</p>
+
+<p>图形上可以选择的分辨率很多，那么5800XM就是320×640。界面设计还是非常的让人兴奋的，旁边的控件也是一堆一堆，看看网上的我文档，各种各样的控件真的是非常让人兴奋的，究竟怎么用慢慢研究，先看看设计界面。</p>
+
+<p><img src="/upload/2009-05-20_GUIdesign.png" alt="" /></p>
+
+<p>随便放几个控件，然后编译&#8212;-运行，在模拟器中运行！成功！</p>
+
+<p><img src="/upload/2009-05-20_HelloWorld.png" alt="" /></p>
+
+<p>支持触摸控制，打个包就可以在手机里运行了吧～ 哈哈，希望看到的大家也一切顺利～ 有问题可以留言。因为虽然看上去很方便，不过其实弄得时候也遇到了一些问题的～ 加油！</p>
+
+<p>补充一张朦胧的照片，在我的实机上跑的效果。IDE还提供了在线联调等很强大的功能，值得一玩～</p>
+
+<p><img src="/upload/2009-05-20_HelloWorld_onPhone.jpg" alt="" /></p>
+
+<p>再补充一次，今天申请的开发者17权限证书终于拿到了，自签名了几个原来没有装上的软件，终于可以截图和上twitter了~ 那么看看HelloWorld的真实截图情况吧~ 不错~</p>
+
+<p><img src="/upload/Scr000001.jpg" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/20/asp-net-gridview-father-child-tables/">ASP.NET 用GridView实现主从表</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-20T02:56:00+08:00" pubdate data-updated="true">May 20<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在做项目的时候碰到了类似的需求，要做一个主从表，本来是用ajax，悬停在某一行的时候显示一个气泡，用来显示具体信息，但是对方要求说要在表里显示这些信息，于是主从表应该是比较合适的。扩展一下的话还可以加上各种控制。</p>
+
+<p><strong>效果</strong>：</p>
+
+<p><img src="/upload/2009-05-19_showtable.png" alt="" /></p>
+
+<p>虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。大体的思路就是在template列里面嵌套另外一个gridview。看下具体的实现方法……（无视业务相关的部分）</p>
+
+<p><strong>前台</strong> &#8212;- 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
+
+<pre><code>&lt;asp:GridView ID="gvhandle" runat="server" Caption="已检查项目" AutoGenerateColumns="False" OnRowDataBound="gvhandle_RowDataBound"&gt;
+&lt;Columns&gt;
+&lt;asp:TemplateField Visible="False"&gt;
+&lt;ItemTemplate&gt;
+&lt;asp:Label ID="lbhidden" runat="server" Text='&lt;%#Eval("projID") %&gt;'&gt;&lt;/asp:Label&gt;
+&lt;/ItemTemplate&gt;
+&lt;/asp:TemplateField&gt;
+&lt;asp:BoundField DataField="projectName" HeaderText="项目名称"/&gt;
+&lt;asp:BoundField DataField="hostName" HeaderText="主持人" /&gt;
+&lt;asp:BoundField DataField="college" HeaderText="所在学院/部门" /&gt;
+&lt;asp:BoundField DataField="Rank" HeaderText="学院/部门排名情况" /&gt;
+&lt;!--就是这里！！--&gt;
+&lt;asp:TemplateField HeaderText="评审细节"&gt;
+&lt;ItemTemplate&gt;
+&lt;asp:GridView ID="gvChild" runat="server" AutoGenerateColumns="False"&gt;
+&lt;Columns&gt;
+&lt;asp:BoundField DataField="userName" HeaderText="专家姓名"/&gt;
+&lt;asp:BoundField DataField="judgeLvl" HeaderText="评分"/&gt;
+&lt;asp:BoundField DataField="judgeContent" HeaderText="定性评价"/&gt;
+&lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+&lt;/ItemTemplate&gt;
+&lt;/asp:TemplateField&gt;
+&lt;asp:BoundField DataField="result" HeaderText="最终处理" /&gt;
+&lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+</code></pre>
+
+<p><strong>后台</strong> &#8212;- 写gvhandle的RowDataBound事件</p>
+
+<pre><code>protected void gvhandle_RowDataBound(object sender, GridViewRowEventArgs e)
+{
+    if (((GridView)e.Row.FindControl("gvChild")) != null)
+    {
+        // 无论什么乱七八糟的代码，主要是在这里绑定GridView里的那个GridView
+        string tProjectID = (e.Row.FindControl("lbhidden") as Label).Text;
+        string tMissionID = missionID;
+        GridView tempGV = (e.Row.FindControl("gvChild") as GridView);
+        tempGV.DataSource = new ProjectOperate().GetComplexChildTable(tMissionID, tProjectID);
+        tempGV.DataBind();
+    }
+}
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/19/5800xpressmusic-in-hand/">纪念5800XpressMusic入手</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-19T03:16:38+08:00" pubdate data-updated="true">May 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天在催了很多次之后，装着诺基亚5800XpressMusic的快递终于发到了我手上，一般我去快递都不是很着急，多等两天也无所谓，但是这次是个手机，好歹是个大件。何况更加关键的是，我看到了网站上的跟踪显示说早上8点就派件了，9点47分我的单子因为&#8221;未知原因派件失败&#8221;。然后我就瞬间茫然了，派件失败怎么处理？我手机也没有响过啊。我打热线，联系本地的小网点，甚至做好了自取的准备。结果中午他送来了，原来他早上送老师的，中午才派送学生的快递，难怪单子已经结束了，可是东西还没有收到。据说卖家已经投诉快递了，看着派件员心情不好的样子我也不是很好意思。不过的确是这样，既然流程结束了，那么你的东西就应该在我手上了。说什么&#8221;未知错误&#8221;也实在太不负责任了，IDE才会干这种事情。</p>
+
+<p>言归正传，上次说了<a href="http://arthraim.cn/post/2009/05/27.html">如何选择3G</a>，这次还是选择了WCDMA的手机。诺基亚5800XM还是非常强悍的，第一次搭载S60 5th Editon，并且是全触屏。我买的不是行货，有WIFI，网速快的情况下很High。有WCDMA，所以加入联通还是有可能的。3.2英寸的屏幕虽然不大，不过320×640的分辨率的确很不错，16:9看视频也是不错的。另外全触摸控制才是真正的关键之处，使用了一天感觉还是很好，不像之前的一些机型那么卡，这一次还是非常友好，用户体验很好。各个功能的入口也发生了一些变化，所以的确是人性化了一些。重力感应可有可无，还有一个赛车游戏，果然是体感王道。320万像素的卡尔塞斯摄像头，看上去不错，不过黑灯瞎火的还是不好，即便有双LED闪光灯，拍照毕竟是其次。还有前面的摄像头用来视频聊天，不过我是没有用到。标配的microSDHC 8G，很过瘾。总之配置的确很大众，很实际。</p>
+
+<p>纪念一下，我的新机子入手了～ 贴图。没有DC，忍受一下这没有微距的模糊效果……</p>
+
+<p><img src="/upload/Nokia5800XM-1.jpg" alt="" /></p>
+
+<p>模糊是模糊了一点，大概看个样子吧。</p>
+
+<p><img src="/upload/Nokia5800XM-2.jpg" alt="" /></p>
+
+<p>横过来的样子（我的手，看相师傅请自重……）</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/16/journey-of-cicaf-video/">杭州国际动漫展之行 —— 视频篇</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-16T12:10:36+08:00" pubdate data-updated="true">May 16<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天难得上去youku看视频，结果想起来之前还传了两段上去，第一段是Tomy takara的玩具，平时一只一只看没有感觉，这样子看觉得好可爱。第二段视频是回去学校排练的时候，非常糟糕的陪练情况，是我女朋友站在一旁拍的。直接放视频了。</p>
+
+<hr />
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/15/microsoft-did-two-things/">微软做了两件事</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-15T22:06:07+08:00" pubdate data-updated="true">May 15<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>大中午的在Google Reader看新闻，看到两天比较大的都是和微软有关。</p>
+
+<p>一个是<a href="http://tech.sina.com.cn/it/2009-05-15/12183096184.shtml">微软在杭州建立云计算中心</a>，鲍尔默也来了，并且成立杭州师范大学-微软IT学院。这真的是一个好事情，微软来带动Saas在杭州的发展，而杭师大的事情，倒是着实让人羡慕了一下，对学校的老师、学生都是好事情，可以接触到微软的第一手资料。无论对学习、教学、科研都将有非常大的帮助。（毕竟在中国大学里搞科研的教师都是以教学为前提的。）</p>
+
+<p>还有一个是<a href="http://tech.sina.com.cn/it/2009-05-15/07523094787.shtml">微软要求所有东莞的网吧安装微软正版软件</a>，这是很可怕的事情，就不说Windows，要装Office都难了，不知道允许不允许买一套，其他的全是还原卡，囧。还说如果不装会采取法律行动。这是一件非常可怕地事情，但是确实是一件非常好的事情，虽然网吧经营成本将会可怕地增长，但是不正规的支付不起正版软件的小网吧得到了小管理（除非是硬着头皮经营的更差的网吧），而使用正版，保护知识产权的意识在中国的下一代和这一代都可能得到进一步的提高。这对于不看好中国桌面市场的公司来说，吃桌面饭的微软老大来做这样的事情，都会产生一些信心的。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/15/more-axum-what-is-agent-and-pipeline/">继续研究Axum —— 初解agent和pipeline</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-15T06:23:57+08:00" pubdate data-updated="true">May 15<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。</strong></p>
+
+<p>还是围绕核心的这句话。</p>
+
+<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+
+<p>在<a href="http://arthraim.cn/post/2009/05/32.html">上一篇文章</a>也在讲这句话，但是说穿了讲的应该是：</p>
+
+<blockquote><p>&#8220;A .NET language for parallel programming through message-passing.&#8221;</p></blockquote>
+
+<p>我们只是从一个channel中派生了一个agent，做了数据传递而已，真正意义上的actor在哪里没有讲到（虽然有用到）。那么这次讲一讲。因为刚好看到<a href="http://www.cnblogs.com/JeffreyZhao/archive/2009/05/11/a-simple-actor-model-implementation.html">老赵的博客上</a>好好的分析了actor模型一把，要好好向他学习啊。</p>
+
+<p>Axum是为并行而生的.net语言，那么他提供了非常完整的Actor模型，使得每个actor可以安全的并发。那么不用说，coding的时候就肯定用到过了actor模型，究竟他在哪里呢？其实就是agent。还记得写Axum的<a href="http://arthraim.cn/post/2009/05/31.html">第二篇文章</a>，看到VS2008 generate出来的代码之后，看到agent的时候非常疑惑，那么现在就可以解惑了。</p>
+
+<p><strong>agent就是在axum中的actor模型。</strong></p>
+
+<p>讲到这里就很明显了，只是从channel派生出来的actor模型本身还肩负着其他功能。我想跟着Guide走，那么下一次也许还有机会讲到agent。</p>
+
+<hr />
+
+<p><strong> 然后讲讲pipeline。先从一个程序出发：斐普纳吉数列的实现。</strong></p>
+
+<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &#8212;- MainAgent。</p>
+
+<pre><code>using System;
+using Microsoft.Axum;
+using System.Concurrency.Messaging;
+agent MainAgent : channel Microsoft.Axum.Application
+{
+    // ...
+    public MainAgent()
+    {
+        // ...
+    }
+}
+</code></pre>
+
+<p><strong>agent从channel中派生是种什么特殊情况呢？</strong>在Guide上是这么描述的：</p>
+
+<blockquote><p>Implementing a channel is different - syntactically and semantically - from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
+
+<pre><code>    However, when an agent implements a channel (notice the channel keyword after the colon in the agent declaration), it "attaches" itself to the implementing end of that channel and becomes the "server" of messages on that channel. The other end of the channel - known as the using end - is only visible to the "client", or the component (typically another agent) on the other end of the channel.
+</code></pre>
+
+<blockquote></blockquote>
+
+<p>大概翻译一下：（哪怕只当Guide翻译集锦看也好）</p>
+
+<blockquote><p>从一个channel派生和从一个接触agent中派生是不一样的，有字面上的和语义上的两种理解。一个agent从另一个agent从派生的话，只不过是通过覆盖重写它的方法或可能为自己增加更多的一种扩展。</p>
+
+<p>然而当一个agent从一个channel派生的话，它是把自己&#8221;贴&#8221;到channel的派生端（implementing end），从而成为channel上的信息的&#8221;服务端&#8221;。而Channel的另一端（被称作应用端（using end））是指对&#8221;客户端&#8221;或在channel另一端的某个组件（代表性的就是另一个agent）。</p></blockquote>
+
+<p>channel负责传递信息，但是它不会对信息做任何处理。（处理的当然是agent啦）</p>
+
+<p><img src="/upload/2009-05-14_TwoEndsChannel.png" alt="" /></p>
+
+<p><strong>那从Microsoft.Axum.Application这个channel派生的主程序是如何处理信息的呢？</strong></p>
+
+<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&#8217;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
+
+<p>从Microsoft.Axum.Applicationruntime这个Channel派生过来的agent的runtime实例，发送命令行参数到channel的命令行端口（CommandLine port），然后等待退出代码端口（prot ExitCode）的信息。当收到信息后，应用程序就关闭。</p></blockquote>
+
+<p>这样一个ax程序的运行机理也就知道了，如果说C是从main函数中得到参数，执行完毕后跳出。那ax程序就是从这个main channel出发，得到退出代码的信息后退出。</p>
+
+<p>继续补充代码，然后来看看信息的异步编程。先写一个斐普纳吉的递归算法。</p>
+
+<pre><code>function int Fibonacci(int n)
+{
+    if( n&lt;=1 ) return n;
+    return Fibonacci(n-1) + Fibonacci(n-2);
+}
+</code></pre>
+
+<p>然后是界面的代码。</p>
+
+<pre><code>int numCount = 10;
+void ProcessResult(int n)
+{
+    Console.WriteLine(n);
+    if( --numCount == 0 )
+    {
+        Console.ReadLine();
+        PrimaryChannel::ExitCode &lt;-- 0;
+    }
+}
+</code></pre>
+
+<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&#8211; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
+
+<p>之后就是最精彩的创建OrderedInteractionPoint和pipeline的代码了。</p>
+
+<pre><code>public MainAgent()
+{
+    var numbers = new OrderedInteractionPoint&lt;int&gt;();
+    // Create pipeline:
+    numbers ==&gt; Fibonacci ==&gt; ProcessResult;
+    // Send messages to numbers:
+    for( int i=0; i&lt;numCount; i++ )
+        numbers &lt;-- 42-i;
+}
+</code></pre>
+
+<p>从格式上看，微软工程师们还是很有创意的，这段代码看上去很有美感。值得说的东西也是非常的多。</p>
+
+<p>Axum提供了两种orchestration（这单词怎么翻译？编排？）方式，基于控制流（control-flow-based）和基于数据流（data-flow-based）。</p>
+
+<blockquote><p>In Axum, the messages are sent to and received from the interaction points. An interaction point from which a message originates is called the source, and the destination is called the target. An interaction point can be both a source and a target, meaning that it can both send and receive messages. This allows composition of multiple interaction points into dataflow networks.</p>
+
+<p>在Axum中，信息传递和接受是通过interaction points（互动点？）的。信息源的interaction point叫做source，目的地的叫做target。同一个interaction point能同时既作为source，又作为target，意味着它能同时发送和接受信息。这样就允许很多的Interaction point组成一个数据流网络。</p></blockquote>
+
+<p>翻译过来之后，意思应该已经比较清晰了，数据流和原始的控制流程序不一样，以前类似上面代码的过程，我们写完两个方法之后需要把一个先初始化两个数据，其中一个传入斐普纳吉计算然后一个去接受结果（不是唯一解决方法），然后再将结果去交给界面方法打印。而现在我们调用的过程就整个缩减为一个管道：</p>
+
+<blockquote><p>numbers ==> Fibonacci ==> ProcessResult;</p></blockquote>
+
+<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&#8211; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
+
+<p>有了pipeline，我们就要使用它，因为axum在编译的时候对它是进行特殊处理的。比如斐普纳吉计算过程是a side-effect-free function，一个没有副作用的函数，那么axum就会根据它认为最有效的方式的方式编译出多个线程来处理，并行的优势就体现在这里。</p>
+
+<p>之前说到Ordered，虽然这个数据流是可以并行执行的，但是它的顺序是不会发生变化的，哪怕多个实例在一个结点上，想进入下一个结点你也是必须执行完现在的节点的。就比如说上面的程序中，UI打印模块在你完成斐普纳吉计算前绝对不能新建线程。</p>
+
+<p><strong>程序代码和执行效果：</strong></p>
+
+<p><img src="/upload/2009-05-14_run.png" alt="" /></p>
+
+<hr />
+
+<p>说到这里就把Axum的agent和pipeline都说完了。简单的总结起来，agent就是actor模型的实现，而pipeline就是基于数据流的程序驱动方式。</p>
+
+<p>关于Axum的其他新特性，再慢慢研究咯～</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/14/microsoft-axum-learn-grammar-with-video/">Microsoft Axum —— 跟着视频看语法(AxumMath的实现)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-14T07:25:35+08:00" pubdate data-updated="true">May 14<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ：</p>
+
+<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+
+<p>平台为Windows 7 build 7057（没有更新RC版啊），IDE是Visual Studio 2008。<strike>不知道2005是不是支持，我的windows xp中安装了Axum和VS2005的，一会考证一下。</strike> 经确认VS2005是不能新建Axum工程的。</p>
+
+<p><strong>下图为IDE和程序运行结果。</strong></p>
+
+<p><img src="/upload/AxumMath.PNG" alt="" /></p>
+
+<p>虽然实现的程序和C#的ReadLine获得几个数字，加一下乘一下得到的效果是一样的，不过我的数据不是通过访问内存的，而是通过Axum提供的数据传输方式的。</p>
+
+<p>简单的说：首先做了一个channel，作为一切传输的通道，输入的数据是int X和int Y，输出的数据是int Z。然后在这个channel的基础上新建两个agent，分别完成相加和相减的过程。</p>
+
+<blockquote><p>Z &lt;&#8211; ( receive(X) + receive(Y))</p></blockquote>
+
+<p>这句话是核心，receive(X)的方法，是agent从channel中接受X的信息，而做出处理后 &lt;&#8211; 传输给Z，Z就得到了需要的结果。（究竟是先处理数据再传输，还是传输过来后再处理不得而知）</p>
+
+<p>UI逻辑中，首先将两个agent创建不同的domain（话说Axum是弱类型语言呢～），然后就可以通过ReadLine得到输入的数据，通过之前创建的domain直接去接收结果。</p>
+
+<p>这是单击完成的，不知道分布之后是不是有特殊地方。下面是视频中整个程序的结构图例。</p>
+
+<p><img src="/upload/2009-05-13_frame.png" alt="" /></p>
+
+<p><strong>下面插入代码，（看来是不是应该自定义高亮方式了呢？先采用相对接近的C#吧～）</strong></p>
+
+<pre><code>using System;
+using System.Concurrency;
+using Microsoft.Axum;
+namespace AxumMath
+{
+    channel IntOperater
+    {
+        input int X;
+        input int Y;
+        output int Z;
+    }
+    private agent AdderAgent : channel IntOperater
+    {
+        public AdderAgent()
+        {
+            while(true)
+            {
+                Z &lt;-- ( receive(X) + receive(Y));
+            }
+        }
+    }
+    private agent MultiplierAgent : channel IntOperater
+    {
+        public MultiplierAgent()
+        {
+            while(true)
+            {
+                Z &lt;-- ( receive(X) * receive(Y));
+            }
+        }
+    }
+    private agent MainAgent : channel Application
+    {
+        public MainAgent()
+        {
+            var adder = AdderAgent.CreateInNewDomain();
+            var multiplier = MultiplierAgent.CreateInNewDomain();
+            while ( true )
+            {
+                Console.Write("X: ");
+                var x = Int32.Parse(Console.ReadLine());
+                Console.Write("Y: ");
+                var y = Int32.Parse(Console.ReadLine());
+                adder::X &lt;-- x;
+                adder::Y &lt;-- y;
+                multiplier::X &lt;-- x;
+                multiplier::Y &lt;-- y;
+                Console.WriteLine( "Sum: " + receive(adder::Z ));
+                Console.WriteLine( "Product: " + receive(multiplier::Z ));
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/05/14/microsoft-axum-hello-axum/">Microsoft Axum 初探 —— Hello Axum</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-14T02:33:23+08:00" pubdate data-updated="true">May 14<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>虽然是针对Windows7的，不过还是迫不及待的想写一个Hello,world出来，于是来搞搞吧。</p>
+
+<p><strong>1、下载Axum.msi，并安装。</strong></p>
+
+<p><img src="/upload/2009-05-13_AxumInstall1.png" alt="" /></p>
+
+<p><strong>2、新建Axum语言工程。</strong></p>
+
+<p>安装好之后，直接打开Visual Studio 2008，可以看到，新的语言Axum出现在列表里，并且有工程类库和控制台程序两个工程可以新建了。</p>
+
+<p><img src="/upload/2009-05-13_vs2008axum1.png" alt="" /></p>
+
+<p><strong>3、看看Axum的语法规则。</strong></p>
+
+<p>新建了一个Console Application之后，速度看看它generate了一些什么代码。[如下图]</p>
+
+<p>果然不出所料的一头雾水啊，domain是个什么存在，agent又是什么呢？ :: 是什么？C++的domian的概念吗？那 &lt;&#8211; 这又是什么。虽然看上去有些像C家族的语言，不过一上来真是一头雾水啊。从微软的高亮习惯，似乎可以猜出一些什么东西来。</p>
+
+<p><img src="/upload/2009-05-13_GenerateCode.png" alt="" /></p>
+
+<p><strong>4、下载Programmer&#8217;s Guide。</strong></p>
+
+<p>还是老老实实的看看官方做法吧，下载一份<a href="http://download.microsoft.com/download/B/D/5/BD51FFB2-C777-43B0-AC24-BDE3C88E231F/Axum%20Program">官方指导</a>来看看。</p>
+
+<p><img src="/upload/2009-05-13_Programmer_Guide.png" alt="" /></p>
+
+<p><strong>5、Ctrl + C, Ctrl + V 一下，写出我们第一个Hello,Axum～</strong></p>
+
+<p>看上去调用System命名空间里的方法和C#是一样的吧～ 那么试试看ReadLine什么的。好吧的确一样的。</p>
+
+<p><img src="/upload/2009-05-13_HelloAxum.png" alt="" /></p>
+
+<p><strong>6、编译出来的bin文件</strong></p>
+
+<p><img src="/upload/2009-05-13_bin.png" alt="" /></p>
+
+<p>究竟Axum，带给了我们什么新特性呢？继续研究……</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/19/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/17/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

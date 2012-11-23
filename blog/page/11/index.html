@@ -1,0 +1,1051 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="Arthur在上一篇文章中说到过jas0nuk已经回归the scene（PSP破解界），而今天早些时候他就如约发布了PRXdecrypter的新版本2.25。可以说这次的版本功能和Yoshihiro的Game Decrypter是一样的，用以解密eboot.bin，只是包含了所有的Eboot. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/page/11/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/10/03/psp-hacking-awake-jas0nuk-released-prxdecrypter-2-25/">PSP破解复苏 jas0nuk发布PRXdecrypter 2.25</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-03T03:46:07+08:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Arthur在<a href="http://arthraim.cn/post/2009/09/112.html">上一篇</a>文章中说到过jas0nuk已经回归the scene（PSP破解界），而今天早些时候他就如约发布了PRXdecrypter的新版本2.25。可以说这次的版本功能和Yoshihiro的Game Decrypter是一样的，用以解密eboot.bin，只是包含了所有的Eboot.bin的密匙，即你可以解密目前为止所有的eboot.bin了。务须多说，这里是官方说明。</p>
+
+<blockquote><p><img src="/upload/bankey.gif" alt="" /></p>
+
+<p>Contains all the 6.00/6.10 EBOOT.BIN keys, just like those in Yoshihiro&#8217;s decrypter.</p>
+
+<p>There is another odd one not present in either decrypter: 0xD91612F0 (if you get an error message with this code, post here! I need to work out where this tag is being used.)</p>
+
+<p>To anyone on PSPGEN who accused Yoshihiro of copying/stealing my work: this is complete nonsense.</p>
+
+<p>You should be able to decrypt any of the below EBOOT.BINs (except the last one) even on 5.00 M33 and below, as long as PRXdecrypter runs.</p>
+
+<p>General EBOOT.BIN keytags info</p></blockquote>
+
+<p>The classics:</p>
+
+<p>Tag 0x08000000 - 1.xx EBOOT.BIN</p>
+
+<p>Tag 0xC0CB167C - 2.xx EBOOT.BIN</p>
+
+<blockquote><p>Unknown if these were ever used, but I found them ages ago - Sony were planning new EBOOT keys for a long time:</p></blockquote>
+
+<p>Tag 0x8004FD03 - 2.71 EBOOT.BIN</p>
+
+<p>Tag 0xD91605F0 - 2.8X EBOOT.BIN</p>
+
+<p>Tag 0xD91606F0 - 3.0X EBOOT.BIN</p>
+
+<p>Tag 0xD91607F0 - ???</p>
+
+<p>Tag 0xD91608F0 - 3.1X EBOOT.BIN</p>
+
+<blockquote><p>These are now being used:</p></blockquote>
+
+<p>Tag 0xD91609F0 - 5.00 EBOOT.BIN</p>
+
+<p>Tag 0xD9160AF0 - 5.50 EBOOT.BIN</p>
+
+<p>Tag 0xD9160BF0 - 5.55 EBOOT.BIN</p>
+
+<p>Tag 0xD9160CF0 - 6.00 EBOOT.BIN (which game(s) use this?)</p>
+
+<p>Tag 0xD91611F0 - 6.00 EBOOT.BIN (which game(s) use this?)</p>
+
+<p>Tag 0xD91612F0 - 6.00 EBOOT.BIN (GTN USA - PSN edition, any others?) not decrypted!</p>
+
+<blockquote></blockquote>
+
+<p>如果你遇到错误代码0xD91612F0，可以到<a href="http://forums.maxconsole.net/showthread.php?t=143538">这里</a>注册留言，当然也可以在我的博客留言。另外，可以想见不出多日就会有新的修复版发布，以修复一些这个版本没有解决的问题，Arthur将继续跟踪，敬请关注。</p>
+
+<p><strong>下载地址</strong>：<a href="http://forums.maxconsole.net/attachment.php?attachmentid=24494&amp;d=1254444222">官方地址</a> | <a href="http://rapidshare.com/files/287691816/PRXdecrypter_2-25.rar">rapidshare</a></p>
+
+<p>以上。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/10/01/yoshihiro-update-game-decrypter-b2/">Yoshihiro再次更新 Game Decrypter B2发布</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-01T23:20:26+08:00" pubdate data-updated="true">Oct 1<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>就在昨天<a href="http://arthraim.cn/post/2009/09/112.html">PSPgen小组破译EBOOT.bin</a>并发布Game Decrypter后，马上针对软件的兼容性做出了新的更新，b2得以问世。Arthur已经成功的使用它玩上了GT和Armed Core，当然索尼也推出了6.10的内核，现在官方下载已经出现。经过了chickhen阶段破解突破后，沉寂已久的PSP破解界，随着<a href="http://forums.maxconsole.net/showthread.php?t=143351">jas0nuk回归</a>，和Game Decrypter的问世又热闹了起来，持续关注进程，不知prx是不是也能趁着这个热潮破解。</p>
+
+<p>相关下载：<a href="ftp://download1:fmMRHK15@ftp2.tg777.com/PSP/tools/game-decrypter-by-yoshihiro-v2.zip">Game Decrypter B2</a></p>
+
+<p>相关阅读：<a href="http://www.pspgen.com/game-decrypter-b2-yoshihiro-actualite-190027.html">PSP GEN官方发布页</a></p>
+
+<hr />
+
+<p>另外，在破解界如火如荼的时候，索尼也出手了。今天十月一日，正式PSPGO的发售日，也是索尼承诺的大规模更新PS store的时候。今天上pss看了下，果然东西很多，PS美国官方博客上最新一篇<a href="http://blog.us.playstation.com/2009/09/playstation-store-update-105/">PlayStation Store Update</a>有详细的更新情况。</p>
+
+<p>另外，PSP6.1新增加了一个叫做SensMe的音乐软件，具体情况看视频。</p>
+
+<p>相关阅读：<a href="http://blog.us.playstation.com/2009/09/psp-firmware-update-v6-10/">PSP Firmware Update (v6.10)</a> | <a href="http://blog.us.playstation.com/2009/09/playstation-store-update-105/">PlayStation Store Update</a></p>
+
+<p>以上……</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/30/pspgen-decrypted-eboot-bin-and-usage-of-game-decrypter/">PSPgen小组破译EBOOT.bin及Game Decrypter使用方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-30T19:13:38+08:00" pubdate data-updated="true">Sep 30<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>PSPgen小组如约发出了5.55的eboot的破译程序，经过我刚才的测试已经顺利的让GT PSP跑在我的PSP上了。我下载的GT是欧版的，我的PSP是1000型并且使用的是5.50GEN-B(FULL)。这里我会讲解一下这次破解的原理，几乎和PSP的型号是没有关系的，只是我现在还没有机会在3000上试验，据一些论坛的反馈，在3000上还是存在一些问题。好了现在展开说一下吧。</p>
+
+<p><strong>一、原理讲解</strong></p>
+
+<p>众所周知，dark_alex已经几乎弹出了破解界，据他自己所说hacker needs to eat，当然说他深藏不露、蓄势待发的消息不绝于耳。因为PSP新的CPU对ipl加载等方面做了很多的防御措施，所以到目前为止无法进入kernel mode，也就是核心模式，即我们还是只能在用户模式下徘徊。</p>
+
+<p>之前利用chickhen，可以成功的破解TA-088v3以及PSP3000的TA-090主板又是什么原理呢？这和当初破解2.71时一样，利用的是一个TIFF的漏洞，可以利用它跳转执行自己的代码。TIFF模块不是什么深奥的东西，就是来显示tiff图片的，因此我们才看到了chickhen的破解第一步是要在图片目录里折腾，这就是引发漏洞，只有引发了这个漏洞才能执行我们的代码，完成破解。</p>
+
+<p>而今番再次鼓吹告破，其实不是什么和以上有关的内容，因为上面的思路都是制作自己的自治系统，从而可以轻易的使用索尼的所有模块而不需要去了解这些模块是如何工作的。而这一次的思路完全不同，是关注每个游戏，也就是说，要让每一个高于5.50系统（目前为止版本最高的自制系统）的游戏都可以在5.50上甚至更低级的系统上跑。</p>
+
+<p>那么修改游戏有哪些方法呢，困难又在哪里呢？</p>
+
+<p><strong>1、使用替换的version.txt</strong>，就像Arthur在《<a href="http://arthraim.cn/post/2009/09/109.html">破解PSP 5.55系统的雷人Lua代码</a>》里说的一样，替换一个version.txt就能骗过很多对系统有要求的demo甚至游戏。</p>
+
+<p><strong>2、用boot.bin替换eboot.bin</strong>，如果你用Winrar解压缩过PSP的ISO文件，那么其实你会发现存在eboot.bin和boot.bin两个用以启动游戏的文件。以前的做法是，直接把boot.bin改名为eboot.bin并且替换原来的文件，打包。就可以运行了。</p>
+
+<p>但是这样的做法在现在的版本中（5.55之后）不行了，因为索尼防御了这个做法，如果用HEX工具打开boot.bin来开的话，可以看到全是000000，被成为dummy file。事实上索尼已经不再需要这个文件来加载游戏了。而以前的boot.ini往往是以~ELF开始的。同时，eboot.bin也被加密了，无法按照正常的HEX修改方法去修改它对版本的需求，需要decrypt才可以。</p>
+
+<p><strong>3、利用版本间的差异</strong>，这也是一个因为无法破译新文件而产生的另类的方法，运气很好的是有些游戏（比如灵魂能力）虽然一些版本（比如日版）的eboot.bin是加密的，但是其他版本（比如欧版美版）没有加密，所以只要做个迁移的工作，就可以搞定了。</p>
+
+<p><strong>4、破解eboot.bin</strong>，这是在破解每个游戏上比较治本的方法了，如果能破译eboot.ini，那就能按照传统的方法去处理了。其实说治本也不见得，因为这毕竟是比较被动的方法，人家加密了，我们解密……</p>
+
+<p>那这一次，PSP gen小组就告诉我们，可以破译eboot.bin了。</p>
+
+<hr />
+
+<p><strong>二、破解方法</strong></p>
+
+<p>1、用UMDGEN4.0打开GT的ISO。</p>
+
+<p>2、解压出eboot.ini</p>
+
+<p><a href="/upload/2009-09-30_excompress_eboot_bin.jpg"><img src="/upload/2009-09-30_excompress_eboot_bin.jpg" alt="" /></a></p>
+
+<p>3、把解压出来的EBOOT.bin拷贝到PSP记忆棒根目录下</p>
+
+<p>4、在PSP上运行使用Game Decrypter Yoshihiro</p>
+
+<p><a href="/upload/screenshot_9930112319_811.png"><img src="/upload/screenshot_9930112319_811.png" alt="" /></a></p>
+
+<p><a href="/upload/2009-09-30_run_game_decrypter.jpg"><img src="/upload/2009-09-30_run_game_decrypter.jpg" alt="" /></a></p>
+
+<p>5、PSP记忆棒根目录会生成一个DECRYPTOR目录，取出里面新的eboot.bin</p>
+
+<p><a href="/upload/2009-09-30_get_new_eboot_bin.jpg"><img src="/upload/2009-09-30_get_new_eboot_bin.jpg" alt="" /></a></p>
+
+<p>6、用UMDGEN替换原有文件</p>
+
+<p><a href="/upload/2009-09-30_replace_eboot_bin.jpg"><img src="/upload/2009-09-30_replace_eboot_bin.jpg" alt="" /></a></p>
+
+<p>7、最后保存为新的iso文件</p>
+
+<p><a href="/upload/2009-09-30_save_new_iso.jpg"><img src="/upload/2009-09-30_save_new_iso.jpg" alt="" /></a></p>
+
+<p><a href="/upload/2009-09-30_saving_new_iso.jpg"><img src="/upload/2009-09-30_saving_new_iso.jpg" alt="" /></a></p>
+
+<p>这样，新的ISO就产生了，赶快装进PSP试试看能不能用吧~</p>
+
+<p><a href="/upload/screenshot_993011372_491.png"><img src="/upload/screenshot_993011372_491.png" alt="" /></a></p>
+
+<p><a href="/upload/UCUS-98632_9930124135_098.png"><img src="/upload/UCUS-98632_9930124135_098.png" alt="" /></a></p>
+
+<p><strong>相关下载</strong>：<a href="ftp://download1:fmMRHK15@ftp2.tg777.com/PSP/tools/gamedecrypter-by-yoshihiro.zip">Game Decryptor</a> | <a href="ftp://download3:fmMRHK15@ftp2.tg777.com/PSP/tools/UMDGen4.0.rar">UMDGEN4.0</a></p>
+
+<p><strong>相关链接</strong>：<a href="http://www.pspgen.com/tutoriel-game-decrypter-yoshihiro-article-190008-1.html">PSP GEN官方发布页</a> | <a href="http://www.cngba.com/thread-18457527-1-1.html">cngba论坛教程</a></p>
+
+<p>以上……</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/29/the-burning-plain/">燃烧的平原</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-29T23:18:14+08:00" pubdate data-updated="true">Sep 29<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>这是一部非常意外的收获，我喜欢查理兹塞隆，她的眼神中可以诠释出角色的一切灵魂，而这部《燃烧的平原》就是一部让我非常震撼的电影。Mtime时光网上有很多的影评，在我看完这部电影之后我都去一一看了，我都不喜欢这些影评，也不推荐任何人在看这部电影前去看任何的影评，这不是因为《第六感》式的畏惧剧透，而是一种让内心燃烧的情感……</p>
+
+<p><img src="http://t.douban.com/lpic/s3581330.jpg" alt="" /> <img src="/upload/The_burning_plain.jpg" alt="" /></p>
+
+<p>我建议去自己体会一下这部电影，尤其结尾时候人物的一个个眼神…… 平静的画面，却给予内心最深刻的敲击。电影直到今年才得以在美国院线上映，无论如何能否获得好的票房，能否获得奥斯卡奖，艺术是无法用这些来衡量的~</p>
+
+<p>扩展阅读：<a href="http://www.mtime.com/movie/82603/">MTime时光网</a> | <a href="http://www.douban.com/subject/2147874/">豆瓣</a></p>
+
+<p>以上。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/28/dispointing-tgs09-and-japan-game-award/">让人失望的TGS09 和 日本游戏大赏2009未来部门</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-28T18:11:32+08:00" pubdate data-updated="true">Sep 28<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>为期四天的东京电玩展就这样结束了，似乎没有什么特别让人振奋的消息，本来一早所说的PSPgo Converter最终被定格为一个周边转换器，将老周边用在新机器上的转换器，而不是如人们预想的一样是一个UMD光驱，把UMD游戏转为数字档案。所以说，在硬件上值得吹嘘一下的大消息似乎是没有，唯一的消息就是FFXIII的限定版PS3，白色很漂亮。游戏方面值得一说的也不多，大多是一些E3上的消息拿过来，只是一些新试玩比较抢手。所以这里我只关注一下在TGS09上通过观战玩家现场投票评出的&#8221;日本游戏大赏 未来部门&#8221;十二个获奖作品吧。</p>
+
+<p><a href="/upload/tgs_2009_nippon_game_reward.jpg"><img src="/upload/tgs_2009_nippon_game_reward.jpg" alt="" /></a></p>
+
+<p><img src="/upload/tgs_2009_nippon_game_reward_table.jpg" alt="" /></p>
+
+<p>这张榜单非常非常的日本向（当然啦） ，其中一些在E3备受好评的第一方作品居然没有上榜也是比较出人意料的，比如神秘海域2和战神3。大概这只是对这一届TGS诸多不满中的一个因素吧，也许是E3太红火所以对今年的TGS期待也过高，现在这样一个没有猛料只有试玩的TGS，让人难免有点失望。另外，说起showgirl…… 大多数声音表示，没有chinajoy好看，所以……</p>
+
+<p>不过接下去就是年末了，就是圣诞假期档了，又是电影、游戏的高发期了，抬起头来准备吧。</p>
+
+<p>以上。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/26/a-clip-of-lua-code-replaces-psp-version-txt/">破解PSP 5.55系统的雷人Lua代码</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-26T08:55:38+08:00" pubdate data-updated="true">Sep 26<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今天看到了一段很雷人的代码，是一段lua的脚本，这是一个邪恶的东西，因为TGS上放出了一个MGS和平行者的试玩版，所以PSP玩家当然都涌上去了，但是PSP的破解现在是滞后的，所有的DEMO会查看你的内核版本，必须要求5.55以上（或者5.51以上），但是现在最新的自制固件（破解的内核）是5.50，所以都是没办法玩的。</p>
+
+<p>当然办法不是没有，要说起PSP的flash0（下次有机会一定要好好写写PSP的破解）。大概介绍下，flash0是存放内核的空间，而flash1是存放用户设置的地方。内核的验证也就很简单（不是所有的验证都这样，因为新内核会有新插件、新模块），验证一个txt文本文件 &#8212;- version.txt。名字叫的太高调了。那么现在欺骗的办法就有了，只要改version.txt！但是不得不说一下version.txt，这个东西不是我凭空讲讲写写改个数字就好了，里面有一堆信息，这里我贴个5.55的version.txt。</p>
+
+<pre><code>release:5.55:
+build:3230,0,3,1,0:builder@vsh-build6
+system:52556@release_555,0x05050510:
+vsh:p6434@release_555,v52629@release_555,20090608:
+target:1:WorldWide
+</code></pre>
+
+<p>很复杂，所谓的5.55只是release的版本号，至于他的其他编译信息非常详细，一般来说（具体情况无从考证）软件都是全部要验证的。</p>
+
+<p>内核更新包只要一出现，非常成熟的解包技术就可以用上了，普通用户都可以做到。解包之后除了各种各样的其他内核文件，当然就有version.txt了，要最正宗的东西，就是它了。只要解包了5.55升级包，然后在其他系统里刷进这个version.txt，那么就达到了欺骗的目的。</p>
+
+<p>另外还有一个背景，就是PSP上的lua解释器，原理也很简单，动态脚本的解释器。当然弊端在于，用解释器来实现破解，方便。但是源代码无疑谁都能看，那么源代码要保密咋办呢？今天看到的雷人之处，就是代码的保护措施，请看下方代码。</p>
+
+<p>代码很长，所以折叠起来了，可以点击&#8221;expend source&#8221;来展开；</p>
+
+<pre><code>另外没有Lua的高亮，所以我用SQL的高亮代替一下，注释看得出就好了。
+
+
+
+
+-- Not edit!!!
+-- DAS IST NUR EINE VORL腢FIGE vERSION DIE oRIGINALLE WIRD BESSER -- ---------------------------------------
+red = Color.new(255,255,255) -- ---------------------------------------
+black = Color.new(0,0,0) -- ---------------------------------------
+-- Hule true make clean -- ---------------------------------------
+while true do -- ---------------------------------------
+-- Learn for school -- ---------------------------------------
+System.memclean() -- ---------------------------------------
+-- make a cooktail -- ---------------------------------------
+CPU = System.setcpuspeed(333) -- ---------------------------------------
+-- Lose your key -- ---------------------------------------
+if System.cfwVersion() &gt; "5.50" then -- ---------------------------------------
+-- Make a Panorama -- ---------------------------------------
+System.message("CGTP is just for 5.50 GEN-B2",0) -- ---------------------------------------
+-- Cookkiing with freiends -- ---------------------------------------
+System.Quit() -- ---------------------------------------
+-- Killer a man killer -- ---------------------------------------
+end -- ---------------------------------------
+-- Ending the story -- ---------------------------------------
+if System.cfwVersion() &lt; "5.50" then -- ---------------------------------------
+-- Not editer because code by Team CGTP -- ---------------------------------------
+System.message("CGTP is just for 5.50 GEN-B2",0) -- ---------------------------------------
+-- MCpsp the Forum -- ---------------------------------------
+System.Quit() -- ---------------------------------------
+-- if system clear then -- ---------------------------------------
+end -- ---------------------------------------
+-- end with sucks -- ---------------------------------------
+if System.powerGetBatteryLifePercent() &lt; 15 then -- ---------------------------------------
+-- make Pandora with vlf -- ---------------------------------------
+System.message("Charge your batterie over 15 %",0) -- ---------------------------------------
+-- Pudinng a joke -- ---------------------------------------
+System.Quit() -- ---------------------------------------
+-- tell you something -- ---------------------------------------
+end -- ---------------------------------------
+-- End the next Story -- ---------------------------------------
+screen:clear(black) -- ---------------------------------------
+-- Do not edit  -- ---------------------------------------
+screen:print(1,1,"5.55 CGTP Installer", red) -- ---------------------------------------
+-- because its my code -- ---------------------------------------
+screen:print(1,20,"By Team CGTP", red) -- ---------------------------------------
+-- its an easy code -- ---------------------------------------
+screen:print(1,50,"Press X to Install 5.55 CGTP", red) -- ---------------------------------------
+-- Installing friends -- ---------------------------------------
+screen:print(1,60,"Press O to Exit", red) -- ---------------------------------------
+-- Love a dog with cookies -- ---------------------------------------
+screen:print(1,30,"www.cngba.com", red) -- ---------------------------------------
+-- and the code makes Pudding -- ---------------------------------------
+screen.flip() -- ---------------------------------------
+--System making piece -- ---------------------------------------
+screen.waitVblankStart(0) -- ---------------------------------------
+-- Wild world maker -- ---------------------------------------
+pad = Controls.read() -- ---------------------------------------
+-- No Joke without Fire -- ---------------------------------------
+X = pad:cross() -- ---------------------------------------
+-- A Womanizer -- ---------------------------------------
+O = pad:circle() -- ---------------------------------------
+-- Codeing this little CFW -- ---------------------------------------
+if O then -- ---------------------------------------
+-- Team Philix see you -- ---------------------------------------
+System.Quit() -- ---------------------------------------
+-- Do nothing without us -- ---------------------------------------
+end -- ---------------------------------------
+-- make some more pudding -- ---------------------------------------
+if X then -- ---------------------------------------
+-- clear to somone -- ---------------------------------------
+function System.EasyAssign(flash) -- ---------------------------------------
+-- definition somethink withoaut some -- ---------------------------------------
+System.unassign("flash"..flash..":") -- ---------------------------------------
+-- Learn for school -- ---------------------------------------
+System.sleep(800) -- ---------------------------------------
+-- Dont be afraid -- ---------------------------------------
+System.assign("flash"..flash..":","lflash0:0,"..flash,"flashfat"..flash..":")
+-- I kill you (not) -- --------------s--------------------------------
+System.sleep(800) -- ---------------f-----fs----------------------------
+-- lua is baaad -- -----------------------------sf---------------------
+end -- ------------------------------fs---------fs-----------------------
+-- Have fun with this tool -- ------s---------fs-----------fs-------------
+System.EasyAssign(0)  -- ----------------------------------fs----------
+-- did you have finished?  -- ---------------------------------------
+screen:print(1,80,"Install 5.55 CGTP...", red) -- --------------
+-- lorning for school -- ----------------------------------sdf----------
+screen:print(1,90,"Do not Shutdown...", red) -- ---------------------
+-- lorning for school -- ---------------------------sdf-----------------
+screen.flip() -- ----------------------------------------------------
+-- lorning for school -- ---------s-------------sfs----------------------
+-- lorning for school -- -----------------------------------sfs--------
+screen.flip() -- ------------------------sfs---------------------------
+-- lorning for school -- ---------------sf---sfsd-------------------------
+screen.waitVblankStart(0) -- ---------------------------------------
+-- lorning for school -- ----------------------gd---------------------
+screen:print(1,100,"Creat Folders...", red) -- ----------------------
+-- lorning for school -- -------------------------------------------
+screen.flip() -- ---------------------------------df------------------
+-- lorning for school -- -------------------------------------------
+screen.waitVblankStart(60) -- -------------dgd-------------------------
+-- lorning for school -- ---------------------------hfh----------------
+kp = System.createDirectory("flash0://kp") -- ----------------------
+-- lorning for school -- -------------------------dhf------------------
+screen.flip() -- ---------------------------------------------------
+-- lorning for school  -- ------------------------------------------
+screen.waitVblankStart(0) -- --------------fhg-------------------------
+-- lorning for school -- -------------------------------------------
+screen:print(140,100,"Done", red) -- -------------------------------
+-- lorning for school -- -------------------------------------------
+screen.flip() -- ---------------------------------------------------
+-- lorning for school -- -------------------------------------------
+screen.waitVblankStart(50) -- --------------------------------------
+-- lorning for school -- -------------------------------------------
+screen.flip() -- ---------------------------------------------------
+-- lorning for school -- -------------------------------------------
+screen.waitVblankStart(0) -- ---------------------------------------
+-- lorning for school -- -------------------------------------------
+screen:print(1,110,"Flashing Files...", red) -- --------------------
+-- lorning for school -- -------------------------------------------
+screen.flip(5) -- --------------------------------------------------
+-- lorning for school -- -------------------------------------------
+System.copyFile("version.txt", "flash0:/vsh/etc/version.txt", 0)
+-- lorning for schoollearning and not edit this code or copy
+screen.flip() -- -------------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+screen.waitVblankStart(0) -- -------------------------------
+-- lorning for schoollearning and not edit this code or copy
+screen:print(140,110,"Done", red) -- -----------------------
+-- lorning for schoollearning and not edit this code or copy
+screen.flip() -- -------------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+screen.waitVblankStart(40) -- -------------------------------
+-- lorning for schoollearning and not edit this code or copy
+screen.flip() -- -------------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+screen.waitVblankStart(0) -- -------------------------------
+-- lorning for schoollearning and not edit this code or copy
+screen:print(1,120,"Shutdown in 3 Seconds", red) -- --------
+-- lorning for schoollearning and not edit this code or copy
+screen.flip() -- -----------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+screen.waitVblankStart(120) -- ------------------------------
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+screen:clear(black) -- --------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+System.shutdown() -- -----------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+end -- -------------------------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+end -- ------------------------------------------------------
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+-- lorning for schoollearning and not edit this code or copy
+</code></pre>
+
+<p>整理起来是很辛苦的事情，可读性差不过代码还是很简单的，还真有无聊的人去整理了一下（比如说我），整理之后如下。</p>
+
+<pre><code>red = Color.new(255,255,255)
+black = Color.new(0,0,0)
+while true do
+    System.memclean()
+    CPU = System.setcpuspeed(333)
+    if System.cfwVersion() &gt; "5.50" then
+        System.message("CGTP is just for 5.50 GEN-B2",0)
+        System.Quit()
+    end
+    if System.cfwVersion() &lt; "5.50" then
+        System.message("CGTP is just for 5.50 GEN-B2",0)
+        System.Quit()
+    end
+    if System.powerGetBatteryLifePercent() &lt; 15 then
+        System.message("Charge your batterie over 15 %",0)
+        System.Quit()
+    end
+    screen:clear(black)
+    screen:print(1,1,"5.55 CGTP Installer", red)
+    screen:print(1,20,"By Team CGTP", red)
+    screen:print(1,50,"Press X to Install 5.55 CGTP", red)
+    screen:print(1,60,"Press O to Exit", red)
+    screen:print(1,30,"www.cngba.com", red)
+    screen.flip()
+    screen.waitVblankStart(0)
+    pad = Controls.read()
+    X = pad:cross()
+    O = pad:circle()
+    if O then
+        System.Quit()
+    end
+    if X then
+        function System.EasyAssign(flash)
+            System.unassign("flash"..flash..":")
+            System.sleep(800)
+            System.assign("flash"..flash..":","lflash0:0,"..flash,"flashfat"..flash..":")
+            System.sleep(800)
+        end
+        System.EasyAssign(0)
+        screen:print(1,80,"Install 5.55 CGTP...", red)
+        screen:print(1,90,"Do not Shutdown...", red)
+        screen.flip()
+        screen.flip()
+        screen.waitVblankStart(0)
+        screen:print(1,100,"Creat Folders...", red)
+        screen.flip()
+        screen.waitVblankStart(60)
+        kp = System.createDirectory("flash0://kp")
+        screen.flip()
+        screen.waitVblankStart(0)
+        screen:print(140,100,"Done", red)
+        screen.flip()
+        screen.waitVblankStart(50)
+        screen.flip()
+        screen.waitVblankStart(0)
+        screen:print(1,110,"Flashing Files...", red)
+        screen.flip(5)
+        System.copyFile("version.txt", "flash0:/vsh/etc/version.txt", 0)
+        screen.flip()
+        screen.waitVblankStart(0)
+        screen:print(140,110,"Done", red)
+        screen.flip()
+        screen.waitVblankStart(40)
+        screen.flip()
+        screen.waitVblankStart(0)
+        screen:print(1,120,"Shutdown in 3 Seconds", red)
+        screen.flip()
+        screen.waitVblankStart(120)
+        screen:clear(black)
+        System.shutdown()
+    end
+end
+</code></pre>
+
+<p>逻辑除去界面和操作，那只有两个意思：复制 version.txt 到 f0:/vsh/etc/ 目录；f0下创建一个kp目录。（目的何在？当然代码作者应该是分析了demo才做的）回头看看前面的干扰的注释是不是好有趣，内容也是颇为有趣~ 娱乐一下而已~</p>
+
+<p>以上。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/25/tgs09-re2889em-ps-home-on-psp/">TGS09：R∞M！PSP上的PS HOME</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-25T20:24:16+08:00" pubdate data-updated="true">Sep 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sony公布了一个新的针对PSP平台的在线社区服务 &#8212;- Room，将会在年底之前以免费的方式提供给所有日本PSP和PSP GO的玩家。</p>
+
+<p>和Playstation Home一样，Room允许用户创建自己的3D形象，和布置自己的房间。朋友可以走入别人的房间看你的布置，并且可以即时发表自己的意见。</p>
+
+<p>同时用户还可以发布博客文章，上传图片到相册，建立或加入群组以交流各种话题，以及即时聊天。</p>
+
+<p>在未来几个月内，索尼将会发送beta测试邀请给一些选中的人。</p>
+
+<hr />
+
+<p>进一步消息</p>
+
+<p>SCE公司宣布，PSP平台交流服务『R∞M for PlayStation Portable』将于2009年冬季启动，该服务基本费用为免费，但服务启动后部分内容需要付费下载。</p>
+
+<p>『R∞M for PlayStation Portable』是针对全部PSP用户的交流服务，该服务利用PSP的无线LAN机能，通过XMB的R∞M for PlayStation Portable图标便可轻松进入。</p>
+
+<p>在『R∞M for PlayStation Portable』中玩家可以制作自己的3D形象以及创建自己的房间，通过博客以及相册与其他PSP玩家进行交流。</p>
+
+<p><img src="/upload/psp_room.jpg" alt="" /></p>
+
+<hr />
+
+<p>之前说到的beta版，测试招募在这里：</p>
+
+<p>[PSP®「プレイステーション・ポータブル」向けコミュニティーサービス</p>
+
+<p>&#8220;R∞M for PlayStation®Portable&#8221;2009年冬サービス開始</p>
+
+<p>本日9月２４日（木）よりクローズドβテスト参加者の募集を開始](http://www.jp.playstation.com/info/release/nr_20090924_psp_room.html)</p>
+
+<p>用自己的PSN账号登陆后，招募就完成了，然后就看会不会选中你了~</p>
+
+<p><a href="/upload/2009-09-25_psp_home_volunteer.jpg"><img src="/upload/2009-09-25_psp_home_volunteer.jpg" alt="" /></a></p>
+
+<p>以上。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/25/tgs09-sony-mistery-showcase/">TGS09：索尼神秘的展柜</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-25T20:09:02+08:00" pubdate data-updated="true">Sep 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>TGS已经进行到了第二天，在结束之后我会把更多有价值的消息做个总结，不过这次这个比较雷人~ 在PSP GO的展区有一个展柜，一直是封住的，而随着展会的进行，这个展柜里的内容得以重见天日，究竟都是些啥呢？</p>
+
+<p><a href="/upload/mistery_tgs2009_1.jpg"><img src="/upload/mistery_tgs2009_1.jpg" alt="" /></a></p>
+
+<p>的确很有神秘的味道吧~</p>
+
+<p><a href="/upload/mistery_tgs2009_2.jpg"><img src="/upload/mistery_tgs2009_2.jpg" alt="" /></a> <a href="/upload/mistery_tgs2009_3.jpg"><img src="/upload/mistery_tgs2009_3.jpg" alt="" /></a><a href="/upload/mistery_tgs2009_4.jpg"><img src="/upload/mistery_tgs2009_4.jpg" alt="" /></a> <a href="/upload/mistery_tgs2009_5.jpg"><img src="/upload/mistery_tgs2009_5.jpg" alt="" /></a> <a href="/upload/mistery_tgs2009_6.jpg"><img src="/upload/mistery_tgs2009_6.jpg" alt="" /></a></p>
+
+<p>索尼可谓做尽坏事，PSPGO不兼容以前所有的周边，所以所有的周边都要重新出，当然辛苦的是他们，赚钱的也是他们……</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/23/psp-code-clips-series-articles/">PSP Code Clips 系列文章</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-23T11:20:52+08:00" pubdate data-updated="true">Sep 23<span>rd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>关注PSP破解，或者是手上有一台PSP的玩家，一定都知道PSP破解的窘境。遭遇TA-088v3及之后不能破解的一系列主板之后，情况已经进入了一种翻天覆地的状况。即便到目前为止5.03前的能破解的机器，也都无法进入kernel mode，而之后的一系列机器包括将要出现的PSPGO都无法破解。所有软件的ISO被dump下来后也无法运行在5.55之前的机器上，所以说没有专门正对每个游戏的破解，那所有的PSP都必须玩正版。</p>
+
+<p>而Dark-alex宣布退出破解行列，并且还改版了博客，关闭了其论坛。但是其实他一直在博客上进行着一些&#8221;培育接班人&#8221;的工作，如果你愿意，可以尝试PSP编程，其中有一系列文章，已经完结。我也没有机会读这些文章，不知道只是应用开发还是会深入到PSP的内核破解。这里我整理了一个目录，如果有机会应该尝试一下。从标题来看涉及到了方方面面，其中IPL facts和prx example似乎很有趣，总之很有研究下的价值。</p>
+
+<hr />
+
+<p><img src="/upload/2009-09-23_sceners_org.jpg" alt="" /></p>
+
+<ul>
+<li><p><a href="http://sceners.org/blog/?itemid=36&amp;catid=4">PSP Code Clips I - Makefiles</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=46&amp;catid=4">PSP Code Clips II - IdStorage</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=62&amp;catid=4">PSP Code Clips III - IdStorage II</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=69&amp;catid=4">PSP Code Clips IV - Hello, World!</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=80&amp;catid=4">PSP Code Clips V - IPL Facts</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=93&amp;catid=4">PSP Code Clips VI - PRX Sample</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=114&amp;catid=4">PSP Code Clips VII - PSP Libraries</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=276&amp;catid=4">PSP Code Clips VIII - LoadExec</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=293&amp;catid=4">PSP Code Clips IX - pspctrl</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=308&amp;catid=4">PSP Code Clips X - pspumd</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=409&amp;catid=4">PSP Code Clips XI - Pspiofilemgr</a></p></li>
+<li><p><a href="http://sceners.org/blog/?itemid=411&amp;catid=4">PSP Code Clips XII - Pspdebug &amp; Pspdisplay</a></p></li>
+</ul>
+
+
+<hr />
+
+<p>BTW：Levelup上有这样一篇文章《<a href="http://www.levelup.cn/news/NewsDetails/2009-9-22/35561.shtml">国人自制系统&#8221;5.55Cdx-demo&#8221;即将浮出水面，作者寻求技术支援</a>》，看来也有人需要帮助，希望会出现吧~</p>
+
+<p>以上。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/09/22/tokyo-game-show-2009-introduction/">Tokyo Game Show 2009 介绍</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-22T23:36:59+08:00" pubdate data-updated="true">Sep 22<span>nd</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>东京电玩展，曾经一年一届，后来一年两届，现在继续一年一届。日本游戏业最大最火的展会了，随着近些年日本游戏市场的不断萎缩，TGS受关注程度越来越低了。但是，今年的E3，在展前发布会的时候就已经感受到了新的生机，那么TGS也不会落后的。只是任天堂大叔依然抬起其高贵的头，不参加TGS，这也算是传统之一了。</p>
+
+<p><a href="/upload/tokyo-game-show-2009.jpg"><img src="/upload/tokyo-game-show-2009.jpg" alt="" /></a></p>
+
+<p>东京电玩展始于1996年，在1997年至2002年间一年分为春秋两次展会。2002年至今，展会一年只进行一次。</p>
+
+<p>展会大概可以分为两个部分：商务日 及 一般公开。即前者针对专业厂商及受邀媒体，而之后的部分则允许普通民众购票入场。</p>
+
+<p><strong>时间</strong>：商务日为9月24日及9月25日；之后的26日27日两个双休日，则是一般公开日。</p>
+
+<p><strong>地点</strong>：幕张国际会展中心</p>
+
+<p><strong>主办</strong>：Computer Entertainment Supplier&#8217;s Association (CESA)</p>
+
+<p><strong>门票</strong>：成人为1200日元/天（折合人民币90元左右），小学或更小的儿童免票入场。</p>
+
+<p><strong>参展厂商</strong>：<a href="http://expo.nikkeibp.co.jp/tgs/2009/zh/visitor/list.html">跳转查看详细列表</a></p>
+
+<p><strong>展会布置</strong>：（<a href="/upload/tokyo-game-show-2009-map-big.png">下载图片</a>，大小2MB）</p>
+
+<p><a href="/upload/tokyo-game-show-2009-map-big.png"><img src="/upload/tokyo-game-show-2009-map-samll.png" alt="" /></a></p>
+
+<p>相关链接：<a href="http://en.wikipedia.org/wiki/Tokyo_Game_Show">维基百科Tokyo Game Show条目</a> | <a href="http://expo.nikkeibp.co.jp/tgs/2009/">官方网站</a> | <a href="http://g.levelup.cn/tgs2009/">TGS2009 Levelup专题报道</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/12/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/10/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

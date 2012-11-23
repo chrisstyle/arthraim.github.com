@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>git修剪分支 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。 git branch 可以查看本地有的分支，当前分支之前有个*。
+git branch -r 查看所有远程的分支（不代表远程还有的分支）
+git &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2012/03/02/git-prune-branch/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Git修剪分支</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-02T08:07:32+08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。</p>
+
+<ul>
+<li><p><code>git branch</code> 可以查看本地有的分支，当前分支之前有个*。</p></li>
+<li><p><code>git branch -r</code> 查看所有远程的分支（不代表远程还有的分支）</p></li>
+<li><p><code>git branch -a --color</code> 查看所有分支（<code>--color</code>加颜色，绿色是tracking的）</p></li>
+<li><p><code>git branch -d TAG</code> 删除本地分支，如果这个分支有没有合并的提交，git会提示你改用 <code>-D</code> 强制删除（或干脆别删除！）</p></li>
+<li><p><code>git push REMOTE :TAG</code> 删除远程REMOTE（比如一般叫origin）分支，注意分支名前加冒号</p></li>
+<li><p><code>git remote prune REMOTE</code> 这个指令比较特殊，如果你在A仓库上<code>git fetch</code>过，在B仓库用上一条命令删除了远程分支，那么A仓库里 <code>git branch -r</code> 还是可以看到已经删掉的分支。这个时候可以用这个命令修剪这些分支。</p></li>
+<li><p><code>git prune</code> 在本地也可以使用，不过作用我还真不清楚，官方用推荐用 <code>git gc</code></p></li>
+</ul>
+
+
+<p>记录下，git真的很萌的你们不要黑他。</p>
+
+<p>以上。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-02T08:07:32+08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2012/03/02/git-prune-branch/" data-via="" data-counturl="http://Arthraim.github.com/blog/2012/03/02/git-prune-branch/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/" title="Previous Post: Mac OS 10.7.3用xcode提交二进制文件验证失败">&laquo; Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/" title="Next Post: 2012欧洲杯Google,iCal,Outlook日历">2012欧洲杯Google,iCal,Outlook日历 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="一直觉得Z-blog很好，就是每次想写一些技术文，就会觉得哎呀没有代码插入功能好麻烦。于是今天终于下定决心好好找一个，哪怕没有也要自己写一个，哪怕不是插件，根目录下面放一个页面自己转换转换也好啊。 在寻觅了很久之后，发现其实Z-blog就有这样的插件，叫做CodeLight，出自这位博主之手。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/page/21/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/18/syntax-highlighting-plugin-of-z-blog/">Z-blog的Syntax Highlighting插件</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-18T07:54:46+08:00" pubdate data-updated="true">Apr 18<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一直觉得Z-blog很好，就是每次想写一些技术文，就会觉得哎呀没有代码插入功能好麻烦。于是今天终于下定决心好好找一个，哪怕没有也要自己写一个，哪怕不是插件，根目录下面放一个页面自己转换转换也好啊。</p>
+
+<p>在寻觅了很久之后，发现其实Z-blog就有这样的插件，叫做CodeLight，出自<a href="http://www.macgoo.com/myblog/">这位</a>博主之手。<a href="http://bbs.rainbowsoft.org/thread-30667-1-1.html">这是</a>发在<a href="http://bbs.rainbowsoft.org/">rainbowsoft.org论坛</a>上的贴，有人提意见建议，有人去感谢作者，也有人交流如何继续发展下去，感觉不错。对了，还有最重要的，作者的<a href="http://www.macgoo.com/myblog/archives/102/">官方发布页</a>，像是每个版本作者都在那里更新了，下载地址也去那里找吧，所谓饮水思源，我就赤裸裸的拉个下载链接过来可不好。</p>
+
+<p>下面我就乱贴一些代码吧测试一下吧，貌似不用他们那样的测试，我就谢谢hello world，估计今天将是写hello world写的最多的一天了。</p>
+
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+int main()
+{
+    cout&lt;&lt;"Hello wolrd!"&lt;&lt;endl;
+    return 0;
+}
+
+
+
+
+
+
+
+
+#include&lt;stdio.h&gt;
+int main()
+{
+    printf("Hello wolrd!n");
+    return 0;
+}
+
+
+
+
+
+
+
+
+using System;
+namespace HelloWorld
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+            Console.ReadKey(true);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+public class HelloWorld
+{
+    public static void main(String[] args)
+    {
+        System.out.println("Hello World!");
+    }
+}
+</code></pre>
+
+<p>就来个C家族的大会面吧，其他也都不太会，呵呵。挺好玩的，感谢作者，以后可以悄悄的发一些代码了。</p>
+
+<p>另外，之前老弟来说回复不上来，然后才想起来那天网速慢于是插件没有弄好（弄了一半），也就是说第二天到今天以来，访客都不能正常回复，我现在搞定这个问题了～ 嘿嘿</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/17/lost-wow-the9-lost-majority/">失去魔兽世界，九城折了九成</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-17T05:42:39+08:00" pubdate data-updated="true">Apr 17<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="/upload/wow-wrath-of-the-lich-king.jpg" alt="" /></p>
+
+<p>今天从年后就开始沸沸扬扬的雷人的消息得到了确认，魔兽世界国内代理权离开九城投靠网易。暴雪和网易宣布，在和九城的合同到期后，由网易获得大陆魔兽世界的独家代理权，为期三年。</p>
+
+<p><img src="/upload/blizzard-logo.png" alt="" /></p>
+
+<p>我不是关注网络游戏的人，但是是关注游戏界的人，所以我无所谓九城如何，我知道暴雪如何。暴雪在这个世界上做着其他游戏厂商都做不来的事情，就是引领时代。无论是暗黑破坏神还是星际争霸，都成为了引领一代角色扮演和即时战略的游戏，而魔兽争霸3更是把自己建立的国家扩展成了一个王朝。借着这个王朝，魔兽世界又引领起了3D网友的时代。所以常去的游戏网站上看到过有人这样的留言：&#8221;暴雪是十年磨一剑，一剑用十年；而一般厂商是一年磨十剑，十剑用一年。&#8221; 然而暴雪在和activision在一起之后，就干了很多意想不到的事情。公布了各个大作的续作不说，还说要创造第五个游戏品牌，然后紧跟着，要把中国的代理换了。</p>
+
+<p><img src="/upload/the9_logo.jpg" alt="" /></p>
+
+<p>九城是一个每年十几亿的上市公司，而他每年九成的收入依靠了魔兽世界。魔兽世界在中国运营了三年，看着他一点一点的小变化，却永远看不到他身边失去玩家。感觉一个网游在视线里疯狂了这么久，真的很少。说起来大学里没玩过wow就没有玩过网游。哪怕是我，上线了和人聊聊天，钓钓鱼的，我也觉得魔兽世界的确给了你一个世界。可想而知九城得到魔兽世界是一件多么赚钱的事情。昨天看见刘兴亮的博客上的文章<a href="http://blog.sina.com.cn/s/blog_56c35a550100d0vn.html">《论九城的即将倒掉》</a>，第一反应是九城没有了魔兽世界咋办。后来也一直有听周围的人在议论，今天官方一宣布，这话题就变得很让人好奇了。</p>
+
+<p><img src="/upload/neteasy_logo.jpg" alt="" /></p>
+
+<p>网易当然是最高兴的人了，有玩家和我说起来，出版署帮着网易在拦着巫妖王之怒，巫妖王看来真的在国内发怒了，不知道是在九城吃的不饱，还是嘴馋了想吃更多。不过这样的说法也只是个说法而已。网易也推出了<a href="http://wow.163.com/">WOW过渡站</a>，过渡工作应该说难度将会非常的大，或者说责任非常的大，也许我的帐号丢了也没关系，可是某些人的帐号要是被网易搞丢了，网易可就糗大了。看来国内玩家要等着九城网易过渡之前，还要多上上这个网站让自己的心灵过渡过渡。今天网站上第一个好消息就是&#8221;网易赢了&#8221;，我假想的标题，不过对玩家来说，骂九城的时候也有，帮九城的时候也有，以后站在那里的冲头就是网易了。</p>
+
+<p><img src="/upload/20090416_zhujun.JPG" alt="" /></p>
+
+<p>看到ESPN的一篇报道，讲的是朱骏，恐怕对于一个体育网站来说，关心的应该是申花队以后怎么办，而不是九城怎么办。报道里写道&#8221;不过当看到日前朱骏在足球场上潇潇洒洒享受足球的快乐时，你绝对看不出这像是如外界传说的失去了90%以上经济来源的人。朱骏说：&#8217;下午比赛我还进了两个球，你觉得我的心情怎么样呀？&#8217;，那种骄傲劲儿绝非是人到落难之时的表现。&#8221; 九城因为魔兽世界而在NASDAQ上市，风风火火走过了三年多，现在失去了主要的盈利手段，亏得朱骏心态还很好。</p>
+
+<p><img src="/upload/qiubojun.jpg" alt="" /></p>
+
+<p>求伯君：&#8221;如果代理的是一个烂游戏，付很高成本，就没钱赚；如果的是好游戏，培养了几年市场，失去代理权，再续签可能是一个天价，这等于过去几年在为别人打工，或做嫁衣。&#8221; 一直记得求伯君的剑侠情缘，但是他当年输给了仙剑奇侠传，虽然求伯君说的很有道理，但是国人自主开发的游戏，的确是勾不起玩家的兴趣。</p>
+
+<p><img src="/upload/MichaelMorhaime.JPG" alt="" /></p>
+
+<p>Michael Morhaime：&#8221;我们衷心感谢广大中国玩家长年来对我们的热忱支持,也一直和我们的合作伙伴一起,全力保证向他们提供与其他地区一致的高质量的服务和游戏体验.和网易的这一新协议将支持我们未来继续履行对中国玩家的承诺.接下来我们期待着与他们合作推动《魔兽世界》的平稳过渡.&#8221;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/16/z-blog-optimizing/">Z-blog的美化</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-16T08:33:32+08:00" pubdate data-updated="true">Apr 16<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>用了几天的Z-blog了，越用越觉得舒服，自己也做了很多的美化工作，让他变得更加个性化，想法都实现了，稍稍总结一下做了的事情。</p>
+
+<p><strong>1、换主题样式。</strong></p>
+
+<pre><code> 这是最最基础的个性化工作了，应该是所有个性化的第一步吧，在认证的主题里面选到了invove（也是因为看见这个主题可以用才尝试选择了Z-blog）。的确很棒，是我最喜欢的版式，风格又十分的漂亮。好吧，那么就用上它吧。用Theme Sapper装主题完全没有难度，也是后台整合好这个插件的原因吧。  
+
+![](/upload/2009-04-16_Theme.png)
+</code></pre>
+
+<p><strong>2、后台工作。</strong></p>
+
+<pre><code> 装完了主题，就要开始做一些更加细致的工作了。在后台游荡，把能设置的都设置一下吧。[网站设置管理]里设置好相应的一些资料，起码要给博客取个好听个性的名字吧，还有title也要改，另外改版权声明，加上备案号等等。（一般加备案号的时候就应该想到可以在这里插入代码了吧～）还有个容易忽视的地方，[用户管理]里面要把email地址填上，这样你的feed里才不会显示a@b.com啊～ 然后[链接管理]里面每一个都是定制强度非常高的，加几个或者备注掉几个li，就可以合理的选择自己觉得有用的东西了。昨晚后台的这些工作，博客基本上就像个样子了～ 可以写文章用起来了。不过要求更高一点，就要向着下面的工作进发了。
+</code></pre>
+
+<p><strong>3、装插件。</strong></p>
+
+<pre><code> 插件是Z-blog的优点之一，虽然有这样好的架构的博客很多，不过Z-blog做的还是不错的。用Plugin Sapper装插件、管理插件，就像操作主题一样简单，而且可以导入导出，直接在后台上传而不必操作ftp。究竟装了些什么插件呢？月光博客上说的5个是一定要装的（[http://www.williamlong.info/archives/1474.html](http://www.williamlong.info/archives/1474.html)）。**[Google站点地图 - Sitemaps](http://download.rainbowsoft.org/plugins/Sitemaps/) | **[Ping中心和引用通告发送器 - PingTool](http://download.rainbowsoft.org/plugins/PingTool/) | **[RSS优化 - BetterFeed](http://download.rainbowsoft.org/plugins/BetterFeed/) | **[标题搜索引擎优化 - TitleSEO](http://download.rainbowsoft.org/plugins/TitleSEO/) | **[月光反垃圾留言过滤 - Antispam](http://download.rainbowsoft.org/plugins/Antispam/)**********。你说他们有多实用呢？可能你自己还觉察不太出来，不过对于像月光博客这样的访问量来说的确就很重要了。sitemap和titleSEO可以让googlebot等搜索引擎的爬虫更加方便的找到你，并且在你网站里快速抓取有用的内容。pingtool和betterfeed都是强化你的RSS订阅功能的，当然也能提高搜索引擎关注你的效率，除了站点浏览，这种方式也是相当重要的。antispam可以去除一些会被搜索引擎回避的垃圾回复等，显然也是对提高访问量有巨大的好处。所以比起真正的实用性，这几个对于推广的作用更大。  
+
+ 另外我还选择了一些自认为有价值的，"Picaza"是一个在自己blog就可以浏览你的picasa相册的插件，对于主机不是很宽裕的人来说，不是文章中插入的图片就交给其他相册吧～ "文章投票评分插件"是现在比较时髦的东西，是月光博主原创的，在文章末端加入5星的打分，就像很多门户网站的：顶，踩，献花，俯卧撑一类的差不多，而这个插件也十分的漂亮。
+</code></pre>
+
+<p><strong>4、处理feed</strong></p>
+
+<pre><code> 除了做好网页，还要做好feed，这样愿意用RSS阅读器第一时间了解你更新的人也能关注到你的博客。要做些什么呢？  
+
+ 我先选择了feedsky注册自己的账户，然后把feed.asp的地址交给他"包装一下"，这样你的订阅量等等数据都是可以被你自己知道的～ 这也是网站不可或缺的指标了吧。  
+
+ 另外，包装的重要一步就是要绑定域名，给个二级域名给你的feed，比如我的是[http://feed.arthraim.cn/](http://feed.arthraim.cn/)，而不是arthraim.cn/feed.asp了，这样你的feed是不是看上去也专业了一点呢？  
+
+ 包装好之后，就要让别人方便的订阅到它了。那么在后台[链接管理]-&gt;图标的地方可以加上一个统计和链接功能都有的图标。像我虽然还只有可怜巴巴的2个，不过放着也是一件愉快的事情。当然你还可以选择一些其他的图标，比如直接订阅到各种阅读器的图标。不过feedsky提供了这些功能的，我就不愿意在主页加入它们了。  
+
+![](/upload/2009-04-16_MistReader.png)  
+
+ 主页有个RSS feed的图标放着挺协调，可是它还是链接到了feed.asp，以至于我弟弟第一次上我的博客就直接订阅了那个。所以既然用了feedsky，那么就让大家都订阅它吧。所以要在主题的TEMPLATE里面，把所有的链接到feed.asp的链接地址都改掉。虽然听上去很烦，不过其实如果你和我一样用了Google Desktop，并且已经索引了你的备份文件夹，那么找起来就十分方便了。另外想Notepad++这样的工具，也是可以在所有打开的文件里面替换的，所以把TEMPLATE一股脑儿来个手术吧～（BTW：Notepad++是个宣扬藏独的团队哦，所以爱国青年要远离这个东西，取代品可是很多呢～ 至于我，不参与政治所以无视它可以吗？）  
+
+![](/upload/2009-04-16_RSSfeed.png)  
+
+ 刚才说到的两个优化订阅的插件就有用了。每次写完文章ping一下要ping的地方，那么像feedsky的话几乎让别人和订阅feed.asp没有任何的时差，我的话一般几分钟就会更新了。还有betterfeed，可以在别人看到的摘要里加入相关链接等功能，不但保护了自己的知识产权，也加大了订阅者的选择范围，提高访问量。
+</code></pre>
+
+<p><strong>5、加入统计</strong></p>
+
+<pre><code> 作为Z-blog博客的博主，你不再是其他博客站点上的用户了，你是一个站长，不折不扣的站长，那么你就要知道多少人访问了你的博客等等。加入一些探测器在博客里，是非常有必要的。我选择了两家，一个是Google Analytic，还有一个是cnzz。两者都提供了非常详细的数据，cnzz更为详细一点。具体方法很简单，两端脚本代码加到[网站设置管理]里的版权声明里就好了，当然要改TEMPLATE那是王道，不过个人感觉没什么差。  
+
+![](/upload/2009-04-16_cnzz.png)
+</code></pre>
+
+<p><strong>6、做点小小的推广</strong></p>
+
+<pre><code> 小小的推广是和博客无关的了，把博客推荐给你的亲朋好友那是肯定的。另外可以选择一个叫做Google网站管理员工具的东西，把你的站点加入进去，把之前插件创建的sitemap也交给Google，那么好吧，这个搜索引擎之王就认识你了哦。这样的推广会比口头来的更加管用，等到你发现你的访问来源已经不仅限于自己的省了，你就知道它正在发挥作用了。  
+
+![](/upload/2009-04-16_GoogleWebMaster.png)
+</code></pre>
+
+<p><strong>7、加入日历</strong></p>
+
+<pre><code> 默认的模板是有日历的，日历上写着哪几天有你的文章在更新，是我个人很喜欢的功能。可是invove这个模板没有，那么怎么办呢，很简单，自己加。TEMPLATE改起来是一件轻松的事情。首先从默认主题的TEMPLATE里抽出calendar的DIV，一小段代码而已，然后加入到你的模板你要加的地方，因为内核是一样的，所以功能是不用你来做的，记得把class和id取的和自己的模板风格接近就好了。然后到默认模板里找css，比如Default2.css里用注释隔开了一段繁杂的calendar有关的样式代码，那么把他们原封不动考过来放到自己的css里，比如我的invove.css。适当的做一些CSS的调整，那么一个符合你的风格的日历就出现在自己的主页上了。就像我的。不过要注意的是，catalog.html里面的代码是多一个_NOW的哦～ 不然链接就不听话了，这是我遇到的问题，应该不是所有人都会遇到吧。并且究竟要在哪里放上日历，有选择性的就好了。  
+
+![](/upload/2009-04-16_Calendar.png)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/15/questions-to-be-considerated-for-students-setting-up-new-career/">大学毕业生IT创业不得不考虑的n个问题</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-15T13:38:29+08:00" pubdate data-updated="true">Apr 15<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>眼看还有一年就要毕业，心里也一直有创业的念头，可是经常躺在床上翻来覆去的想，究竟创业是个什么样的东西呢？说起来很简单，创业，无非注册一个公司自己搞搞产品，或者做做外包。可是究竟如何十分的抽象，该如何创业呢？我也一直在思考，稍微罗列一下最近想过的念头。其实创业离我还是有一段距离，先写下创业前我的想法，等我出去晃荡了一圈，再回头说说这些或者更多的感悟。</p>
+
+<p>创业，从开公司开始讲。现在对大学生注册公司的门槛很低，运气好的话的到创业大师的指导，被有资金的公司看重，那么说不定一下子就可以有一个不错的开始。可是究竟一上来应该干什么呢？最简单的事情，我想到的最现实的就是做外包。找几个合作比较愉快的同学，在大学里有过一起开发项目的默契的，在网上接几个满世界堆满的项目下来做。一个月两个人能做两三个，那么自己的工资就稳妥了。听起来还不错，可是却觉得没有激情，既然有了自己的公司，有了一个小小的团队，为什么不自己搞出一些产品来呢？创业从自己的产品出发，是最理想的。</p>
+
+<p>那么我们要的就是点子。全中国一年毕业生有多少，几千万人里面从事IT的有多少，从事IT的想创业的有多少，想创业的想破脑袋有了一两个创意的点子的人又有多少。另外，除了应届毕业生，每年在IT行业里IT行业外天天做着发财梦盼望着自己能想出来一个点子创业的人又有多少。说起来这似乎真的是一个十分渺茫的念头，凭什么此时此刻我的点子就创业了，就能成功了？究竟如何符合市场需求，究竟这个世界上还需要什么？每个人都在想，就看你是不是突发奇想发现并付出行动了。有个积极的心也是相当重要的。想着创业多渺茫，创业多艰难，真正要走出这一步也是需要很多勇气的。</p>
+
+<p>然后是技术和经验。这是我自己最担忧的问题，凭着学校里给参与了几下下的国家立项的商业价值不大的项目经验，凭着学校内部建设需要的小项目的参与经验，凭着毕业设计课程设计和偶尔的几个外包小项目的经验，能让自己的技术顶得住市场的考验嘛？如果我是拿着我的点子出去和别人叫板，到时候生存的法则就是谁的东西做的好了。而凭着自己摸索的架构能经得住这样那样的考验嘛？很多已经毕业的学长他们挑公司，很看重公司拿下来的项目的设计，因为在他们看来一个公司的实力体现在架构上。而我今天走出校门自己创业，好，那就是从头摸索。先摸出一套差不多的公司主页的模子，然后去找一些类似的项目稍作修改，这就是软件工程的小小起步，然后我要把几十年来人们在软件工程上经历的变革自己摸索一边。看看书本摸得出来那还好，摸了三年五载的没有个成熟的架构，估计要生存下去也是不现实了。能多少干了3、5，对这个行业来说就不是新手了，多多少少看会了一些东西，自己搞也许有底。技术是我最担心的，也是唯一能自己充电的。</p>
+
+<p>那天偶然看到雷军博客上说网络创业。说了四点我觉得看了很有感悟：</p>
+
+<p><img src="/upload/leijun.jpg" alt="" /></p>
+
+<p><strong>1.专注：解决用户一个迫切的需求，解决的问题一句话就可以说清楚。</strong></p>
+
+<p>(1) 一个明确而且用户迫切需要的产品，很容易找到明确的用户群。这样，产品研发出来后，不容易走偏。(2) 选择的用户需求要有一定的普遍性，这点决定这个产品的未来市场前景。(3) 解决的问题少，开发速度快，也容易控制初期的研发成本和风险。(4) 解决明确问题的产品，容易给用户说清楚，推广也会相对简单。</p>
+
+<p><strong>2.极致：要在这个功能点上做到所有同类产品的极致，做到最好才能赢。</strong></p>
+
+<p>(1) 极致是互联网产品的核心，只要极致才能超出用户的口碑，形成口口相传的效应，给后期的推广带来了很大的便利。(2) 专注才能做到极致，做到极致才能击败竞争对手。</p>
+
+<p><strong>3.快：开发周期一定要控制在三到六个月的时间，一定要快。</strong></p>
+
+<p>(1) 互联网时代，用户需求变化比较快，而且竞争也比较激烈。快速的开发，容易适应整个市场的节奏，并且节约成本。(2) 用户试用过程中，如果发现问题，反应速度也要快，尽快改善尽快更新。初期，我认为要保持在一两周的更新速度。</p>
+
+<p>**4.口碑：初期市场营销坚持少花钱甚至不花钱，才能看出产品对用户真正的吸引力。</p>
+
+<pre><code>** (1) 产品完成后，不要着急，先坚持在一个小规模的用户群中试用，听听用户反馈。  
+
+ (2) 大规模的推广会带来如下的两个问题：  
+
+ 一、投入大量市场费用后，用户期望值很高，如果产品不完善，很容易引起负面的口碑，为以后的推广留下了隐患。  
+
+ 二、大规模市场推广得到的测试效果不准确。如果产品不完善，甚至需求选择有问题，会被数字掩盖。当推广费用停止后，用户量不增长甚至下滑，再改就来不及了。过去几年成功的互联网创业公司，其实在市场营销上花的钱都非常少，但这些公司在市场营销上花的精力并不少。  
+
+ (3) 刚开始最重要的推广技巧是搜索引擎优化和病毒式营销。
+</code></pre>
+
+<p>这不是针对大学生创业的，这是对于大公司来说，他说道&#8221;挥刀自宫&#8221;，对于大公司要放下架子放下大手笔的作风。对于大学生创业来说，也许没有架子省吃俭用是我们唯一的优势了，如何在最有限的情况下，创造出我们最有价值的创业产品，是我们会去认真思考的东西，也是我们思维上的优势。是不是这种优势能帮助我们创业，也只不过是空话一句。</p>
+
+<p>用户的迫切需求在那里。做到极致的技术在那里。控制开发周期的技术、资金、硬件、人力等保障在哪里。聚集人气的点又在哪里。每一个问题都是我们的挑战。</p>
+
+<p>我在这里纸上谈兵、东拉西扯，甚至措辞处处体现出创业的消极情绪。但其实我是积极的，这些是我的担忧也是我需要解决的问题。我也希望看到这篇文章的人能给我些建议，给要创业的大学生一些建议。帮我们把有些成熟的想法变得健硕一点，帮我们把幼稚的想法拨回来一点。站在想创业的否口浪尖上，身家清白的大学生会如何被社会接受呢？是会得到社会大人物的帮助，还是遭到无情的打压呢？</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/14/forecast-the-time-of-cloud-with-chrome/">我用Chrome，遐想云时代</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-14T03:00:55+08:00" pubdate data-updated="true">Apr 14<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一直很喜欢使用Google的相关产品，看起来就很舒服。所以第一时间就开始使用了Chrome，所以也产生了完全放弃Microsoft Office这样的情况。我不知道和我情况相似的人多不多，但是我现在无论文档表格还是演示文件一律都是用Google Docs编辑的，因为有离线版，所以也不必担心没有网络的时候没办法用。而正因为有了离线版，Google Gears + Chrome + 一个shortcut，就让我有了无限接近云时代的感觉。<img src="/upload/2009-04-13_shortcuts.png" alt="" /></p>
+
+<p>Google自己的相关产品做成快捷方式的确很漂亮，不过用Chrome创建的大部分网站的快捷方式只是拿个favicon.ico直接来做图标，16×16的大小拉伸出来就显得很难看。额，似乎偏题了。我先YY一下放弃QQ客户端的全过程。</p>
+
+<p>1、打开WebQQ，登录QQ号 <img src="/upload/2009-04-13_webqq.png" alt="" /></p>
+
+<p>WebQQ一路走来也已经感觉相当不错了，基本上走到别人的电脑上，我也很愿意用它和别人聊上两句，这种无需客户端的感觉真的是非常好。</p>
+
+<p>2、创建快捷方式。我用的是英文版的Chrome，不过中文版一样的位置，选择这一项。<img src="/upload/2009-04-13_webqq_creaticon.png" alt="" /></p>
+
+<p>3、确认创建的位置。在Google Gears窗口里选择好创建的位置。 <img src="/upload/2009-04-13_webqq_gear.png" alt="" /></p>
+
+<p>4、快捷方式就已经创建好了。给他换个图标之类的看个人喜好了说。</p>
+
+<pre><code>属性里面写了"YOURPATHchrome.exe" --app=http://web.qq.com/main.shtml  
+
+看来不用Chrome，自己动手要创建个桌面快捷方式也非常简单啊～ ![](/upload/2009-04-13_webqq_property.png)
+</code></pre>
+
+<p>5、最后我们打开快捷方式，就可以看到桌面应用一样的WebQQ了。<img src="/upload/2009-04-13_webqq_after.png" alt="" /></p>
+
+<p>只是通过桌面端创建一个快捷方式去遐想一下云时代。现在在线的应用很多很多，你全都创建起来会发现的确很方便～ 之前看到有人说还有在线的Quake可以玩，不过我尝试了一下，只支持IE和Firefox，不过无所谓，创建快捷方式是没有问题。究竟Web OS会不会取代桌面操作系统呢？的确是让人很期待啊～</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/13/give-more-room-to-dark-alex/">应该给Dark-AleX一些空间</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-13T22:32:16+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>很久没有关注过Sceners.org了，今天在加链接的时候想起来要说欣赏的博客这个一定是第一个了，之前清明回家了很久就没有持续关注，今天上去想看看对留言的反馈没想到网站改版了。本来以为只是换了一个CSS而已，可是仔细一看变化很大。首先文章更新了很多，一篇一篇往上翻真是更新的非常勤快。翻到第一页才发现之前的文章都被抛弃了，看了第一篇文章才略知原委。</p>
+
+<p><img src="/upload/seners.org.JPG" alt="" /></p>
+
+<p>他把这个博客从dark-alex.org的附属变成了一个真正属于他个人的空间，我想，这真的是在巨大的压力下才做出的决定吧。因为TA088V3和PSP3000系列的主板得不到破解，DA从被人叫做DA大神的时代来到了人人失望的时代。作为一个程序员，对自己手头上的东西是需要鼓励的，没有这样的鼓励是难以坚持下去的。当然，PSP最初的破解只是一个巧合，所有的漏洞的出现都是巧合，只是这个巧合这么巧，成为了PSP完美软破解的重要里程碑。dark-alex也依靠这个破解完成了第一个自制系统，让无数盗版玩家喜出望外。其实值得关注的不单是ISO直读，DA对PSP内核的改造也一直让人叫好，对视频格式的支持，对CPU的调节等等等等都成为了不可或缺的功能。</p>
+
+<p>我想时至今日，既然他自己做出了这样的决定，我们不用去逼他了，给他一个轻松的环境吧，告诉他PSP3000破解不是你的事情。何况，在PS3享受正版服务之后，我可以骄傲的说：中国不需要破解。让知识产权意识慢慢的深入国人的心，虽然是一件艰苦的事情，但是PS3和PSP3000的坚强防线，和国人对于两款主机的无限需求，会对这种意识产生一定推动的。就像很多人愿意itunes或PSN上付费下载内容，有人愿意在QQ包绿钻或支付Q币下载mp3一样，保护知识产权会成为我们一个新的民族品德的，哪怕需要很多的时间。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/04/13/hello-world-2/">Hello, World!</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-04-13T10:37:47+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一直想自己动手写一个博客，但是没有什么时间，也没有自信可以做出很好的东西，所以最后选择了Z-blog作为自己的博客。第一次租用自己的域名和主机开博。</p>
+
+<p>之前也有很多的博客，有的是年少轻狂，记忆自己的生活上的快乐和烦心，搞得很文艺，而最终适应不了日日成熟现实的我。有的专注于某个主题缺乏广泛性。这才以这样一个小小程序员的身份，开始自己新一轮的博客之旅。</p>
+
+<p>坚持每天写博客！2009年4月13日，写下第一篇文章。命名为hello world，就像走上每一个新平台一样，是个新起点。</p>
+
+<p><img src="/upload/hello_world.png" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/20/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

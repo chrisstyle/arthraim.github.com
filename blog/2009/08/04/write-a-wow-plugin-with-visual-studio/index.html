@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>用最习惯的Visual Studio编写魔兽世界插件 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="Arthur（据说现在独立博客为了防止被非法转载都这么干）相信熟悉.net 的朋友也一定熟悉Microsoft Visual Studio系列的产品。当然，哪怕是你只是在学习C语言时候，经历了Visual C++ 6.0时代，也有理由相信你会习惯之后的Visual Studio系列。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/08/04/write-a-wow-plugin-with-visual-studio/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">用最习惯的Visual Studio编写魔兽世界插件</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-04T04:50:34+08:00" pubdate data-updated="true">Aug 4<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Arthur（据说现在独立博客为了防止被非法转载都这么干）相信熟悉.net 的朋友也一定熟悉Microsoft Visual Studio系列的产品。当然，哪怕是你只是在学习C语言时候，经历了Visual C++ 6.0时代，也有理由相信你会习惯之后的Visual Studio系列。Arthur这一次要介绍的，就是用类似Visual Studio来开发魔兽世界（World O Warcraft）的插件，而要用到的，是一个简单的开源项目，它让你根本不需要安装Visual Studio系列产品也可以完成开发。</p>
+
+<p><a href="/upload/AddOnStudioBanner.jpg">     <img src="/upload/AddOnStudioBanner.jpg" alt="" /></a></p>
+
+<p><strong>AddOn Sudio For World of Warcraft</strong> &#8212;- 这就是今天要介绍的主角了。</p>
+
+<p>一直相信Visual studio的外围扩展能力是很强的，定制的插件、工具都是很强的。看见这个开源项目之后，足以让我相信它真正的强大了。这是一款完全独立于任何一个Visual Studio产品存在的IDE，只是用的都是VS的库。这个IDE本身集成的是Lua的解释器。拥有一个project template就是魔兽世界的插件工程。</p>
+
+<p>具体关于它的其他特性以及下载地址请看<a href="http://addonstudio.codeplex.com/">这里</a>。</p>
+
+<p>在这里Arthur简单的写一个例子，稍微写下步骤，没什么代码，看图就好，轻松愉快。</p>
+
+<p><strong>一、环境配置</strong></p>
+
+<p>下载完成安装包之后安装。如果安装失败，请先下载<a href="http://mschnlnine.vo.llnwd.net/d1/coding4fun/AddOnStudio/VSShell90SP1/vs_shell_isolated.enu.exe">Visual Studio Shell</a>，再重新安装。安装之前一样要确认有装魔兽世界。但是安装它是不需要安装Visual Studio的。</p>
+
+<p><strong>二、编写代码、设计界面</strong></p>
+
+<p>1、打开程序，看到以下界面。无须Arthur多介绍，整个一个Visual Studio，只是标题不同而已。（博客使用Lightbox，图片点击放大）</p>
+
+<p><a href="/upload/2009-08-03_AddonForWOW.JPG">     <img src="/upload/2009-08-03_AddonForWOW.JPG" alt="" /></a>     <a href="/upload/2009-08-03_AddonForWOW_UI.JPG">     <img src="/upload/2009-08-03_AddonForWOW_UI.JPG" alt="" /></a></p>
+
+<p>2、然后看看究竟区别在哪里。新建一个工程试试就可以看到如下界面，果然不但有魔兽的插件工程，而且只有魔兽的插件工程。很好，我很喜欢这种内聚的感觉。</p>
+
+<p><a href="/upload/2009-08-03_AddonForWOW_NewProject.JPG">     <img src="/upload/2009-08-03_AddonForWOW_NewProject.JPG" alt="" /></a></p>
+
+<p>3、用可视化的设计器来设计一个窗口吧～ 然后写一个按钮的事件，打印Hello, world。 （没有任何魔兽世界插件开发的知识，所以我就划水一下简单点好了）</p>
+
+<p><a href="/upload/2009-08-03_AddonForWOW_AllProjectInterface.JPG">     <img src="/upload/2009-08-03_AddonForWOW_AllProjectInterface.JPG" alt="" /></a></p>
+
+<p>4、按运行后就会自动弹出魔兽世界应用，然后输入帐号密码登录吧，你写的插件已经自动开启了。看看Arthur的程序，hello,world而已。（对了，玩魔兽世界我只是个Light User，很少玩，所以不要尝试从截图里看出我的游戏情况，嘿嘿）</p>
+
+<p><a href="/upload/2009-08-03_AddonForWOW_Runtime.JPG">     <img src="/upload/2009-08-03_AddonForWOW_Runtime.JPG" alt="" /></a></p>
+
+<p><strong>三、特殊注意点</strong></p>
+
+<p>这里Arthur也遇上了一些小问题，所以写出来分享下。就是编译后的插件在游戏中显示&#8221;过期&#8221;，一下子就想到了版本问题。再回头去看工程里，有一个&#8221;工程名.toc&#8221; 的文件，熟悉魔兽世界插件开发的朋友一定比Arthur还要清楚，这就是插件的版本修改要修改的文件，既然还在开发阶段，那么我就可以随便修改啦～ 把interface后面的版本号改成30100，就可以在国服客户端里正常运行了。（虽然国服是3.13了，不过我看其他的插件版本一律都是30100，并且Arthur尝试过31300是不可以的，所以权且这样写吧。）</p>
+
+<p>后来发现右键工程属性，也有可视化修改这些信息的地方。和其他VS工程一样方便。</p>
+
+<p><a href="/upload/2009-08-03_AddonForWOW_Property.JPG">     <img src="/upload/2009-08-03_AddonForWOW_Property.JPG" alt="" /></a></p>
+
+<p>偶然发现这个开源项目，所以就当是推荐开源项目好了。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-04T04:50:34+08:00" pubdate data-updated="true">Aug 4<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/08/04/write-a-wow-plugin-with-visual-studio/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/08/04/write-a-wow-plugin-with-visual-studio/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/08/03/logos-of-three-game-console-producers/" title="Previous Post: 当下三大主机厂商LOGO变化">&laquo; 当下三大主机厂商LOGO变化</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/08/06/algorithm-of-randomly-output-nine-numbers/" title="Next Post: C#随机顺序输出数字 1～9 的算法">C#随机顺序输出数字 1～9 的算法 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

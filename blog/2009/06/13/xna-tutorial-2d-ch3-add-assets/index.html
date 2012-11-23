@@ -1,0 +1,265 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-2D游戏-03-添加Assets - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset 这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/13/xna-tutorial-2d-ch3-add-assets/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-2D游戏-03-添加Assets</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T21:24:27+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="/upload/2009-06-13_WhatIsAssets.jpg"><img src="/upload/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
+
+<p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset</strong></p>
+
+<p>这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节，看不懂的可以看视频的，那么接下去就正式开始写了。</p>
+
+<p><strong>一、Visual Studio的用法。</strong></p>
+
+<p>这就是我说的三个部分中的第一个，VS的解说。肯定很多看到这里的人要不耐烦了，你弄这种东西干什么啊，都来看XNA了当然会C#会.net会VS啊。其实，之所以加上这一块，是因为我惨痛的童年回忆造成的。很多向往做游戏的儿童青少年们，好不容易找到了一个教程，可是往往教程默认了很多很多的前提以至于一头雾水。那么看到这里的小朋友们～ 记住，我也默认了很多前提在这里，你们可以先去学C#，用C#做一个按一下按钮出来一个对话框显示一个Hello,world的，OK基本上你就可以来看这里的内容了（囧，可以吗？）好讲一下VS。VS有solution（解决方案）的概念，这是比project（项目）更加高级的东西。一个solution中可以有多个project，很常见的就是dll一个界面一个。VS提供了一些控件，比如类视图、解决方案视图、控制台、追踪、错误列表等等，这些和普通的IDE都是一样的。（写到这里自己都觉得多余了）</p>
+
+<p><strong>二、什么是Asset？</strong></p>
+
+<p>说完多余的东西，我们终于可以将一些重点了。究竟Asset是什么呢？我觉得程序里涉及到一些哪怕日常的单词也不应该去翻译，比如并行设计到的actor模型，难道翻译成角色模型？不合适吧。所以Asset如果翻译成&#8221;资产、有用的东西&#8221;之类的意思，那也就真的不合适了。所以还是用asset原来的样子来讲解比较好，通过后面的讲解你一定很快明白什么是asset了，微软忽悠这么一个概念也挺强大的。</p>
+
+<p>（注：以下文字由本人翻译自微软官方解释。）</p>
+
+<p>在XNA Game Studio项目中，你会频繁的听到&#8221;代码&#8221;和&#8221;asset&#8221;这样的措辞。&#8221;代码&#8221;指在程序说明中包含的.cs文件。这些说明告诉游戏怎么行动：怎么对用户操作进行反应，怎么移动物体，以及怎么显示给玩家看。</p>
+
+<p>另一方面的asset，不是唯一的一个文件类型。位图图形、声音文件、3D模型 &#8212;- 他们都是asset。总之，accets指数据（图形、声音或其他一些东西），他们被&#8221;代码&#8221;操控着。举个UFO图片的例子。这个UFO图片本身，存储为.tga或者.png文件，他是一个asset。代码可能载入这个UFO图像，并且把它显示在屏幕的不同位置，并给他一些移动的效果。如果有一组asset的话，它不被称为content。</p>
+
+<p>在游戏中，你必须同时拥有&#8221;代码&#8221;和&#8221;asset&#8221;。典型的，asset表现出物体的外表和声音，你的代码代表了它的动作（行动）。</p>
+
+<p>这个规则有一个例外，就是一个asset的特殊类型，叫做shader。他是一些特别的代码，帮助绘制图形在屏幕上，但是它不是图片。Shader不会在这次的教程中使用到，但是在使用高级图形的游戏中它们经常被用到，并且要像代码一样的进行编辑就。</p>
+
+<p>在教程中，我们只使用两种类型的asset &#8212;- 2D texture（材质，还是不要翻译了）和font（字体）。2D texture只是一些图片文件。在教程中，我们每个游戏元素拥有一个图片 &#8212;- 我们玩家的加农炮，敌人的UFO，玩家可以发射的加农炮的子弹，还有一个背景。font字体是特殊的一种texture，代表了我们可以画在屏幕上的文本。它将在游戏中当我们需要跟踪玩家得分时帮助到我们。</p>
+
+<p><strong>三、如何添加？</strong></p>
+
+<p>步骤其实非常的简单，在工程中我们可以看到Contend的存在。当前里面只有一个引用项，不去管它。第一步我们要做的是下载我们这次要用到的素材，或者现在应该叫做asset。（直接看到此文的请转至Chapter2补下，当然你也可以在本文最后的完整工程代码下载中找到你要的文件）</p>
+
+<p>下载下来的是一个BG_2D_Chapter2.Zip文件，解压缩后得到Microsoft Permissive License.rtf和Sprites文件夹。Sprites文件夹里有之前说到的4张图，background.tga, cannon.tga , cannonball.tga, enemy.tga。</p>
+
+<p>要加入到工程中很简单，两步走。</p>
+
+<p>1、右键单击Content &#8211; Add &#8211; New Folder。然后命名为Sprites。2D游戏里都这么称呼，那么我们就这么命名。（中文版自重）</p>
+
+<p>2、右键单击Sprites文件夹 &#8211; Add &#8211; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
+
+<p><a href="/upload/2009-06-13_AddAssets.jpg"><img src="/upload/2009-06-13_AddAssets.jpg" alt="" /></a></p>
+
+<p>很神奇吧，做完这个，其实内容就已经完成了，看上去真是有点脑残了。完成如下图。</p>
+
+<p><a href="/upload/2009-06-13_AddedAssets.jpg"><img src="/upload/2009-06-13_AddedAssets.jpg" alt="" /></a></p>
+
+<p>这就是本章要讲解的内容，万事开头难，大家要有耐心，虽然做起来很简单，不过无论是Content还是Asset都是微软给我们的概念，一定要记住了。</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=150"><img src="/upload/2009-06-12_download_XNA.png" alt="" />示例代码下载</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T21:24:27+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/13/xna-tutorial-2d-ch3-add-assets/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/13/xna-tutorial-2d-ch3-add-assets/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/13/xna-tutorial-2d-ch2-create-solution/" title="Previous Post: XNA教程-2D游戏-02-创建游戏工程">&laquo; XNA教程-2D游戏-02-创建游戏工程</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/06/14/xna-tutorial-2d-ch4-rending-backgrounds/" title="Next Post: XNA教程-2D游戏-04-绘制背景">XNA教程-2D游戏-04-绘制背景 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

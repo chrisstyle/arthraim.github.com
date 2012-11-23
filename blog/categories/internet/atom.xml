@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: internet | Artoirus]]></title>
+  <link href="http://Arthraim.github.com/blog/categories/internet/atom.xml" rel="self"/>
+  <link href="http://Arthraim.github.com/"/>
+  <updated>2012-11-23T16:38:59+08:00</updated>
+  <id>http://Arthraim.github.com/</id>
+  <author>
+    <name><![CDATA[Arthur Wang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Niconico弹幕评论之我见]]></title>
+    <link href="http://Arthraim.github.com/blog/2010/07/03/about-niconico-timeline-comment/"/>
+    <updated>2010-07-03T08:25:37+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2010/07/03/about-niconico-timeline-comment</id>
+    <content type="html"><![CDATA[<p>Niconico是日本的一个视频网站，但说对他的了解程度我不自信有身边那些腐女朋友来的深入。我今天想说的是有关Niconico上的一个特性，弹幕评论。不过我的思路是，先不说它，从别的说起。</p>
+
+<p>首先来说豆瓣，豆瓣的电影是一个很重要的模块，观影之后豆瓣提供了一个记录的地方，我每年每月看了什么电影，每次去"看过"一下，记录了很多。另外看完之后可以写个小点评，不用多，一句话，足以对别人产生足够的影响。另外还可以打分，这个打分只要数据量大，那最终的平均分是非常客观的（当然得分最高的往往有一些小众电影夹入其中）。好吧，究竟豆瓣电影满足了多少需求，不是我重点要说的。无论是豆瓣，还是时光网，所谓的影评或一句话，都是在电影观看之后的感想，用户对电影的交流，是一种大家聚在一起谈论电影的感觉。</p>
+
+<blockquote><pre><code>A:---------====-------------------2--------
+B:-------------====-------1----------------
+C:--------------------------====3----------
+</code></pre>
+
+<p>字母代表观影的人，--代表绝对时间，=代表观影相对时间，数字代表评论。</p>
+
+<p>三个人看一个视频，看完之后抽空去了聚合评论的网站谈感想，最后平面的结构上就是看评论的时间顺序排列成123这样的社区样子。</p></blockquote>
+
+<p>优酷、土豆，甚至是youtube，这些在线视频网站也有评论版面，现在的评论往往利用ajax让你留言之后不用刷新甚至翻页也不用。借助像遨游弹出视频这样的功能，可以边看视频边看评论。这些评论应该说在之前提到的第一种体验上又满足了一些其他的需求，比如电影前的观感之类的。但是这些评论存在一个问题，我看到影片某一个阶段，有一些话想说，我留言了，但是这是我的相对时间，在绝对时间里，它不适合任何人。</p>
+
+<blockquote><pre><code>A:---------=1==3=-------------------9--------
+B:-------------=2===4-------7----------------
+C:--------------------------5=6==8=----------
+</code></pre>
+
+<p>同样是这三个人看一个视频，看的过程中，网站本身就可以留言，留言的发生可以在观影的任何时间里，最后平面的结构上就是看评论的时间顺序排列成123456789这样的样子，可以看得出5这条感想排在相对后面，但是其实它的内容产生的时候影片都还没有开始播放。而排的相对远的（假设界面上越新的留言距离用户越近）4，反而是影片观影结束之后的感想。</p></blockquote>
+
+<p>因为一个影片的每个人观影的绝对时间是不一样的，所以想聚焦某个镜头的讨论是很困难的。在现代快节奏生活中，要凑齐几个人一起看电影，一起起哄一起哭是很难的事情了，人越多越困难。要100好朋友约在一起看更是不可能，只能大家分开来看，再用第一种豆瓣这样的平台讨论感受。但是必须知道的是，无论什么时候看，影片的长度是一定的，即每个人看到影片某个镜头的相对时间是一样的，把每个人对电影的实时评论拉到同一个起跑线，那么这些评论就在一个时空中了，对后来观影的朋友来说，就像是和自己的朋友一起看一样。这种"一起看电影"的体验，正是niconico包括国内acfun等网站的评论系统所带给我们的。它让一起讨论一起看片这样的现实中最完美的观影体验，在每个空闲时间不一样的人中实现了。虽然绝对时间不同，但是相对时间一样这一特性，让这种体验成为可能。只要给评论加上一个简单的时间标记，就轻松实现了这个需求。</p>
+
+<blockquote><pre><code>A:---------=2==5=7---------------------------
+B:-------------=3===89-----------------------
+C:--------------------------1=4==6=------------
+</code></pre>
+
+<p>依然三个人，和第二种情况一样的影片的时间点留言（影片看过之后的感想必须在影片最后一个时间点），就形成了这张图表。但是利用带有时间标记的评论，我们把它放在了同一个时间参照系里，如下图。</p>
+
+<pre><code>A:-----=2==5=7-------------
+B:-----=3===89-------------
+C:-----1=4==6=-------------
+</code></pre>
+
+<p>这张示意图不太好了，因为=是一个时间段，而代表评论的数字是一个时间点。不过示意图只是示意图，宽容一下啦。最终用户看到的评论就被聚合成下面这样。</p>
+
+<pre><code>T:-----1=234==56=789-------------
+</code></pre>
+
+<p>哈哈，这下真的说明问题了。分开来的评论被聚合到了一起了～～</p></blockquote>
+
+<p>至于弹幕这种表现形式，其实是不重要的，从左往右、从上到下都不重要，而，把离散在各个绝对时间点的人们的实时感受，根据一样的相对时间参照点，聚合到一个绝对坐标系里，这才是在我看来niconico评论系统的真正最重要的最伟大的地方。</p>
+
+<p>以上～</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Wordpress开始推送3.0]]></title>
+    <link href="http://Arthraim.github.com/blog/2010/06/18/wordpress-3-is-available/"/>
+    <updated>2010-06-18T20:37:44+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2010/06/18/wordpress-3-is-available</id>
+    <content type="html"><![CDATA[<p>今天登陆后台，就看到说wordpress 3.0 is available! 正式版终于可以升级了啊，改动挺大的，我正在犹豫要不要升级，要不还是过两天在升级吧，升级之后我也要考虑下是不是换个模板了，因为很多new features都只有新的Default主题能用。当然我用的是英文版的Wordpress，中文版貌似还没有升级到3.0。总之升级还真的是一件麻烦的事情【顾虑太多了吧你】</p>
+
+<p><a href="/wp-content/uploads/wordpress_org.png"><img src="/wp-content/uploads/wordpress_org.png" alt="" /></a></p>
+
+<p>可以后台自动升级，很方便的一办法，不过需要用到FTP或FTPS密码。不然就去<a href="http://wordpress.org/download/">这里</a>下载咯。</p>
+
+<p>今天又水了，以上……</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Google App Engine的Unapplied Writes]]></title>
+    <link href="http://Arthraim.github.com/blog/2010/06/11/google-app-engine-unapplied-writes/"/>
+    <updated>2010-06-11T10:46:03+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2010/06/11/google-app-engine-unapplied-writes</id>
+    <content type="html"><![CDATA[<p>话说刚才收到一封来自Google App Engine的邮件，大致内容是说在2010-5-25日的时候服务有我的某个程序的服务器发生了大约长达50分钟的停机，于是因此在这段时间里我的应用依然产生了数据库的写入操作，这时候产生的数据被记录到了别的服务器上，并且被称为Unapplied Writes。主要在告诉我如何挽救这些数据的同时，还为给我带来的不便说了抱歉。下面是Email的全文~</p>
+
+<p><a href="/wp-content/uploads/2010-06-11_GAE_uapplied_writes.jpg"><img src="/wp-content/uploads/2010-06-11_GAE_uapplied_writes.jpg" alt="" /></a></p>
+
+<p>于是让我百思不得其解的事情就是为什么jmini-arthraim这个应用有这么NB，这么巧合，在断电的时候有数据写入还造成了数据不同步呢？让Arthur来帮大家回忆一下jmini-arthraim究竟是个什么东西。</p>
+
+<p>在去年我写了一篇《<a href="http://arthraim.cn/google-app-engine-apps-in-java/">用Java写个Google App Engine应用</a>》的文章介绍GAE的JAVA支持。程序本身很简单，完全没有任何参考价值，只是我对文章介绍了很多程序之外的软件安装啊环境搭建这样的简单的步骤。jmini-arthraim相当于一个简单的留言板，简单来说就是用户提交title content信息，写入数据库这样子。大概不知道这个程序和哪个刷spam的程序犯冲了，或是有人无聊到针对我对程序做了刷spam的程序，总之几个月来，这个应用一直忍受着常人难以忍受的委屈。</p>
+
+<p>我去后台看了一下这个应用的数据，去掉前11条是真正有朋友来测试的消息以外，从去年11月19日开始就有无数的spam数据开始刷了。真是场面何其壮观啊！总共有多少条记录呢？133,876（狂汗）估计这是我目前为止自己创建过的信息量最庞大的数据库了。如下图所示：</p>
+
+<p><a href="/wp-content/uploads/2010-06-11_GAE_store_statistics.jpg"><img src="/wp-content/uploads/2010-06-11_GAE_store_statistics.jpg" alt="" /></a></p>
+
+<p>我写这篇文章的原因有3：</p>
+
+<ol>
+<li><p>Google很负责，这个事情告诉我们GAE上跑的程序数据是比较安全的。</p></li>
+<li><p>Spamer很强大，不论是撞到了哪个spamer的枪口上，总之这个兼容性可以强大到向我这样一个应用开火，那也的确强大了。</p></li>
+<li><p>娱乐一下~ 今天晚上22点世界杯就开幕了，遇上这样的事还真是挺乐的。hoho</p></li>
+</ol>
+
+
+<p>以上。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[免费的IM机器人服务—imified]]></title>
+    <link href="http://Arthraim.github.com/blog/2010/05/20/imified-a-free-im-bot-servic/"/>
+    <updated>2010-05-20T19:04:05+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2010/05/20/imified-a-free-im-bot-servic</id>
+    <content type="html"><![CDATA[<p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
+
+<p><a href="/wp-content/uploads/logo_shine.png"><img src="/wp-content/uploads/logo_shine.png" alt="" /></a></p>
+
+<p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
+
+<pre><code>&lt;?php
+$msg=$_REQUEST['msg'];
+$step=$_REQUEST['step'];
+if($step &gt; 3){
+    switch($msg){
+        case "hi":
+        case "hello":
+        echo "Hello there, I'm Arthurobot from Arthraim.cn";
+        break;
+    }
+} else {
+    switch ($step) {
+    case 1:
+    echo "Hello there, I'm Arthurobot from Arthraim.cn, so what's your name?";
+    break;
+    case 2:
+    echo "Hi " . $_REQUEST['value1'] . ", where do you live?";
+    break;
+    case 3:
+    echo "Well, welcome to this bot, " . $_REQUEST['value1'] . "&lt;br&gt;from " . $_REQUEST['value2'] . ".";
+    break;
+    }
+}
+?&gt; 
+</code></pre>
+
+<p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
+
+<p><a href="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
+
+<p>再之后他就只会回应hi和hello了，Arthur同学表示不会php，所以对我来说好像没有什么可以创造的东西。会php的同学可以做很多事情啊~</p>
+
+<p>以上。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Farewell, Levelup.cn]]></title>
+    <link href="http://Arthraim.github.com/blog/2010/04/29/farewell-levelup-cn/"/>
+    <updated>2010-04-29T09:18:10+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2010/04/29/farewell-levelup-cn</id>
+    <content type="html"><![CDATA[<p><a href="/wp-content/uploads/2010-04-29_levelup_cn_logo.jpg"><img src="/wp-content/uploads/2010-04-29_levelup_cn_logo.jpg" alt="" /></a>这是今年第二次为一个.cn网站说farewell了，是的，经历了到处都是小道消息的一个多月之后，我确定了，我们都确定了 ---- 游戏城寨(levelup.cn)真的离开大家了。</p>
+
+<p><strong>一个月前（3月20日左右）</strong>，突然发现游戏门户网站（依托国内第一电视游戏杂志《游戏机实用技术》的游戏咨询门户网站，以及一个同样内容的BBS社区）不能上去了，bbs.levelup.cn的访问量大，服务器压力大，故障时有发生，在levelup混的朋友都戏称这种现象为"月经"，每个月要经历一次，所以那天我也不以为然，但是的确，bbs挂掉的时候很多，主站挂掉是很难得的事情。</p>
+
+<p><strong>第二天</strong>在levelup依然没法访问的同时，我收到了很多朋友的消息，说为什么levelup不能访问了。我当时第一个猜测就是，互联网的收紧把论坛+游戏的"高危"网站levelup给关掉了。</p>
+
+<p><strong>之后</strong>levelup的编辑们在大力监管下的新浪博客开设了自己的<a href="http://blog.sina.com.cn/levelupcn">官方博客</a>，旨在继续为各位玩家提供最新的第一手资料，与此同时，博客的公告栏里赫然写道了这样的内容，打消了大家的疑虑，并且也让我庆幸只是一次技术上的问题，而不是政策上的错误，对他的回归充满信心。</p>
+
+<blockquote><p>关于游戏城寨（levelup.cn）访问故障的公告</p>
+
+<p>游戏城寨网站因故需要停机维护。有最新消息我们会第一时间在本公告栏发布。</p></blockquote>
+
+<pre><code>    由此带来的不便，我们深表歉意。感谢大家的支持和理解。
+</code></pre>
+
+<blockquote><p>Hikaru</p></blockquote>
+
+<pre><code>    levelup.cn  
+
+    2010年3月23日
+</code></pre>
+
+<blockquote></blockquote>
+
+<p><strong>3月26日</strong>，我无意间看到了一个传闻，传闻说是"levelup 正式关闭，所有职员离职，遣散费一个人三个月的工资。"。看到这个小道消息的时候我很激动，当时订阅了上面提到的博客，但是没有上去，于是这一次一访问才发现博客的公告栏已经发生了一些变化。显然，真实的原因在24日的时候就已经浮出水面。</p>
+
+<blockquote><p>关于游戏城寨（levelup.cn）访问故障的公告</p>
+
+<p>游戏城寨网站域名被有关部门停止解析，短时间内可能无法开放。有最新消息我们会第一时间在本公告栏发布。</p>
+
+<p>由此带来的不便，我们深表歉意。感谢大家的支持和理解。</p>
+
+<p>Hikaru</p></blockquote>
+
+<pre><code>    levelup.cn  
+
+    2010年3月23日，24日
+</code></pre>
+
+<blockquote><hr /></blockquote>
+
+<pre><code>    近期游戏攻略、评测请查看UpTeam官方百度贴吧。  
+
+    点击进入临时论坛，感谢罗伊SD提供。
+</code></pre>
+
+<blockquote></blockquote>
+
+<p><strong>同日</strong>，levelup成员（论坛管理员）在新浪博客里写了一篇文章----《<a href="http://blog.sina.com.cn/s/blog_66555c710100hp4y.html">这个五周年，有点不一样</a>》。是的恰逢levelup五周年，可是网站却无法访问，方寸的文章写得很好，原文如下：</p>
+
+<blockquote><p>《【游戏城寨】这个五周年，有点不一样》</p>
+
+<p>开个官方水楼、请一些老会员来留言、表彰一下去年有过一些突出贡献的会员和版主、发点小礼品、公布新的周年纪念勋章，这些早在几周前就开始陆续准备着的，没想到迎来的今天是这样。</p>
+
+<p>被水民们灌爆帖子、听取老会员和朋友们的批评建议、看到会员们的祝福和感言，今天所有能想得到的情况都想过了，唯独这种让人无奈地接受它的突然到来。</p>
+
+<p>在其他论坛、贴吧、QQ群里都看到了大家的询问和关心，我代表所有LU的工作人员、社区全部管理人员、广大会员谢谢大家。</p>
+
+<p>很遗憾，我们持续几天的努力没有得到结果，所以城寨的五岁生日恐怕也就只能这么过去了，对不起，对不起。</p>
+
+<p>对一直在支持着我们的网友、会员、各个小组成员、社区管理人员们，虽然一家人不说两家话，但我依然要对你们表达无限的谢意，谢谢，谢谢。</p>
+
+<p>希望能够尽早解决此事，六周年好好过吧。</p>
+
+<p>今年有点特殊，没蛋糕，送上这张图，这是大家五年在城寨上全部可以数据化的内容，以及送上不能用数据代替的感情。</p>
+
+<p><img src="/wp-content/uploads/2010-04-29_levelup_cn_servers.jpg" alt="levelup_cn_servers" /></p></blockquote>
+
+<p><strong>4月10日</strong>。在方寸的那篇文章之后，这个新浪博客停止更新了一段时间，让人感到一阵心慌，不过几天后，博客又开始更新了，就这样断断续续的一直更新到了4月10日，之后这个博客再也没有动静了，后面的十几天里这个博客也再没有像之前一样"复活"过。与此同时，levelup.cn的主站，也再也没有能ping到过。</p>
+
+<p><strong>4月27日</strong>，之前在levelup论坛里传的沸沸扬扬的编辑"多边形"离开UCG和LU而转投腾讯的事情水落石出的博客，也就是多边形的新博客里，更新了<a href="http://blog.sina.com.cn/s/blog_53915d1a0100j11o.html">第二篇文章</a>，准确的告诉了我们一切我们所需要的信息，和整个故事最终的结局。这篇4月27日凌晨更新的文章，我到两天后的今天，也是1点，才看到。原文如下：</p>
+
+<blockquote><p>《有一天，世界会原谅我们的无知吗》</p>
+
+<p><a href="/wp-content/uploads/2010-04-29_levelup_cn_staff.jpg"><img src="/wp-content/uploads/2010-04-29_levelup_cn_staff.jpg" alt="" /></a></p>
+
+<p>已经这么多年了</p></blockquote>
+
+<pre><code>    你还在为自己的梦想而奋斗吗  
+
+    你还在努力改变生活吧  
+
+    你知道的  
+
+    我们被生活俘虏，就像电子被质子俘虏  
+
+    我们逃不出身边的概率云，这就是命运  
+
+    人，大概永远也得不到最爱的东西吧  
+
+    也许上天就是这样骗我们继续生活下去  
+
+    有一天，世界会原谅我们的无知吗
+</code></pre>
+
+<blockquote><p>----BY 栾东（原levelup.cn站长Hikaru，原UCG编辑泰坦）</p>
+
+<p>（2010年3月22日，levelup.cn因为"相关部门的有关规定"而关闭。题图为2010年4月9日，levelup.cn仅剩的全体成员最后的"散伙饭"，就这顿饭还是大家AA制，因为公司不愿意----也不可能----掏钱。翌日，LU的文编们在领取遣散费之后正式下岗，而LU的技术员们至今仍有人还在为争取最后的利益与公司抗争。曾经国内最顶尖最专业的电视游戏资讯网站就此成为历史。）</p></blockquote>
+
+<p>是的一切都尘埃落定了，我倒不是特别想说什么。这样一个并没有颠覆国家政权，一直遵守法律的，并且是国内游戏咨询绝对第一把交椅的好网站，就这样无情的被关闭了。我没有抱怨国家政策，国家有国家的考量，我只是有一些哀伤，因为有很多和levelup一样，和我一样希望在互联网上干出自己一片天地的人，也许或有或无的遭受了政策上的约束，也许是我们的梦想太遥远了吧，遥远到即使我们已经以为把这个梦想抓在手上，甚至抓住了5年的时候，它其实还是一个梦，一戳就破的梦。如果说，twitter, youtube, google, facebook等等网站的离开给我带来的是一种失去优秀互联网产品的遗憾和嫉妒，是一种对相识多年的好友远去的难过和遗憾的话；那像levelup这样属于我们国人自己的东西离开的时候，就让我觉得是失去了一个亲人甚至是看着他长大的孩子一样的心痛和悲伤。</p>
+
+<p>Arthur今天很难过，真的很难过。以上。</p>
+]]></content>
+  </entry>
+  
+</feed>

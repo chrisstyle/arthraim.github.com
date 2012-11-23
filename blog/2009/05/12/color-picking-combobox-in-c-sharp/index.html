@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C#实现ComboBox选择颜色的控件 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="因为项目需要，要找一个ComboBox选择颜色的控件。于是想自己动手做，一看网上资料很多，很多人很多年前就实现过。不过要不就是我的搜索功力不够，要不就是真的没有C#版本的东西，所以我无聊就把VB版的&#8221;翻译&#8221;了一下，供大家参考。（VB版本请参照闵峰4年前的总结） &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/05/12/color-picking-combobox-in-c-sharp/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C#实现ComboBox选择颜色的控件</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-12T05:58:20+08:00" pubdate data-updated="true">May 12<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>因为项目需要，要找一个ComboBox选择颜色的控件。于是想自己动手做，一看网上资料很多，很多人很多年前就实现过。不过要不就是我的搜索功力不够，要不就是真的没有C#版本的东西，所以我无聊就把VB版的&#8221;翻译&#8221;了一下，供大家参考。（VB版本请参照<a href="http://blog.csdn.net/hamadou/archive/2005/08/06/447127.aspx">闵峰4年前的总结</a>）</p>
+
+<p>在把VB写过来的时候遇到了GetType用法不太一样的问题，VB里GetType(Color)这个语句在C#是不一样的。我尝试过Color.GetType()但是之后就不能再GetProperties了。另外Color必须是一个变量，而不是一个类型。如果用typeof(Color).GetProperties()的话，结果是什么都获取不到。我始终没有得到什么解决的方法，<a href="http://forums.asp.net/p/1143676/1847955.aspx#1847955">这里</a>有一些关于这个问题老外的讨论。我最终是采取了其他的方法获取，就是System.Enum.GetValues(typeof(KnownColor))，返回一个Array，感觉不是很好，希望得到补充。</p>
+
+<p>另外我加上了一个SelectedColor的属性，可以在自定义控件外得到相应的颜色。不过我想到有一个缺点，就是UserControl上放上ComboBox再处理，那就无法获取SelectedIndexChanged或者SelectedValueChanged等等的方法了，所以不要在UserControl加，直接从ComboBox派生出来更加理想，交给各位看官去修改了。</p>
+
+<p>还看到一个其他的实现方法，类似于Word的颜色选择框，需求和我这个差不多，实现起来要困难一些，放上链接看需要了。<a href="http://blog.csdn.net/ymqpxy/archive/2007/11/29/1907933.aspx">原文</a> | <a href="http://hi.baidu.com/skynomadism/blog/item/45d1ebcdfe2072560fb345b8.html">详解</a>（有6篇，链接为第一篇）</p>
+
+<p>Good luck ;)</p>
+
+<p><strong>实际效果图：</strong></p>
+
+<p><img src="/upload/2009-05-11_ColorComboBox.png" alt="" /></p>
+
+<p><strong>另一个我提到的效果：</strong></p>
+
+<p><img src="/upload/2009-05-11_WordTypeColorSelect.png" alt="" /></p>
+
+<p><strong>代码：</strong></p>
+
+<pre><code>public partial class ColorComboBox : UserControl
+{
+    private Color _SelectedColor;
+    /// &lt;summary&gt;
+    /// 已选择颜色
+    /// &lt;/summary&gt;
+    public Color SelectedColor
+    {
+        get { return _SelectedColor; }
+        set { _SelectedColor = value; }
+    }
+    public ColorComboBox()
+    {
+        InitializeComponent();
+    }
+    private void ColorComboBox_Load(object sender, EventArgs e)
+    {
+        PersonalizeComponent();
+    }
+    private void PersonalizeComponent()
+    {
+        this.comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
+        this.comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+        this.comboBox1.ItemHeight = 15;
+        this.comboBox1.BeginUpdate();
+        this.comboBox1.Items.Clear();
+        /*
+        //原始代码，期待有心之人的修改
+        foreach (PropertyInfo propertyInfo in typeof(System.Drawing.KnownColor).GetProperties())
+        {
+        this.comboBox1.Items.Add(propertyInfo.Name);
+        }
+        */
+        Array colors = System.Enum.GetValues(typeof(KnownColor));
+        foreach (object oneColor in colors)
+        {
+            this.comboBox1.Items.Add(oneColor.ToString());
+        }
+        this.comboBox1.EndUpdate();
+    }
+    private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
+    {
+        if (e.Index &lt; 0)    return;
+        Rectangle rect = e.Bounds;
+        if (e.State == DrawItemState.Selected)
+        {
+            e.Graphics.FillRectangle(SystemBrushes.Highlight, rect);
+        }
+        else
+        {
+            e.Graphics.FillRectangle(SystemBrushes.Window, rect);
+        }
+        string colorName = comboBox1.Items[e.Index].ToString();
+        SolidBrush brush = new SolidBrush(Color.FromName(colorName));
+        SelectedColor = brush.Color;
+        //缩小选定项区域
+        rect.Inflate(-2, -2);
+        // 填充颜色
+        e.Graphics.FillRectangle(brush, rect);
+        // 绘制边框
+        e.Graphics.DrawRectangle(Pens.Black, rect);
+        Brush brush2;
+        // 确定显示的文字的颜色
+        if (Convert.ToInt32(brush.Color.R)+Convert.ToInt32(brush.Color.G)+Convert.ToInt32(brush.Color.B)&gt;3*128)
+        {
+            brush2 = Brushes.Black;
+        }
+        else
+        {
+            brush2 = Brushes.White;
+        }
+        e.Graphics.DrawString(colorName, this.comboBox1.Font, brush2, rect.X, rect.Y);
+    }
+}
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-12T05:58:20+08:00" pubdate data-updated="true">May 12<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/05/12/color-picking-combobox-in-c-sharp/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/05/12/color-picking-combobox-in-c-sharp/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/05/11/how-to-choose-a-3g-cellphone/" title="Previous Post: 如何选择3G手机？">&laquo; 如何选择3G手机？</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/05/12/grieve-day-giveup-colors-for-you/" title="Next Post: 哀悼日，为了你们放弃颜色 | 网站黑白化代码">哀悼日，为了你们放弃颜色 | 网站黑白化代码 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

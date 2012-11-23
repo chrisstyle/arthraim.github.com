@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Life | Artoirus]]></title>
+  <link href="http://Arthraim.github.com/blog/categories/life/atom.xml" rel="self"/>
+  <link href="http://Arthraim.github.com/"/>
+  <updated>2012-11-23T16:38:59+08:00</updated>
+  <id>http://Arthraim.github.com/</id>
+  <author>
+    <name><![CDATA[Arthur Wang]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2012欧洲杯Google,iCal,Outlook日历]]></title>
+    <link href="http://Arthraim.github.com/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/"/>
+    <updated>2012-06-08T23:10:57+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar</id>
+    <content type="html"><![CDATA[<p>今晚欧洲杯就开打了。在Live Calendar里导入了这个日历之后，同步到Windows Phone上很爽。</p>
+
+<ol>
+<li><p>在Google Calendar订阅好友的日历：euro2012calendar@gmail.com</p></li>
+<li><p>直接访问<a href="https://www.google.com/calendar/embed?src=euro2012calendar%40gmail.com&amp;ctz=America/Denver">这个地址</a>，在最下面添加到Google Calendar</p></li>
+<li><p>下载<a href="https://www.google.com/calendar/ical/euro2012calendar%40gmail.com/public/basic.ics">这个ics文件</a>导入到outlook, live calendar或iCal、iPhone等</p></li>
+</ol>
+
+
+<p><a href="http://artori.us/euro-2012-google-calendar-or-outlook-calendar/screen-shot-2012-06-08-at-3-08-39-pm/"><img src="http://artori.us/wp-content/uploads/Screen-Shot-2012-06-08-at-3.08.39-PM-500x298.png" alt="" /></a></p>
+
+<p>原文地址：<a href="http://www.eurojoe.com/2012/06/01/euro-2012-google-calendar/">http://www.eurojoe.com/2012/06/01/euro-2012-google-calendar/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[停用arthraim.cn域名]]></title>
+    <link href="http://Arthraim.github.com/blog/2012/01/06/abandon-arthraim-cn/"/>
+    <updated>2012-01-06T22:52:15+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2012/01/06/abandon-arthraim-cn</id>
+    <content type="html"><![CDATA[<p>arthraim.cn的域名又到期了，因为之前的代理被卖到别的地方了所以很烦躁这个域名不要了.cn域名也实在是操蛋的可以。</p>
+
+<pre><code>之前留着也只是为了做一个重定向，现在重定向了一年了搜索引擎什么的也应该反应过来了，所以就不要了吧。
+</code></pre>
+
+<p>再见arthraim.cn</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Arthur的2011年总结]]></title>
+    <link href="http://Arthraim.github.com/blog/2012/01/01/arthur-s-2011-summary/"/>
+    <updated>2012-01-01T07:07:29+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2012/01/01/arthur-s-2011-summary</id>
+    <content type="html"><![CDATA[<p>还有一个小时2011年就过完了，末日年就在眼前。今年博客更新的非常少，当然我没有偷懒，公司从年底上马了新的产品之后我就全身心的投入到了新的工作里去了。</p>
+
+<p>爱折客从去年年底开始慢慢开发到现在整一年，发展迅速，今天年终总结的时候说实话我也觉得很振奋，虽然始终我的兴趣点在social上而爱折客虽然有点像solomo，但是其实是没有social的成分的，所以我承认我并不是那么"爱"它。但是到了这个时候看着这个产品我觉得很自豪，我们是一群踏踏实实的童鞋们，没有开复老师呼风唤雨的本事，勤勤恳恳的做业绩，可能并不是很多人看到我们的成绩，但是我们很棒。</p>
+
+<p>技术上，算是真正独立完成了一个web的客户端，初期也并没有存储全部和后面的api交互，后来做着做着后台越做越大mongodb越做越熟。另外转型iOS开发才是这一年真正拼了老命的事情，要感谢公司给我配了台iMac坦率说是动力的源泉，很有压力但是的确是动力。现在自豪的说app store上已经有5个app出自我手啦。因为要偶尔维护api，所以虽然没有系统的学不过接触了ruby on rails，很有魅力！</p>
+
+<p>依然看了很多电影，没有去年多当然。依然看了很少书。动画几乎没看，剧集也是有一集没一集的追。在游戏上花的钱更多了，因为今年掌机换代了，入手了PSVita，也算是5年一次的大开销吧。</p>
+
+<p>希望明年公司蒸蒸日上，希望自己大大进步。2012我来了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Arthur的2010年总结]]></title>
+    <link href="http://Arthraim.github.com/blog/2011/01/17/arthur-s-2010-summary/"/>
+    <updated>2011-01-17T10:58:50+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2011/01/17/arthur-s-2010-summary</id>
+    <content type="html"><![CDATA[<p>2010年过完了, 博客完整存在的第一年. 无论对我自己还是这个博客都有很多值得总结的地方. 很抱歉这篇文章迟到了, 因为域名和主机等等出现的问题, 从去年年底到这个星期早些时候, 博客都没有正常服务, 知道这周才更换主机和域名后起死回生.</p>
+
+<p>和去年一样, 还是先罗列数据一些数据吧~</p>
+
+<p><strong>文章的统计数据</strong></p>
+
+<ul>
+<li><p>January: 12</p></li>
+<li><p>February: 2</p></li>
+<li><p>March: 3</p></li>
+<li><p>April: 8</p></li>
+<li><p>May: 7</p></li>
+<li><p>June: 11</p></li>
+<li><p>July: 3</p></li>
+<li><p>August: 5</p></li>
+<li><p>September: 3</p></li>
+<li><p>October: 3</p></li>
+<li><p>November: 7</p></li>
+<li><p>December: 1</p></li>
+</ul>
+
+
+<p>这样的更新数量好像挺健康的~ 去年一个月将近30篇也太猛了...</p>
+
+<ul>
+<li><p>Programing: 18</p></li>
+<li><p>Video Game: 10</p></li>
+<li><p>Life: 12</p></li>
+<li><p>internet: 13</p></li>
+<li><p>Movie: 9</p></li>
+<li><p>O.S.: 3</p></li>
+<li><p>I.T.: 2</p></li>
+<li><p>Book: 0</p></li>
+<li><p>Music: 0</p></li>
+</ul>
+
+
+<p>数据和上面的总和有出入, 因为没有细细统计, 看个大概的分类排名就好了. 显然编程还是本博客的主题, 之后生活排在第三位. 读书音乐这两个分类, 实在是觉得不用写在博客上了..</p>
+
+<p><strong>本人生活相关:</strong></p>
+
+<p>人间网发言: 15815  (截止1月17日2时13分, 没有剥离往年的数据)</p>
+
+<pre><code>新浪微博发言: 1791  (同上)  
+
+看书: 2  (记录在豆瓣"读过", "在读"中有7本)  
+
+电影: 145  (通过豆瓣中"看过"计算出来的数据, 误差在10)  
+
+美日剧: 190+  (估算, 误差在+-20之内)  
+
+动画: 120+  (估算, 看完整了6部新番, 还有其他短小的OVA等)  
+
+游戏: (尚未统计, 之后更新...)
+</code></pre>
+
+<p>2010年, 完成了从学生到社会人的角色转换, 当然心理上到底算不算转换成功了尚且不得而知. 显然看书看得不多, 很多都没有读完. 看了好多好多电影, 在后面9个月都有些中间报告系列, 所以看过的所有电影都记录在案了. 因为工作了所有PS3游戏可以多买几个了, 不过因为飘在上海, 只有周末的时候回到嘉兴的家里玩, 所以其实玩的时候并不多.</p>
+
+<p>应该说这一年技术上的进步是很大的, 因为人间网@niedhui @<a href="http://luosky.com">luosky</a> @caoxg @asfman @oh4mm(按照座位顺序)的帮助以及我自己的学习, 学到的真的很多. 另外还有"人本设计沙龙" "nBazzar(.net)技术沙龙" 等我参加过的技术社区活动.</p>
+
+<p>博客本身也经历了很多, 从z-blog搬迁到wordpress, 从垃圾虚拟主机到@caoxg的个人服务器(redsaga那台:D)直到今年(2011)搬到了dreamhost. 搬来搬去丢了好多读者好多流量, 不过我还会坚持host它的.</p>
+
+<p>最后要感谢: 除了之前提到的几位, 还要感谢爸妈对我工作的精神支持以及"月光"的时候的物质支持, 并且在毕业的时候他们为我提供了很多就业的方向, 不过很抱歉同时也很高兴我朝着自己喜欢的方向前进了. 感谢我的女友@rubyQ童鞋很很多关怀和理解以及对我工作在外的支持, 2010年是我们在一起的第三个年头了. 感谢导师祁亨年帮助我顺利的完成了毕业设计, 感谢动漫社的兄弟姐妹们, 感谢实验室的大牛们, 并感谢所有大学的老师同学们, 没有你们我不能顺利大学毕业啊. 感谢人间团队(爱折客团队)的所有人, 在人间网工作真的很愉快, 见识到了很多, 学到了很多! 感谢博客或微博上关注我, 认识我, 帮助我的网友们, 我和这个博客都离不开你们. 最后感谢所有应该却没有提到的人们~ 感谢你们, 我爱你们<del>~ 感谢祖国, 无论如何我顺利就业了, 祝愿祖国和平繁荣昌盛和谐强大</del></p>
+
+<p>2011继续加油!</p>
+
+<p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问...)</p>
+
+<p><a href="http://artori.us/arthur-s-2010-summary/2011-01-17-030351_640x630_scrot/"><img src="http://artori.us/wp-content/uploads/2011-01-17-030351_640x630_scrot-500x492.png" alt="" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[I'm back!]]></title>
+    <link href="http://Arthraim.github.com/blog/2011/01/12/im-back/"/>
+    <updated>2011-01-12T20:53:24+08:00</updated>
+    <id>http://Arthraim.github.com/blog/2011/01/12/im-back</id>
+    <content type="html"><![CDATA[<p>终于联系上了域名代理, 我的arthraim.cn也续费成功了, 不会被劫持到广告页了, 然后我做了以下几件事.</p>
+
+<ol>
+<li><p>之前当然先做了artori.us这个镜像, 和之前的一模一样</p></li>
+<li><p>修改之前arthraim.cn上的.htaccess文件, 重定向所有对arthraim.cn的请求到artori.us.</p></li>
+<li><p>到Google Webmaster Tools验证了新的artori.us; 并且设置arthraim.cn的站点迁移, 让Google知道我换域名了.</p></li>
+</ol>
+
+
+<p>在这几天Google已经删掉了很多我的收录, 不过好歹有所挽回.</p>
+
+<p>以上...</p>
+
+<p><strong>Update</strong>：</p>
+
+<p>我的RSS源订阅的童鞋们，如果方便的话把feed的域名帮忙换成artori.us，当然之前的源不变问题也是不大的，会自动重定向的。（只是换域名似乎对GREADER插件PR的影响很大）</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-2D游戏-08-摧毁UFO - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO 这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-2D游戏-08-摧毁UFO</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T06:13:16+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO</strong></p>
+
+<p>这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。无论是什么游戏类型，物体和物体之间的接触都是要处理的，尚且不说加上什么物理特性，光是这个例子里的子弹碰UFO总要有点反应吧。更不用说什么火星撞地球了………………</p>
+
+<p>具体代码很简单，找到UpdateCannonBalls方法，在更新的时候，添加一种杀掉UFO和炮弹的情况，就是两者碰撞的时候。</p>
+
+<p>大致的思路为：</p>
+
+<ol>
+<li><p>确定每个炮弹的范围大小和UFO的范围大小。</p></li>
+<li><p>遍历每个炮弹。</p></li>
+<li><p>遍历中每个炮弹再要遍历每个UFO。如果发生碰撞就同时摧毁两个（alive = false）</p></li>
+</ol>
+
+
+<p>这里我们要用到的碰撞检测，直接使用XNA的Rectangle的intersect方法。以下是代码，添加在判断是否出屏幕的下面。</p>
+
+<pre><code>Rectangle cannonBallRect = new Rectangle(
+    (int)ball.position.X,
+    (int)ball.position.Y,
+    ball.sprite.Width,
+    ball.sprite.Height);
+foreach(GameObject enemy in enemies)
+{
+    Rectangle enemyRect = new Rectangle(
+        (int)enemy.position.X,
+        (int)enemy.position.Y,
+    enemy.sprite.Width,
+    enemy.sprite.Height);
+    if(cannonBallRect.Intersects(enemyRect))
+    {
+        ball.alive = false;
+        enemy.alive = false;
+        break;
+    }
+}
+</code></pre>
+
+<p>首先获得当前遍历到的cannonBall的范围，循环。循环中得到当前UFO的范围，检测是否和cannonBall相交（哪一方都一样）。碰撞了，就两个对象的alive都为false，然后break出UFO的循环。</p>
+
+<p>执行结果（其实截图看不出来效果唉）</p>
+
+<p><a href="/upload/2009-06-18_Chapter8Runtime.jpg"><img src="/upload/2009-06-18_Chapter8Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=155"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+<hr />
+
+<p><strong>翻译：使用Rectangle的2D碰撞检测</strong></p>
+
+<p>（以下文字由本博客翻译自这里，转载请注明出处）</p>
+
+<blockquote><p>图片创建的Sprite从一创建就必然是一个长方形。你可以使用遮盖(Mask)，来绘制Sprite中的一部分像素，这样就产生了Sprite不是一个长方形的视觉效果。Sprite可能呈现为一个圆形的物体，或者更加复杂的形状。但是所有的sprite一创建就都是矩形的。</p>
+
+<p>Sprite的这一特性在非常基本的碰撞检测中很实用，XNA Framework提供了一个Rectangle类，自己就拥有碰撞帮助的方法：ectangle.Intersects，和Rectangle.Contains。</p>
+
+<p>在基本的常识中，碰撞检测是基于相交检测的 &#8212;- 两块几何图形是否相交。如果两个几何图形相交，他们可以说是碰撞，游戏逻辑可以根据碰撞的物体产生适当的反应。</p>
+
+<p>在我们的2D游戏中，我们关心加农炮是不是和地方UFO相交。如果加农炮的sprite的rectangle相交于敌人sprite的rectangle，那我们的游戏逻辑检测到了一个碰撞，并且同时摧毁两个物体。</p>
+
+<p>Rectangle很容易创建。Rectangle类初始化时需要4个参数 &#8212;- 矩形左上角的点的X和Y坐标，以及矩形的宽度和高度。所有矩形的其他点都会有这些信息计算出来。</p>
+
+<p>创建sprite占用的rectangle之间的碰撞，设置X和Y的值为游戏世界中的sprite的X和Y值，GameObject.position.X和GameObject.position.Y。设置宽度和高度为sprite中的Texture2D的宽度和高度，GameObject.sprite.Width和GameObject.sprite.Height。</p>
+
+<p>凭借两种游戏直接中sprite的rectangle对象的创建和调用Rectangle.Intersects方法，你可以知道两个物体是否碰撞。这可能不是最精确的碰撞。包括还有其他的缺点，如果是屏幕上已经画了的一个旋转过的sprite，rectangle对象的定义就不再符合sprite在屏幕上绘制的样子了。然而这是一个简单高效的方法来做碰撞检测。</p>
+
+<p>一个类似的有用的方法是Rectangle.Contains。在我们的2D游戏中，使用一个rectangle来表示整个屏幕，我们可以定义什么时候GameObject离开了屏幕的边界。我们在比较屏幕rectangle和对象rectangle的时候，使用检查Rectangle.Contains的值是否为false的方法来判断是否离开屏幕。</p>
+
+<p>下面的图表列出了Rectangle.Intersects和Rectangle.Contains两个不同的矩形成员的不同输出情况。</p>
+
+<p><img src="/upload/BG_3.8.1.1pd_a.png" alt="" /></p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T06:13:16+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/16/xna-tutorial-2d-ch7-create-enemy-ufo/" title="Previous Post: XNA教程-2D游戏-07-添加敌人UFO">&laquo; XNA教程-2D游戏-07-添加敌人UFO</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/06/19/xna-tutorial-2d-ch9-record-scores/" title="Next Post: XNA教程-2D游戏-09-记录分数">XNA教程-2D游戏-09-记录分数 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

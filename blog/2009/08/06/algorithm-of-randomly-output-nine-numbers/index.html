@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>C#随机顺序输出数字 1～9 的算法 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="我很少关注算法，虽然之前也参加过ACM ICPC的省赛，也参加过一年半载的集训，但是我还是对算法这个东西提不起精神。我觉得那是数学家们站在前线做的事情，而我们大多数时间是在使用而不是创造，相比较之下反而是其他的一些事情比较有创造的快感。也许创造算法的人是很有快感吧，不过毕竟我只是个小小的程序员而已 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/08/06/algorithm-of-randomly-output-nine-numbers/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">C#随机顺序输出数字 1～9 的算法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-06T22:29:36+08:00" pubdate data-updated="true">Aug 6<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>我很少关注算法，虽然之前也参加过ACM ICPC的省赛，也参加过一年半载的集训，但是我还是对算法这个东西提不起精神。我觉得那是数学家们站在前线做的事情，而我们大多数时间是在使用而不是创造，相比较之下反而是其他的一些事情比较有创造的快感。也许创造算法的人是很有快感吧，不过毕竟我只是个小小的程序员而已。这次的算法听上去很简单。以前在一些程序里常用到的随机数都是没什么特别的，昨天偶然发现要让1-9 九个数字随机乱序输出也是一件不容易的事情。</p>
+
+<p>一上来的想法很简单，随机生成一个数字，然后检查是不是存在了，存在了就无视，重新生成。于是反例代码在这里：</p>
+
+<pre><code>public List&lt;int&gt; buff = new List&lt;int&gt;();
+Random _random;public MessUp()
+{
+long tick = DateTime.Now.Ticks;
+_random = new Random(DateTime.Now.Millisecond);
+int r;    while ((r = _random.Next(1, 9)) &gt; 0)
+{
+if (Exists(r) == false &amp;&amp; buff.Count != 9)
+{
+buff.Add(r);
+}
+else if (buff.Count == 9)
+break;
+}
+}
+private bool Exists(int num)
+{
+foreach(int i in buff)
+{
+if (i == num)
+return true;
+}
+return false;
+}
+</code></pre>
+
+<p>乍看之下就是这样，轻松愉快的事情。不过实际运行一下就知道效果了。123456789，9个数，比如等我随机出来12345678之后再要随机出来一个9这概率就变得非常可怕了。后来看到一个帖子，说到一句话：&#8221;随机出一个后，排除。&#8221; 多简单的思路啊，要是能写成这样就好了。</p>
+
+<pre><code>int newNumber = _random.Next(0,previousMin,previousMax,10);
+</code></pre>
+
+<p>边界不取到，min和max自己用newNumber比出来并记录，做个美梦而已。排除中间，不如把中间的数放到末尾再排除。算法的代码如下：</p>
+
+<pre><code>static void Main(string[] args)
+{
+List&lt;int&gt; tempL = new List&lt;int&gt;();
+List&lt;int&gt; buff = new List&lt;int&gt;();
+for (int i = 1; i &lt;= 9; i++)
+tempL.Add(i);
+int len = tempL.Count;
+Random _random = new Random(DateTime.Now.Millisecond);
+for (int i = 0; i &lt; len; i++)
+{
+int r = _random.Next(len - i);
+buff.Add(tempL[r]);
+tempL[r] = tempL[len - 1 - i];
+}
+foreach (int i in buff)
+Console.Write(i);
+Console.WriteLine();
+}
+</code></pre>
+
+<p>先准备一个List，我命名为tempL记录1-9，然后每一次随机生成一个索引，也就是位置的数字。把那个位置放到我们要记录的另一个List中，我命名为buff。并且把最后一个数放回到被抽取的数字的位置上。第n次循环，随机生成位置数要排除最后n-1个位置。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-06T22:29:36+08:00" pubdate data-updated="true">Aug 6<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/08/06/algorithm-of-randomly-output-nine-numbers/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/08/06/algorithm-of-randomly-output-nine-numbers/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/08/04/write-a-wow-plugin-with-visual-studio/" title="Previous Post: 用最习惯的Visual Studio编写魔兽世界插件">&laquo; 用最习惯的Visual Studio编写魔兽世界插件</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/08/07/solve-z-blog-1-8-arwen-build-90619-br-character/" title="Next Post: Z-blog 1.8 Arwen Build 90619 换行符问题的解决">Z-blog 1.8 Arwen Build 90619 换行符问题的解决 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

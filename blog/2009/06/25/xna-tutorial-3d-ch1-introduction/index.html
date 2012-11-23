@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-3D游戏-01-3D游戏教程简介 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="在之前，我把所有的2D视频教程都用文字重新写了一遍，也完成了2D教程中完成的那个例子，应该说，如果是XNA变成从无到有的话，那收获已经颇为丰富了。并且，教程中所有的More Details（原视频教程的页面）我也都进行了翻译，一部分还加上了一些自己的说明。应该说，无论是机械的完成代码学会技能， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/25/xna-tutorial-3d-ch1-introduction/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-3D游戏-01-3D游戏教程简介</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-25T22:47:25+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>在之前，我把所有的2D视频教程都用文字重新写了一遍，也完成了2D教程中完成的那个例子，应该说，如果是XNA变成从无到有的话，那收获已经颇为丰富了。并且，教程中所有的More Details（原视频教程的页面）我也都进行了翻译，一部分还加上了一些自己的说明。应该说，无论是机械的完成代码学会技能，还是了解一些XNA提供的实质性内容，都起到了很大的作用。</p>
+
+<p>之后正好面临我的期末考试，一个学期也就这么几天读书的，总要成全我吧。所以加上复习和考试，暂停了那么几天博客的更新，也算是之前一星期之后的小小的休息吧。现在回家放暑假，休息了几天之后，我决定继续开始3D的教程了，利用之前在2D学到的东西，我们应该可以轻松的进入3D的学习了。</p>
+
+<p>在3D的教程中，我们将完成一个2D教程中的demo中的3D版本。我们要完成一些类似的东西，也会接触一些新的东西。</p>
+
+<ol>
+<li><p>建立自己的3D环境 &#8212;- 毕竟是3D游戏了，所以不单单是像2D一样画一个背景就好了，我们需要建造自己的3D外太空环境。</p></li>
+<li><p>添加加农炮 &#8212;- 同样内容相似的，我们需要一个可以旋转的加农炮，只是这次的旋转是在3D环境中了。</p></li>
+<li><p>添加炮弹 &#8212;- 加农炮设计的炮弹，也将在3D环境中处理，当然其实也就是初速度稍许不同，接触到之后就会发觉到2D教程的作用了。</p></li>
+<li><p>添加敌方UFO &#8212;- 还是类似的，UFO从屏幕的远端向近端飞来，而不是右侧飞到左侧了哦。</p></li>
+<li><p>碰撞检测 &#8212;- 3D的碰撞检测。</p></li>
+<li><p>添加声效 &#8212;- 之前2D的游戏是没有声音的，这一次的3D中我们将加入声音，者是新的内容，会十分有趣的。</p></li>
+</ol>
+
+
+<p>大致的内容就是这样。当然，如果你没有看2D的教程，直接开始3D的也是可以的，只是和2D对比的部分直接略去就可以了。另外，本教程使用XNA Game Studio 3.1开发，如果你是使用的是之前的版本，或者是未来的某个版本，那么其中也许会有一些不同之处。如果你刚刚开始，那么就赶快装上Game Studio开始吧。</p>
+
+<p><strong>相关链接：</strong></p>
+
+<ul>
+<li><p><a href="http://arthraim.cn/post/2009/06/61.html">XNA教程-2D游戏-索引</a></p></li>
+<li><p><a href="http://creators.xna.com/en-US/education/gettingstarted/bg3d/chapter1">XNA Creators Club 教程原址</a></p></li>
+<li><p><a href="http://creators.xna.com/en-us/news/xnagamestudio3.1">XNA Game Studio 3.1 介绍及下载地址</a></p></li>
+<li><p><a href="http://arthraim.cn/post/2009/06/60.html">环境配置及安装的简单介绍请看《XNA Game Studio 3.1 Available》</a></p></li>
+</ul>
+
+
+<p><strong>Demo效果图：</strong></p>
+
+<p><a href="/upload/2009-06-27_Glance.jpg"><img src="/upload/2009-06-27_Glance.jpg" alt="" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-25T22:47:25+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/25/xna-tutorial-3d-ch1-introduction/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/25/xna-tutorial-3d-ch1-introduction/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/19/xna-tutorial-2d-index/" title="Previous Post: XNA教程-2D游戏-目录索引">&laquo; XNA教程-2D游戏-目录索引</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/" title="Next Post: XNA教程-3D游戏-02-创建游戏工程">XNA教程-3D游戏-02-创建游戏工程 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

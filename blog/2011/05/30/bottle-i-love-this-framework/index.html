@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>bottle-非常喜欢这个框架 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="大概是我火星了，直到2天前我才知道有bottle这样一个框架。鉴于对自己的翻译能力没有什么信心，就摘抄bottle官网上对自己介绍的原文过来吧。 Bottle is a fast, simple and lightweight WSGI micro web-framework for Python &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2011/05/30/bottle-i-love-this-framework/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Bottle-非常喜欢这个框架</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-30T04:46:07+08:00" pubdate data-updated="true">May 30<span>th</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>大概是我火星了，直到2天前我才知道有bottle这样一个框架。鉴于对自己的翻译能力没有什么信心，就摘抄<a href="http://bottlepy.org">bottle官网</a>上对自己介绍的原文过来吧。</p>
+
+<blockquote><p>Bottle is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.</p></blockquote>
+
+<p>坦率说因为工作中是使用spring的缘故，其实真正用python的web框架机会并不多。相对接触的比较多的是django，无论是工作中还是生活中写点小东西的时候我还是比较愿意使用django，django+mongoengine，可以快速的使用mongodb来做存储，具体就不细说了这不是重点，<a href="http://artori.us/use-mongodb-with-django/">之前的文章</a>中提到过。至于pylons, web.py或者其他的，大概看了一眼文档就没啥特别的感觉就没有深究下去。</p>
+
+<p><a href="http://artori.us/bottle-i-love-this-framework/logo_nav/"><img src="http://artori.us/wp-content/uploads/logo_nav.png" alt="" /></a></p>
+
+<p>今天主角是bottle，早上醒来迷迷糊糊在reader上看了<a href="http://simple-is-better.com/news/detail-292">一个充满印度腔的视频</a>，讲用bottle框架5分钟创建一个wiki。就是这个视频让我对bottle一见钟情。可以看一下官网的helloworld</p>
+
+<p><a href="http://artori.us/bottle-i-love-this-framework/2011-05-29_bottle_hello_world/"><img src="http://artori.us/wp-content/uploads/2011-05-29_bottle_hello_world.png" alt="" /></a></p>
+
+<p>好像做一个restful的东西好轻松的样子，直到我花了2个小时认真的读了他的<a href="http://bottlepy.org/docs/dev/tutorial.html">这一页</a>文档，我才觉得这真的太棒了！搭建一个web应用真的是手到擒来鸟。dict直接输出为json，multipart上传文件直接从request.files里面读取，cookie以及加密的cookie等等偷懒的feature真是不少。</p>
+
+<p>内建的template相对要蛋疼一点，我都没有找到loop，不过支持mako很简单，和内建的用法几乎是一模一样的。</p>
+
+<p>各种给力不多说了，现在自己在写一个用bottle+mongo的应用玩，另外学习的时候写了<a href="https://gist.github.com/994641">一个例子</a>，也传到了github上，愿意的话可以看看，里面有很多让人高兴的地方。如果你和我一样有做一个web应用的冲动，不妨试试看bottle！</p>
+
+<p>以上。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-30T04:46:07+08:00" pubdate data-updated="true">May 30<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2011/05/30/bottle-i-love-this-framework/" data-via="" data-counturl="http://Arthraim.github.com/blog/2011/05/30/bottle-i-love-this-framework/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/04/08/something-about-oauth/" title="Previous Post: 随便写写oauth">&laquo; 随便写写oauth</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/06/04/java-oauth-lib-scribe-java-start-supporting-weibo/" title="Next Post: java语言oauth库scribe-java支持新浪微博">java语言oauth库scribe-java支持新浪微博 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

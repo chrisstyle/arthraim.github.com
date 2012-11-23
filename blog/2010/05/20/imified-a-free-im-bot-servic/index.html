@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>免费的IM机器人服务—imified - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="Google中游荡的时候发现了这个网站，imified。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。 要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/05/20/imified-a-free-im-bot-servic/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">免费的IM机器人服务—imified</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-20T19:04:05+08:00" pubdate data-updated="true">May 20<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
+
+<p><a href="/wp-content/uploads/logo_shine.png"><img src="/wp-content/uploads/logo_shine.png" alt="" /></a></p>
+
+<p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
+
+<pre><code>&lt;?php
+$msg=$_REQUEST['msg'];
+$step=$_REQUEST['step'];
+if($step &gt; 3){
+    switch($msg){
+        case "hi":
+        case "hello":
+        echo "Hello there, I'm Arthurobot from Arthraim.cn";
+        break;
+    }
+} else {
+    switch ($step) {
+    case 1:
+    echo "Hello there, I'm Arthurobot from Arthraim.cn, so what's your name?";
+    break;
+    case 2:
+    echo "Hi " . $_REQUEST['value1'] . ", where do you live?";
+    break;
+    case 3:
+    echo "Well, welcome to this bot, " . $_REQUEST['value1'] . "&lt;br&gt;from " . $_REQUEST['value2'] . ".";
+    break;
+    }
+}
+?&gt; 
+</code></pre>
+
+<p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
+
+<p><a href="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
+
+<p>再之后他就只会回应hi和hello了，Arthur同学表示不会php，所以对我来说好像没有什么可以创造的东西。会php的同学可以做很多事情啊~</p>
+
+<p>以上。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-20T19:04:05+08:00" pubdate data-updated="true">May 20<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/internet/'>internet</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/05/20/imified-a-free-im-bot-servic/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/05/20/imified-a-free-im-bot-servic/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/05/15/asynchronous-methods-of-axum/" title="Previous Post: Axum的异步方法">&laquo; Axum的异步方法</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/05/25/about-cp6-i-wanna-say/" title="Next Post: 关于CP6，我想说………………">关于CP6，我想说……………… &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

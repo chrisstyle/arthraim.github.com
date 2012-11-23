@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PSP的C语言编程教程 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="话说dark_alex同学真的是隐退了…… 凭借着GEN系列的CFW，我们也终于能被动的玩上tekken6, GvG这样的新作了，对于玩家来说似乎是没有什么问题，对于破解来说真是一大损失。alek当然也没有闲着，在他&#8221;隐退&#8221; PSP scene的时候，依然做着很多工作， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/12/25/psp-c-programing-tutorial/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PSP的C语言编程教程</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-25T06:48:12+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>话说dark_alex同学真的是隐退了…… 凭借着GEN系列的CFW，我们也终于能被动的玩上tekken6, GvG这样的新作了，对于玩家来说似乎是没有什么问题，对于破解来说真是一大损失。alek当然也没有闲着，在他&#8221;隐退&#8221; PSP scene的时候，依然做着很多工作，比如之前在博客里连载的<a href="http://arthraim.cn/post/2009/09/106.html">PSP Code Clips 系列文章</a>。之后，还开设了一个叫做sForum的临时论坛，主要是讨论一下怎么样在关闭以前的Dark-AleX论坛之后重新弄一个范围更广的论坛。最近，这个着眼于编程主题的论坛也已经开张了，可以访问<a href="http://sceners.org/forum/">这里</a>。</p>
+
+<p>正如上面所说，alek其实做了很多PSP的教学工作，应该说把很多自己的成果都和大家分享出来了。但是这不免让我有点担心，在MaxConsole论坛的那帮&#8221;老资格&#8221;们是不是又要不待见他了，毕竟开放一些已有的破解成果，不但是给想要继续他的工作的人铺了一条明路，也给SCE的那帮技术人员的补丁工作打下了坚实的基础（不过事实上SCE的补丁已经打得足够好了，估计DA掌握的这些资料已经没有什么具体的参考价值了）。破解界不比得open source，这些代码是在破解小组破解高手之间都不能互相分享的，更何况这样堂而皇之的公布在网上呢~ so，希望老人们不要太生气。</p>
+
+<p>这次的主题是源于这个论坛的一个帖子，我觉得很好，于是就贴过来吧，主题如本文题目，内容如下…………</p>
+
+<hr />
+
+<p>希望仍然对PSP有兴趣的同学们（不一定是破解啊，哪怕homebrew呢~）好好学习一下吧~ 过一段时间，我会把一个叫做Dark-AleX.org Forum Legacy的帖子也尽数转过来~ 这里有大量的关于PSP底层的内容，比如IPL等等~</p>
+
+<p>你可以在这里下载到这个文件：<a href="http://sceners.org/CprogrammingPSP_Sceners.org_.7z">http://sceners.org/CprogrammingPSP_Sceners.org_.7z</a></p>
+
+<p>以上……</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-12-25T06:48:12+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/12/25/psp-c-programing-tutorial/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/12/25/psp-c-programing-tutorial/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/12/15/git-github-usage/" title="Previous Post: Git/Github使用方法小记">&laquo; Git/Github使用方法小记</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/12/28/liveandroid-0-3-demo/" title="Next Post: liveandroid 0.3 演示">liveandroid 0.3 演示 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

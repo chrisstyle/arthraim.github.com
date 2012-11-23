@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-2D游戏-09-记录分数 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。 那么接下来， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/19/xna-tutorial-2d-ch9-record-scores/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-2D游戏-09-记录分数</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T08:03:20+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
+
+<p>那么接下来，介绍方法。</p>
+
+<p><strong>第一步、添加Font到Content中</strong></p>
+
+<p><strong>一、添加SpriteFont的Content资源。</strong></p>
+
+<p>要在Content pipline中添加SpriteFont（字体）的内容。</p>
+
+<ol>
+<li><p><strong>Content中添加一个Fonts文件夹</strong>。</p>
+
+<p>   <img src="/upload/2009-06-19_AddFontToContent.jpg" alt="" /></p></li>
+<li><p><strong>在Fonts中添加一个GameFont对象</strong>。</p>
+
+<p>   [<img src="/upload/2009-06-19_AddSpriteFont.jpg" alt="" /></p>
+
+<p>   ](/upload/2009-06-19_AddSpriteFont.jpg)</p></li>
+<li><p><strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p></li>
+</ol>
+
+
+<pre><code>&lt;FontName&gt;Arial&lt;/FontName&gt;
+&lt;Size&gt;18&lt;/Size&gt;
+</code></pre>
+
+<p>好了，这样准备工作就完成了，我们可以在之后的Content的相关操作中使用这个font了。</p>
+
+<p><strong>二、声明一些新变量</strong></p>
+
+<p>声明一个int型的分数。</p>
+
+<p>声明一个SpriteFont对象当作字体。</p>
+
+<p>声明一个Vector2来记录分数显示的位置（百分比）。</p>
+
+<pre><code>int score;
+SpriteFont font;
+Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
+</code></pre>
+
+<p>就像之前说的，微软的大大们都有强大逻辑，可以在开始写程序的时候声明出所有的变量。</p>
+
+<p><strong>三、Content载入字体</strong></p>
+
+<p>在LoadContent方法中载入我们感概添加和修改的字体。</p>
+
+<pre><code>font = Content.Load&lt;SpriteFont&gt;(@"FontsGameFont");
+</code></pre>
+
+<p>这样，我们就可以自由的使用了。</p>
+
+<hr />
+
+<p><strong>第二步、添加记分逻辑</strong></p>
+
+<p>视频中的逻辑是击毁一个UFO加一分，所以在判断碰撞的地方加上score++就好。</p>
+
+<p>我设计的逻辑击毁加2分，漏掉一个（飞出屏幕）扣一分。</p>
+
+<p>当然你可以设计更加复杂的功能，比如距离远速度快的3分等等，总之分数不是关键。</p>
+
+<hr />
+
+<p><strong>第三步、绘制分数</strong></p>
+
+<p>绘制我们记分的结果，在Draw这个方法的SpriteBatch.End()之前加入绘制字符串的代码。</p>
+
+<pre><code>spriteBatch.DrawString(
+    font,
+    "Score:" + score.ToString(),
+    new Vector2(
+        scoreDrawPoint.X * viewportRect.Width,
+        scoreDrawPoint.Y * viewportRect.Height),
+    Color.White);
+</code></pre>
+
+<p>看一下参数。</p>
+
+<ol>
+<li><p>SpriteFont，要求传入一个SpriteFont，我们这里传入了之前创建的font。</p></li>
+<li><p>string，传入要显示的字符串，这里是得分。</p></li>
+<li><p>Vector2，传入一个显示位置（左上角）的Vector2，这里我们利用之前创建的百分比和屏幕大小计算出一个新的Vector2</p></li>
+<li><p>Color，传入一个字形的颜色。</p></li>
+</ol>
+
+
+<p>好了，这样我们的游戏就完整的完成了。放一张运行时的截图。</p>
+
+<p><a href="/upload/2009-06-19_Chapter9_Runtime.jpg"><img src="/upload/2009-06-19_Chapter9_Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=156"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T08:03:20+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/19/xna-tutorial-2d-ch9-record-scores/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/19/xna-tutorial-2d-ch9-record-scores/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/" title="Previous Post: XNA教程-2D游戏-08-摧毁UFO">&laquo; XNA教程-2D游戏-08-摧毁UFO</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/06/19/xna-tutorial-2d-index/" title="Next Post: XNA教程-2D游戏-目录索引">XNA教程-2D游戏-目录索引 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

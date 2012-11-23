@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-2D游戏-07-添加敌人UFO - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 07 &#8211; 添加敌人UFO 这次要做的就是添加敌人 &#8212;- UFO。我们有了一个防空武器，在一个可恶的看上去非常阴沉的外星球，那我们必须要有人来入侵，这才是建造军用设施的真正目的对吧。所以，程序员真是堪比创世纪的众神了。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/16/xna-tutorial-2d-ch7-create-enemy-ufo/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-2D游戏-07-添加敌人UFO</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-16T19:24:54+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 07 &#8211; 添加敌人UFO</strong></p>
+
+<p>这次要做的就是添加敌人 &#8212;- UFO。我们有了一个防空武器，在一个可恶的看上去非常阴沉的外星球，那我们必须要有人来入侵，这才是建造军用设施的真正目的对吧。所以，程序员真是堪比创世纪的众神了。</p>
+
+<p>加入UFO的方法其实和子弹差不多（记住这句话，因为我后面实在是懒得讲了），它需要它的初速度向量，需要被杀掉，最后需要画在屏幕上，如果稍微改一下，我们完全可以不看教程做到了。添加UFO还涉及到了一个新的概念，就是随机数，游戏中随机是非常重要的东西，几乎没有一个游戏不用到随机概念的，前段时间刚刚过了25岁生日的俄罗斯方块也是。随机，是游戏的灵魂，而我们将用到Random来产生随机数，再使用XNA提供的方法限定我们需要的范围。OK，开始吧。</p>
+
+<p><strong>第一步、创建UFO</strong></p>
+
+<p>我们要声明很多的变量，可能一时半会儿不会知道有什么用。一样的，找到你声明了其他东西的地方，加农炮啦，炮弹啦，手柄和键盘的状态啦之类的，Game类的首部，添加以下代码，代码如下：</p>
+
+<pre><code>const int maxEnemies = 3;
+const float maxEnemyHeight = 0.1f;
+const float minEnemyHeight = 0.5f;
+const float maxEnemyVelocity = 5.0f;
+const float minEnemyVelocity = 1.0f;
+Random random = new Random();
+GameObject[] enemies;
+</code></pre>
+
+<p>似乎有很多不明所以的东西，来看看他们都是些什么。</p>
+
+<ol>
+<li><p>最大的敌人数，3个，好吧，我一定改了你。</p></li>
+<li><p>最大敌人高度，0.1f，似乎可以想到。</p></li>
+<li><p>最小敌人高度，0.5f，对啊，正如之前说到的，坐标系的Y轴是越上方越小。</p></li>
+<li><p>最大敌人速率，5.0f，恩，敌人的速率是可变的，不错。</p></li>
+<li><p>最小敌人速率，1.0f，最小的速度。</p></li>
+<li><p>随机对象，一个Random对象，看来是创建随机数用的。</p></li>
+<li><p>敌人数组，一个敌人的数组，和子弹一样，只是名字不同而已吧。</p></li>
+</ol>
+
+
+<p>这就是我们第一步完成的事情，之前说过，微软工程师都是强大的存在，可以预见未来，他们可以在刚刚开始写代码的时候就声明好所有将来需要使用的变量。当然，这是个笑话。</p>
+
+<p>之后要初始化这些对象，载入enemy.tga资源。找到LoadContent的位置，在初始化cannonballs的循环下面添加一个for循环。记得之前怎么做的吗？如法炮制。</p>
+
+<pre><code>enemies = new GameObject[maxEnemies];
+for (int i = 0; i &lt; maxEnemies; i++)
+{
+    enemies[i] = new GameObject(
+    Content.Load&lt;Texture2D&gt;(@"Spriteenemy"));
+}
+</code></pre>
+
+<p>不麻烦吧，只是吧cannnonballs的名字换一下就是这里的代码了。继续。</p>
+
+<hr />
+
+<p><strong>第二步、更新UFO位置并杀掉屏幕以外的</strong></p>
+
+<p>第二步做的是更新他们的位置，因为也是GameObject类，所以方法和cannonball一模一样。在Update方法中找到UpdateCannonBalls();这一行，在下面加入：</p>
+
+<pre><code>UpdateEnemies();
+</code></pre>
+
+<p>说然后在类的其他任何地方加上我们的UpdateEnemies方法。</p>
+
+<pre><code>public void UpdateEnemies()
+{
+    foreach (GameObject enemy in enemies)
+    {
+        if (enemy.alive)
+        {
+            enemy.position += enemy.velocity;
+            if(!viewportRect.Contains(new Point(
+                (int)enemy.position.X,
+                (int)enemy.position.Y)))
+            {
+                enemy.alive = false;
+                continue;
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>真的，和CannonBalls一模一样，改一下名称，采用一样的杀掉的方法，这就是UFO移动，位置更新的代码了，目前为止没什么新的东西。</p>
+
+<hr />
+
+<p><strong>第三步、新生UFO</strong></p>
+
+<p>和cannonballs不同，在做cannonballs的工作的时候，先让它射击出来，也就是在按键的一刻，之后在离开屏幕的一刻把它杀掉。而enemies在被处理的时候，是先在他离开屏幕的时候杀掉，可是它从没出现过。所以这一步，我们要让他出现。</p>
+
+<p>要新生一个enemy的GameObject我们要给他一些属性，包括alive要变成true，这是肯定的。然后要给他一个初始的position，一个velocity速度向量，velocity包括了方向，和速率。（所以我始终觉得speed更好）。</p>
+
+<p>然后就是决定，什么时候创建它。它在离开屏幕的时候会死去，那么我们就在它死去之后马上把它救活，所以我们找到上一步的UpdateEnemies方法，在if(enemy.alive){}的后面，加上enemy.alive == false的代码，让它死掉马上活过来，并出现在屏幕的右方。</p>
+
+<pre><code>if (enemy.alive)
+{
+    // ...其他代码
+}
+else
+{
+    enemy.alive = true;
+    enemy.position = new Vector2(
+    viewportRect.Right,
+    MathHelper.Lerp(
+        (float)viewportRect.Height * minEnemyHeight,
+        (float)viewportRect.Height * maxEnemyHeight,
+        (float)random.NextDouble()));
+    enemy.velocity = new Vector2(
+    MathHelper.Lerp(
+        -minEnemyVelocity,
+        -maxEnemyVelocity,
+        (float)random.NextDouble()),
+        0);
+}
+</code></pre>
+
+<p>看看我们做了什么。</p>
+
+<p>enemy.alive = true; 没错，这是出生证明，起码在某些程度上说明了它活过来了。</p>
+
+<p>enemy.position = new Vector2(); 这当然是给他位置向量，初始化向量要X坐标Y坐标，那X坐标就是屏幕右侧，X轴最大值，viewportRect记录了屏幕大小，调用viewportRect的Right属性，就是我们要的屏幕宽度，也就是X轴最大值。而Y坐标，我们要随机产生一个高度，这样才有游戏的味道。首先，我们用random.NextDouble随机生成一个0到1之间的double类型的随机数，这就是我们得到随机数的方法。但是，它不是我们要的数字，我们需要一个高度差之间的，而不是0到1的。于是这里要讲一下MathHelper.Lerp方法，它需要3个参数，随机数的最小值，随机数的最大值，和随机数。我们使用这个方法，把我们随机产生的那个书限定到我们给的新范围里。其实做法很简单，相信大家都可以写出来，(最大值-最小值)×随机值+最小值，这得到了我们的这个数，不过XNA帮你省去了这些代码（真是细致的过分了 = =），直接帮助得到我们的数。</p>
+
+<p>enemy.velocity = new Vector2()，一样的，也是产生一个新的向量。因为要他笔直的从右往左穿过屏幕，那Y方向没有速度，Y给个0就好了。X则是要随机在我们定下的范围里得到一个数字，方法和position的类似，只是要注意的是，因为我们逆X轴正方向飞行，所以X轴速度是负数。</p>
+
+<p>至此，完成了UFO的全部的Update工作。</p>
+
+<hr />
+
+<p><strong>第四步、绘制UFO</strong></p>
+
+<p>嘿嘿，一样，最后我要画UFO。找到Draw方法，加入一个新的SpriteBatch.draw就可以了。因为UFO不会和加农炮碰撞，所以无论放在背景以上的什么层面都好，只是我觉得起码应该遮掉子弹吧～于是添加代码，又是和cannnonballs一样。</p>
+
+<pre><code>foreach (GameObject enemy in enemies)
+{
+    if (enemy.alive)
+    {
+        spriteBatch.Draw(
+        enemy.sprite,
+        enemy.position,
+        Color.White);
+    }
+}
+</code></pre>
+
+<p>We&#8217;re done here. 运行一下看看效果。（我修改了同屏敌人数，因为我的子弹改成是10 = = 并且我发现我的子弹是可以打成一张网的，这游戏没意思了）</p>
+
+<p><a href="/upload/2009-06-16_Chapter7Runtime.jpg"><img src="/upload/2009-06-16_Chapter7Runtime.jpg" alt="" /></a></p>
+
+<p>画面不错。OK，下一次就是要真的用子弹杀掉敌人了～</p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=154"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+<hr />
+
+<p><strong>第三步的补充内容翻译。</strong></p>
+
+<p>这段文字详细讲解了Lerp方法的成因，作用，实现方式，用法，好处等等，可以说非常的详细。</p>
+
+<p>但我个人其实非常不理解，首先我非常不理解为什么（最大值-最小值）×随机值+最小值 这样一个计算就可以完成的事情一定要封装到framework里，虽然那个类的名字叫MaxHelper。另外不理解的地方就是为啥还要用这么多的文字来说明，看了就知道，它用了很多文字来说为什么0到1之间的数可以转化为一个范围内的数，还打了从一个数轴映射到另一个数轴的例子。</p>
+
+<p>只是觉得很有意思而已，美国人做事情有些德国人的味道。看文字吧。</p>
+
+<blockquote><p><strong>随机数和线性插入</strong></p>
+
+<p>在游戏中，随机事件会添加更多的曲折。从随机出现在随机位置的玩家或敌人，到一定几率出现的奖励道具，随机事件可以保持一个游戏的挑战性和乐趣。</p>
+
+<p>怎么才能让你使用一个随机数字来创建随机事件呢？</p>
+
+<p>Microsoft® Visual C# 2005 Express Edition和Visual Studio 2005的包含的标准库中提供了一个实用的类&#8212;-System.Random类。它可以被实例化，也可以生成特定最大范围内的随机整数，或随机生成0到1之间的双精度小数。</p>
+
+<p>乍看之下，产生一个随机证书似乎更管用。在某些情况下，它很管用。举个例子，随机访问你的数组索引，你需要一个整数。但是2D游戏中的数是浮点数，这意味着，他们拥有小数部分。我们需要一些不是严格的整数的数值。打个比方，5到10之间产生一个随机速率。如果我们只是用5到10之间的整数，只有6中可能的数值，这使得速率间的差异性看上去不是那么随机。</p>
+
+<p>一个双精度浮点数之给我们更多范围内数据的变化，使可以转化为更多各种各样的表现。这非常美妙，特别是当我们屏幕上有很多对象拥有不同的位置和速度的时候。</p>
+
+<p>然而，我们的Random类只返回0到1之间的双精度浮点值，或称为double类型的值，却对我们要随机获得5到10之间的数字不怎么实用。你当然可以做一些必要的乘法和加法来让0到1之间的数适应5到10之间这个范围，但是XNA Framework提供了更加简单的方法 &#8212;- MathHelper.Lerp。</p>
+
+<p>Lerp是linear interpolation（线性插入）的缩写，一个数学方法，提供它一些0到1之间的数值T，并提供给它最大值和最小值，它可以计算出一个最大值和最小值之间的输出T。</p>
+
+<p><img src="/upload/BG_3.7.3.1pd.png" alt="" /></p>
+
+<p>把它想象成是在一个最小值和最大值之间的数轴上决定位置，而T是从开始的0到1之间的一条数轴上的某个位置。如果T是0.75，它应该在数轴范围的3/4的位置，在5到10的数轴上就是8.75。照着这个方法，一个0到1之间的数值可以用来在两个浮点数之间找到一个对应的浮点数。</p>
+
+<p>Lerp方法可以用在游戏中需要以恒定速率增加或减少的任何东西。速率、动画、淡出效果或变换颜色 &#8212;- 简简单单传入一个0到1之间的数值T，一个最小值，一个最大值，Lerp会完成之后的所有事情。</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-16T19:24:54+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/16/xna-tutorial-2d-ch7-create-enemy-ufo/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/16/xna-tutorial-2d-ch7-create-enemy-ufo/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/15/xna-tutorial-2d-ch6-launch-missiles/" title="Previous Post: XNA教程-2D游戏-06-发射炮弹">&laquo; XNA教程-2D游戏-06-发射炮弹</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/" title="Next Post: XNA教程-2D游戏-08-摧毁UFO">XNA教程-2D游戏-08-摧毁UFO &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

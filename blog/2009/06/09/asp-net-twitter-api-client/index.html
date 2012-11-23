@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ASP.NET调用twitter api实现简单的功能 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/06/09/asp-net-twitter-api-client/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ASP.NET调用twitter Api实现简单的功能</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine.net的开源项目里找到了一段.net实现的通过feed方式获取tweets的方法。把代码整理了一下，去掉了blogengine的widget成分，做成个页面……</p>
+
+<p><strong><a href="http://twitter.com/arthraim/">Follow me</a></strong></p>
+
+<p><strong>Links:</strong></p>
+
+<p><a href="http://www.dotnetblogengine.net/">BlogEngine.net</a> | blogEngine.net的官方网站，下载完整博客文件后，查看widget中的twitter部分就可以了。</p>
+
+<pre><code>[TwitterFeed-Widget for BlogEngine.NET](http://twitterfeedwidget.codeplex.com/) | 这是在上面那些代码的基础上修改的一个codeplex开源项目，稍微优化了一下，其实读下来差不多。  
+
+[twitter api 中文文档](http://www.54chen.com/c/591) | twitter api的翻译，来自陈臻（@54chen）。
+</code></pre>
+
+<p><strong>前台代码</strong>。加入页面，如Default.aspx。</p>
+
+<pre><code>&lt;asp:HyperLink runat="server" ID="hlTwitterAccount" Text="Follow me on Twitter" rel="me" /&gt;
+&lt;asp:Repeater runat="server" ID="repItems" OnItemDataBound="repItems_ItemDataBound"&gt;
+    &lt;ItemTemplate&gt;
+        &lt;img src="twitter.ico" alt="Twitter" /&gt;
+        &lt;asp:Label runat="server" ID="lblDate" style="color:gray" /&gt;&lt;br /&gt;
+        &lt;asp:Label runat="server" ID="lblItem" /&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
+</code></pre>
+
+<p><strong>后台代码</strong>。</p>
+
+<pre><code>using System;
+using System.Configuration;
+using System.Data;
+using System.Xml;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Net;
+using System.Globalization;
+public partial class _Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        ShowTweets();
+    }
+    private static DateTime LastModified = DateTime.MinValue;
+    private const string CACHE_KEY = "twits";
+    private void ShowTweets()
+    {
+        //用户名
+        string _username = "arthraim";
+        //用户的twitter地址
+        string _url = "http://twitter.com/" + _username + "/";
+        //FEED地址（user_timeline为自己的，可以根据需要修改）
+        string _feedurl = "http://twitter.com/statuses/user_timeline/" + _username + ".rss";
+        //显示的最大条目数
+        int maxItems = 30;
+        hlTwitterAccount.NavigateUrl = _url;
+        if (_feedurl != null)
+        {
+            if (HttpRuntime.Cache[CACHE_KEY] != null)
+            {
+                string xml = (string)HttpRuntime.Cache[CACHE_KEY];
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xml);
+                BindFeed(doc, maxItems);
+            }
+            if (DateTime.Now &gt; LastModified.AddMinutes(15))
+            {
+                LastModified = DateTime.Now;
+                BeginGetFeed(_feedurl);
+            }
+        }
+    }
+    protected void repItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        Label text = (Label)e.Item.FindControl("lblItem");
+        Label date = (Label)e.Item.FindControl("lblDate");
+        Twit twit = (Twit)e.Item.DataItem;
+        text.Text = twit.Title;
+        date.Text = twit.PubDate.ToString("MMMM d. HH:mm");
+    }
+    private void BeginGetFeed(string url)
+    {
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        request.Credentials = CredentialCache.DefaultNetworkCredentials;
+        request.BeginGetResponse(EndGetResponse, request);
+    }
+    private void EndGetResponse(IAsyncResult result)
+        {
+        HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(response.GetResponseStream());
+            HttpRuntime.Cache[CACHE_KEY] = doc.OuterXml;
+        }
+    }
+    private void BindFeed(XmlDocument doc, int maxItems)
+    {
+        XmlNodeList items = doc.SelectNodes("//channel/item");
+        List&lt;Twit&gt; twits = new List&lt;Twit&gt;();
+        int count = 0;
+        for (int i = 0; i &lt; items.Count; i++)
+        {
+            if (count == maxItems)
+                break;
+            XmlNode node = items[i];
+            Twit twit = new Twit();
+            string title = node.SelectSingleNode("description").InnerText;
+            if (title.Contains("@"))
+                continue;
+            if (title.Contains(":"))
+            {
+                int start = title.IndexOf(":") + 1;
+                title = title.Substring(start);
+            }
+            twit.Title = ResolveLinks(title);
+            twit.PubDate = DateTime.Parse(node.SelectSingleNode("pubDate").InnerText, CultureInfo.InvariantCulture);
+            twit.Url = new Uri(node.SelectSingleNode("link").InnerText, UriKind.Absolute);
+            twits.Add(twit);
+            count++;
+        }
+        twits.Sort();
+        repItems.DataSource = twits;
+        repItems.DataBind();
+    }
+    private static readonly Regex regex = new Regex("((http://|https://|www\.)([A-Z0-9.\-]{1,})\.[0-9A-Z?;~&amp;\(\)#,=\-_\./\+]{2,})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private const string link = "&lt;a href="{0}{1}" rel="nofollow"&gt;{1}&lt;/a&gt;";
+    /// &lt;summary&gt;
+    /// The event handler that is triggered every time a comment is served to a client.
+    /// &lt;/summary&gt;
+    private string ResolveLinks(string body)
+    {
+        CultureInfo info = CultureInfo.InvariantCulture;
+        foreach (Match match in regex.Matches(body))
+        {
+            if (!match.Value.Contains("://"))
+            {
+                body = body.Replace(match.Value, string.Format(info, link, "http://", match.Value));
+            }
+            else
+            {
+                body = body.Replace(match.Value, string.Format(info, link, string.Empty, match.Value));
+            }
+        }
+        return body;
+    }
+    private struct Twit : IComparable&lt;Twit&gt;
+    {
+        public string Title;
+        public Uri Url;
+        public DateTime PubDate;
+        public int CompareTo(Twit other)
+        {
+            return other.PubDate.CompareTo(this.PubDate);
+        }
+    }
+}
+</code></pre>
+
+<p>[修改自开源项目blogengine.net]</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/06/09/asp-net-twitter-api-client/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/06/09/asp-net-twitter-api-client/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/06/08/cfwenabler-3-01-relesed-supports-psp3000/" title="Previous Post: CFWEnabler 3.01 支持PSP3000">&laquo; CFWEnabler 3.01 支持PSP3000</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/06/12/xna-game-studio-3-1-available/" title="Next Post: XNA Game Studio 3.1 Available">XNA Game Studio 3.1 Available &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

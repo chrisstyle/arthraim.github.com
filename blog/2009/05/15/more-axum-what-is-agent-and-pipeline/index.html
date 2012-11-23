@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>继续研究Axum —— 初解agent和pipeline - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。 还是围绕核心的这句话。 &#8220;A .NET language for safe, scalable and productive &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/05/15/more-axum-what-is-agent-and-pipeline/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">继续研究Axum —— 初解agent和pipeline</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-15T06:23:57+08:00" pubdate data-updated="true">May 15<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。</strong></p>
+
+<p>还是围绕核心的这句话。</p>
+
+<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+
+<p>在<a href="http://arthraim.cn/post/2009/05/32.html">上一篇文章</a>也在讲这句话，但是说穿了讲的应该是：</p>
+
+<blockquote><p>&#8220;A .NET language for parallel programming through message-passing.&#8221;</p></blockquote>
+
+<p>我们只是从一个channel中派生了一个agent，做了数据传递而已，真正意义上的actor在哪里没有讲到（虽然有用到）。那么这次讲一讲。因为刚好看到<a href="http://www.cnblogs.com/JeffreyZhao/archive/2009/05/11/a-simple-actor-model-implementation.html">老赵的博客上</a>好好的分析了actor模型一把，要好好向他学习啊。</p>
+
+<p>Axum是为并行而生的.net语言，那么他提供了非常完整的Actor模型，使得每个actor可以安全的并发。那么不用说，coding的时候就肯定用到过了actor模型，究竟他在哪里呢？其实就是agent。还记得写Axum的<a href="http://arthraim.cn/post/2009/05/31.html">第二篇文章</a>，看到VS2008 generate出来的代码之后，看到agent的时候非常疑惑，那么现在就可以解惑了。</p>
+
+<p><strong>agent就是在axum中的actor模型。</strong></p>
+
+<p>讲到这里就很明显了，只是从channel派生出来的actor模型本身还肩负着其他功能。我想跟着Guide走，那么下一次也许还有机会讲到agent。</p>
+
+<hr />
+
+<p><strong> 然后讲讲pipeline。先从一个程序出发：斐普纳吉数列的实现。</strong></p>
+
+<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &#8212;- MainAgent。</p>
+
+<pre><code>using System;
+using Microsoft.Axum;
+using System.Concurrency.Messaging;
+agent MainAgent : channel Microsoft.Axum.Application
+{
+    // ...
+    public MainAgent()
+    {
+        // ...
+    }
+}
+</code></pre>
+
+<p><strong>agent从channel中派生是种什么特殊情况呢？</strong>在Guide上是这么描述的：</p>
+
+<blockquote><p>Implementing a channel is different - syntactically and semantically - from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
+
+<pre><code>    However, when an agent implements a channel (notice the channel keyword after the colon in the agent declaration), it "attaches" itself to the implementing end of that channel and becomes the "server" of messages on that channel. The other end of the channel - known as the using end - is only visible to the "client", or the component (typically another agent) on the other end of the channel.
+</code></pre>
+
+<blockquote></blockquote>
+
+<p>大概翻译一下：（哪怕只当Guide翻译集锦看也好）</p>
+
+<blockquote><p>从一个channel派生和从一个接触agent中派生是不一样的，有字面上的和语义上的两种理解。一个agent从另一个agent从派生的话，只不过是通过覆盖重写它的方法或可能为自己增加更多的一种扩展。</p>
+
+<p>然而当一个agent从一个channel派生的话，它是把自己&#8221;贴&#8221;到channel的派生端（implementing end），从而成为channel上的信息的&#8221;服务端&#8221;。而Channel的另一端（被称作应用端（using end））是指对&#8221;客户端&#8221;或在channel另一端的某个组件（代表性的就是另一个agent）。</p></blockquote>
+
+<p>channel负责传递信息，但是它不会对信息做任何处理。（处理的当然是agent啦）</p>
+
+<p><img src="/upload/2009-05-14_TwoEndsChannel.png" alt="" /></p>
+
+<p><strong>那从Microsoft.Axum.Application这个channel派生的主程序是如何处理信息的呢？</strong></p>
+
+<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&#8217;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
+
+<p>从Microsoft.Axum.Applicationruntime这个Channel派生过来的agent的runtime实例，发送命令行参数到channel的命令行端口（CommandLine port），然后等待退出代码端口（prot ExitCode）的信息。当收到信息后，应用程序就关闭。</p></blockquote>
+
+<p>这样一个ax程序的运行机理也就知道了，如果说C是从main函数中得到参数，执行完毕后跳出。那ax程序就是从这个main channel出发，得到退出代码的信息后退出。</p>
+
+<p>继续补充代码，然后来看看信息的异步编程。先写一个斐普纳吉的递归算法。</p>
+
+<pre><code>function int Fibonacci(int n)
+{
+    if( n&lt;=1 ) return n;
+    return Fibonacci(n-1) + Fibonacci(n-2);
+}
+</code></pre>
+
+<p>然后是界面的代码。</p>
+
+<pre><code>int numCount = 10;
+void ProcessResult(int n)
+{
+    Console.WriteLine(n);
+    if( --numCount == 0 )
+    {
+        Console.ReadLine();
+        PrimaryChannel::ExitCode &lt;-- 0;
+    }
+}
+</code></pre>
+
+<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&#8211; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
+
+<p>之后就是最精彩的创建OrderedInteractionPoint和pipeline的代码了。</p>
+
+<pre><code>public MainAgent()
+{
+    var numbers = new OrderedInteractionPoint&lt;int&gt;();
+    // Create pipeline:
+    numbers ==&gt; Fibonacci ==&gt; ProcessResult;
+    // Send messages to numbers:
+    for( int i=0; i&lt;numCount; i++ )
+        numbers &lt;-- 42-i;
+}
+</code></pre>
+
+<p>从格式上看，微软工程师们还是很有创意的，这段代码看上去很有美感。值得说的东西也是非常的多。</p>
+
+<p>Axum提供了两种orchestration（这单词怎么翻译？编排？）方式，基于控制流（control-flow-based）和基于数据流（data-flow-based）。</p>
+
+<blockquote><p>In Axum, the messages are sent to and received from the interaction points. An interaction point from which a message originates is called the source, and the destination is called the target. An interaction point can be both a source and a target, meaning that it can both send and receive messages. This allows composition of multiple interaction points into dataflow networks.</p>
+
+<p>在Axum中，信息传递和接受是通过interaction points（互动点？）的。信息源的interaction point叫做source，目的地的叫做target。同一个interaction point能同时既作为source，又作为target，意味着它能同时发送和接受信息。这样就允许很多的Interaction point组成一个数据流网络。</p></blockquote>
+
+<p>翻译过来之后，意思应该已经比较清晰了，数据流和原始的控制流程序不一样，以前类似上面代码的过程，我们写完两个方法之后需要把一个先初始化两个数据，其中一个传入斐普纳吉计算然后一个去接受结果（不是唯一解决方法），然后再将结果去交给界面方法打印。而现在我们调用的过程就整个缩减为一个管道：</p>
+
+<blockquote><p>numbers ==> Fibonacci ==> ProcessResult;</p></blockquote>
+
+<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&#8211; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
+
+<p>有了pipeline，我们就要使用它，因为axum在编译的时候对它是进行特殊处理的。比如斐普纳吉计算过程是a side-effect-free function，一个没有副作用的函数，那么axum就会根据它认为最有效的方式的方式编译出多个线程来处理，并行的优势就体现在这里。</p>
+
+<p>之前说到Ordered，虽然这个数据流是可以并行执行的，但是它的顺序是不会发生变化的，哪怕多个实例在一个结点上，想进入下一个结点你也是必须执行完现在的节点的。就比如说上面的程序中，UI打印模块在你完成斐普纳吉计算前绝对不能新建线程。</p>
+
+<p><strong>程序代码和执行效果：</strong></p>
+
+<p><img src="/upload/2009-05-14_run.png" alt="" /></p>
+
+<hr />
+
+<p>说到这里就把Axum的agent和pipeline都说完了。简单的总结起来，agent就是actor模型的实现，而pipeline就是基于数据流的程序驱动方式。</p>
+
+<p>关于Axum的其他新特性，再慢慢研究咯～</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-15T06:23:57+08:00" pubdate data-updated="true">May 15<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/05/15/more-axum-what-is-agent-and-pipeline/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/05/15/more-axum-what-is-agent-and-pipeline/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/05/14/microsoft-axum-learn-grammar-with-video/" title="Previous Post: Microsoft Axum —— 跟着视频看语法(AxumMath的实现)">&laquo; Microsoft Axum —— 跟着视频看语法(AxumMath的实现)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/05/15/microsoft-did-two-things/" title="Next Post: 微软做了两件事">微软做了两件事 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

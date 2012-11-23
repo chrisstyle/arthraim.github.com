@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>XNA教程-3D游戏-07-添加导弹 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="在3D的地表上添加了可以控制的炮塔，接下去要让他向整个3D空间里自由的发射导弹。这次我们真正的要接触到Update这个方法了，另外知道在游戏循环中处理一些按键的逻辑。和2D一样，发射出去的导弹也是GameObject，那么一样的我们还是要用到它，并且要用到它的集合，来管理多枚屏幕中的导弹。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/07/08/xna-tutorial-3d-ch7-create-missiles/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">XNA教程-3D游戏-07-添加导弹</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-08T23:38:32+08:00" pubdate data-updated="true">Jul 8<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>在3D的地表上添加了可以控制的炮塔，接下去要让他向整个3D空间里自由的发射导弹。这次我们真正的要接触到Update这个方法了，另外知道在游戏循环中处理一些按键的逻辑。和2D一样，发射出去的导弹也是GameObject，那么一样的我们还是要用到它，并且要用到它的集合，来管理多枚屏幕中的导弹。</p>
+
+<p>这一部分官方把视频分为了6段之多，不过其实内容基本上和2D差不多，那么还是一步一步看下去，其实分的越细致，越容易理解的。</p>
+
+<p><strong>第一步、扩展GameObject</strong></p>
+
+<p>正如前面说到的，这一次要用GameObject来描述导弹，那么它就应该具有所有导弹需要的属性，和2D类似，需要的是一个Vector3记录初速度， 和一个bool记录模型是否存活。</p>
+
+<p>添加这样两行到GameObject类中～</p>
+
+<pre><code>public Vector3 velocity = Vector3.Zero;
+public bool alive = false;
+</code></pre>
+
+<ul>
+<li><p>velocity：Vector3，记录速度（速率和方向），初始化为0；</p></li>
+<li><p>alive：bool，记录是否存活，初始化为false。</p></li>
+</ul>
+
+
+<hr />
+
+<p><strong>第二步、添加missiles数组</strong></p>
+
+<p>拥有了为导弹扩展之后的GameObject类，现在就要添加一定数量的导弹了，所以我们用到了一个GameObject数组，来记录所有游戏中出现及没有出现的导弹。</p>
+
+<p><strong>1、声明：</strong>还是要先添加声明，一个const int记录数组大小，即最多的同屏导弹数。在Game1类的头部添加代码：</p>
+
+<pre><code>const int numMissiles = 20;
+GameObject[] missiles;
+</code></pre>
+
+<p><strong>2、初始化：</strong>在LoadContent中用循环来初始化数组中所有的GameObject。找到LoadContent()：</p>
+
+<pre><code>missiles = new GameObject[numMissiles];
+for (int i = 0; i &lt; numMissiles; i++)
+{
+    missiles[i] = new GameObject();
+    missiles[i].model = Content.Load&lt;Model&gt;(
+    @"Modelsmissile");
+    missiles[i].scale = 3.0f;
+}
+</code></pre>
+
+<p>实例化missiles数组为20个GameObject。</p>
+
+<p>循环使用for，遍历每一个，并实例化 ，载入模型为missile，缩放大小为3倍，因为模型比较小的缘故吧。</p>
+
+<hr />
+
+<p><strong>第三步、导弹发射输入</strong></p>
+
+<p>这一步要编写控制导弹发射的逻辑，和2D一模一样，除了命名不一样。一样从声明和Update代码两部分看。</p>
+
+<p><strong>1、声明：</strong></p>
+
+<pre><code>GamePadState previousState;
+#if !XBOX
+KeyboardState previousKeyboardState;
+#endif
+</code></pre>
+
+<h1>if和#endif在之前控制炮台转动的教程中已经出现过。</h1>
+
+<p>这里为什么用到这样两个变量，在文章最后为加上翻译的资料。</p>
+
+<p><strong>2、Update代码：</strong></p>
+
+<pre><code>missileLauncherHead.rotation.Y = MathHelper.Clamp(
+missileLauncherHead.rotation.Y,
+-MathHelper.PiOver4,
+MathHelper.PiOver4);
+missileLauncherHead.rotation.X = MathHelper.Clamp(
+    missileLauncherHead.rotation.X,
+    0,
+    MathHelper.PiOver4);
+if (gamePadState.Buttons.A == ButtonState.Pressed &amp;&amp;
+    previousState.Buttons.A == ButtonState.Released)
+{
+    FireMissile();
+}
+#if !XBOX
+if(keyboardState.IsKeyDown(Keys.Space) &amp;&amp;
+    previousKeyboardState.IsKeyUp(Keys.Space))
+{
+    FireMissile();
+}
+#endif
+previousState = gamePadState;
+#if !XBOX
+previousKeyboardState = keyboardState;
+#endif
+</code></pre>
+
+<p>这里的代码看上去挺多，但逻辑其实很清晰。都是在上一次按键放下的前提下，看下的话，就调用FireMissile方法。这样就不能按住案件连续发射了。</p>
+
+<p>FireMissile方法正是下一步要完成的内容。</p>
+
+<hr />
+
+<p><strong>第四步、发射导弹</strong></p>
+
+<p>在Update方法里的FireMissile就是更新导弹的一个重要步骤，我们应该在这里让导弹活过来，并且给予初速度。</p>
+
+<p>这里不向2D获取速度、位置那么简单，因为要知道我们是三维的，所以我们用了一些新的方法来得到我们想要的，看下去吧。</p>
+
+<p><strong>1、完成FireMissile方法。</strong></p>
+
+<pre><code>void FireMissile()
+{
+    foreach (GameObject missile in missiles)
+    {
+        if (!missile.alive)
+        {
+            missile.velocity = GetMissileMuzzleVelocity();
+            missile.position = GetMissileMuzzlePosition();
+            missile.rotation = missileLauncherHead.rotation;
+            missile.alive = true;
+            break;
+        }
+    }
+}
+</code></pre>
+
+<p>我就说微软工程师都是天才，先直接写了FireMissile方法，然后现在又无中生有了两个方法。不去管它，逻辑比较简单，foreach遍历所有的数组中的GameObject，如果不存活就让他活过来。</p>
+
+<p>要活过来的话，先要给速度，再给初始位置，再给初始旋转为炮塔转到的角度。然后设置alive为真，break跳出。跳出保证每次只发射一颗子弹。</p>
+
+<p><strong>2、声明两个新变量。</strong></p>
+
+<p>这里我们需要声明两个新的变量，在Game1头部加上两行代码：</p>
+
+<pre><code>const float launcherHeadMuzzleOffset = 20.0f;
+const float missilePower = 20.0f;
+</code></pre>
+
+<p>两个浮点的常量。命名有些奇怪，但其实意思很简单</p>
+
+<ul>
+<li><p>launcherHeadMuzzleOffset，发射器头部炮口偏移量，翻译过来就是这个意思，就是指炮管的长度，也就是导弹刚刚射出的时候距离模型中心的长度。这个值得问做模型的美工啦～</p></li>
+<li><p>missilePower，导弹的威力，就是指每一次更新导弹的位移，也就是速率。导弹的威力取决于速度？也许在这个游戏中是的吧。</p></li>
+</ul>
+
+
+<p>这是一个准备工作，为的是完成天才们预留的两个方法。</p>
+
+<p><strong>3、GetMissileMuzzleVelocity方法。</strong></p>
+
+<pre><code>Vector3 GetMissileMuzzleVelocity()
+{
+    Matrix rotationMatrix =
+         Matrix.CreateFromYawPitchRoll(
+             missileLauncherHead.rotation.Y,
+             missileLauncherHead.rotation.X,
+             0);
+    return Vector3.Normalize(
+        Vector3.Transform(Vector3.Forward,
+        rotationMatrix)) * missilePower;
+}
+</code></pre>
+
+<p>这里首先创建了一个rotationMatrix，用的就是CreateFromYawPitchRoll，之前也使用到过。从初始化的代码来看，得到的就是炮台的旋转情况，因为Z轴的旋转，也就是翻转（roll） 是不存在的，所以传给其0就可以了。</p>
+
+<p>之后的步骤有些复杂，拆开来看。</p>
+
+<ul>
+<li><p>首先是调用了Vector3.Transform()这个方法，这个方法是把一个旋转矩阵转换成一个向量。</p>
+
+<ul>
+<li><p>第一个参数为一个Vector3，也就是参考的方向向量。</p></li>
+<li><p>第二个参数是一个Matrix，也就是旋转矩阵。</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p>方法会得到相对于第一个参数的向量的，当前Matrix的旋转情况。</p>
+
+<ul>
+<li><p>其次是调用了Vector3.Normalize这个方法，这个方法是把一个向量转换成一个单位向量。唯一的参数就是一个Vector3。相当于只保留了向量对方向的表达性，而去掉了速率的表达性。这样为最后一个工作作了铺垫。</p></li>
+<li><p>最后把单位向量乘上missilePower，也就是位移量，这样给返回的Vector3加上了速率的信息。</p></li>
+</ul>
+
+
+<p>得到Velocity的过程就是这样，有了方向和速率，速度就这样完整了。</p>
+
+<p><strong>4、GetMissileMuzzlePosition方法。</strong></p>
+
+<p>得到了速度，这里要给他一个位置信息。因为是在FireMissile方法中被调用，那么其实就是起始位置，所以来看看代码。</p>
+
+<pre><code>Vector3 GetMissileMuzzlePosition()
+{
+    return missileLauncherHead.position +
+        (Vector3.Normalize(
+            GetMissileMuzzleVelocity()) *
+            launcherHeadMuzzleOffset);
+}
+</code></pre>
+
+<p>很简单的直接返回。一样是一句复杂的语句，拆开来看看。</p>
+
+<ul>
+<li><p>首先调用了GetMissileMuzzleVelocity()方法，得到上一个方法完成的速度Vector3。</p></li>
+<li><p>然后调用了Vector3.Normalize()方法，只取得它的方向信息，去除速率信息。</p></li>
+<li><p>最后乘上launcherHeadMuzzleOffset，使得导弹出现的第一个位置是炮管的顶端，而不是模型的中心。</p></li>
+</ul>
+
+
+<p>意思很明了，前两个调用相当于是得到炮塔在按键的一刹那的方向。换句话说，用GetMissileMuzzleVelocity方法里的逻辑也不难得到。</p>
+
+<hr />
+
+<p><strong>第五步、更新导弹</strong></p>
+
+<p>因为3D的缘故，第四步稍稍显得有些复杂了，有一些新的方法。</p>
+
+<p>当然在完成了这些工作后，现在就显得简单的多了，这一步，只要让导弹在每次更新是移动一定的距离，并且在移动到一定距离后就消失。</p>
+
+<p><strong>1、编写一个UpdateMissile方法。</strong></p>
+
+<p>首先要写一个UpdateMissile的方法来管理所有的Missile的移动。</p>
+
+<pre><code>void UpdateMissiles()
+{
+    foreach (GameObject missile in missiles)
+    {
+        if (missile.alive)
+        {
+            missile.position += missile.velocity;
+            if (missile.position.Z &lt; -6000.0f)
+            {
+                missile.alive = false;
+            }
+        }
+    }
+}
+</code></pre>
+
+<ul>
+<li><p>不需要返回值。</p></li>
+<li><p>遍历所有的导弹，如果它存活着就更新他的位置。</p></li>
+<li><p>原来的位置加上速度就是现在的位置。</p></li>
+<li><p>如果导弹的Z坐标小于-6000，即，深入屏幕6000，那么就让他死掉，准备再一次的发射。</p></li>
+</ul>
+
+
+<p>以上就是所有的逻辑。</p>
+
+<p><strong>2、调用UpdateMissile方法。</strong></p>
+
+<p>写完方法当然要调用（这次到不是先调用再写了）。在Update方法中，previousState = gamePadState;这一行之前插入一行代码。</p>
+
+<blockquote><p>UpdateMissiles();</p></blockquote>
+
+<p>就是这样。</p>
+
+<hr />
+
+<p><strong>第六步、绘制导弹</strong></p>
+
+<p>最后一步每次都是这样子，就是完成之前逻辑后，把它画出来，习惯了这系列的教程就非常明白了。</p>
+
+<p>相对于前面调用DrawGameObject来说，这一次只是要用一个foreach循环调用很多遍而已。</p>
+
+<pre><code>foreach (GameObject missile in missiles)
+{
+    if (missile.alive)
+    {
+        DrawGameObject(missile);
+    }
+}
+</code></pre>
+
+<p>最后，编译，运行～(点击放大，导弹太小，难以察觉，不如调整一下参数啊～)</p>
+
+<p><a href="/upload/2009-07-08_runtime.jpg"><img src="/upload/2009-07-08_runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=162"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+<hr />
+
+<p>之前说过，处理输入的那一步存在的一些疑问。（其实2D里也一样吧～）为什么要记录上一步的操作状态。究竟起到了什么作用，那么这一段解释非常非常的清楚。</p>
+
+<p>（以下文字翻译自XNA Create Club网站，未经允许禁止转载。由于本人水平有限，所以有任何错误希望高手更正。）</p>
+
+<p><strong>什么是上一步操作状态，为什么需要记录它？</strong></p>
+
+<blockquote><p>要理解对应游戏的输入，很有必要退一步看看更加普通的输入。控制器的输入信号一般只是简单的电流信号，它被一种称为驱动软件的低级软件系统分析解释。信号以一定的频率传入分析它们的软件。</p>
+
+<p>有些软件把输入的解析表现出来，反映出很多用户使用这个输入设备做出的动作，并且把这些动作存入缓冲记忆体中等待被读取或释放。这种类型的输入处理被称为&#8221;缓冲模式输入&#8221;(buffered-mode input)。</p>
+
+<p>另一种输入处理不使用缓冲。取而代之的，是提供索取信号是的当前状态。没有提供参数来标识一定时间内所做出的特定动作。取而代之的，是程序员可以在任何时间自由的访问控制器的当前状态，包括所有的轴的位置以及按键的情况。程序员可以自由存储和操作相关的信息。这种输入处理被称为&#8221;立即模式输入&#8221;( immediate-mode input)。</p>
+
+<p>XNA Framework使用立即模式输入，并且支持全部三种输入方式&#8212;-Xbox360控制器，键盘以及鼠标。这意味着，对于任意一种输入设备，你都可以在任何时间查询输入设备的当前状态信息。然而，你却不能查询任何过去的设备状态，除非你明确的把它存储在其他地方。</p>
+
+<p>为什么要查询过去的输入状态呢？举个强烈依赖玩家快速按键的游戏作为例子。在这样的游戏中，长按按键不会有什么效果，只有重复的连打才能奏效。</p>
+
+<p>由于立即模式输入处理的这一特性，每一次输入状态被查询，一个长按的按钮表现为&#8221;被按下&#8221;（Pressed）。不检查过去的状态是否是&#8221;被释放&#8221;（Released），就没有办法来区分按键是刚刚被按下还是长按了一段时间。</p>
+
+<p>存储上一次状态缓解了这个问题。每一次循环到达更新（Update），正常的处理输入，但是在循环的末尾，存储当前状态为一个变量。这个变量就成为上一次状态。要检查按键是否是被一次按下还不是长按着，检查当前按键状态为&#8221;已按下&#8221;(Pressed)，并且上一次按键状态为&#8221;已释放&#8221;（Released）。</p></blockquote>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-08T23:38:32+08:00" pubdate data-updated="true">Jul 8<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/07/08/xna-tutorial-3d-ch7-create-missiles/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/07/08/xna-tutorial-3d-ch7-create-missiles/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/07/08/xna-tutorial-3d-ch6-finish-missile-launcher/" title="Previous Post: XNA教程-3D游戏-06-完成炮台">&laquo; XNA教程-3D游戏-06-完成炮台</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/07/14/xna-tutorial-3d-ch9-add-audio/" title="Next Post: XNA教程-3D游戏-08-添加声效">XNA教程-3D游戏-08-添加声效 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

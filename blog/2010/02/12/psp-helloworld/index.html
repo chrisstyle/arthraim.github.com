@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PSP的hello,world - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="有人记得这个教程不？不知道写得大大到哪里去了，不过问题不大，资料是很多的，要写一个psp的helloworld还不简单？（我记得很久很久以前就用devkitpro写过了）如果你愿意用psptoolchain来写，那么就根据上面那个链接里的教程先搭建一个环境吧。如果是windows的用户， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/02/12/psp-helloworld/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PSP的hello,world</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-12T21:58:15+08:00" pubdate data-updated="true">Feb 12<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>有人记得这个教程不？不知道写得大大到哪里去了，不过问题不大，资料是很多的，要写一个psp的helloworld还不简单？（我记得很久很久以前就用devkitpro写过了）如果你愿意用psptoolchain来写，那么就根据上面那个链接里的教程先搭建一个环境吧。如果是windows的用户，可以去搜索一下devkitpro，很傻瓜的。话说还有一个教程也不错，看看这里吧。额，其实今天只是觉得很久没有更新博客了太不厚道，所以来水一下……</p>
+
+<p><a href="/upload/2010-02-12_psp_helloworld.jpg"><img src="/upload/2010-02-12_psp_helloworld.jpg" alt="" /></a></p>
+
+<p>代码如下。</p>
+
+<pre><code>#include &lt;pspkernel.h&gt;
+#include &lt;pspdebug.h&gt;
+PSP_MODULE_INFO("Hello World", 0, 1, 1);
+#define printf pspDebugScreenPrintf
+/* Exit callback */
+int exit_callback(int arg1, int arg2, void *common) {
+    sceKernelExitGame();
+    return 0;
+}
+/* Callback thread */
+int CallbackThread(SceSize args, void *argp) {
+    int cbid;
+    cbid = sceKernelCreateCallback("Exit Callback", exit_callback, NULL);
+    sceKernelRegisterExitCallback(cbid);
+    sceKernelSleepThreadCB();
+    return 0;
+}
+/* Sets up the callback thread and returns its thread id */
+int SetupCallbacks(void) {
+    int thid = 0;
+    thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
+    if(thid &gt;= 0) {
+        sceKernelStartThread(thid, 0, 0);
+    }
+    return thid;
+}
+int main() {
+    pspDebugScreenInit();
+    SetupCallbacks();
+    printf("Hello World");
+    sceKernelSleepThread();
+    return 0;
+}&lt;/pspdebug.h&gt;&lt;/pspkernel.h&gt;
+</code></pre>
+
+<p>当然如果要正常编译，还需要一个Makefile文件。如下：</p>
+
+<pre><code>TARGET = hello
+OBJS = main.o
+CFLAGS = -O2 -G0 -Wall
+CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
+ASFLAGS = $(CFLAGS)
+EXTRA_TARGETS = EBOOT.PBP
+PSP_EBOOT_TITLE = Hello World
+PSPSDK=$(shell psp-config --pspsdk-path)
+include $(PSPSDK)/lib/build.mak
+</code></pre>
+
+<p>Makefile决定了产生的EBOOT.PBP文件的一些信息，比如TITLE是Hello World，如果要加上图pic0 pic1那都是在Makefile里写得，不过只是helloworld就淡定一定吧 = = PSPSDK的环境变量当然也需要你事先配置好的（没打算说怎么配置环境）。</p>
+
+<p>以上。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-12T21:58:15+08:00" pubdate data-updated="true">Feb 12<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/02/12/psp-helloworld/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/02/12/psp-helloworld/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/01/31/douban-fm-bookmarklet/" title="Previous Post: 豆瓣电台的bookmarklet">&laquo; 豆瓣电台的bookmarklet</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/02/16/the-year-of-tiger/" title="Next Post: 给大家拜庚寅虎年">给大家拜庚寅虎年 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

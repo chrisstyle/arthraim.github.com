@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>S60v5 IDE的搭建 和 Hello,World的实现 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="入手了5800之后，在闲暇之余就很想尝试着能不能自己开发一些东西，在V2和V3的时代都有过这样的念头，不过当时nokia的支持还是比较薄弱的。在收购的Symbian之后，nokia的支持，让现在的开发变得方便而且快捷，并且提供的选择也是非常的丰富。我简单的了解了一些S60应用开发的途径， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2009/05/21/s60v5-ide-and-helloworld/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">S60v5 IDE的搭建 和 Hello,World的实现</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-21T07:38:37+08:00" pubdate data-updated="true">May 21<span>st</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>入手了5800之后，在闲暇之余就很想尝试着能不能自己开发一些东西，在V2和V3的时代都有过这样的念头，不过当时nokia的支持还是比较薄弱的。在收购的Symbian之后，nokia的支持，让现在的开发变得方便而且快捷，并且提供的选择也是非常的丰富。我简单的了解了一些S60应用开发的途径，大概列举一下有以下几种（不乏很多其他方法，诸如widget等）</p>
+
+<ul>
+<li><p>JAVA ME</p></li>
+<li><p>Symbian C++（或者Open C/C++）</p></li>
+<li><p>QT for S60</p></li>
+<li><p>Flash Lite</p></li>
+</ul>
+
+
+<p>我将搭建的是C++的环境，版本取决于你的sdk版本。首先要做一些准备。(S60的开发是不一定在Windows下进行的，不过我这里默认是Windows了说)</p>
+
+<ul>
+<li><p>一台电脑</p></li>
+<li><p>一台S60的终端</p></li>
+<li><p><a href="http://www.java.com/zh_CN/download/manual.jsp">JAVA运行环境</a></p></li>
+<li><p><a href="http://www.activestate.com/activeperl/downloads/">ActivePerl</a></p></li>
+<li><p><a href="http://www.forum.nokia.com/info/sw.nokia.com/id/ec866fab-4b76-49f6-b5a5-af0631419e9c/S60_All_in_One_SDKs.html">S60 SDK</a> (这里有一个所谓all in one版本，包括了JAVA等其他的开发手段)</p></li>
+<li><p><a href="http://www.forum.nokia.com/info/sw.nokia.com/id/dbb8841d-832c-43a6-be13-f78119a2b4cb.html">Carbide.C++</a></p></li>
+</ul>
+
+
+<p><img src="/upload/2009-05-20_Package.png" alt="" /></p>
+
+<p>做完准备之后，就按顺序装下来，Java应该一般人都有吧，没有的话装个也简单，最新版的jre，不需要完整的jdk，只是IDE是JAVA环境运行的而已。除非你是采用JAVA开发。</p>
+
+<p>另外ActivePerl也是必备的，不然会出现提示。</p>
+
+<p><img src="/upload/2009-05-18_perl_needed.png" alt="" /></p>
+
+<p>5th Edition SDK大概是600+MB，安装过程可谓相当的缓慢且痛苦难熬，我的电脑大概装了1个多小时才把sdk装好而已。安装目录会要求英文并且没有空格之类的，注意一下就好了。装完之后也是一个比较大的玩意儿了。</p>
+
+<p><img src="/upload/2009-05-18_Big!.png" alt="" /></p>
+
+<p>至于Carbide.C++，是基于eclipse的产物，所以其实用eclipse也是可以开发的，安装sdk时可以选择安装eclipse插件。</p>
+
+<p><img src="/upload/2009-05-18_JAVAsupport.png" alt="" /></p>
+
+<p>改装的都装了，打开Carbide看看究竟是什么个情况。不出意外就可以新建Symbian C++ OS Project了，选择带有设计器的有GUI的工程试试看，能不能做出点东西来。跟着向导走，会要求选择sdk，从你选择的里面选吧～ 像我就只有一个5th Edition了。</p>
+
+<p>图形上可以选择的分辨率很多，那么5800XM就是320×640。界面设计还是非常的让人兴奋的，旁边的控件也是一堆一堆，看看网上的我文档，各种各样的控件真的是非常让人兴奋的，究竟怎么用慢慢研究，先看看设计界面。</p>
+
+<p><img src="/upload/2009-05-20_GUIdesign.png" alt="" /></p>
+
+<p>随便放几个控件，然后编译&#8212;-运行，在模拟器中运行！成功！</p>
+
+<p><img src="/upload/2009-05-20_HelloWorld.png" alt="" /></p>
+
+<p>支持触摸控制，打个包就可以在手机里运行了吧～ 哈哈，希望看到的大家也一切顺利～ 有问题可以留言。因为虽然看上去很方便，不过其实弄得时候也遇到了一些问题的～ 加油！</p>
+
+<p>补充一张朦胧的照片，在我的实机上跑的效果。IDE还提供了在线联调等很强大的功能，值得一玩～</p>
+
+<p><img src="/upload/2009-05-20_HelloWorld_onPhone.jpg" alt="" /></p>
+
+<p>再补充一次，今天申请的开发者17权限证书终于拿到了，自签名了几个原来没有装上的软件，终于可以截图和上twitter了~ 那么看看HelloWorld的真实截图情况吧~ 不错~</p>
+
+<p><img src="/upload/Scr000001.jpg" alt="" /></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-21T07:38:37+08:00" pubdate data-updated="true">May 21<span>st</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/05/21/s60v5-ide-and-helloworld/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/05/21/s60v5-ide-and-helloworld/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2009/05/20/asp-net-gridview-father-child-tables/" title="Previous Post: ASP.NET 用GridView实现主从表">&laquo; ASP.NET 用GridView实现主从表</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2009/05/23/about-new-blog-theme/" title="Next Post: 关于博客新风格">关于博客新风格 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

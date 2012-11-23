@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Blunt C# (1): 自动关机 - Artoirus</title>
+  <meta name="author" content="Arthur Wang">
+
+  
+  <meta name="description" content="开始好好整理毕业设计的代码，在硬盘里找出很多以前写的C#代码，很多自己写的小应用都蛮有趣的，比如自动关机啊，修改系统变量啊，计算周年纪念日啊之类的无聊的小东西~ 想着最近博客也没有什么值得更新的内容，要不就贴一些以前的这些程序的傻傻的代码吧~ 所以这个blunt C-sharp（钝的C锋利LOL） &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://Arthraim.github.com/blog/2010/04/04/blunt-c-sharp-1-auto-shutdown/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Artoirus</a></h1>
+  
+    <h2>Arthur Wang's blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:Arthraim.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Blunt C# (1): 自动关机</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-04T07:24:13+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2010</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>开始好好整理毕业设计的代码，在硬盘里找出很多以前写的C#代码，很多自己写的小应用都蛮有趣的，比如自动关机啊，修改系统变量啊，计算周年纪念日啊之类的无聊的小东西~ 想着最近博客也没有什么值得更新的内容，要不就贴一些以前的这些程序的傻傻的代码吧~ 所以这个blunt C-sharp（钝的C锋利LOL）系列的文章就是贴这些代码的，欢迎大家讨论代码的好坏~ 骂我的时候Arthur会加上&#8221;被骂的是过去的我&#8221;这个前提的~ hoho~</p>
+
+<p>今天是自动关机的那个程序~</p>
+
+<p>还是2009-1-18的时候在学长的电脑上用SharpDevelop写的。当时和他一起租房子住在外面，后来有段时间他快毕业了，出去找工作了，于是我每天一个人看动画看到睡着，因为租房子要省电费，所以电脑开通宵很心疼，所以就自己写了一个自动关机的程序，其他东西都不是关键，关键还是代码。当时是不知道哪里找来了一段关机的代码，是用C#调用winapi的其实~  截图和代码都放在下面吧~</p>
+
+<p><img src="/upload/2010-04-03_bluntcsharp_autoshutdown.png" alt="" /></p>
+
+<p>话说这个程序现在看起来体验很好，因为时间匹配的时候不会直接把电脑关了，而会出来一个提示框，提示框上倒数30秒（足够我从被窝里爬出来去点取消），如果没点取消就关机~ 哈哈。当时不知道怎么想的，这么一个需求还要自己写个程序~ 果然有热情！</p>
+
+<pre><code>// 这个结构体将会传递给API。使用StructLayout(...特性，确保其中的成员是按顺序排列的，C#编译器不会对其进行调整。
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+internal struct TokPriv1Luid
+{
+    public int Count;
+    public long Luid;
+    public int Attr;
+}
+// 以下使用DllImport特性导入了所需的Windows API。
+// 导入的方法必须是static extern的，并且没有方法体。调用这些方法就相当于调用Windows API。
+[DllImport("kernel32.dll", ExactSpelling = true)]
+internal static extern IntPtr GetCurrentProcess();
+[DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
+internal static extern bool OpenProcessToken(IntPtr h, int acc, ref IntPtr phtok);
+[DllImport("advapi32.dll", SetLastError = true)]
+internal static extern bool LookupPrivilegeValue(string host, string name, ref long pluid);
+[DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
+internal static extern bool AdjustTokenPrivileges(IntPtr htok, bool disall,
+ref TokPriv1Luid newst, int len, IntPtr prev, IntPtr relen);
+[DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+internal static extern bool ExitWindowsEx(int flg, int rea);
+// 以下定义了在调用WinAPI时需要的常数。这些常数通常可以从Platform SDK的包含文件（头文件）中找到
+internal const int SE_PRIVILEGE_ENABLED = 0x00000002;
+internal const int TOKEN_QUERY = 0x00000008;
+internal const int TOKEN_ADJUST_PRIVILEGES = 0x00000020;
+internal const string SE_SHUTDOWN_NAME = "SeShutdownPrivilege";
+internal const int EWX_LOGOFF = 0x00000000;
+internal const int EWX_SHUTDOWN = 0x00000001;
+internal const int EWX_REBOOT = 0x00000002;
+internal const int EWX_FORCE = 0x00000004;
+internal const int EWX_POWEROFF = 0x00000008;
+internal const int EWX_FORCEIFHUNG = 0x00000010;
+// 通过调用WinAPI实现关机，主要代码再最后一行ExitWindowsEx，这调用了同名的WinAPI，正好是关机用的。
+private static void DoExitWin(int flg)
+{
+    bool ok;
+    TokPriv1Luid tp;
+    IntPtr hproc = GetCurrentProcess();
+    IntPtr htok = IntPtr.Zero;
+    ok = OpenProcessToken(hproc, TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, ref htok);
+    tp.Count = 1;
+    tp.Luid = 0;
+    tp.Attr = SE_PRIVILEGE_ENABLED;
+    ok = LookupPrivilegeValue(null, SE_SHUTDOWN_NAME, ref tp.Luid);
+    ok = AdjustTokenPrivileges(htok, false, ref tp, 0, IntPtr.Zero, IntPtr.Zero);
+    ok = ExitWindowsEx(flg, 0);
+}
+</code></pre>
+
+<p>坦率的说我也不知道是哪里找来的这个代码，如果您看了，知道这个代码的原作者，也请告诉我，并不是我不尊重他，是我年少无知 =  =</p>
+
+<p>以上~</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-04T07:24:13+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2010/04/04/blunt-c-sharp-1-auto-shutdown/" data-via="" data-counturl="http://Arthraim.github.com/blog/2010/04/04/blunt-c-sharp-1-auto-shutdown/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/04/01/new-search-engine-appears-in-china/" title="Previous Post: 国内惊现新中文搜索引擎，实力足以挑战百度！">&laquo; 国内惊现新中文搜索引擎，实力足以挑战百度！</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/04/13/douban-fm-desktop-client-arthur-wrote-a-lol-script/" title="Next Post: 豆瓣电台桌面客户端 - Arthur蛋疼剧本一枚">豆瓣电台桌面客户端 - Arthur蛋疼剧本一枚 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Arthur Wang -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
