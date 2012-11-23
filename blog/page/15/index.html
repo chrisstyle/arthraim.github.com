@@ -9,9 +9,7 @@
   <meta name="author" content="Arthur Wang">
 
   
-  <meta name="description" content="到了这里其实还是和2D的教程是重叠的，这里我们要做的是添加asset们。所以这里你要问自己三个问题： 你已经建立了工程（project）了吗？&#8212;- 点我补课
-你已经下载了上一部分要求下载的资源了吗？&#8212;- 点我下载
-你知道什么是asset吗？ &hellip;">
+  <meta name="description" content="安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +64,286 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/">XNA教程-3D游戏-04-绘制3D地表</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-04T03:50:05+08:00" pubdate data-updated="true">Jul 4<span>th</span>, 2009</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。而3D则不然，即便是这个环境，那么也是需要我们用模型自己创建的，而这将会是一个非常复杂的工作，究竟如何复杂，看到下面的所有内容你就明白了。</p>
+
+<p>从2D到3D，应该说当前我们在做的是一个非常困难的转换时期，我们要完成第一个3D的绘制，那么就必须了解很多很多只有在3D游戏中才会出现的概念。但是，简单的说，在代码上我们要完成的工作还是类似的，比如2D中，我们先声明了sprite；然后loadContent，或者load确定它的位置等信息；最后我们draw把它绘制出来。那么一样的，3D也是声明、初始化、绘制三个工作。只是2D中无论是初始化还是绘制都是相对简单的，3D就要复杂的多的多，跟着步骤走吧。</p>
+
+<hr />
+
+<p><strong>第一步、创建模型，确定视角</strong></p>
+
+<p>似乎看了标题就有些茫然，有很多的概念要讲，不过和2D教程一样，先直接说代码怎么写，回头再讲大道理。（本文后面将会有官方解释的翻译内容）</p>
+
+<p><strong>1、声明场景模型</strong></p>
+
+<p>代码找到Game1类中最前面，SpriteBatch spriteBatch;这一行的下方，在这里我们先插入这样两行代码。</p>
+
+<pre><code>Model terrainModel;
+Vector3 terrainPosition = Vector3.Zero;
+</code></pre>
+
+<p>这里用到了XNA Framework提供的Model类，以及Vector类。</p>
+
+<p>显然，terrainModel这样的命名让人比较容易理解，就是场景模型，这是我们的场景或者说是地面模型，都一样，就是我们的大环境。</p>
+
+<p>而terrainPostision就更加容易理解了，是terrain的位置，究竟整个地表是怎样的一个位置。这里我们用Vector3这个类来描述。Vector3是一个3维的向量，就像Vector2是X,Y两个轴的向量一样，Vector3实质上就是把Vector2扩展到X,Y,Z，3个轴的向量。初始化为Vector3.Zero，即在整个3维坐标系的原点上。</p>
+
+<p>和2D游戏不同，我们2D游戏所有涉及到的坐标都是在屏幕范围内的。我们知道屏幕向右是X轴正方向，向下是Y轴正方向，所以所有的坐标都是在这样一个坐标系上想象的。而3D游戏则不同，我们必须把这些位置都想象在自己的脑海中，因为屏幕看见的什么只是你3D世界的一角，你必须在整个思维中存在你的自己的一个三维世界，它所在的一个三维坐标系和它的所有坐标。然后我们再讨论从什么视角（什么坐标）去看这个世界。</p>
+
+<p><strong>2、声明镜头</strong></p>
+
+<p>说明一下，这里的镜头英文应当是camera，翻译成相机这样子比较好。不过也许很多像我一样的游戏玩家会知道，一般我们评价一个游戏，会说镜头能控制不能控制等等，所以我想这个词会更加容易被接受。我的文章里的镜头，指的就是camera。可以想象你的眼睛就是你看这个现实世界的camera。</p>
+
+<p>在刚才两行代码下面，继续写以下内容。</p>
+
+<pre><code>Vector3 cameraPosition = new Vector3(0.0f, 60.0f, 160.0f);
+Vector3 cameraLookAt= new Vector3(0.0f, 50.0f, 0.0f);
+Matrix cameraProjectionMatrix;
+Matrix cameraViewMatrix;
+</code></pre>
+
+<p>详细说一下我们做了什么。</p>
+
+<ul>
+<li><p>cameraPosition：这是镜头所在的位置，比如我们的眼睛在脸上这样的描述。这里是(0, 60, 160)这样一个位置。</p></li>
+<li><p>cameraLookAt：镜头的焦点。可以想象一下terrain被放在Y轴也就是高度轴的0上，镜头被放在Z轴也就是深度轴的160的位置，高度是60的位置，而它看着Y轴上50的那点，连成的直线就是你的视线了。</p></li>
+<li><p>cameraProjectionMatrix：镜头投影矩阵。</p></li>
+<li><p>cameraViewMatrix：镜头视角矩阵。关于两个矩阵，先不详细讲了。图形学中涉及到了任意点的变换可以使用矩阵，矩阵变换是一个图形学非常重要的概念。稍微讲一下。</p></li>
+</ul>
+
+
+<p>矩阵变换一般情况下有平移、缩放、旋转。各种复杂的变化都可以由很多这样的操作完成。其他还有诸如投影、切割等等。所有的变化都可以最终表示成为一个矩阵，这就是变换矩阵。不详细讲，举3个例子。</p>
+
+<p><strong>例一</strong>：平移 W(wx,wy,wz)</p>
+
+<p><img src="/upload/2009-07-03_Matrix1.jpg" alt="" /></p>
+
+<p><strong>例二</strong>：缩放 T(tx,ty,tz)</p>
+
+<p><img src="/upload/2009-07-03_Matrix2.jpg" alt="" /></p>
+
+<p><strong>例三</strong>：绕X轴旋转alpha度</p>
+
+<p><img src="/upload/2009-07-03_Matrix3.jpg" alt="" /></p>
+
+<p>当然在XNA framework里封装的Matrix类不是一个简单的矩阵的实现了，还加上了很多智能的功能，当然也包括变换，至于如何使用这样一个Matrix，以及我们声明的Matrix是做什么样的变换的，看下去。</p>
+
+<p><strong>3、初始化变换矩阵</strong></p>
+
+<p>我们要初始化声明的资源，那么就要找到LoadContent()方法，在其中TODO的位置加上这样两句。</p>
+
+<pre><code>cameraViewMatrix = Matrix.CreateLookAt(
+    cameraPosition,
+    cameraLookAt,
+    Vector3.Up);
+cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+    MathHelper.ToRadians(45.0f),
+    graphics.GraphicsDevice.Viewport.AspectRatio,
+    1.0f,
+    10000.0f);
+</code></pre>
+
+<p>这里做的工作是实例化两个Matrix，但是这里用到了Matrix类中的CreateLookAt和CreatePerspectiveFieldOfView方法。说下参数的意思。</p>
+
+<ul>
+<li><p>CreateLookAt：</p>
+
+<ul>
+<li><p>cameraPosition：Vector3，镜头所在位置</p></li>
+<li><p>cameraLookAt：Vector3，镜头焦点坐标</p></li>
+<li><p>Vector3.Up：Vector3，按照MSDN所说传入&#8221;上&#8221;就好，当然你可以试一下其他方向……</p></li>
+</ul>
+</li>
+<li><p>CreatePerspectiveFieldView：</p>
+
+<ul>
+<li><p>MathHelper.ToRadians(45.0f)：float，视角大小</p></li>
+<li><p>graphics.GraphicsDevice.Viewport.AspectRatio：float，窗口的比率，&#8221;宽&#8221;比上&#8221;长&#8221;的比率</p></li>
+<li><p>1.0f：float，镜头最小深度（近处）</p></li>
+<li><p>10000.0f：float，镜头最大深度（远处）（恐怕真三国无双和GTA这样的游戏里面这个参数的体会会比较深刻）</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p>初始化完毕，就可以接下去继续了。</p>
+
+<hr />
+
+<p><strong>第二步、编写模型绘制方法</strong></p>
+
+<p>因为游戏中将会出现很多很多的模型，虽然每一个模型都有其特殊的地方，但是每一个模型都将拥有一个默认的绘制方式。而，即便采用默认的方式，绘制模型也将会涉及到很多操作，所以将本来可以在draw方法中完成的内容单独的写一个方法来完成。方法传入的参数为模型和其所在的位置，这样我们的方法就可以把它用一样的操作绘制出来。</p>
+
+<p>这里涉及到一个ModelMesh的类，每一个Model都一个很多的ModelMesh的集合，因此我们需要单独绘制每一个mesh。至于ModelMesh和Model的概念，在后面会加上说明。（本文后面将会有官方解释的翻译内容）</p>
+
+<p>具体方法是，在Game1类中重新写一个方法，当然是任意位置的，代码具体如下。</p>
+
+<pre><code>void DrawModel(Model model, Vector3 modelPosition)
+{
+    foreach (ModelMesh mesh in model.Meshes)
+    {
+        foreach (BasicEffect effect in mesh.Effects)
+        {
+            effect.EnableDefaultLighting();
+            effect.PreferPerPixelLighting = true;
+            effect.World = Matrix.CreateTranslation(modelPosition);
+            effect.Projection = cameraProjectionMatrix;
+            effect.View = cameraViewMatrix;
+        }
+        mesh.Draw();
+    }
+}
+</code></pre>
+
+<p>如参正如之前所说，一个是Model类，一个是Vector3类，分别表示要绘制的模型和其所在的位置。</p>
+
+<ul>
+<li><p>第一个foreach循环是遍历Model中所有的ModelMesh，单独处理每一个。</p></li>
+<li><p>第二个foreach循环是遍历ModelMesh中的Effects，单独处理每一个效果的处理。具体看看做了一些什么</p>
+
+<ul>
+<li><p>EnableDefaultLighting()：设定光源为默认光源。</p></li>
+<li><p>effect.PreferPerPixelLighting = true;：在支持Pixel Shader Model 2.0的情况下，开启每个像素按光源渲染的效果。</p></li>
+<li><p>effect.World = Matrix.CreateTranslation(modelPosition);：创建传入模型的矩阵变换</p></li>
+<li><p>effect.Projection = cameraProjectionMatrix;：设定投影变换矩阵。</p></li>
+<li><p>effect.View = cameraViewMatrix;：设定视角变换矩阵。</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p>这样，我们就完成了绘制方法的编写。但是不要忘了，我们还没有加载需要绘制的模型，也没有在draw方法中调用这个方法，所以看接下去的两步，完成这两个工作。</p>
+
+<hr />
+
+<p><strong>第三步、加载模型</strong></p>
+
+<p>载入模型才能画，载入模型的方法和2D的一模一样，只是一个操作的是Sprite，一个操作的是Model，但是我们知道LoadContent方法是支持范型的，那么显然我们的工作就变得非常的简单了。</p>
+
+<p>找到LoadContent方法，在之前添加的代码下面加上如下代码。</p>
+
+<pre><code>terrainModel = Content.Load&lt;Model&gt;(@"Modelsterrain");
+</code></pre>
+
+<p>这样，这一步就简简单单的完成了。</p>
+
+<hr />
+
+<p><strong>第四步、绘制模型</strong></p>
+
+<p>之前第二步完成的工作就大大简化了这一步我们的代码了。而这一步我们就只要调用之前我们写的drawModel方法，并且传入我们的模型和位置就可以了。</p>
+
+<p>在Draw方法的TODO处，加入以下代码：</p>
+
+<pre><code>DrawModel(terrainModel, terrainPosition);
+</code></pre>
+
+<p>还等什么呢？现在就是编译运行的时候了！效果图。</p>
+
+<p><a href="/upload/2009-07-03_Runtime.jpg"><img src="/upload/2009-07-03_Runtime.jpg" alt="" /></a></p>
+
+<p>下面加了4张修改了参数之后的图，方便理解一些参数。[点击放大]</p>
+
+<p><a href="/upload/2009-07-03_Runtime_Down.jpg"><img src="/upload/2009-07-03_Runtime_Down.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_100CameraHeight.jpg"><img src="/upload/2009-07-03_Runtime_100CameraHeight.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_95Radians.jpg"><img src="/upload/2009-07-03_Runtime_95Radians.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_5000Depth.jpg"><img src="/upload/2009-07-03_Runtime_5000Depth.jpg" alt="" /></a></p>
+
+<ul>
+<li><p>cameraViewMatrix实例化，CreateLookAt时，修改第三个参数为Vector3.Down</p></li>
+<li><p>cameraPosition声明并实例化时，修改为Vector3(0.0f, 100.0f, 160.0f)</p></li>
+<li><p>cameraProjectionMatrix实例化，CreatePerspectiveFieldOfView时，修改第一个参数为90.0f</p></li>
+<li><p>cameraProjectionMatrix实例化，CreatePerspectiveFieldOfView时，修改第四个参数为5000.0f</p></li>
+</ul>
+
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=159"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+<hr />
+
+<p>那么下面就贴翻译的内容，也算是比较重要的东西了，2D和3D游戏的概念上的区别。</p>
+
+<p>（以下翻译为本人原传，未经允许严禁转载。另外，因本人能力有限难免出错，请高手指正。原址点击<a href="http://creators.xna.com/en-US/education/gettingstarted/bg3d/details/4_1">这里</a>。）</p>
+
+<p><strong>1、3D世界：2D游戏和3D游戏之间的区别</strong></p>
+
+<blockquote><p>如果你学习过第一个教程（创建2D游戏），那么你已经变得习惯用2D空间来思维了。位置、方向和动作可以全都用Vector2和一个单独的旋转角度来表示。</p>
+
+<p>这个教程介绍了在三维的概念，和其一系列的新的对象。从根本上，3D世界区别于2D世界的就是新增的第三个坐标轴&#8212;-Z轴，或者说是深度。在XNA Game Studio中，2D世界实质上是一个特殊的，受限制的3D世界的版本&#8212;-你将会在本教程读到的计算也同样在2D中可以读到。</p>
+
+<p>在XNA Game Studio这哦你，3D的变化意味着，取代在平面世界中画静态的Texture2D对象的是绘制用Model类表示的3D模型。Model类是被叫做网络（mesh）的许多有联系的3D点的集合，在整个世界中，最终渲染在屏幕上的对象，取决于对象的位置和方向，和镜头的位置和方向。</p>
+
+<p><a href="/upload/BG_4.4.1.1pd.png"><img src="/upload/BG_4.4.1.1pd.png" alt="" /></a>这过程也许初看十分复杂，但其实在3D世界编程，只依靠一些非常基本的元素。想象一个点在3D空间中，一个点有一个X坐标,一个Y坐标,和一个Z坐标。非常类似2D空间中的一个点，3D空间中的一个点也可以使用一个向量来移动，但是在3D空间中，我们使用包含Z坐标的Vector3类。</p>
+
+<p>然而，使用一个叫做矩阵的数学结构体，可以使3D点做更多的事情。这些结构体，在XNA Framework中表示为Matrix类，它描述了一系列可以应用于点的变换、点的集合、或一个响亮。使用矩阵，3D对象可以移动、旋转、切割、以及（通过使用被叫做视点矩阵和投影矩阵的特殊的矩阵）绘制成一个可以显示在屏幕上的2D图像。</p>
+
+<p>想象有一系列我们想画在屏幕上的3D世界中的点。它们拥有相对于被叫做原点的中心点的位置和方向信息。如果没有任何的变换，这些点只是存在于他们自己的空间，被叫做&#8221;对象空间&#8221;。</p>
+
+<p>当你加载一系列的点，并且把它们添加到你的3D世界中，你可能会想给他们一个在3D世界中的位置，用来旋转或切割他们。这些行动的产物被叫做世界变换矩阵。应用了这样的矩阵的点，就被想象成在&#8221;世界空间&#8221;中（而不是对象空间中）了。</p>
+
+<p>来渲染在用户屏幕上的点，需要一些附加的信息。没有要绘制的2D场景的角度和位置，是不可能把整个3D常见转换到2D图像的。使用一个视点是必要的，也被称作镜头，只需绘制它所看到的3D场景。在准备这次绘制时，镜头信息会被计算到一个视角矩阵中，把3D点的方向和位置都和镜头联系起来。之后，这些3D点就被想象成在&#8221;视觉空间&#8221;中了。</p>
+
+<p>用2D绘制一个3D场景最后还需要一些其他信息。像视点的视角和领域的信息，控制着3D点如何绘制在2D计算机屏幕上。这些信息存储在一个投影矩阵中，应用之后，把3D坐标的系统中的点转换到2D坐标系统中，2D坐标系统被成为&#8221;屏幕空间&#8221;，这样点被绘制成像素。</p>
+
+<p><a href="/upload/BG_4.4.1.2pd.png"><img src="/upload/BG_4.4.1.2pd.png" alt="" /></a></p>
+
+<p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&#8212;-Mesh类，Matrix类和Vector类。</p></blockquote>
+
+<p><strong> 2、创建一个模型绘制方法</strong></p>
+
+<blockquote><p>绘制一个3D模型到屏幕上是一个复杂的工作。它包括了庞大数据量的多边形的绘制，而它们经常被构造成许多不同的方式。有些可能是基于艺术效果的，而有些也许是倾向于程序化的。绘制同时也是必要的工作。每个游戏中可见的3D对象都是需要经过一个绘制过程的。</p>
+
+<p>毫无悬念的，不是只有一种组织一个模型绘制方法的方式。参数、界限以及绘制算法对每个游戏来说都是不同的，取决于游戏的需求和涉及的技术。在这样的情况下，XNA Framewrok没有尝试去提供一个单独的模型绘制方法。取而代之的是提供一些元素，而把组织它们的工作留给了程序员来做。</p>
+
+<p>一个Model类是XNA Framework中表示3D模型的一个基本对象，但是它比最初的模型要复杂许多。一个模型由一个或多个ModelMesh对象以一个集合的形式组成。每个ModelMesh对象是一系列组成网络（mesh）的顶点的集合，它们可以在同一个模型中被单独的移动。</p>
+
+<p>一个坦克的模型是一个很好的例子。坦克的身体也许是一个ModelMesh，坦克的炮台也许是另外一个。虽然你绘制的是整个坦克，但是你可能需要分开移动坦克的不同部分。你可以使用ModelMesh对象的集合来移动不同的部分。</p>
+
+<p>ModelMesh包含了一个绘制方法。每绘制一个ModelMesh到屏幕上需要调用这个方法一次。然而如果你没有实现设定变换和MedelMesh上的光的属性，那么你什么也看不到。</p>
+
+<p>变换（决定了ModelMesh在世界中的定向，并且最终，物体是否出现或是出现在屏幕的哪里）和光（）没有被应用到ModelMesh层面。相对的，每个ModelMesh有一些Effect和它联系在一起。一个Effect对象可以想成提供给可视设备的说明，关于如何绘制一个ModelMesh。</p>
+
+<p>在很多游戏中，Effect对象是由很多复杂的顶点和像素遮罩（shader）组成的。在XNA Game Studio中也可以实现，并且对于高级图形效果来说十分重要。但是在简单的渲染中，XNA Framework Content Pipline（内容管道）提供了一个简单的机制来完成基本的光和绘制效果 &#8212;- BasicEffect类。</p>
+
+<p>每个通过content pipline加载的ModelMesh接受了一个或多个BasicEffect对象，它们可以在不处理像素或顶点遮罩（shader）的情况下简单的处理变换和光源效果。所有这些BasicEffect类需要一系列表示世界（World）矩阵，视点（View）矩阵和投影（Projection）矩阵的Matrix类，和一些光照的参数。可以调用BasicEffect.EnableDefaultLighting()方法获得默认的参数。</p>
+
+<p>在BasicEffect的参数被设置后，剩下的就只有调用ModelMesh.Draw方法，使用之前为BasicEffect设置的参数，来绘制ModelMesh到屏幕上了。</p>
+
+<p><a href="/upload/BG_4.4.2.1pd.png"><img src="/upload/BG_4.4.2.1pd.png" alt="" /></a></p></blockquote>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1368,282 +1646,6 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 
 <p>好了我觉得该说的都说过了，那么就是这样。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/14/xna-tutorial-2d-ch4-rending-backgrounds/">XNA教程-2D游戏-04-绘制背景</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-14T00:35:48+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2009</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景</strong></p>
-
-<p>通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧，这一次我们要直接开始写一些代码，一些可以运行起来的代码。</p>
-
-<p>在我们做这个之前，首先建立工程，并且把asset加入到content里面。完成的同学举手～是的我也已经完成了。那么，在做这个之前，还是要再讲一些东西 &#8212;- Game1.cs。没错generate的文件中至关重要的就是Game1.cs这个东西，它在你的命名空间中自动生成了一个类，派生自Microsoft.Xna.Framework.Game，究竟Game类里实现了什么，你可以把dll找出来看看。（别告诉我.net的dll是不可读的，工具才是王道，哈哈）但是之前说了，微软还是奉行着不用关注底层的策略去做XNA的，所以大部分就不要关注了。</p>
-
-<p>直接来看类的结构。有经验的人一定发现了，这个结构和directX的C#程序非常的接近，如果你和我一样用SharpDevelop直接新建过D3D的工程，那么一定看到过类似的代码。只不过仔细看看会发现很多东西不见了，也有些东西不能不见。比如熟悉的device变成了GraphicsDeviceManager。是换汤不换药吗？还是那句话，不要关注了。可能写完所有的教程我能讲讲。先大概讲一下：</p>
-
-<p>他是个类，那么就具有一般类的所有的特性，比如与其他类进行数据交换等等。它代表了一个游戏，在XNA中Game类负责&#8221;开始&#8221;，&#8221;运行&#8221;，&#8221;绘制&#8221;（还是摧毁？没听清视频的话）一个游戏。它处理一些事物，例如&#8221;时钟计时&#8221;，&#8221;视频设备选择&#8221;，&#8221;清理&#8221;等。只要有这样一个类，就拥有了一个完整的游戏，用开始到运行到结束。</p>
-
-<pre><code>public class Game1 : Microsoft.Xna.Framework.Game
-{
-    GraphicsDeviceManager graphics;
-    SpriteBatch spriteBatch;
-    public Game1()    {    }
-    protected override void Initialize()    {    }
-    protected override void LoadContent()    {    }
-    protected override void UnloadContent()    {    }
-    protected override void Update(GameTime gameTime)    {    }
-    protected override void Draw(GameTime gameTime)    {    }
-}
-</code></pre>
-
-<p>这个类实现我们两个变量和6个方法。</p>
-
-<p>GraphicsDeviceManager类：是对device的封装，device的相关操作也可以通过这个类完成。</p>
-
-<pre><code>SpriteBatch类：用以完成绘制2D纹理的相关操作。
-</code></pre>
-
-<p>Game1()不用说了，一个构造方法。</p>
-
-<pre><code>public Game1()
-{
-    graphics = new GraphicsDeviceManager(this);
-    Content.RootDirectory = "Content";
-}
-</code></pre>
-
-<p>代码中实例化了GraphicsDeviceManager类，命名为graphics 。并且设置了Content管道的根地址为Content。这样一来，我们接下去在Content管道里可以调用的全部的asset都只能来自于Content目录中</p>
-
-<pre><code>protected override void Initialize()
-{
-    // TODO: Add your initialization logic here
-    base.Initialize();
-}
-</code></pre>
-
-<p>覆盖了父类中的Initialize()方法，法如其名，就是用来初始化的。它允许游戏在运行之前做一些初始化的工作。可以在此查询任何需要的服务，和载入与图形无关的内容。</p>
-
-<pre><code>base.Initialize()方法在被调用后可以通过任何组件枚举并初始化它们。
-
-
-
-
-protected override void LoadContent()
-{
-    // Create a new SpriteBatch, which can be used to draw textures.
-    spriteBatch = new SpriteBatch(GraphicsDevice);
-    // TODO: use this.Content to load your game content here
-}
-</code></pre>
-
-<p>一样覆盖了父类中的LoadContent()方法。方法是用来加载content的。</p>
-
-<pre><code>这个方法一个游戏只会被调用一次，并且是你加载所有content的地方。  
-
-实例化了SpriteBatch类，命名为spriteBatch。
-
-
-
-
-protected override void UnloadContent()    {    }
-</code></pre>
-
-<p>这个方法一样简单，UnloadContent，就是释放内容的地方。</p>
-
-<pre><code>这个方法同样只会被调用一次，并且是卸载所有已经载入的资源的地方。  
-
-当前因为C#的托管机制，我们不用关注实例化的各种类的释放。
-
-
-
-
-protected override void Update(GameTime gameTime)
-{
-    // Allows the game to exit
-    if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-        this.Exit();
-    // TODO: Add your update logic here
-    base.Update(gameTime);
-}
-</code></pre>
-
-<p>Update方法相当于D3D中会被命名为FrameMove之类的方法，说白了图形上就是修改当前画面的地方。</p>
-
-<pre><code>按照注释所说，他用以游戏执行一些逻辑，诸如更新画面，检查碰撞，收集输入以及播放音频。  
-
-if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed) this.Exit();是退出代码  
-
-base.Update(gameTime);自然就是调用更新的方法，一切工作要在它之前完成。
-
-
-
-
-protected override void Draw(GameTime gameTime)
-{
-    GraphicsDevice.Clear(Color.CornflowerBlue);
-    // TODO: Add your drawing code here
-    base.Draw(gameTime);
-}
-</code></pre>
-
-<p>Draw方法相当于Paint和onPaint这样的方法了，是系统自动绘图的方法。应该很容易了解。</p>
-
-<pre><code>GraphicsDevice.Clear(Color.CornflowerBlue);是清楚画面，现阶段试着改下颜色就会呈现不同的画面背景了。  
-
-base.Draw(gameTime);则是绘制工作。
-</code></pre>
-
-<hr />
-
-<p>实际来开始写代码吧～</p>
-
-<p><strong>第一步：声明一些东西</strong></p>
-
-<p>我们声明一些我们需要的东西，在SpriteBatch spriteBatch;之前加入两行代码。</p>
-
-<pre><code>Texture2D backgroundTexture;
-Rectangle viewportRect;
-</code></pre>
-
-<p>声明一个2D的纹理，加载之后将储存所有我们要画的东西。至于Rectangle矩形是一个数学概念上的类，用来确定屏幕上的绘制范围，无论画什么将画在这个区域内。</p>
-
-<p><strong>第二步：加载asset</strong></p>
-
-<p>我们要做的依然很傻瓜，就是在LoadContent中写一些载入asset（理解为载入文件多容易）的代码。LoadContent方法会在程序开始之前完成加载的工作，而你则需要把所有这个游戏会用到的东西在这里加载，这样才能在之后被调用。我们找到// TODO: use this.Content to load your game content here这行注释，就可以在它下面加上我们需要的以下代码了。</p>
-
-<pre><code>backgroundTexture = Content.Load&lt;Texture2D&gt;(
-    @"Spritesbackground");
-base.LoadContent();
-</code></pre>
-
-<p>正如大家看到的，这里只要直接用Content属性，然后告诉他路径就好了。.tga的后缀被省略了。调用base.LoadContent后资源载入成功。另外这里很高兴的看到了范型，写游戏的肯定很注意效率，那一定会担心范型的效率。不过我记得范型的效率有时候还高于现行数组等集合。</p>
-
-<p>这里特别注意一下，按照视频中的GS2.0来看，会自动生成base.LoadContent();这行代码，留个心眼。</p>
-
-<p><strong>第三步：绘制texture</strong></p>
-
-<p>之前我们声明了texture并且载入了asset，那么接下去就是要coding了。要把它画在画面上，就要用到SpriteBatch类，在自动生成的代码中已经帮我们写好并且实例化好的类。它将帮助你把Scirpte画到你的设备上，PC或是X360，这就是为什么实例化SpriteBatch的时候传入了Device。我必须知道要画在哪里才可以。</p>
-
-<p>接下去还是找到LoadContent方法，首先我们要确定绘图的范围，因为我们是画的背景，所以只要得到当前Device的viewport（视窗？）就可以知道这个范围。初始化这个范围到viewportRect这个矩形就好了，如参为四个，起始点的X坐标，Y坐标和宽度，长度。于是就是下面的一行代码。</p>
-
-<pre><code>viewportRect = new Rectangle(0, 0,
-GraphicsDevice.Viewport.Width,
-GraphicsDevice.Viewport.Height);
-</code></pre>
-
-<p>意思很清晰，不过有个地方值得注意，视频中GraphicsDevice是通过graphics中的属性得到的，即是通过this，也就是当前的Game类实例化的GraphicDeviceManger中的属性得到的；而从3.1自动生成的代码来看，实例化ScriptBatch的时候可以直接使用this的GraphicsDevice属性。于是我们的代码也可以直接这么使用GraphicDevice属性，小细节而已，这里提到一下，于是继续。</p>
-
-<p>接下来找到Draw方法绘制这一部分，找到// TODO: Add your drawing code here的地方，插入如下代码。</p>
-
-<pre><code>spriteBatch.Begin(SpriteBlendMode.AlphaBlend);
-spriteBatch.Draw(backgroundTexture, viewportRect, Color.White);
-spriteBatch.End();
-</code></pre>
-
-<p>这段代码是2D游戏中才会出现的，在D3D里用sprite的时候也会看到类似的代码，beginscene等。SpriteBlendMode是个枚举类型，Additive和AlphaBlend和None三种。Additive就是叠加，等到后面有多个texture画上去的时候再做实验。Alphablend是alpha混合，就是半透明效果，带有半透明信息的图片可以直接贴上去而不需要你做额外的混合工作。在draw中传入要画的texture，要画的范围，以及最后一个颜色参数。这个颜色参数相当于CSS中的filter，就是一个滤镜，调整颜色的，这里传入白色代表不做任何过滤。最后end相当于ndScene，结束。</p>
-
-<p>OK到这里代码就写完了，看一下总共我们只写了8行代码，就完成了背景的绘制，很简单，运行一下看看效果（点击放大），就收工啦～</p>
-
-<p><a href="/upload/2009-06-13_DrewBackground.jpg"><img src="/upload/2009-06-13_DrewBackground.jpg" alt="" /></a></p>
-
-<p>官方提供的源代码下载。</p>
-
-<p><a href="http://creators.xna.com/downloads/?id=151"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
-
-<hr />
-
-<p>接下去通过对网站上其他资源的翻译，达到对一些没有解释的内容的解释作用。</p>
-
-<p><strong>一、Content</strong></p>
-
-<p>Content是最莫名其妙的东西，我们莫名其妙的写出了Content.Load这样的方法，但是事实上，Content这个Game的属性是怎么回事我们根本不知道，里面有什么我们也不知道，那么究竟它是如何工作的我们先看一下我的翻译。（以下为本人根据微软提供的资料所做的翻译，原文请查看<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/details/4_2">这里</a>）</p>
-
-<p>Content Pipeline是如何工作的？</p>
-
-<blockquote><p><img src="/upload/BG_3.4.2.1pd.png" alt="" /></p>
-
-<p>XNA Framework的ContentPipeline是XNA Game Studio非常重要的一个部分，目前为止所展现给你的那部分（添加物件到工程中以及调用和加载）只是对发生在幕后的事情的暗示。</p>
-
-<p>在传统的游戏开发中，载入内容（转换内容文件到游戏在运行时可以使用的格式）是一件困难且耗时的工作。往往，程序员必须要从零开始编写一个载入系统（loading system），必须写一个导入器（importer）来消费3D和2D资源（诸如美工提供的模型和纹理），再写一个处理器（processor）转换这些导入的格式为代码对象，使得其他程序员可以这些代码对象进行操作，使模型显示出来并在游戏中产生互动。</p>
-
-<p>然而在XNA Game Studio中，大量的这类工作已经由XNA Framework Content Pipeline完成了。Content Pipeline</p></blockquote>
-
-<pre><code>    在你把一些资源放到解决方案查看器里的那一刻已经参与了进来。
-</code></pre>
-
-<blockquote><p>如果你添加了一个Content Pipline能够识别的内容类型，你可以在解决方案查看器点击看到Content Pipline的属性。你会注意到任何一个内容都有四个属性。</p>
-
-<p>第一个是Asset名字。这是一个字符串，用来在你调用ContentManager.Load的时候定义内容名称。注意他的命名就是文件名去掉了后缀。</p>
-
-<p>第二个是Content导入器（importer）。它定义了从磁盘文件读取内容所使用的导入器的类型。一个导入器被调整接受某特定格式。只要文件一被导入，他会通过第三个道具&#8212;-Content处理器（Processor）。这些处理器转换传入的数据到可以在运行时被读取的格式，并且转换成一个类。</p>
-
-<p>任何独立的物件所对应的导入器和处理器可以通过第四个属性（名叫XNA Framework Content）的设置打开或关闭。如果设为true，这个内容就会完成之前提到过的导入和处理工作。如果设为false，Content Pipeline将不会导入或处理内容。</p>
-
-<p>当你添加一个物件到解决方案查看器，这些设置将按照默认值设置，并且在大多数情况下，他们不需要修改。想要完成你会经常在游戏类中完成的事情&#8212;-把内容加载到游戏中，所有你要做的事情就是调用ContentManager.Load方法了。</p></blockquote>
-
-<p>看完这段翻译有些东西不得不讲一下：</p>
-
-<p>首先是属性，按照这里所说的属性是四个，并且Processor是没有扩展的。（如引用区域内的那张小图，此图为官网使用的示例图，不能放大）这是基于GS2.0的教程，但是在我现在使用的3.1版中我们根本没有这第四个属性，反而是像我的截图（下图，点击放大）里的一样，Processor拥有了很多的属性。</p>
-
-<p><a href="/upload/2009-06-13_ContentPiplineProperty.jpg"><img src="/upload/2009-06-13_ContentPiplineProperty.jpg" alt="" /></a></p>
-
-<p>其次就是ContentManager的解释，翻译里的描述的，我们采用的ContentManager类，其实不需要我们自己定义或实例化，在构造Game类的同时，这个ContentManager类已经作为Game类的一个属性被定义完成了，我们只需要直接调用(Game)this.Load<object>()方法就可以调用了。于是结合上面提到的GraphicsDeviceManager，我想，能不能也不要呢。于是我注释掉了两行代码，一个是声明一个是实例化，之后在运行到draw方法，需要用到this.GraphicsDevice类的时候提示：This property requires a graphics device service in the game service container. 这么说来ContentManager已经会自动被实例化，可是GraphicsDeviceManager却不可以。毕竟从这些代码上面来看，构造ContentManager只需要一个IServiceProvider作为如参，那么Game实例化过程中就可以完成这个操作。而GraphicsDeviceManager需要的入参是Game，这就不可能自动在构造Game的时候完成。（当然在我们看不到的地方是完全可以实现的）看来究竟内部如何实现的，又有什么考量，有深入研究的价值。</p>
-
-<p><strong>二、sprites，sprite绘制，和spritebatch</strong></p>
-
-<blockquote><p><img src="/upload/BG_3.4.3.1pd.png" alt="" /></p>
-
-<p>Sprite（常译作精灵，此处不翻译）是游戏中显示的2D图形的常用名字。在过去，几乎所有的游戏是基于sprite方式的；2D图形曾是古老的处理器和电视游戏系统所能实时处理的全部。随着当前计算机和电视游戏主机中包含的图形处理但与（GPU）的降临，很多游戏转向了3D图形，但是在那些游戏当中，sprite仍然出现了，成为诸如烟和火这样一类的效果的首选方式，给予了他们不高的复杂度和较快的绘图速度。</p>
-
-<p>在XNA Framework中，没有类似的Sprite类；一个XNA Framework制作的游戏中的一个sprite来自于很写Texture2D对象的结合，他们包含了要绘制的图像信息，和一个能设置图形设备让其正常绘制2D图形的SpriteBatch对象。</p>
-
-<p>在3D游戏中，XNA Framework的绘制方法主要用来绘制3D模型到屏幕上。一系列的叫做绘制状态（render state）的图形设备的设置选项，按照默认设置的都是用来绘制3D模型的。SpriteBatch类处理转换这些绘制状态到允许2D图形的绘制。要做到这一点，SpriteBatch拥有两个方法，Begin和End。你必须分别调用它们让图形设备为2D图形做好准备，或者回复图形设备到3D绘制状态。</p>
-
-<p>在调用Begin和End方法的中间，你可以调用SpriteBatch.Draw，并通过调整位置、大小、旋转、翻转、调色，以及更多的丰富多彩的选项来绘制Texture2D对象到屏幕上。</p>
-
-<p>在调用Draw方法时，通过调整位置、大小、旋转、调色还有其他显示参数，你可以让一个单独的Texture2D对象表现出丰富多彩的不同的状态。利用随着时间的推移，平滑的变换这些参数，你可以模拟表情或其他动画效果。</p>
-
-<p>一个标准的2D游戏，你只需要调用Begin一次，然后利用一系列的Draw方法的调用绘制所有的和游戏相关的sprite，然后再调用End。注意，在你的游戏中，你只需要一个SpriteBatch对象，无论你将要有多少Texture2D对象要画。</p>
-
-<p>在教程的最后，你还会学到如何使用SpriteBatch来显示文本到屏幕上。这对于显示文本和数字信息给玩家来说非常的实用，就像得分，角色间的对话或者更多其它的东西。</p></blockquote>
-
-<p>可以总结下，一般2D游戏的Sprite就是Sprite，而XNA中的Sprite对象是不存在的，只有一个SpriteBatch对象，它不是真正意义上传统的Sprite，他是一系列texture纹理的集合。</p>
-
-<p>其实这种实现方式在Direct3D9中就已经被使用了。人们在做2D游戏的时候（就像我当时找资料的时候）总是要回忆说DD7如何如何的好，如何如何的方便。于是有了利用DD7供给VB调用的组件实现C#调用DD7对象来实现2D游戏这样子极端的做法。其实在D3D8时代，去除directDraw的时候，就已经采用了类似XNA这样的2D游戏的实现方式。而D3D9中不但依然使用这种实现方式，还提供了directDraw7的.net的实现。</p>
-
-<p>当然，如今在XNA中一定不会有directDraw了，不过我们应该已经能够接受这种2D游戏的开发方式了。只是话说回来，2D游戏还有多少市场呢？</p>
-
-<p>终于结束Chapter4了，保证各位看过我的文章不用再去XNA Creator Club学习了。</p>
 </div>
   
   
