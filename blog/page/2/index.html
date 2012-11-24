@@ -1,212 +1,133 @@
 
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Artoirus</title>
-  <meta name="author" content="Arthur Wang">
-  <link rel="author" href="humans.txt">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<title>Artoirus</title>
+	<meta name="author" content="Arthur Wang">
 
-  
-    
-  
-  <meta name="description" content=" ">
-  
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="description" content="好吧这是一篇蛋疼的文章, 因为本人第一次成功pull request所以比较鸡冻. scribe-java是一个java语言的oauth库, 代码很干净利落很容易扩展而且用起来很方便. 因为之前文章提到过的工作, 所以对scribe-java做了一些改造. 事实上很多改造是因为scribe- &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <link rel="canonical" href="http://Arthraim.github.com/blog/page/2/">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
-  <meta name="og:type" content="website" />
-  <meta name="og:site_name" content="Artoirus" />
-  <meta name="og:title" content="Artoirus" />
-  <meta name="og:description" content=" " />
-  <meta name="og:url" content="http://Arthraim.github.com/blog/page/2/index.html"/>
-  <meta name="url" content="http://Arthraim.github.com/blog/page/2/index.html">
-  
-  <meta name="distribution" content="global">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
+	<link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
 </head>
 
-<body   >
-  <div id="front-wrapper">
-  <div id="hero">
-    <div id="hero-inner" class="container">
-      <div class="span10 offset1">
-  <h1>
-    I&#8217;m <em>Adrian Artiles</em>,<br/>
-    an <em>entrepreneurial developer</em><br/>
-    from <em>Chicago</em>
-  </h1>
+<body>
+	<header id="header" class="inner"><h1><a href="/">Artoirus</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
 </div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:Arthraim.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="https://www.google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:Arthraim.github.com">
+	</form>
+</nav>
 
-    </div>
-  </div>
-  <section id="sub-hero">
-    <div class="container">
-      <div class="row">
-  <div class="span4">
-    <h2>about me</h2>
-    <p>I fill the days improving in the craft of software development, business building, and life enrichment. As a paragraph never does much justice to anyone, look around to learn more.</p>
-  </div>
-  <div class="span6">
-    <h2>recent public projects</h2>
-    <dl class="dl-horizontal">
-      <dt><a href="http://numbernote.com">NumberNote</a><a href="https://github.com/sevenadrian/numbernote" rel="tooltip" title="open sourced at Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a></dt>
-      <dd>The best free phone number reverse lookup site, for mobile too</dd>
-      <dt><a href="http://decide.herokuapp.com">The Decider</a><a href="https://github.com/sevenadrian/TheDecider" rel="tooltip" title="open sourced at Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a></dt>
-      <dd>A simple web app that randomly makes a decision for you and your collaborators</dd>
-      <dt><a href="http://siliconvalleybln.org">SiliconValleyBLN</a></dt>
-      <dd>Web development for a non-profit that helps those with disabilities</dd>
-    </dl>
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
-    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
-    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
-    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
-    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
-    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
-    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
-    <h2>contact at</h2>
-    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
-  </div>
-</div>
-
-    </div>
-  </section>
-  <div class="container">
-    <div class="row" id="post-container">
-    
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/06/04/java-oauth-lib-scribe-java-start-supporting-weibo/">Java语言oauth库scribe-java支持新浪微博</a></h1>
-    
-    
-      <p class="meta">
-        
-  
+</header>
+	
+		
+	
+	<div id="content" class="inner">
 
 
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-04T07:41:22+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>好吧这是一篇蛋疼的文章, 因为本人第一次成功pull request所以比较鸡冻. <a href="https://github.com/fernandezpablo85/scribe-java">scribe-java</a>是一个java语言的oauth库, 代码很干净利落很容易扩展而且用起来很方便. 因为<a href="http://artori.us/something-about-oauth/">之前文章</a>提到过的工作, 所以对scribe-java做了<a href="https://github.com/Arthraim/scribe-java">一些改造</a>.</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/06/04/java-oauth-lib-scribe-java-start-supporting-weibo/">
+		
+			Java语言oauth库scribe-java支持新浪微博</a>
+	</h2>
+	<div class="entry-content">
+		<p>好吧这是一篇蛋疼的文章, 因为本人第一次成功pull request所以比较鸡冻. <a href="https://github.com/fernandezpablo85/scribe-java">scribe-java</a>是一个java语言的oauth库, 代码很干净利落很容易扩展而且用起来很方便. 因为<a href="http://artori.us/something-about-oauth/">之前文章</a>提到过的工作, 所以对scribe-java做了<a href="https://github.com/Arthraim/scribe-java">一些改造</a>.</p>
 
 <p>事实上很多改造是因为scribe-java的确还存在一些问题, 比如oauth参数不支持querystring等, 所以改造工作不可避免. 不过随着作者非常快速的更新, 现在它已经大大改善了这些方面的功能. 回过头来再看自己的folk, 事实上也完全没有必要了.</p>
 
 <p>当然很希望国内的开发者在pom.xml里写上scribe-java就可以直接支持国内的各个微博, 所以我整理了一下我的分支正式的发起了pull request. 经过几次交流, 最终 新浪微博 / 网易微博 / 搜狐微博 的相关支持已经正式纳入了原作者的版本中得到支持了. 另外我一起提出请求的QQ微博和人人2.0最终因为代码的修改太大, 作者没有采纳(如果你要使用, 可以下载<a href="https://github.com/Arthraim/scribe-java">我的folk</a>).</p>
 
 <p>具体用法欢迎参考<a href="https://github.com/fernandezpablo85/scribe-java/blob/master/src/test/java/org/scribe/examples/SinaWeiboExample.java">这个例子</a> :) 开源是个尝到甜头就像继续下去的工作, 哪怕你的贡献再渺小, 也非常的美好. 让我鸡冻的感谢一下原作者Pablo Fernandez, 来自阿根廷.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-04T07:41:22+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/05/30/bottle-i-love-this-framework/">Bottle-非常喜欢这个框架</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-30T04:46:07+08:00" pubdate data-updated="true">May 30<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>大概是我火星了，直到2天前我才知道有bottle这样一个框架。鉴于对自己的翻译能力没有什么信心，就摘抄<a href="http://bottlepy.org">bottle官网</a>上对自己介绍的原文过来吧。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/05/30/bottle-i-love-this-framework/">
+		
+			Bottle-非常喜欢这个框架</a>
+	</h2>
+	<div class="entry-content">
+		<p>大概是我火星了，直到2天前我才知道有bottle这样一个框架。鉴于对自己的翻译能力没有什么信心，就摘抄<a href="http://bottlepy.org">bottle官网</a>上对自己介绍的原文过来吧。</p>
 
 <blockquote><p>Bottle is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.</p></blockquote>
 
@@ -225,64 +146,46 @@ posted in
 <p>各种给力不多说了，现在自己在写一个用bottle+mongo的应用玩，另外学习的时候写了<a href="https://gist.github.com/994641">一个例子</a>，也传到了github上，愿意的话可以看看，里面有很多让人高兴的地方。如果你和我一样有做一个web应用的冲动，不妨试试看bottle！</p>
 
 <p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-30T04:46:07+08:00" pubdate data-updated="true">May 30<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/04/08/something-about-oauth/">随便写写oauth</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-04-08T04:12:47+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>最近用到了其他微博的oauth, 起初觉得oauth很烦, 因为文档看了很久很久都没有弄明白怎么回事. 等到初步模到了一些门道之后, 发现其实挺简单的, 因为那是一个标准, 理论上只要支持oauth的网站用一套代码去跑基本上都可以通过. 不过在实际的应用当中我算是领教到了中国互联网的强悍之处. 已经不记得是在什么地方看到一篇文章, 作者一上来第一句话就是 &#8220;从oauth可以看出一个互联网企业的技术力&#8221;, 虽然稍微有些偏激, 但多多少少有值得认同的地方.</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/04/08/something-about-oauth/">
+		
+			随便写写oauth</a>
+	</h2>
+	<div class="entry-content">
+		<p>最近用到了其他微博的oauth, 起初觉得oauth很烦, 因为文档看了很久很久都没有弄明白怎么回事. 等到初步模到了一些门道之后, 发现其实挺简单的, 因为那是一个标准, 理论上只要支持oauth的网站用一套代码去跑基本上都可以通过. 不过在实际的应用当中我算是领教到了中国互联网的强悍之处. 已经不记得是在什么地方看到一篇文章, 作者一上来第一句话就是 &#8220;从oauth可以看出一个互联网企业的技术力&#8221;, 虽然稍微有些偏激, 但多多少少有值得认同的地方.</p>
 
 <p><strong>我了解的oauth</strong></p>
 
@@ -344,64 +247,46 @@ posted in
 <p>从开发角度来说, 不得不承认oauth并不简单, 我也并不精通oauth, 偷懒了用了别人的库或多或少出现了些问题. 我依然比较郁闷的是, scribe-java本身自己就支持一大堆国外的oauth, 并且在我看来代码都是没有什么问题的, 到了国内, 标准就不是标准了, 标准只是参考, 各家各户按照自己的理解在做. 这篇文章写完, 我也有些心虚, 一些问题可能还是我有错, 如果你发现了, 欢迎拍砖我赔礼道歉.</p>
 
 <p>最后提一下, 在<a href="https://github.com/Arthraim/scribe-java">github上</a>把scribe-java给folk了, 添加了4大门户的微博, 欢迎其他开发者使用或贡献.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-08T04:12:47+08:00" pubdate data-updated="true">Apr 8<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/03/19/2011-03-19-technical-notes/">2011-03-19 技术小记</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-19T23:26:22+08:00" pubdate data-updated="true">Mar 19<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>好久木有更新了，碰到一些素材或遇到过的问题都会在evernote里记一下，不过总觉得事情都不够大不足以单独写一篇文章，所以全都一起写一下好了。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/03/19/2011-03-19-technical-notes/">
+		
+			2011-03-19 技术小记</a>
+	</h2>
+	<div class="entry-content">
+		<p>好久木有更新了，碰到一些素材或遇到过的问题都会在evernote里记一下，不过总觉得事情都不够大不足以单独写一篇文章，所以全都一起写一下好了。</p>
 
 <p>在windows下用maven2，遇到一个错：<strong>编码 GBK 的不可映射字符</strong>，原因是windows版的maven2默认编码是GBK。如果有windows的参与者，那解决方法是在pom.xml里加入以下语句：</p>
 
@@ -451,64 +336,46 @@ posted in
 <h1>的数量你懂的。更多具体的选项请看下面的链接。</h1>
 
 <p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-19T23:26:22+08:00" pubdate data-updated="true">Mar 19<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/24/nginx-411-error/">Nginx返回411错误</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-24T03:26:52+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, 生产环境测试环境都没有nginx, 唯独产品服务器上是, 糟糕吧.</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/02/24/nginx-411-error/">
+		
+			Nginx返回411错误</a>
+	</h2>
+	<div class="entry-content">
+		<p>今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, 生产环境测试环境都没有nginx, 唯独产品服务器上是, 糟糕吧.</p>
 
 <p><strong>引发411的原因</strong></p>
 
@@ -597,64 +464,46 @@ posted in
 <p>那么做到这里之前的问题就解决了, 记录一下, 因为在其他环境下都没遇到类似问题.</p>
 
 <p>以上</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-24T03:26:52+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/16/2011-02-15-notes/">2011-02-15 小记两笔</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-16T09:02:03+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>博客似乎没什么特别的东西好写, 小记一下昨天Google的两个东东, 有用没用稀有不稀有都记录一下. 这样轻松愉快的blog不但记录了成长说不定还对别人有帮助, 对我这种小角色来说还真是不错, hoho</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/02/16/2011-02-15-notes/">
+		
+			2011-02-15 小记两笔</a>
+	</h2>
+	<div class="entry-content">
+		<p>博客似乎没什么特别的东西好写, 小记一下昨天Google的两个东东, 有用没用稀有不稀有都记录一下. 这样轻松愉快的blog不但记录了成长说不定还对别人有帮助, 对我这种小角色来说还真是不错, hoho</p>
 
 <hr />
 
@@ -671,64 +520,46 @@ posted in
 <p>logrotate出来的文件总是xxxxx.log.1.gz, 后来又Google了一下, 发现还有一个叫做dateext的参数用YYYYMMDD这样的date extension来代替单调的1234数字. 好吧这个问题真的有点小白 - -</p>
 
 <p>那么, 以上就是全部了~</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-16T09:02:03+08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/18/use-mongodb-with-django/">优雅的在django框架里使用mongodb</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-18T03:31:47+08:00" pubdate data-updated="true">Jan 18<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在我们这里关于ruby和python的争论永远没有停息, 比赛之前也无意间让我发现了很多东西. 这次发现了一个django中使用mongodb的好东西, 叫做<a href="http://mongoengine.org/">mongoengine</a>, 不知道是不是我火星了, 因为从<a href="https://github.com/hmarr/mongoengine">github</a>上看这个项目最早从09年11月就开始了.</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/01/18/use-mongodb-with-django/">
+		
+			优雅的在django框架里使用mongodb</a>
+	</h2>
+	<div class="entry-content">
+		<p>在我们这里关于ruby和python的争论永远没有停息, 比赛之前也无意间让我发现了很多东西. 这次发现了一个django中使用mongodb的好东西, 叫做<a href="http://mongoengine.org/">mongoengine</a>, 不知道是不是我火星了, 因为从<a href="https://github.com/hmarr/mongoengine">github</a>上看这个项目最早从09年11月就开始了.</p>
 
 <p>在github下载到源码, 有setup.py, 先build再install, 然后&#8230; 开搞!</p>
 
@@ -769,64 +600,46 @@ posted in
 </code></pre>
 
 <p>挺好玩的. 最重要的是它支持sessions, 支持User authentication, 还可以使用gridfs做文件存储, 具体可以在<a href="http://mongoengine.org/docs/v0.4/django.html">这里</a>查到.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-18T03:31:47+08:00" pubdate data-updated="true">Jan 18<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/17/arthur-s-2010-summary/">Arthur的2010年总结</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-17T10:58:50+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/life/'>Life</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>2010年过完了, 博客完整存在的第一年. 无论对我自己还是这个博客都有很多值得总结的地方. 很抱歉这篇文章迟到了, 因为域名和主机等等出现的问题, 从去年年底到这个星期早些时候, 博客都没有正常服务, 知道这周才更换主机和域名后起死回生.</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/01/17/arthur-s-2010-summary/">
+		
+			Arthur的2010年总结</a>
+	</h2>
+	<div class="entry-content">
+		<p>2010年过完了, 博客完整存在的第一年. 无论对我自己还是这个博客都有很多值得总结的地方. 很抱歉这篇文章迟到了, 因为域名和主机等等出现的问题, 从去年年底到这个星期早些时候, 博客都没有正常服务, 知道这周才更换主机和域名后起死回生.</p>
 
 <p>和去年一样, 还是先罗列数据一些数据吧~</p>
 
@@ -895,64 +708,46 @@ posted in
 <p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问&#8230;)</p>
 
 <p><a href="http://artori.us/arthur-s-2010-summary/2011-01-17-030351_640x630_scrot/"><img src="http://artori.us/wp-content/uploads/2011-01-17-030351_640x630_scrot-500x492.png" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-17T10:58:50+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/13/arthur_movie_report_2010_12/">Arthur电影补完计划第8次中间报告(2010-12)</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-13T16:00:57+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/movie/'>Movie</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在博客停掉的时候没啥动力码字，每次打几个字就没有动力写下去了。现在它复活了我很高兴，虽然不是原地满血复活，不过我的动力倒是最大限度的复活了。补上12月份的电影报告，hoho~ 因为12月份是一个挺忙的月，人间网第二个产品<a href="http://www.aizheke.com">爱折客</a>是整个在这个月里rush出来的，所以博客几乎没有更新，电影也看的不多。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/01/13/arthur_movie_report_2010_12/">
+		
+			Arthur电影补完计划第8次中间报告(2010-12)</a>
+	</h2>
+	<div class="entry-content">
+		<p>在博客停掉的时候没啥动力码字，每次打几个字就没有动力写下去了。现在它复活了我很高兴，虽然不是原地满血复活，不过我的动力倒是最大限度的复活了。补上12月份的电影报告，hoho~ 因为12月份是一个挺忙的月，人间网第二个产品<a href="http://www.aizheke.com">爱折客</a>是整个在这个月里rush出来的，所以博客几乎没有更新，电影也看的不多。</p>
 
 <p><img src="http://img3.douban.com/spic/s4404427.jpg" alt="Easy A" /><img src="http://img3.douban.com/spic/s4436998.jpg" alt="Monsters" /><img src="http://img3.douban.com/spic/s4511721.jpg" alt="Wild Target" /><img src="http://img3.douban.com/spic/s4433349.jpg" alt="3 Idiots" /><img src="http://img3.douban.com/spic/s4063848.jpg" alt="Salt" /><img src="http://img3.douban.com/spic/s4357597.jpg" alt="Despicable Me" /><img src="http://img3.douban.com/spic/s4100333.jpg" alt="涼宮ハルヒの消失" /><img src="http://img3.douban.com/spic/s4451119.jpg" alt="Skyline" /><img src="http://img5.douban.com/spic/s4387115.jpg" alt="The Social Network" /><img src="http://img3.douban.com/spic/s4440289.jpg" alt="The Town" /></p>
 
@@ -994,64 +789,46 @@ posted in
 <p>好吧，这就是上个月了，前两档的电影其实都可以看看的，都是好片，野性目标可以尝试下看看对不对你胃口，最后那部，千万别。</p>
 
 <p>以上。。。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-13T16:00:57+08:00" pubdate data-updated="true">Jan 13<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/movie/'>Movie</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/01/12/im-back/">I&#8217;m Back!</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-12T20:53:24+08:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/life/'>Life</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>终于联系上了域名代理, 我的arthraim.cn也续费成功了, 不会被劫持到广告页了, 然后我做了以下几件事.</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2011/01/12/im-back/">
+		
+			I&#8217;m Back!</a>
+	</h2>
+	<div class="entry-content">
+		<p>终于联系上了域名代理, 我的arthraim.cn也续费成功了, 不会被劫持到广告页了, 然后我做了以下几件事.</p>
 
 <ol>
 <li><p>之前当然先做了artori.us这个镜像, 和之前的一模一样</p></li>
@@ -1067,111 +844,58 @@ posted in
 <p><strong>Update</strong>：</p>
 
 <p>我的RSS源订阅的童鞋们，如果方便的话把feed的域名帮忙换成artori.us，当然之前的源不变问题也是不大的，会自动重定向的。（只是换域名似乎对GREADER插件PR的影响很大）</p>
-</div>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
   
-  
+
+
+<time datetime="2011-01-12T20:53:24+08:00" pubdate data-updated="true">Jan 12<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>
+	
+</div></article>
 
-      </article>
+<nav id="pagenavi">
     
-    </div>
-      <div class="row">
-        <ul class="pager">
-          
-            <li class="previous">
-              <a href="/blog/page/3/">&larr; Older</a>
-            </li>
-          
-          
-            <li class="next">
-              <a class="next" href="/">Newer &rarr;</a>
-            </li>
-          
-        </ul>
-      </div>
-  </div>
-</div>
+        <a href="/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/3/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
 
+    Arthur Wang
 
-  <div id="footer-widgets">
-  <div class="container">
-    <div class="row">
-  <div class="span3">
-    <h2>recent posts</h2>
-    <ul class="recent_posts">
-      
-        <li>
-          <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
-        </li>
-      
-    </ul>
-    <h2><a href="/blog/archives">archives</a></h2>
-  </div>
-  <div class="span3">
-    <h2>instagram</h2>
-    <div class="instagram"></div>
-    <button id="instabutton" class="btn">more</button>
-  </div>
-  <div class="span4">
-    <h2>twitter</h2>
-    <a href="https://twitter.com/adrianartiles" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @adrianartiles</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <div class="tweet">
-    </div>
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
-    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
-    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
-    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
-    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
-    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
-    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
-    <h2>contact at</h2>
-    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
-  </div>
-</div>
-
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">
-  <a href="/">Artoirus</a>
-  - Copyright &copy; 2012 - Arthur Wang
-</p>
-<p class="pull-right">
-  Powered by <a href="http://octopress.org/">Octopress</a>. Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.
-</p>
-
-  </div>
 </footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
-<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
-<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
-<script src="/javascripts/custom.js" type="text/javascript"></script>
 
 
 

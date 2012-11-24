@@ -1,148 +1,87 @@
 
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Artoirus</title>
-  <meta name="author" content="Arthur Wang">
-  <link rel="author" href="humans.txt">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<title>Artoirus</title>
+	<meta name="author" content="Arthur Wang">
 
-  
-    
-  
-  <meta name="description" content=" ">
-  
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景 通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <link rel="canonical" href="http://Arthraim.github.com/blog/page/16/">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
-  <meta name="og:type" content="website" />
-  <meta name="og:site_name" content="Artoirus" />
-  <meta name="og:title" content="Artoirus" />
-  <meta name="og:description" content=" " />
-  <meta name="og:url" content="http://Arthraim.github.com/blog/page/16/index.html"/>
-  <meta name="url" content="http://Arthraim.github.com/blog/page/16/index.html">
-  
-  <meta name="distribution" content="global">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
+	<link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
 </head>
 
-<body   >
-  <div id="front-wrapper">
-  <div id="hero">
-    <div id="hero-inner" class="container">
-      <div class="span10 offset1">
-  <h1>
-    I&#8217;m <em>Adrian Artiles</em>,<br/>
-    an <em>entrepreneurial developer</em><br/>
-    from <em>Chicago</em>
-  </h1>
+<body>
+	<header id="header" class="inner"><h1><a href="/">Artoirus</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
 </div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:Arthraim.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="https://www.google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:Arthraim.github.com">
+	</form>
+</nav>
 
-    </div>
-  </div>
-  <section id="sub-hero">
-    <div class="container">
-      <div class="row">
-  <div class="span4">
-    <h2>about me</h2>
-    <p>I fill the days improving in the craft of software development, business building, and life enrichment. As a paragraph never does much justice to anyone, look around to learn more.</p>
-  </div>
-  <div class="span6">
-    <h2>recent public projects</h2>
-    <dl class="dl-horizontal">
-      <dt><a href="http://numbernote.com">NumberNote</a><a href="https://github.com/sevenadrian/numbernote" rel="tooltip" title="open sourced at Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a></dt>
-      <dd>The best free phone number reverse lookup site, for mobile too</dd>
-      <dt><a href="http://decide.herokuapp.com">The Decider</a><a href="https://github.com/sevenadrian/TheDecider" rel="tooltip" title="open sourced at Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a></dt>
-      <dd>A simple web app that randomly makes a decision for you and your collaborators</dd>
-      <dt><a href="http://siliconvalleybln.org">SiliconValleyBLN</a></dt>
-      <dd>Web development for a non-profit that helps those with disabilities</dd>
-    </dl>
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
-    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
-    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
-    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
-    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
-    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
-    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
-    <h2>contact at</h2>
-    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
-  </div>
-</div>
-
-    </div>
-  </section>
-  <div class="container">
-    <div class="row" id="post-container">
-    
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/14/xna-tutorial-2d-ch4-rending-backgrounds/">XNA教程-2D游戏-04-绘制背景</a></h1>
-    
-    
-      <p class="meta">
-        
-  
+</header>
+	
+		
+	
+	<div id="content" class="inner">
 
 
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-14T00:35:48+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景</strong></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/14/xna-tutorial-2d-ch4-rending-backgrounds/">
+		
+			XNA教程-2D游戏-04-绘制背景</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景</strong></p>
 
 <p>通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧，这一次我们要直接开始写一些代码，一些可以运行起来的代码。</p>
 
@@ -383,64 +322,46 @@ spriteBatch.End();
 <p>当然，如今在XNA中一定不会有directDraw了，不过我们应该已经能够接受这种2D游戏的开发方式了。只是话说回来，2D游戏还有多少市场呢？</p>
 
 <p>终于结束Chapter4了，保证各位看过我的文章不用再去XNA Creator Club学习了。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-14T00:35:48+08:00" pubdate data-updated="true">Jun 14<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/13/xna-tutorial-2d-ch3-add-assets/">XNA教程-2D游戏-03-添加Assets</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-13T21:24:27+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/upload/2009-06-13_WhatIsAssets.jpg"><img src="/upload/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/13/xna-tutorial-2d-ch3-add-assets/">
+		
+			XNA教程-2D游戏-03-添加Assets</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="/upload/2009-06-13_WhatIsAssets.jpg"><img src="/upload/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
 
 <p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset</strong></p>
 
@@ -487,64 +408,46 @@ posted in
 <p>这就是本章要讲解的内容，万事开头难，大家要有耐心，虽然做起来很简单，不过无论是Content还是Asset都是微软给我们的概念，一定要记住了。</p>
 
 <p><a href="http://creators.xna.com/downloads/?id=150"><img src="/upload/2009-06-12_download_XNA.png" alt="" />示例代码下载</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T21:24:27+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/13/xna-tutorial-2d-ch2-create-solution/">XNA教程-2D游戏-02-创建游戏工程</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-13T20:47:02+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/upload/2009-06-13_PlatformerGameDemo.jpg"><img src="/upload/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/13/xna-tutorial-2d-ch2-create-solution/">
+		
+			XNA教程-2D游戏-02-创建游戏工程</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="/upload/2009-06-13_PlatformerGameDemo.jpg"><img src="/upload/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
 
 <p><strong> XNA教程 &#8211; 2D游戏 &#8211; Chapter 2 &#8211; 创建游戏工程</strong></p>
 
@@ -600,64 +503,46 @@ posted in
 <p><a href="http://creators.xna.com/downloads/?id=149"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a>素材下载点击图标</p>
 
 <p>OK，好了这一章很简单，就说到这里吧。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T20:47:02+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/13/xna-tutorial-2d-ch1-introduction/">XNA教程-2D游戏-01-2D游戏教程简介</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-13T19:38:00+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/upload/2009-06-13_XNA_logo.jpg"><img src="/upload/2009-06-13_XNA_logo.jpg" alt="" /></a></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/13/xna-tutorial-2d-ch1-introduction/">
+		
+			XNA教程-2D游戏-01-2D游戏教程简介</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="/upload/2009-06-13_XNA_logo.jpg"><img src="/upload/2009-06-13_XNA_logo.jpg" alt="" /></a></p>
 
 <p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 1.1 &#8211; 2D游戏教程简介</strong></p>
 
@@ -672,64 +557,46 @@ posted in
 <p><img src="/upload/2009-06-13_2DGameDemo.jpg" alt="" /></p>
 
 <p>另外，为了方便大家看到效果，特地在博客中加入了lightbox，所以任何一张图片都是可以通过点击放大查看的～ 希望能给大家带来更好的体验。那么看完这篇文章，下一篇就将是这个教程真正的开始了。你准备好了吗？</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T19:38:00+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/12/xna-game-studio-3-1-available/">XNA Game Studio 3.1 Available</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-12T18:22:06+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="/upload/2009-06-12_XNA.png" alt="" /></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/12/xna-game-studio-3-1-available/">
+		
+			XNA Game Studio 3.1 Available</a>
+	</h2>
+	<div class="entry-content">
+		<p><img src="/upload/2009-06-12_XNA.png" alt="" /></p>
 
 <p>微软的XNA一直是个好东西，依靠他不但可以做出Game For Windows，还可以直接在XBOX360上使用，当然前提是你的游戏做的足够好，你的会员资格是白金。</p>
 
@@ -772,64 +639,46 @@ posted in
 <p><a href="/upload/2009-06-12_XNAGame.jpg"><img src="/upload/2009-06-12_XNAGame.jpg" alt="" /></a></p>
 
 <p>OK，这里就不详细说怎么去写一个XNA游戏了。微软在这里提供了<a href="http://creators.xna.com/en-US/education/gettingstarted">视频教程</a>，2D或者3D的教程都有。感兴趣的同学可以去学习一下，希望大家一切顺利。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-12T18:22:06+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/09/asp-net-twitter-api-client/">ASP.NET调用twitter Api实现简单的功能</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine.net的开源项目里找到了一段.net实现的通过feed方式获取tweets的方法。把代码整理了一下，去掉了blogengine的widget成分，做成个页面……</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/09/asp-net-twitter-api-client/">
+		
+			ASP.NET调用twitter Api实现简单的功能</a>
+	</h2>
+	<div class="entry-content">
+		<p>很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine.net的开源项目里找到了一段.net实现的通过feed方式获取tweets的方法。把代码整理了一下，去掉了blogengine的widget成分，做成个页面……</p>
 
 <p><strong><a href="http://twitter.com/arthraim/">Follow me</a></strong></p>
 
@@ -994,64 +843,46 @@ public partial class _Default : System.Web.UI.Page
 </code></pre>
 
 <p>[修改自开源项目blogengine.net]</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/08/cfwenabler-3-01-relesed-supports-psp3000/">CFWEnabler 3.01 支持PSP3000</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-08T18:28:35+08:00" pubdate data-updated="true">Jun 8<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/video-game/'>Video Game</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>PSP3000的玩家最近似乎有些接受不了太多的现实，PSP3000的破解进展工作像重演了PSP早期破解一样，从TIFF漏洞开始一路扶摇直上。随着CFWEnabler 3.01的放出，似乎PSP3000在多个破解小组这里都多面开花，不难相信，kernel mode也终将会被黑客破解。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/08/cfwenabler-3-01-relesed-supports-psp3000/">
+		
+			CFWEnabler 3.01 支持PSP3000</a>
+	</h2>
+	<div class="entry-content">
+		<p>PSP3000的玩家最近似乎有些接受不了太多的现实，PSP3000的破解进展工作像重演了PSP早期破解一样，从TIFF漏洞开始一路扶摇直上。随着CFWEnabler 3.01的放出，似乎PSP3000在多个破解小组这里都多面开花，不难相信，kernel mode也终将会被黑客破解。</p>
 
 <p>我不谈破解的利弊，只谈破解的进程，破解是违法的，这是肯定的。之前，PSP3000只能利用一些游戏，诸如gridshift之类的，他们自身造成的数据溢出，使得可以加之利用插入代码来运行，但是代码空间有限，难以作为。之后TIFF漏洞出现，正如之前两篇博文开始关注的一样（<a href="http://arthraim.cn/post/2009/05/22.html">1</a>、<a href="http://arthraim.cn/post/2009/05/24.html">2</a>）利用这一漏洞出现了一个让自制软件可以运行的程序ChickHEN，使得大量的模拟器等homebrew在PSP3000上跑起来。之后出现的就是CFWEnabler（<a href="http://arthraim.cn/post/2009/05/45.html">here</a>）了，利用TIFF漏洞，让CFW可以在PSP上跑起来了，但是是无法进入核心模式，并且只支持TA-088v3主板不支持PSP3000的TA-090及其他之后的版本。紧跟着在6月5日，PSPGEN放出视频生成其已经成功让PSP3000运行HEN系统（<a href="http://arthraim.cn/post/2009/06/56.html">here</a>），之后就放出下载，PSP3000的玩家欢呼雀跃。</p>
 
@@ -1147,64 +978,46 @@ posted in
 <p><img src="/upload/20090608-cfwenabler4.png" alt="" /></p>
 
 <p><img src="/upload/20090608-cfwenabler5.png" alt="" /></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-08T18:28:35+08:00" pubdate data-updated="true">Jun 8<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/07/talk-about-psp3000-and-pspgo/">闲谈PSP3000和PSP GO</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-07T06:06:00+08:00" pubdate data-updated="true">Jun 7<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/video-game/'>Video Game</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>PSP GO已经正式公布了几天，E3展也接近尾声，这一个短短的盛会牵动了无数人的心，曾经已经走向灭亡的E3，一年一年的接近甚至超过之前的面貌了。凭借着微软的强大声势，凭借着任天堂每年对E3的重视，凭借着索尼一次一次的绝地大反击，E3的战争打得越来越激烈。这是所有好事的玩家都希望看到的。要感谢任天堂的不遗余力，要感谢索尼的坚持到底，还要感谢微软的配合。比尔盖茨说过，如果可以，微软有足够实力买下整个游戏市场！所以说，微软愿意在这里亏钱和大家玩，的确是值得感谢的。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/07/talk-about-psp3000-and-pspgo/">
+		
+			闲谈PSP3000和PSP GO</a>
+	</h2>
+	<div class="entry-content">
+		<p>PSP GO已经正式公布了几天，E3展也接近尾声，这一个短短的盛会牵动了无数人的心，曾经已经走向灭亡的E3，一年一年的接近甚至超过之前的面貌了。凭借着微软的强大声势，凭借着任天堂每年对E3的重视，凭借着索尼一次一次的绝地大反击，E3的战争打得越来越激烈。这是所有好事的玩家都希望看到的。要感谢任天堂的不遗余力，要感谢索尼的坚持到底，还要感谢微软的配合。比尔盖茨说过，如果可以，微软有足够实力买下整个游戏市场！所以说，微软愿意在这里亏钱和大家玩，的确是值得感谢的。</p>
 
 <p>随便谈谈PSP的相关新闻。</p>
 
@@ -1245,128 +1058,92 @@ posted in
 <p>亚瑟王：岩田聪这个名字还真是不错。</p>
 
 <p>亚瑟后：沿田葱？那和墙头草应该是一家的不~</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-07T06:06:00+08:00" pubdate data-updated="true">Jun 7<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/06/psp3000-may-hacked/">PSP3000有望正式宣告破解</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-06T00:57:56+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/video-game/'>Video Game</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在公布了ChickHen的两个版本，和CWFenabler的多个版本之后，我们终于看到了GEN系统的出现，<a href="http://www.pspgen.com/custom-firmware-5-03gen-for-hen-compatibilite-psp-3000-totale-actualite-187918.html">这里</a>有官方的公告，虽然没有放出程序，但是有视频可以确定支持运行ISO了。虽然dark_alex没有对这个视频做任何表态，不过今晚究竟破解与否，真实与否就可以一见分晓了。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/06/psp3000-may-hacked/">
+		
+			PSP3000有望正式宣告破解</a>
+	</h2>
+	<div class="entry-content">
+		<p>在公布了ChickHen的两个版本，和CWFenabler的多个版本之后，我们终于看到了GEN系统的出现，<a href="http://www.pspgen.com/custom-firmware-5-03gen-for-hen-compatibilite-psp-3000-totale-actualite-187918.html">这里</a>有官方的公告，虽然没有放出程序，但是有视频可以确定支持运行ISO了。虽然dark_alex没有对这个视频做任何表态，不过今晚究竟破解与否，真实与否就可以一见分晓了。</p>
 
 <p>视频引用自<a href="http://www.levelup.cn/news/NewsDetails/2009-6-5/34092.shtml">Levelup.cn</a>上来自土豆网的视频。</p>
 
 <p>此时我也不知道是高兴还是难过，先看结果把，在做评论。</p>
 
 <p><img src="/upload/psp3000_5.03gen_for_hen.png" alt="" /></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-06T00:57:56+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/06/how-to-update-twitter/">顶风作案 - 更新twitter的方法</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-06T00:31:08+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/internet/'>internet</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>话说昨天的文章写完之后就发现有些言辞过激了，生怕被和谐。后来经过我的调查，果然是我太愤青了。首先昨天是June 4th，对于中国来说是个敏感的日子，在facebook上也的确看到了一些激进的文章，说要让这一天成为全球大学生日。虽然外界的声音很多，但是我并不关心，我想作为国人也不用关心，不是我拍马屁，小胡和宝宝的政策的确都是挺讨人喜欢的，除了对网络的限制以外。另外xiaonei似乎也是因为这个原因而和谐了很多很多词语，甚至到了后来就干脆对评论进行了维护，果然不失为是一个好办法，非常时期么，理解了，太多的声音还是不要听到，太多的东西还是不要看到比较好，只是，我还是说我的，以我的角度而已。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/06/how-to-update-twitter/">
+		
+			顶风作案 - 更新twitter的方法</a>
+	</h2>
+	<div class="entry-content">
+		<p>话说昨天的文章写完之后就发现有些言辞过激了，生怕被和谐。后来经过我的调查，果然是我太愤青了。首先昨天是June 4th，对于中国来说是个敏感的日子，在facebook上也的确看到了一些激进的文章，说要让这一天成为全球大学生日。虽然外界的声音很多，但是我并不关心，我想作为国人也不用关心，不是我拍马屁，小胡和宝宝的政策的确都是挺讨人喜欢的，除了对网络的限制以外。另外xiaonei似乎也是因为这个原因而和谐了很多很多词语，甚至到了后来就干脆对评论进行了维护，果然不失为是一个好办法，非常时期么，理解了，太多的声音还是不要听到，太多的东西还是不要看到比较好，只是，我还是说我的，以我的角度而已。</p>
 
 <p>另外昨天提到了一个VeryCD维护的事情，虽然flickr等网站被和谐的确会对网站产生恶劣的影响。但是其实6月3日是&#8221;中国网络维护日&#8221;，所以在这一天前后，各大网站都会展开一次旷日持久的更新和修复，维护工作可常可短所以从那天开始很多网站都看到了维护的通告，包括VeryCD，当然还有饭否啊之类的网站。大概也是为了躲过敏感时期吧，把这个时期定为维护日是个不错的创意，有建设性，网络的煽动性太大，一不小心消息就会爆炸，以几何倍数上升成为世界级大型的新闻。</p>
 
@@ -1385,111 +1162,58 @@ posted in
 <p>补充一张图，昨天是微软CEO鲍尔默同学在某演讲上用苹果电脑的照片。那么今天发一张显示大公司有大气度的照片，是E3展上，宫本茂（任天堂）亲自排队体验PSP GO!（sony的掌机）的场面。很美～很感动～</p>
 
 <p><img src="/upload/090604023545765.jpg" alt="" /></p>
-</div>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
   
-  
+
+
+<time datetime="2009-06-06T00:31:08+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/internet/'>internet</a>
 
 
 </div>
+	
+</div></article>
 
-      </article>
+<nav id="pagenavi">
     
-    </div>
-      <div class="row">
-        <ul class="pager">
-          
-            <li class="previous">
-              <a href="/blog/page/17/">&larr; Older</a>
-            </li>
-          
-          
-            <li class="next">
-              <a class="next" href="/blog/page/15/">Newer &rarr;</a>
-            </li>
-          
-        </ul>
-      </div>
-  </div>
-</div>
+        <a href="/blog/page/15/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/17/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
 
+    Arthur Wang
 
-  <div id="footer-widgets">
-  <div class="container">
-    <div class="row">
-  <div class="span3">
-    <h2>recent posts</h2>
-    <ul class="recent_posts">
-      
-        <li>
-          <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
-        </li>
-      
-    </ul>
-    <h2><a href="/blog/archives">archives</a></h2>
-  </div>
-  <div class="span3">
-    <h2>instagram</h2>
-    <div class="instagram"></div>
-    <button id="instabutton" class="btn">more</button>
-  </div>
-  <div class="span4">
-    <h2>twitter</h2>
-    <a href="https://twitter.com/adrianartiles" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @adrianartiles</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <div class="tweet">
-    </div>
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
-    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
-    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
-    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
-    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
-    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
-    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
-    <h2>contact at</h2>
-    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
-  </div>
-</div>
-
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">
-  <a href="/">Artoirus</a>
-  - Copyright &copy; 2012 - Arthur Wang
-</p>
-<p class="pull-right">
-  Powered by <a href="http://octopress.org/">Octopress</a>. Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.
-</p>
-
-  </div>
 </footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
-<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
-<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
-<script src="/javascripts/custom.js" type="text/javascript"></script>
 
 
 

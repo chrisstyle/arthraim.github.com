@@ -1,148 +1,87 @@
 
-
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Artoirus</title>
-  <meta name="author" content="Arthur Wang">
-  <link rel="author" href="humans.txt">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta charset="utf-8">
+	<title>Artoirus</title>
+	<meta name="author" content="Arthur Wang">
 
-  
-    
-  
-  <meta name="description" content=" ">
-  
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="description" content="安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
-  <link rel="canonical" href="http://Arthraim.github.com/blog/page/15/">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
-  <meta name="og:type" content="website" />
-  <meta name="og:site_name" content="Artoirus" />
-  <meta name="og:title" content="Artoirus" />
-  <meta name="og:description" content=" " />
-  <meta name="og:url" content="http://Arthraim.github.com/blog/page/15/index.html"/>
-  <meta name="url" content="http://Arthraim.github.com/blog/page/15/index.html">
-  
-  <meta name="distribution" content="global">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
+	<link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
 </head>
 
-<body   >
-  <div id="front-wrapper">
-  <div id="hero">
-    <div id="hero-inner" class="container">
-      <div class="span10 offset1">
-  <h1>
-    I&#8217;m <em>Adrian Artiles</em>,<br/>
-    an <em>entrepreneurial developer</em><br/>
-    from <em>Chicago</em>
-  </h1>
+<body>
+	<header id="header" class="inner"><h1><a href="/">Artoirus</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
 </div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:Arthraim.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="https://www.google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:Arthraim.github.com">
+	</form>
+</nav>
 
-    </div>
-  </div>
-  <section id="sub-hero">
-    <div class="container">
-      <div class="row">
-  <div class="span4">
-    <h2>about me</h2>
-    <p>I fill the days improving in the craft of software development, business building, and life enrichment. As a paragraph never does much justice to anyone, look around to learn more.</p>
-  </div>
-  <div class="span6">
-    <h2>recent public projects</h2>
-    <dl class="dl-horizontal">
-      <dt><a href="http://numbernote.com">NumberNote</a><a href="https://github.com/sevenadrian/numbernote" rel="tooltip" title="open sourced at Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a></dt>
-      <dd>The best free phone number reverse lookup site, for mobile too</dd>
-      <dt><a href="http://decide.herokuapp.com">The Decider</a><a href="https://github.com/sevenadrian/TheDecider" rel="tooltip" title="open sourced at Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a></dt>
-      <dd>A simple web app that randomly makes a decision for you and your collaborators</dd>
-      <dt><a href="http://siliconvalleybln.org">SiliconValleyBLN</a></dt>
-      <dd>Web development for a non-profit that helps those with disabilities</dd>
-    </dl>
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
-    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
-    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
-    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
-    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
-    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
-    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
-    <h2>contact at</h2>
-    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
-  </div>
-</div>
-
-    </div>
-  </section>
-  <div class="container">
-    <div class="row" id="post-container">
-    
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/">XNA教程-3D游戏-04-绘制3D地表</a></h1>
-    
-    
-      <p class="meta">
-        
-  
+</header>
+	
+		
+	
+	<div id="content" class="inner">
 
 
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-07-04T03:50:05+08:00" pubdate data-updated="true">Jul 4<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。而3D则不然，即便是这个环境，那么也是需要我们用模型自己创建的，而这将会是一个非常复杂的工作，究竟如何复杂，看到下面的所有内容你就明白了。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/">
+		
+			XNA教程-3D游戏-04-绘制3D地表</a>
+	</h2>
+	<div class="entry-content">
+		<p>安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。而3D则不然，即便是这个环境，那么也是需要我们用模型自己创建的，而这将会是一个非常复杂的工作，究竟如何复杂，看到下面的所有内容你就明白了。</p>
 
 <p>从2D到3D，应该说当前我们在做的是一个非常困难的转换时期，我们要完成第一个3D的绘制，那么就必须了解很多很多只有在3D游戏中才会出现的概念。但是，简单的说，在代码上我们要完成的工作还是类似的，比如2D中，我们先声明了sprite；然后loadContent，或者load确定它的位置等信息；最后我们draw把它绘制出来。那么一样的，3D也是声明、初始化、绘制三个工作。只是2D中无论是初始化还是绘制都是相对简单的，3D就要复杂的多的多，跟着步骤走吧。</p>
 
@@ -387,64 +326,46 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <p>在BasicEffect的参数被设置后，剩下的就只有调用ModelMesh.Draw方法，使用之前为BasicEffect设置的参数，来绘制ModelMesh到屏幕上了。</p>
 
 <p><a href="/upload/BG_4.4.2.1pd.png"><img src="/upload/BG_4.4.2.1pd.png" alt="" /></a></p></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-04T03:50:05+08:00" pubdate data-updated="true">Jul 4<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/">XNA教程-3D游戏-03-添加Asset</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-07-02T00:17:14+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>到了这里其实还是和2D的教程是重叠的，这里我们要做的是添加asset们。所以这里你要问自己三个问题：</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/">
+		
+			XNA教程-3D游戏-03-添加Asset</a>
+	</h2>
+	<div class="entry-content">
+		<p>到了这里其实还是和2D的教程是重叠的，这里我们要做的是添加asset们。所以这里你要问自己三个问题：</p>
 
 <ol>
 <li><p>你已经建立了工程（project）了吗？&#8212;- <a href="http://arthraim.cn/post/2009/06/72.html">点我补课</a></p></li>
@@ -476,64 +397,46 @@ posted in
 <p>【官方工程下载】</p>
 
 <p><a href="http://creators.xna.com/downloads/?id=158"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-02T00:17:14+08:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/">XNA教程-3D游戏-02-创建游戏工程</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-27T10:08:42+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>进行了之前的工作，搭建了环境之后，现在就要进入实际开发过程了。我想过程和2D也许存在着一些区别，但是还是相对比较依赖2D教程的，尤其像这一章和3D的确是别无二致，不过我这里还是按照步骤说一下。（参考：<a href="http://arthraim.cn/post/2009/06/62.html">《XNA教程-2D游戏-Chapter2-创建游戏工程》</a>）</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/27/xna-tutorial-3d-ch2-create-solution/">
+		
+			XNA教程-3D游戏-02-创建游戏工程</a>
+	</h2>
+	<div class="entry-content">
+		<p>进行了之前的工作，搭建了环境之后，现在就要进入实际开发过程了。我想过程和2D也许存在着一些区别，但是还是相对比较依赖2D教程的，尤其像这一章和3D的确是别无二致，不过我这里还是按照步骤说一下。（参考：<a href="http://arthraim.cn/post/2009/06/62.html">《XNA教程-2D游戏-Chapter2-创建游戏工程》</a>）</p>
 
 <p>使用GS3.1+VS2008是基于.NET Framework 3.5的，否则一些新特性将不会被用到，如果你的开发使用其他环境，那么也许会不一样。</p>
 
@@ -583,64 +486,46 @@ posted in
 <p>【点击下载官方素材】</p>
 
 <p><a href="http://creators.xna.com/downloads/?id=157"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-27T10:08:42+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/25/xna-tutorial-3d-ch1-introduction/">XNA教程-3D游戏-01-3D游戏教程简介</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-25T22:47:25+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>在之前，我把所有的2D视频教程都用文字重新写了一遍，也完成了2D教程中完成的那个例子，应该说，如果是XNA变成从无到有的话，那收获已经颇为丰富了。并且，教程中所有的More Details（原视频教程的页面）我也都进行了翻译，一部分还加上了一些自己的说明。应该说，无论是机械的完成代码学会技能，还是了解一些XNA提供的实质性内容，都起到了很大的作用。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/25/xna-tutorial-3d-ch1-introduction/">
+		
+			XNA教程-3D游戏-01-3D游戏教程简介</a>
+	</h2>
+	<div class="entry-content">
+		<p>在之前，我把所有的2D视频教程都用文字重新写了一遍，也完成了2D教程中完成的那个例子，应该说，如果是XNA变成从无到有的话，那收获已经颇为丰富了。并且，教程中所有的More Details（原视频教程的页面）我也都进行了翻译，一部分还加上了一些自己的说明。应该说，无论是机械的完成代码学会技能，还是了解一些XNA提供的实质性内容，都起到了很大的作用。</p>
 
 <p>之后正好面临我的期末考试，一个学期也就这么几天读书的，总要成全我吧。所以加上复习和考试，暂停了那么几天博客的更新，也算是之前一星期之后的小小的休息吧。现在回家放暑假，休息了几天之后，我决定继续开始3D的教程了，利用之前在2D学到的东西，我们应该可以轻松的进入3D的学习了。</p>
 
@@ -671,64 +556,46 @@ posted in
 <p><strong>Demo效果图：</strong></p>
 
 <p><a href="/upload/2009-06-27_Glance.jpg"><img src="/upload/2009-06-27_Glance.jpg" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-25T22:47:25+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/19/xna-tutorial-2d-index/">XNA教程-2D游戏-目录索引</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-19T08:18:48+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="/upload/XNA_logo.jpg"><img src="/upload/XNA_logo.jpg" alt="" /></a></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/19/xna-tutorial-2d-index/">
+		
+			XNA教程-2D游戏-目录索引</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="/upload/XNA_logo.jpg"><img src="/upload/XNA_logo.jpg" alt="" /></a></p>
 
 <p><strong>2011-01-16更新：换了域名和URL，更新一下链接~</strong></p>
 
@@ -768,64 +635,46 @@ posted in
 <p><strong>原视频教程链接</strong>：<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/chapter1">这里</a></p>
 
 <p><strong>系列3D教程目录索引</strong>：<a href="http://artori.us/xna-tutorial-3d-index/">这里</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T08:18:48+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/19/xna-tutorial-2d-ch9-record-scores/">XNA教程-2D游戏-09-记录分数</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-19T08:03:20+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/19/xna-tutorial-2d-ch9-record-scores/">
+		
+			XNA教程-2D游戏-09-记录分数</a>
+	</h2>
+	<div class="entry-content">
+		<p>游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
 
 <p>那么接下来，介绍方法。</p>
 
@@ -920,64 +769,46 @@ Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
 <p>【官方源代码下载】</p>
 
 <p><a href="http://creators.xna.com/downloads/?id=156"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T08:03:20+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/">XNA教程-2D游戏-08-摧毁UFO</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-19T06:13:16+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO</strong></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/19/xna-tutorial-2d-ch8-destroy-ufo/">
+		
+			XNA教程-2D游戏-08-摧毁UFO</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO</strong></p>
 
 <p>这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。无论是什么游戏类型，物体和物体之间的接触都是要处理的，尚且不说加上什么物理特性，光是这个例子里的子弹碰UFO总要有点反应吧。更不用说什么火星撞地球了………………</p>
 
@@ -1050,64 +881,46 @@ foreach(GameObject enemy in enemies)
 <p>下面的图表列出了Rectangle.Intersects和Rectangle.Contains两个不同的矩形成员的不同输出情况。</p>
 
 <p><img src="/upload/BG_3.8.1.1pd_a.png" alt="" /></p></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T06:13:16+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/16/xna-tutorial-2d-ch7-create-enemy-ufo/">XNA教程-2D游戏-07-添加敌人UFO</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-16T19:24:54+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 07 &#8211; 添加敌人UFO</strong></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/16/xna-tutorial-2d-ch7-create-enemy-ufo/">
+		
+			XNA教程-2D游戏-07-添加敌人UFO</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 07 &#8211; 添加敌人UFO</strong></p>
 
 <p>这次要做的就是添加敌人 &#8212;- UFO。我们有了一个防空武器，在一个可恶的看上去非常阴沉的外星球，那我们必须要有人来入侵，这才是建造军用设施的真正目的对吧。所以，程序员真是堪比创世纪的众神了。</p>
 
@@ -1286,64 +1099,46 @@ else
 <p>把它想象成是在一个最小值和最大值之间的数轴上决定位置，而T是从开始的0到1之间的一条数轴上的某个位置。如果T是0.75，它应该在数轴范围的3/4的位置，在5到10的数轴上就是8.75。照着这个方法，一个0到1之间的数值可以用来在两个浮点数之间找到一个对应的浮点数。</p>
 
 <p>Lerp方法可以用在游戏中需要以恒定速率增加或减少的任何东西。速率、动画、淡出效果或变换颜色 &#8212;- 简简单单传入一个0到1之间的数值T，一个最小值，一个最大值，Lerp会完成之后的所有事情。</p></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-16T19:24:54+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/15/xna-tutorial-2d-ch6-launch-missiles/">XNA教程-2D游戏-06-发射炮弹</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-15T19:23:44+08:00" pubdate data-updated="true">Jun 15<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 06 &#8211; 发射炮弹</strong></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/15/xna-tutorial-2d-ch6-launch-missiles/">
+		
+			XNA教程-2D游戏-06-发射炮弹</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 06 &#8211; 发射炮弹</strong></p>
 
 <p>之前已经完成了很多的工作，创建了GameObject类，实例化了加农炮，并且在屏幕上画出了背景和加农炮。而且加农炮已经拥有了Update的代码，即玩家可以控制这个加农炮了。只是，距离我们的要求，这还远远不够，我们的子弹在哪里呢？加农炮打出来的炮弹呢？没错这就是这一次要完成的。我们要创建能被你发射，并且按方向穿过屏幕的炮弹了。</p>
 
@@ -1585,64 +1380,46 @@ previousKeyboardState = keyboardState;
 <p>一个向量的方向使用Y和X坐标的关系来表现。（成为斜度）但是向量也具有幅度。从我们的炮弹上说，它决定了多快的速度来接近向量所指向的方向。在我们的代码中，我们使用一个常数去乘向量的方式来增长这个幅度。它同时使用相同的值去乘了X和Y坐标，确保斜度不变，但向量变得更长了 &#8212;- 这样，炮弹移动加快了。</p></blockquote>
 
 <p>That&#8217;s all, finished~ Good luck ;)</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-15T19:23:44+08:00" pubdate data-updated="true">Jun 15<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
 </div>
-  
-  
+	
+</div></article>
 
 
-</div>
-
-      </article>
-    
-    
-      <article class="span4">
-        <div class="article-format">
-
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2009/06/15/xna-tutorial-2d-ch5-create-a-cannon/">XNA教程-2D游戏-05-添加一门加农炮</a></h1>
-    
-    
-      <p class="meta">
-        
-  
-
-
-  
-    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
-  
-
- - 
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-15T03:56:33+08:00" pubdate data-updated="true">Jun 15<span>th</span>, 2009</time> - 
-        
-
-posted in
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programing/'>Programing</a>
-  
-</span>
-
-
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 05 &#8211; 添加一门加农炮</strong></p>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2009/06/15/xna-tutorial-2d-ch5-create-a-cannon/">
+		
+			XNA教程-2D游戏-05-添加一门加农炮</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 05 &#8211; 添加一门加农炮</strong></p>
 
 <p>来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&#8212;- 一个用户控制的加农炮，使用Xbox360手柄或者是PC键盘作为输入。完成了这一次的事情，整个程序就有交互了，就更加接近一个游戏了，其实游戏说穿了不就是一个有交互的幻灯片吗。</p>
 
@@ -1893,111 +1670,58 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 
 <p>好了我觉得该说的都说过了，那么就是这样。</p>
-</div>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
   
-  
+
+
+<time datetime="2009-06-15T03:56:33+08:00" pubdate data-updated="true">Jun 15<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>
+	
+</div></article>
 
-      </article>
+<nav id="pagenavi">
     
-    </div>
-      <div class="row">
-        <ul class="pager">
-          
-            <li class="previous">
-              <a href="/blog/page/16/">&larr; Older</a>
-            </li>
-          
-          
-            <li class="next">
-              <a class="next" href="/blog/page/14/">Newer &rarr;</a>
-            </li>
-          
-        </ul>
-      </div>
-  </div>
-</div>
+        <a href="/blog/page/14/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/16/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
 
+    Arthur Wang
 
-  <div id="footer-widgets">
-  <div class="container">
-    <div class="row">
-  <div class="span3">
-    <h2>recent posts</h2>
-    <ul class="recent_posts">
-      
-        <li>
-          <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
-        </li>
-      
-    </ul>
-    <h2><a href="/blog/archives">archives</a></h2>
-  </div>
-  <div class="span3">
-    <h2>instagram</h2>
-    <div class="instagram"></div>
-    <button id="instabutton" class="btn">more</button>
-  </div>
-  <div class="span4">
-    <h2>twitter</h2>
-    <a href="https://twitter.com/adrianartiles" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @adrianartiles</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <div class="tweet">
-    </div>
-  </div>
-  <div class="span2">
-    <h2>found on</h2>
-    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
-    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
-    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
-    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
-    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
-    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
-    <h2>contact at</h2>
-    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
-  </div>
-</div>
-
-  </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-left">
-  <a href="/">Artoirus</a>
-  - Copyright &copy; 2012 - Arthur Wang
-</p>
-<p class="pull-right">
-  Powered by <a href="http://octopress.org/">Octopress</a>. Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.
-</p>
-
-  </div>
 </footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
-<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
-<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
-<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
-<script src="/javascripts/custom.js" type="text/javascript"></script>
 
 
 
