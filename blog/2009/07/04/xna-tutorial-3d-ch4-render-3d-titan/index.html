@@ -7,11 +7,14 @@
   <meta charset="utf-8">
   <title>XNA教程-3D游戏-04-绘制3D地表 - Artoirus</title>
   <meta name="author" content="Arthur Wang">
+  <link rel="author" href="humans.txt">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+  
+    
   
   <meta name="description" content="安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。 &hellip;">
   
-
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -20,11 +23,20 @@
   
   <link rel="canonical" href="http://Arthraim.github.com/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/">
   <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Cantarell' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+  <meta name="og:type" content="website" />
+  <meta name="og:site_name" content="Artoirus" />
+  <meta name="og:title" content="XNA教程-3D游戏-04-绘制3D地表" />
+  <meta name="og:description" content="安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。 &hellip;" />
+  <meta name="og:url" content="http://Arthraim.github.com/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/"/>
+  <meta name="url" content="http://Arthraim.github.com/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/">
+  
+  <meta name="subject" content="Programing"/>
+  <meta name="category" content="Programing"/>
+  
+  <meta name="distribution" content="global">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -34,37 +46,34 @@
 </head>
 
 <body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">Artoirus</a></h1>
-  
-    <h2>Arthur Wang's blog</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:Arthraim.github.com" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
+  <nav role="navigation"><div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="/">Artoirus</a>
+    <ul class="nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog/archives">Archives</a></li>
+    </ul>
+    <ul class="nav" data-subscription="rss">
+      <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+      
+    </ul>
+      
+    <form class="navbar-form" action="https://www.google.com/search" method="get">
+      <fieldset role="search">
+        <input type="hidden" name="q" value="site:Arthraim.github.com" />
+        <input class="span2" type="text" name="q" results="0" placeholder="Search"/>
+      </fieldset>
+    </form>
+      
+    
+  </div>
+</div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
+  <div class="wrapper_single">
+    <div class="container">
+      <article class="span8 offset2" role="article">
+        <div class="article-format">
+
   <header>
     
       <h1 class="entry-title">XNA教程-3D游戏-04-绘制3D地表</h1>
@@ -72,6 +81,15 @@
     
       <p class="meta">
         
+  
+
+
+  
+    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
+  
+
+ - 
+        
 
 
 
@@ -83,14 +101,24 @@
   
 
 
-<time datetime="2009-07-04T03:50:05+08:00" pubdate data-updated="true">Jul 4<span>th</span>, 2009</time>
+<time datetime="2009-07-04T03:50:05+08:00" pubdate data-updated="true">Jul 4<span>th</span>, 2009</time> - 
+        
+
+posted in
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/programing/'>Programing</a>
+  
+</span>
+
+
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。而3D则不然，即便是这个环境，那么也是需要我们用模型自己创建的，而这将会是一个非常复杂的工作，究竟如何复杂，看到下面的所有内容你就明白了。</p>
+  <div class="entry-content"><p>安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。而3D则不然，即便是这个环境，那么也是需要我们用模型自己创建的，而这将会是一个非常复杂的工作，究竟如何复杂，看到下面的所有内容你就明白了。</p>
 
 <p>从2D到3D，应该说当前我们在做的是一个非常困难的转换时期，我们要完成第一个3D的绘制，那么就必须了解很多很多只有在3D游戏中才会出现的概念。但是，简单的说，在代码上我们要完成的工作还是类似的，比如2D中，我们先声明了sprite；然后loadContent，或者load确定它的位置等信息；最后我们draw把它绘制出来。那么一样的，3D也是声明、初始化、绘制三个工作。只是2D中无论是初始化还是绘制都是相对简单的，3D就要复杂的多的多，跟着步骤走吧。</p>
 
@@ -343,7 +371,11 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
       
   
 
-<span class="byline author vcard">Posted by <span class="fn">Arthur Wang</span></span>
+
+  
+    <span class="byline author vcard">by <span class="fn">Arthur Wang</span></span>
+  
+
 
       
 
@@ -360,6 +392,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <time datetime="2009-07-04T03:50:05+08:00" pubdate data-updated="true">Jul 4<span>th</span>, 2009</time>
       
 
+posted in
 <span class="categories">
   
     <a class='category' href='/blog/categories/programing/'>Programing</a>
@@ -369,91 +402,99 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
     </p>
     
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://Arthraim.github.com/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/" data-via="" data-counturl="http://Arthraim.github.com/blog/2009/07/04/xna-tutorial-3d-ch4-render-3d-titan/" >Tweet</a>
-  
-  
-  
-</div>
-
+      <a class="pull-left" href="/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/" title="Previous Post: XNA教程-3D游戏-03-添加Asset">&laquo; XNA教程-3D游戏-03-添加Asset</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2009/07/02/xna-tutorial-3d-ch3-add-assets/" title="Previous Post: XNA教程-3D游戏-03-添加Asset">&laquo; XNA教程-3D游戏-03-添加Asset</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2009/07/05/xna-tutorial-3d-ch5-render-gameobject/" title="Next Post: XNA教程-3D游戏-05-绘制GameObject">XNA教程-3D游戏-05-绘制GameObject &raquo;</a>
-      
-    </p>
+    
+      <a class="pull-right" href="/blog/2009/07/05/xna-tutorial-3d-ch5-render-gameobject/" title="Next Post: XNA教程-3D游戏-05-绘制GameObject">XNA教程-3D游戏-05-绘制GameObject &raquo;</a>
+    
   </footer>
-</article>
 
 </div>
 
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
-      </li>
-    
-  </ul>
-</section>
 
-
-
-
-
-
-  
-</aside>
-
-
+      </article>
+    </div>
+    <div class="container">	
+      
     </div>
   </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - Arthur Wang -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+  <div id="footer-widgets">
+  <div class="container">
+    <div class="row">
+  <div class="span3">
+    <h2>recent posts</h2>
+    <ul class="recent_posts">
+      
+        <li>
+          <a href="/blog/2012/06/08/euro-2012-google-calendar-or-outlook-calendar/">2012欧洲杯Google,iCal,Outlook日历</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2012/03/02/git-prune-branch/">git修剪分支</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2012/02/13/mac-os-10-7-3-breaks-xcode-binary-validation/">Mac OS 10.7.3用xcode提交二进制文件验证失败</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2012/01/06/abandon-arthraim-cn/">停用arthraim.cn域名</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2012/01/01/arthur-s-2011-summary/">Arthur的2011年总结</a>
+        </li>
+      
+    </ul>
+    <h2><a href="/blog/archives">archives</a></h2>
+  </div>
+  <div class="span3">
+    <h2>instagram</h2>
+    <div class="instagram"></div>
+    <button id="instabutton" class="btn">more</button>
+  </div>
+  <div class="span4">
+    <h2>twitter</h2>
+    <a href="https://twitter.com/adrianartiles" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @adrianartiles</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <div class="tweet">
+    </div>
+  </div>
+  <div class="span2">
+    <h2>found on</h2>
+    <a href="https://github.com/sevenadrian/" rel="tooltip" title="Github"><img class="social_icon" title="Github" alt="github icon" src="/images/glyphicons_381_github.png"></a>
+    <a href="http://stackoverflow.com/users/1500225/" rel="tooltip" title="Stack Overflow"><img class="social_icon" title="Stack Overflow" alt="stack overflow icon" src="/images/glyphicons_400_stack_overflow.png"></a>
+    <a href="http://www.linkedin.com/in/adrianartiles" rel="tooltip" title="Linkedin"><img class="social_icon" title="Linkedin" alt="Linkedin icon" src="/images/glyphicons_377_linked_in.png"></a>
+    <a href="http://twitter.com/adrianartiles" rel="tooltip" title="Twitter"><img class="social_icon" title="Twitter" alt="Twitter icon" src="/images/glyphicons_391_twitter_t.png"></a>
+    <a href="https://plus.google.com/108988221942502838420?rel=author" rel="tooltip" title="Google Plus"><img class="social_icon" title="Google Plus" alt="Google Plus icon" src="/images/glyphicons_386_google_plus.png"></a>
+    <a href="http://www.quora.com/Adrian-Artiles" rel="tooltip" title="Quora"><img class="social_icon" title="Quora" alt="Quora icon" src="/images/glyphicons_385_quora.png"></a>
+    <h2>contact at</h2>
+    <a href="mailto:adrian.r.artiles@gmail.com">adrian.r.artiles@gmail.com</a>
+  </div>
+</div>
+
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-left">
+  <a href="/">Artoirus</a>
+  - Copyright &copy; 2012 - Arthur Wang
+</p>
+<p class="pull-right">
+  Powered by <a href="http://octopress.org/">Octopress</a>. Designed by <a href="http://www.AdrianArtiles.com">Adrian Artiles</a>.
 </p>
 
+  </div>
 </footer>
-  
 
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery-1.7.2.min.js" type="text/javascript"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.tweet.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.instagram.js" type="text/javascript"></script>
+<script src="/javascripts/libs/jquery.masonry.min.js" type="text/javascript"></script>
+<script src="/javascripts/custom.js" type="text/javascript"></script>
 
 
 
