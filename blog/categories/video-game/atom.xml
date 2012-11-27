@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Video Game | Artoirus]]></title>
   <link href="http://Arthraim.github.com/blog/categories/video-game/atom.xml" rel="self"/>
   <link href="http://Arthraim.github.com/"/>
-  <updated>2012-11-24T18:34:30+08:00</updated>
+  <updated>2012-11-27T14:01:31+08:00</updated>
   <id>http://Arthraim.github.com/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[三大游戏主机厂商2011年E3展前发布会]]></title>
-    <link href="http://Arthraim.github.com/blog/2011/06/08/2011-e3-press-conferences/"/>
+    <link href="http://Arthraim.github.com/2011-e3-press-conferences/"/>
     <updated>2011-06-08T09:38:41+08:00</updated>
-    <id>http://Arthraim.github.com/blog/2011/06/08/2011-e3-press-conferences</id>
+    <id>http://Arthraim.github.com/2011-e3-press-conferences</id>
     <content type="html"><![CDATA[<p>在北京时间昨天0点30分，今天昨天上8点和今天凌晨0点，微软、索尼、任天堂三大游戏主机厂商的E3展前发布会依次召开。集结第一方第三方各种游戏阵容及对硬件平台的更新换代，三大厂商都给今年E3注入了一针兴奋剂，注定是一个同样不平凡的E3将要开始。</p>
 
 <p>微软的展前发布会是最平淡的，大量的KINECT游戏介绍、XBOX LIVE的各种升级，以及其他CU（core user核心玩家）的软件，但是惟独缺少了新的硬件，无论是新外设还是X720，更别说微软掌机，一样都没有出现。唯一的亮点就是压轴的HALO4，这也是唯一让我骂娘的牛B消息。</p>
@@ -43,9 +43,9 @@
   
   <entry>
     <title type="html"><![CDATA[TGS2010的小总结]]></title>
-    <link href="http://Arthraim.github.com/blog/2010/09/26/tgs2010-highlights/"/>
+    <link href="http://Arthraim.github.com/tgs2010-highlights/"/>
     <updated>2010-09-26T04:05:21+08:00</updated>
-    <id>http://Arthraim.github.com/blog/2010/09/26/tgs2010-highlights</id>
+    <id>http://Arthraim.github.com/tgs2010-highlights</id>
     <content type="html"><![CDATA[<p>TGS结束了快一周了，我还是想写一下。近来日本游戏产业没落的言论不停的传播，日本游戏市场本身不景气也是冰冻三尺。本身日本的技术力已经落后欧美越来越多，另外日本发达的中古市场让销售本身也变得不是那么让人满意。</p>
 
 <p>如题，今年2010年的TGS出来的一些消息真的是比起E3要给力多了。因为我眼界有限，眼光独特 - - 所以我这里只列举几个让我特别high的消息。</p>
@@ -74,9 +74,9 @@
   
   <entry>
     <title type="html"><![CDATA[破解PS3源代码psgroove]]></title>
-    <link href="http://Arthraim.github.com/blog/2010/09/04/psgroove-ps3-hack-source-code/"/>
+    <link href="http://Arthraim.github.com/psgroove-ps3-hack-source-code/"/>
     <updated>2010-09-04T22:33:18+08:00</updated>
-    <id>http://Arthraim.github.com/blog/2010/09/04/psgroove-ps3-hack-source-code</id>
+    <id>http://Arthraim.github.com/psgroove-ps3-hack-source-code</id>
     <content type="html"><![CDATA[<p>PS3四年了，一直没破解，之前George Hotz，那个完成iPhone越狱的少年号称破解了PS3，利用在主板上焊上一个按钮，在特定开机时刻发送特殊的信号实现了破解，但是源代码也公布了。但是后来geohoz在博客宣称只进展到这里不再继续了，希望有心人加入这个接下来的工作中。之后发生的事情有些匪夷所思，各界开始谩骂geohoz，称其没有真正破解PS3，甚至诋毁他的能力。事实上当时的代码的确已经破解了PS3的，只是因为还要一个硬件的支持，距离量产更是很远！但的确是有人在论坛上成功的。</p>
 
 <p>再后来比较爆炸的新闻就是PSjailbreak，利用一个类似U盘一样的小小的USB设备就可以完成破解PS3的工作。利用这个PSjailbreak，可以读硬盘上的镜像文件来玩游戏。随着jailbreak消息越来越多，国内某处也号称开始生产，jailbreak的价格也是非常的可怕，看到过一个价格是140的美刀，这貌似都要超过。</p>
@@ -95,9 +95,9 @@
   
   <entry>
     <title type="html"><![CDATA[PS3系统固件3.4和PlayStation Plus]]></title>
-    <link href="http://Arthraim.github.com/blog/2010/06/30/ps3-340-and-plus-is-available/"/>
+    <link href="http://Arthraim.github.com/ps3-340-and-plus-is-available/"/>
     <updated>2010-06-30T01:37:11+08:00</updated>
-    <id>http://Arthraim.github.com/blog/2010/06/30/ps3-340-and-plus-is-available</id>
+    <id>http://Arthraim.github.com/ps3-340-and-plus-is-available</id>
     <content type="html"><![CDATA[<p>还记得之前<a href="http://arthraim.cn/sony-e3-2010-press-conference/">E3展前发布会</a>上索尼宣布的PlayStation Plus吗？很快，它已经来了，18美刀3个月，50美刀1年的价格。相比之下Xbox live的gold会员在amazon上也差不多只要30美刀一年，这价格实在是有点小贵，而且目前为止Arthur还不知道plus究竟给了玩家什么好处，和所有玩家一样，Arthur最担心的是给布什premium会员带来的坏处。</p>
 
 <p>对Plus的支持来自于PS3已经或即将向用户推送的3.40固件。在添加plus支持的同时，3.40固件还提供了以下的一些新特性。</p>
@@ -129,9 +129,9 @@
   
   <entry>
     <title type="html"><![CDATA[Sony 2010 E3 展前发布会]]></title>
-    <link href="http://Arthraim.github.com/blog/2010/06/17/sony-e3-2010-press-conference/"/>
+    <link href="http://Arthraim.github.com/sony-e3-2010-press-conference/"/>
     <updated>2010-06-17T08:25:29+08:00</updated>
-    <id>http://Arthraim.github.com/blog/2010/06/17/sony-e3-2010-press-conference</id>
+    <id>http://Arthraim.github.com/sony-e3-2010-press-conference</id>
     <content type="html"><![CDATA[<p>作为一个PS3, PSP玩家，我必须承认我最在意的展前发布会就是索尼的。如果说去年展前发布会的精彩程度要排名是索尼>微软>任天堂的话，那今年真的应该是倒个个儿，任天堂>微软>索尼了。索尼的重头戏是PS相关的产品，和PS3PSP本身关系并不大，游戏阵容也不是微软这样的铺天盖地，其他周边或新的主机也震撼不如3DS，惊喜不如X360 slim，让我们来看看索尼重点介绍了一些什么周边附属产品。</p>
 
 <blockquote><ul>
