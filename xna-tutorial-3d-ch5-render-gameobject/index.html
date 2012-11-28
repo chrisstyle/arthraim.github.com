@@ -202,11 +202,11 @@ DrawGameObject(missileLauncherBase);
 
 <p>运行一下，看看实际效果吧！</p>
 
-<p><a href="/upload/2009-07-05_Runtime.jpg"><img src="/upload/2009-07-05_Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-05_Runtime.jpg"><img src="/images/uploads/zb/2009-07-05_Runtime.jpg" alt="" /></a></p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=160"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=160"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -224,24 +224,15 @@ DrawGameObject(missileLauncherBase);
 
 <p>一个标准的世界转换分别由三个矩阵组成（旋转、比例和转换），所有的都将被整合成一个世界变换矩阵。</p>
 
-<ul>
-<li></li>
-</ul>
-
+<p>  *</p>
 
 <p>&#8211; “旋转”（rotatiton）变化模型角度的方向——你可以把它想象成在空间中根据一点朝不同的方向旋转模型。有很多计算和存储旋转数值的方法，一种最常用的就是欧拉角，围绕三个轴旋转一个对象，X轴、Y轴和Z轴。（下一节会解释和说明欧拉角）。创建一个旋转矩阵，你可以使用Matrix.CreateFromYawPitchRoll方法，传入围绕各个轴的旋转角度。要存储游戏对象的这些角度，Vector3类是一个很好的选择。</p>
 
-<ul>
-<li></li>
-</ul>
-
+<p>  *</p>
 
 <p>&#8211; “比例”（scale）变化模型的尺寸，使它能更大或更小。因为它可以让模型沿着任意轴拉伸，它更多的被应用到统一的比例，使得整个模型缩小或放大。要创建一个比例矩阵，使用Matrix.CreateScale方法，传入你要缩小或放大模型的因数。你可以存储游戏对象的比例因数为一个简单的float类型。</p>
 
-<ul>
-<li></li>
-</ul>
-
+<p>  *</p>
 
 <p>&#8211; “转换”（translatiton）沿着3D世界的3个轴移动整个模型。想象成到处平移模型：左右移动（X轴），上下移动（Y轴），前后移动（Z轴）。创建一个转换矩阵，使用Matrix.CreateTranslation方法，传入你要沿着各个轴移动的数据。存储转换的数值可以使用Vector3。</p>
 

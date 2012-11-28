@@ -133,15 +133,15 @@ Matrix cameraViewMatrix;
 
 <p><strong>例一</strong>：平移 W(wx,wy,wz)</p>
 
-<p><img src="/upload/2009-07-03_Matrix1.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-03_Matrix1.jpg" alt="" /></p>
 
 <p><strong>例二</strong>：缩放 T(tx,ty,tz)</p>
 
-<p><img src="/upload/2009-07-03_Matrix2.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-03_Matrix2.jpg" alt="" /></p>
 
 <p><strong>例三</strong>：绕X轴旋转alpha度</p>
 
-<p><img src="/upload/2009-07-03_Matrix3.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-03_Matrix3.jpg" alt="" /></p>
 
 <p>当然在XNA framework里封装的Matrix类不是一个简单的矩阵的实现了，还加上了很多智能的功能，当然也包括变换，至于如何使用这样一个Matrix，以及我们声明的Matrix是做什么样的变换的，看下去。</p>
 
@@ -257,11 +257,11 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>还等什么呢？现在就是编译运行的时候了！效果图。</p>
 
-<p><a href="/upload/2009-07-03_Runtime.jpg"><img src="/upload/2009-07-03_Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-03_Runtime.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime.jpg" alt="" /></a></p>
 
 <p>下面加了4张修改了参数之后的图，方便理解一些参数。[点击放大]</p>
 
-<p><a href="/upload/2009-07-03_Runtime_Down.jpg"><img src="/upload/2009-07-03_Runtime_Down.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_100CameraHeight.jpg"><img src="/upload/2009-07-03_Runtime_100CameraHeight.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_95Radians.jpg"><img src="/upload/2009-07-03_Runtime_95Radians.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_5000Depth.jpg"><img src="/upload/2009-07-03_Runtime_5000Depth.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-03_Runtime_Down.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_Down.jpg" alt="" /></a> <a href="/images/uploads/zb/2009-07-03_Runtime_100CameraHeight.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_100CameraHeight.jpg" alt="" /></a> <a href="/images/uploads/zb/2009-07-03_Runtime_95Radians.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_95Radians.jpg" alt="" /></a> <a href="/images/uploads/zb/2009-07-03_Runtime_5000Depth.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_5000Depth.jpg" alt="" /></a></p>
 
 <ul>
 <li><p>cameraViewMatrix实例化，CreateLookAt时，修改第三个参数为Vector3.Down</p></li>
@@ -273,7 +273,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=159"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=159"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -289,7 +289,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>在XNA Game Studio这哦你，3D的变化意味着，取代在平面世界中画静态的Texture2D对象的是绘制用Model类表示的3D模型。Model类是被叫做网络（mesh）的许多有联系的3D点的集合，在整个世界中，最终渲染在屏幕上的对象，取决于对象的位置和方向，和镜头的位置和方向。</p>
 
-<p><a href="/upload/BG_4.4.1.1pd.png"><img src="/upload/BG_4.4.1.1pd.png" alt="" /></a>这过程也许初看十分复杂，但其实在3D世界编程，只依靠一些非常基本的元素。想象一个点在3D空间中，一个点有一个X坐标,一个Y坐标,和一个Z坐标。非常类似2D空间中的一个点，3D空间中的一个点也可以使用一个向量来移动，但是在3D空间中，我们使用包含Z坐标的Vector3类。</p>
+<p><a href="/images/uploads/zb/BG_4.4.1.1pd.png"><img src="/images/uploads/zb/BG_4.4.1.1pd.png" alt="" /></a>这过程也许初看十分复杂，但其实在3D世界编程，只依靠一些非常基本的元素。想象一个点在3D空间中，一个点有一个X坐标,一个Y坐标,和一个Z坐标。非常类似2D空间中的一个点，3D空间中的一个点也可以使用一个向量来移动，但是在3D空间中，我们使用包含Z坐标的Vector3类。</p>
 
 <p>然而，使用一个叫做矩阵的数学结构体，可以使3D点做更多的事情。这些结构体，在XNA Framework中表示为Matrix类，它描述了一系列可以应用于点的变换、点的集合、或一个响亮。使用矩阵，3D对象可以移动、旋转、切割、以及（通过使用被叫做视点矩阵和投影矩阵的特殊的矩阵）绘制成一个可以显示在屏幕上的2D图像。</p>
 
@@ -301,7 +301,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>用2D绘制一个3D场景最后还需要一些其他信息。像视点的视角和领域的信息，控制着3D点如何绘制在2D计算机屏幕上。这些信息存储在一个投影矩阵中，应用之后，把3D坐标的系统中的点转换到2D坐标系统中，2D坐标系统被成为&#8221;屏幕空间&#8221;，这样点被绘制成像素。</p>
 
-<p><a href="/upload/BG_4.4.1.2pd.png"><img src="/upload/BG_4.4.1.2pd.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/BG_4.4.1.2pd.png"><img src="/images/uploads/zb/BG_4.4.1.2pd.png" alt="" /></a></p>
 
 <p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&#8212;-Mesh类，Matrix类和Vector类。</p></blockquote>
 
@@ -325,7 +325,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>在BasicEffect的参数被设置后，剩下的就只有调用ModelMesh.Draw方法，使用之前为BasicEffect设置的参数，来绘制ModelMesh到屏幕上了。</p>
 
-<p><a href="/upload/BG_4.4.2.1pd.png"><img src="/upload/BG_4.4.2.1pd.png" alt="" /></a></p></blockquote>
+<p><a href="/images/uploads/zb/BG_4.4.2.1pd.png"><img src="/images/uploads/zb/BG_4.4.2.1pd.png" alt="" /></a></p></blockquote>
 
 		
 		
@@ -386,7 +386,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>添加进来之后，我们看到了一些.fbx文件和.tga文件，fbx就是我们的模型，而tga是这些模型对应的贴图，不会被我们实际的工作主动调用到，他们只要在他们应该在的磁盘位置上就可以了，在我们调用模型的时候，相关联的贴图会自动被寻找，所以把他们排除我们的工程吧。右键选择所有的.tga文件，选择&#8221;Exclude From Project&#8221;将其排除工程。</p>
 
-<p><a href="/upload/2009-07-01_ExcludeTgas.JPG"><img src="/upload/2009-07-01_ExcludeTgas.JPG" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-01_ExcludeTgas.JPG"><img src="/images/uploads/zb/2009-07-01_ExcludeTgas.JPG" alt="" /></a></p>
 
 <p><strong>第二步、添加audio到工程的content中</strong></p>
 
@@ -396,7 +396,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>【官方工程下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=158"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=158"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 		
 		
@@ -446,7 +446,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>安装高于Visual Studio 2005 Express的版本，并且装好XNA Game Studio（2.0以上）。那么如果安装成功的话，在VS的新建对话框中应该可以看到这么几项（GS3.1+VS2008，不保证其他版本有一样的工程）</p>
 
-<p><a href="/upload/2009-06-27_NewProject.jpg"><img src="/upload/2009-06-27_NewProject.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-27_NewProject.jpg"><img src="/images/uploads/zb/2009-06-27_NewProject.jpg" alt="" /></a></p>
 
 <blockquote><ul>
 <li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
@@ -479,13 +479,13 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>接下去本章很重要的一部就是下载必须的游戏素材。这里提供官方链接，下载解压缩后就可以看到我们本教程的例子要用到的全部素材了。</p>
 
-<p><a href="/upload/2009-06-27_files1.JPG"><img src="/upload/2009-06-27_files1.JPG" alt="" /></a> &#8230;/Audio/Waves/</p>
+<p><a href="/images/uploads/zb/2009-06-27_files1.JPG"><img src="/images/uploads/zb/2009-06-27_files1.JPG" alt="" /></a> &#8230;/Audio/Waves/</p>
 
-<p><a href="/upload/2009-06-27_files2.JPG"><img src="/upload/2009-06-27_files2.JPG" alt="" /></a> &#8230;/Models/</p>
+<p><a href="/images/uploads/zb/2009-06-27_files2.JPG"><img src="/images/uploads/zb/2009-06-27_files2.JPG" alt="" /></a> &#8230;/Models/</p>
 
 <p>【点击下载官方素材】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=157"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=157"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 		
 		
@@ -555,7 +555,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p><strong>Demo效果图：</strong></p>
 
-<p><a href="/upload/2009-06-27_Glance.jpg"><img src="/upload/2009-06-27_Glance.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-27_Glance.jpg"><img src="/images/uploads/zb/2009-06-27_Glance.jpg" alt="" /></a></p>
 
 		
 		
@@ -595,7 +595,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 			XNA教程-2D游戏-目录索引</a>
 	</h2>
 	<div class="entry-content">
-		<p><a href="/upload/XNA_logo.jpg"><img src="/upload/XNA_logo.jpg" alt="" /></a></p>
+		<p><a href="/images/uploads/zb/XNA_logo.jpg"><img src="/images/uploads/zb/XNA_logo.jpg" alt="" /></a></p>
 
 <p><strong>2011-01-16更新：换了域名和URL，更新一下链接~</strong></p>
 
@@ -687,12 +687,12 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <ol>
 <li><p><strong>Content中添加一个Fonts文件夹</strong>。</p>
 
-<p>   <img src="/upload/2009-06-19_AddFontToContent.jpg" alt="" /></p></li>
+<p>   <img src="/images/uploads/zb/2009-06-19_AddFontToContent.jpg" alt="" /></p></li>
 <li><p><strong>在Fonts中添加一个GameFont对象</strong>。</p>
 
-<p>   [<img src="/upload/2009-06-19_AddSpriteFont.jpg" alt="" /></p>
+<p>   [<img src="/images/uploads/zb/2009-06-19_AddSpriteFont.jpg" alt="" /></p>
 
-<p>   ](/upload/2009-06-19_AddSpriteFont.jpg)</p></li>
+<p>   ](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)</p></li>
 <li><p><strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p></li>
 </ol>
 
@@ -764,11 +764,11 @@ Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
 
 <p>好了，这样我们的游戏就完整的完成了。放一张运行时的截图。</p>
 
-<p><a href="/upload/2009-06-19_Chapter9_Runtime.jpg"><img src="/upload/2009-06-19_Chapter9_Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-19_Chapter9_Runtime.jpg"><img src="/images/uploads/zb/2009-06-19_Chapter9_Runtime.jpg" alt="" /></a></p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=156"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=156"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 		
 		
@@ -850,11 +850,11 @@ foreach(GameObject enemy in enemies)
 
 <p>执行结果（其实截图看不出来效果唉）</p>
 
-<p><a href="/upload/2009-06-18_Chapter8Runtime.jpg"><img src="/upload/2009-06-18_Chapter8Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-18_Chapter8Runtime.jpg"><img src="/images/uploads/zb/2009-06-18_Chapter8Runtime.jpg" alt="" /></a></p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=155"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=155"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -880,7 +880,7 @@ foreach(GameObject enemy in enemies)
 
 <p>下面的图表列出了Rectangle.Intersects和Rectangle.Contains两个不同的矩形成员的不同输出情况。</p>
 
-<p><img src="/upload/BG_3.8.1.1pd_a.png" alt="" /></p></blockquote>
+<p><img src="/images/uploads/zb/BG_3.8.1.1pd_a.png" alt="" /></p></blockquote>
 
 		
 		
@@ -1060,13 +1060,13 @@ else
 
 <p>We&#8217;re done here. 运行一下看看效果。（我修改了同屏敌人数，因为我的子弹改成是10 = = 并且我发现我的子弹是可以打成一张网的，这游戏没意思了）</p>
 
-<p><a href="/upload/2009-06-16_Chapter7Runtime.jpg"><img src="/upload/2009-06-16_Chapter7Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-16_Chapter7Runtime.jpg"><img src="/images/uploads/zb/2009-06-16_Chapter7Runtime.jpg" alt="" /></a></p>
 
 <p>画面不错。OK，下一次就是要真的用子弹杀掉敌人了～</p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=154"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=154"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -1094,7 +1094,7 @@ else
 
 <p>Lerp是linear interpolation（线性插入）的缩写，一个数学方法，提供它一些0到1之间的数值T，并提供给它最大值和最小值，它可以计算出一个最大值和最小值之间的输出T。</p>
 
-<p><img src="/upload/BG_3.7.3.1pd.png" alt="" /></p>
+<p><img src="/images/uploads/zb/BG_3.7.3.1pd.png" alt="" /></p>
 
 <p>把它想象成是在一个最小值和最大值之间的数轴上决定位置，而T是从开始的0到1之间的一条数轴上的某个位置。如果T是0.75，它应该在数轴范围的3/4的位置，在5到10的数轴上就是8.75。照着这个方法，一个0到1之间的数值可以用来在两个浮点数之间找到一个对应的浮点数。</p>
 
@@ -1327,11 +1327,11 @@ previousKeyboardState = keyboardState;
 
 <p>OK这就是绘制的代码，现在编译运行一下看看效果吧。（在我运行之后感到非常不满足，于是我把子弹数字稍微的改了一下，截图如下，嘿嘿～）</p>
 
-<p><a href="/upload/2009-06-15_Chapter6Runtime.jpg"><img src="/upload/2009-06-15_Chapter6Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-15_Chapter6Runtime.jpg"><img src="/images/uploads/zb/2009-06-15_Chapter6Runtime.jpg" alt="" /></a></p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=153"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=153"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -1347,7 +1347,7 @@ previousKeyboardState = keyboardState;
 
 <p>有 &#8212;- 解决方案就在于数组。一个数组是一个相似对象的线性集合。你可以拥有一个人和类型的数组；一个Vector数组，一个GameObject数组，一个字符串数组，或者其他任何可能并且合法的数组。</p>
 
-<p><img src="/upload/BG_3.6.2.1pd.png" alt="" /></p>
+<p><img src="/images/uploads/zb/BG_3.6.2.1pd.png" alt="" /></p>
 
 <p>这张图显示了创建有3个GameObject元素的数组的代码顺序。你使用表明数组元素类型的类型名之后加上[]来声明一个数组。之后你使用new和[x]来初始化数组，x是你数组元素的数量。</p>
 
@@ -1367,7 +1367,7 @@ previousKeyboardState = keyboardState;
 
 <p>来做出确定这个数据的唯一方法就是通过加农炮旋转角度的弧度。显然，你必须做一些转换工作，把旋转角度转换为给予炮弹的向量。</p>
 
-<p><img src="/upload/BG_3.6.4.1pd.png" alt="" /></p>
+<p><img src="/images/uploads/zb/BG_3.6.4.1pd.png" alt="" /></p>
 
 <p>一个Vector2有两个组成部分：X坐标和Y坐标。在这个2D游戏的最终目标中，炮弹的X坐标在横轴上有怎样的动作，炮弹的Y坐标在纵轴上也有怎么样的动作。</p>
 
@@ -1445,7 +1445,7 @@ previousKeyboardState = keyboardState;
 
 <p>（如下图，点击放大）</p>
 
-<p><a href="/upload/2009-06-14_AddGameObject.jpg"><img src="/upload/2009-06-14_AddGameObject.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_AddGameObject.jpg"><img src="/images/uploads/zb/2009-06-14_AddGameObject.jpg" alt="" /></a></p>
 
 <p><strong>1.2、添加引用。</strong></p>
 
@@ -1481,7 +1481,7 @@ public Vector2 center;
 
 <p>传入一个Texture2D作为GameObject中的Texture2D sprite，并且初始化角度为0，位置为0，旋转中心为sprite的中心点。中心点可不是一定的，看下图，我们的中心点刚好是Sprite的二分之一高度二分之一宽度的地方，如果不是，那么要根据具体情况重新决定。</p>
 
-<p><a href="/upload/2009-06-14_OriginalCannon.jpg"><img src="/upload/2009-06-14_OriginalCannon.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_OriginalCannon.jpg"><img src="/images/uploads/zb/2009-06-14_OriginalCannon.jpg" alt="" /></a></p>
 
 <p><strong>2、在Game1中载入加农炮。</strong></p>
 
@@ -1610,11 +1610,11 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>这样我们就画好了加农炮。运行一下吧，你已经在游戏上面做了一个可以转动的加农炮了。然后修改一下之前的一些代码看看有什么不同的变化～比如旋转的角度限定注释掉，炮会很可爱的。</p>
 
-<p><a href="/upload/2009-06-14_RunTime.jpg"><img src="/upload/2009-06-14_RunTime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_RunTime.jpg"><img src="/images/uploads/zb/2009-06-14_RunTime.jpg" alt="" /></a></p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=152"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=152"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -1624,7 +1624,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>我们在代码过程中，创建了一个GameObject，并且实例化为Cannon，可是为什么要自己创建一个GameObject呢？不是简单的把四个变量放到Game1里面就可以了吗？来看看下面这段翻译。（下文由本人翻译自<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/details/5_1">这里</a>，转载请注明翻译作者Arthraim，并表明出处，尊重我的劳动成功）</p>
 
-<blockquote><p><a href="/upload/BG_3.5.1.1pd_a.png"><img src="/upload/BG_3.5.1.1pd_a.png" alt="" /></a></p>
+<blockquote><p><a href="/images/uploads/zb/BG_3.5.1.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.1.1pd_a.png" alt="" /></a></p>
 
 <p>目前为止，你已经使用过了一段时间XNA Framework中的一些实现定义好的类（代码层面的对象，包含了数据和针对数据的操作的方法）了。</p>
 
@@ -1652,13 +1652,13 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &#8212;- 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
 
-<p><a href="/upload/BG_3.5.2.1pd_a.png"><img src="/upload/BG_3.5.2.1pd_a.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/BG_3.5.2.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.2.1pd_a.png" alt="" /></a></p>
 
 <p>当使用SpriteBatch.Draw画一个Sprite，或者当你创建一些用来旋转的矩阵的时候，你需要弧度来传入旋转的值。但是如果你觉得角度更加方便的话，你可以在游戏中继续使用它，只要你在调用一些XNA Framework中需要传入弧度的方法的时候把它们转换成弧度就可以了。你可以使用MathHelper.ToRadians来完成这个工作，只要传入你要转换的角度即可。</p></blockquote>
 
 <p>这也是之前说到的会详细说的内容。最后我再补上一张图，方便大家学习吧。</p>
 
-<p><a href="/upload/2009-06-14_CordinateSystem.jpg"><img src="/upload/2009-06-14_CordinateSystem.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_CordinateSystem.jpg"><img src="/images/uploads/zb/2009-06-14_CordinateSystem.jpg" alt="" /></a></p>
 
 <p>画是画的难看一点。</p>
 

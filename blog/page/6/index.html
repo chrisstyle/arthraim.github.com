@@ -154,7 +154,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 	<div class="entry-content">
 		<p>话说刚才收到一封来自Google App Engine的邮件，大致内容是说在2010-5-25日的时候服务有我的某个程序的服务器发生了大约长达50分钟的停机，于是因此在这段时间里我的应用依然产生了数据库的写入操作，这时候产生的数据被记录到了别的服务器上，并且被称为Unapplied Writes。主要在告诉我如何挽救这些数据的同时，还为给我带来的不便说了抱歉。下面是Email的全文~</p>
 
-<p><a href="/wp-content/uploads/2010-06-11_GAE_uapplied_writes.jpg"><img src="/wp-content/uploads/2010-06-11_GAE_uapplied_writes.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-06-11_GAE_uapplied_writes.jpg"><img src="/images/uploads/wp/2010-06-11_GAE_uapplied_writes.jpg" alt="" /></a></p>
 
 <p>于是让我百思不得其解的事情就是为什么jmini-arthraim这个应用有这么NB，这么巧合，在断电的时候有数据写入还造成了数据不同步呢？让Arthur来帮大家回忆一下jmini-arthraim究竟是个什么东西。</p>
 
@@ -162,7 +162,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>我去后台看了一下这个应用的数据，去掉前11条是真正有朋友来测试的消息以外，从去年11月19日开始就有无数的spam数据开始刷了。真是场面何其壮观啊！总共有多少条记录呢？133,876（狂汗）估计这是我目前为止自己创建过的信息量最庞大的数据库了。如下图所示：</p>
 
-<p><a href="/wp-content/uploads/2010-06-11_GAE_store_statistics.jpg"><img src="/wp-content/uploads/2010-06-11_GAE_store_statistics.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-06-11_GAE_store_statistics.jpg"><img src="/images/uploads/wp/2010-06-11_GAE_store_statistics.jpg" alt="" /></a></p>
 
 <p>我写这篇文章的原因有3：</p>
 
@@ -279,7 +279,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 	<div class="entry-content">
 		<p>偶然发现pydev已经更新到了新版本，新版本里原生支持了django。这个版本应该已经更新了快有1个月了吧。pydev是eclipse开发python的利器，是对eclipse最好的扩展；而Django是python web框架中最受欢迎的一个。pydev如今原生支持Django，使得Django的使用更加方便了。</p>
 
-<p><a href="/wp-content/uploads/pydev_banner.gif"><img src="/wp-content/uploads/pydev_banner.gif" alt="" /></a><a href="/wp-content/uploads/django-logo.jpg"><img src="/wp-content/uploads/django-logo.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/wp/pydev_banner.gif"><img src="/images/uploads/wp/pydev_banner.gif" alt="" /></a><a href="/images/uploads/wp/django-logo.jpg"><img src="/images/uploads/wp/django-logo.jpg" alt="" /></a></p>
 
 <p>以前的做法是创建pydev项目，在项目目录下django-admin.py startproject，然后把新建的目录设为src，再自己设置Run和Debug，使用manage.py runserver 0.0.0.0:8080。</p>
 
@@ -287,7 +287,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>当然，以前手动处理的项目，也可以使用右键-pydev-Set As Django Project把原有的项目转换为Pydev Django项目。当然一样要确认下是不是有DJANGO_MANAGE_LOCATION和DJANGO_SETTINGS_MODULE两个变量。</p>
 
-<p><a href="/wp-content/uploads/2010-06-05_pydev_django_vaviables.png"><img src="/wp-content/uploads/2010-06-05_pydev_django_vaviables.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-06-05_pydev_django_vaviables.png"><img src="/images/uploads/wp/2010-06-05_pydev_django_vaviables.png" alt="" /></a></p>
 
 <p>详细情况参见<a href="http://pydev.org/manual_adv_django.html">官方说明</a>。</p>
 
@@ -514,7 +514,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 	<div class="entry-content">
 		<p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
 
-<p><a href="/wp-content/uploads/logo_shine.png"><img src="/wp-content/uploads/logo_shine.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/logo_shine.png"><img src="/images/uploads/wp/logo_shine.png" alt="" /></a></p>
 
 <p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
 
@@ -541,12 +541,12 @@ if($step &gt; 3){
     break;
     }
 }
-?&gt; 
+?&gt;
 </code></pre>
 
 <p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
 
-<p><a href="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
 
 <p>再之后他就只会回应hi和hello了，Arthur同学表示不会php，所以对我来说好像没有什么可以创造的东西。会php的同学可以做很多事情啊~</p>
 
@@ -791,7 +791,7 @@ PrimaryChannel::Done &lt;-- Signal.Value;
 </ul>
 
 
-<p><a href="/wp-content/uploads/2010-05-06_cpp_dll_link_error_solution.png"><img src="/wp-content/uploads/2010-05-06_cpp_dll_link_error_solution.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-05-06_cpp_dll_link_error_solution.png"><img src="/images/uploads/wp/2010-05-06_cpp_dll_link_error_solution.png" alt="" /></a></p>
 
 <p>上文的链接中还提供了另外一种解决方案~ 没有尝试~</p>
 

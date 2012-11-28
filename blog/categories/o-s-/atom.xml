@@ -4,7 +4,7 @@
   <title><![CDATA[Category: O.S. | Artoirus]]></title>
   <link href="http://Arthraim.github.com/blog/categories/o-s-/atom.xml" rel="self"/>
   <link href="http://Arthraim.github.com/"/>
-  <updated>2012-11-27T14:05:47+08:00</updated>
+  <updated>2012-11-28T21:25:55+08:00</updated>
   <id>http://Arthraim.github.com/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -67,7 +67,7 @@ class "GtkPaned" style "gtkcompactextra"
 
 <p>说实话小气鬼真的看不懂, 也懒得看懂, 反正eclipse现在不碍着我了, 缺点是没有碍着我的其他软件其他界面里的一些布局都发生了一些变化, 不过这种让出屏幕空间的变化对一般人来说是缺点, 但是对小气鬼来说也不能不说是另一种feature~!  最后小气鬼心满意足的放一张截图<del>~ 这窄窄的看上去多顺眼啊</del></p>
 
-<p><a href="/wp-content/uploads/2010-11-24_better_look_eclipse.png"><img src="/wp-content/uploads/2010-11-24_better_look_eclipse.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-11-24_better_look_eclipse.png"><img src="/images/uploads/wp/2010-11-24_better_look_eclipse.png" alt="" /></a></p>
 
 <p>via: <a href="http://lj4newbies.blogspot.com/2008/02/make-your-eclipse-look-better-on-ubuntu.html">http://lj4newbies.blogspot.com/2008/02/make-your-eclipse-look-better-on-ubuntu.html</a></p>
 
@@ -164,7 +164,7 @@ class "GtkPaned" style "gtkcompactextra"
     <link href="http://Arthraim.github.com/first-glance-of-ubuntu-9-04/"/>
     <updated>2009-04-25T02:20:55+08:00</updated>
     <id>http://Arthraim.github.com/first-glance-of-ubuntu-9-04</id>
-    <content type="html"><![CDATA[<p><img src="../../../upload/75C14EDC194AA34DDF56AAAD5D470D31.png" alt="" /></p>
+    <content type="html"><![CDATA[<p><img src="/images/uploads/zb/75C14EDC194AA34DDF56AAAD5D470D31.png" alt="" /></p>
 
 <p><strong>以下的英文为最初版本，中文为更新时的翻译，跳过英文吧，只是因为一开始在ubuntu下没有安装中文输入法。</strong></p>
 
@@ -200,7 +200,7 @@ class "GtkPaned" style "gtkcompactextra"
 
 <p>Gnome 2.26就像你看到的。个人感觉是相应速度变快了，因为后来断网了，所以没有装显卡驱动（我是N卡），究竟多华丽在这次是看不到了。</p>
 
-<p><img src="../../../upload/Screenshot-AbouttheGNOMEDesktop.png" alt="" /></p>
+<p><img src="/images/uploads/zb/Screenshot-AbouttheGNOMEDesktop.png" alt="" /></p>
 
 <p>Look at the screenshot, honestly it looks changed little. I hope it can be better after I installed my video card driver.</p>
 
@@ -210,13 +210,13 @@ class "GtkPaned" style "gtkcompactextra"
 
 <p>OpenOffice.org 3.0（多漂亮的Sun公司标志）。个人是不用桌面Office软件的，我觉得Google docs已经足够我所有的需求了，它不但轻便而且不用在意文档的最新版本存在了哪个U盘里了，并且它有版本管理，我想桌面办公软件对我来说完全没用，唯一的作用就是在发给需要微软doc（或OpenOffice格式）的人前，存为doc（或OpenOffice格式）前自己审核一下格式是不是好看。</p>
 
-<p><img src="../../../upload/Screenshot-AboutOpenOffice.org.png" alt="" /></p>
+<p><img src="/images/uploads/zb/Screenshot-AboutOpenOffice.org.png" alt="" /></p>
 
 <p>3 -- <strong>Speed</strong>. It was said we'll have a fantastic computer starting time, so what's mine. I'll count the seconds after grub menu. (Wait for my update please...)</p>
 
 <p>速度。据说我们会有一个惊艳的开机速度，那么我的呢，我会在grub菜单之后开始数秒。（请等我的更新）</p>
 
-<p><img src="/UPLOAD/2009-04-24_Ubuntu-startingtime.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-04-24_Ubuntu-startingtime.jpg" alt="" /></p>
 
 <p>还是注意看第一个停下的时间比较好，16.92，是grub引导到硬盘之后，也就是开机的进度条出现之后，到出现输入Username的登录界面，时间是16.92。网上有人说只有14秒，那也差不多吧，嘿嘿，比较激动，以为没停下来多按了几下。另外，之前最慢的是登陆之后到界面完全出现的速度，不过这一次却是快的一塌糊涂。几乎没有什么感觉了。</p>
 
@@ -236,11 +236,11 @@ class "GtkPaned" style "gtkcompactextra"
 
 <p>那么，以上就是first glance了。放几张登录和partitioner的屏摄。</p>
 
-<p><img src="/upload/2009-04-24_Ubuntu_starting.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-04-24_Ubuntu_starting.jpg" alt="" /></p>
 
-<p><img src="/upload/2009-04-24_Ubuntu_partitioner_1.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-04-24_Ubuntu_partitioner_1.jpg" alt="" /></p>
 
-<p><img src="/upload/2009-04-24_Ubuntu_partitioner_2.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-04-24_Ubuntu_partitioner_2.jpg" alt="" /></p>
 ]]></content>
   </entry>
   

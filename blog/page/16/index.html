@@ -146,7 +146,7 @@ protected override void LoadContent()
 
 <p>一样覆盖了父类中的LoadContent()方法。方法是用来加载content的。</p>
 
-<pre><code>这个方法一个游戏只会被调用一次，并且是你加载所有content的地方。  
+<pre><code>这个方法一个游戏只会被调用一次，并且是你加载所有content的地方。
 
 实例化了SpriteBatch类，命名为spriteBatch。
 
@@ -158,7 +158,7 @@ protected override void UnloadContent()    {    }
 
 <p>这个方法一样简单，UnloadContent，就是释放内容的地方。</p>
 
-<pre><code>这个方法同样只会被调用一次，并且是卸载所有已经载入的资源的地方。  
+<pre><code>这个方法同样只会被调用一次，并且是卸载所有已经载入的资源的地方。
 
 当前因为C#的托管机制，我们不用关注实例化的各种类的释放。
 
@@ -177,9 +177,9 @@ protected override void Update(GameTime gameTime)
 
 <p>Update方法相当于D3D中会被命名为FrameMove之类的方法，说白了图形上就是修改当前画面的地方。</p>
 
-<pre><code>按照注释所说，他用以游戏执行一些逻辑，诸如更新画面，检查碰撞，收集输入以及播放音频。  
+<pre><code>按照注释所说，他用以游戏执行一些逻辑，诸如更新画面，检查碰撞，收集输入以及播放音频。
 
-if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed) this.Exit();是退出代码  
+if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed) this.Exit();是退出代码
 
 base.Update(gameTime);自然就是调用更新的方法，一切工作要在它之前完成。
 
@@ -196,7 +196,7 @@ protected override void Draw(GameTime gameTime)
 
 <p>Draw方法相当于Paint和onPaint这样的方法了，是系统自动绘图的方法。应该很容易了解。</p>
 
-<pre><code>GraphicsDevice.Clear(Color.CornflowerBlue);是清楚画面，现阶段试着改下颜色就会呈现不同的画面背景了。  
+<pre><code>GraphicsDevice.Clear(Color.CornflowerBlue);是清楚画面，现阶段试着改下颜色就会呈现不同的画面背景了。
 
 base.Draw(gameTime);则是绘制工作。
 </code></pre>
@@ -252,11 +252,11 @@ spriteBatch.End();
 
 <p>OK到这里代码就写完了，看一下总共我们只写了8行代码，就完成了背景的绘制，很简单，运行一下看看效果（点击放大），就收工啦～</p>
 
-<p><a href="/upload/2009-06-13_DrewBackground.jpg"><img src="/upload/2009-06-13_DrewBackground.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-13_DrewBackground.jpg"><img src="/images/uploads/zb/2009-06-13_DrewBackground.jpg" alt="" /></a></p>
 
 <p>官方提供的源代码下载。</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=151"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=151"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -268,7 +268,7 @@ spriteBatch.End();
 
 <p>Content Pipeline是如何工作的？</p>
 
-<blockquote><p><img src="/upload/BG_3.4.2.1pd.png" alt="" /></p>
+<blockquote><p><img src="/images/uploads/zb/BG_3.4.2.1pd.png" alt="" /></p>
 
 <p>XNA Framework的ContentPipeline是XNA Game Studio非常重要的一个部分，目前为止所展现给你的那部分（添加物件到工程中以及调用和加载）只是对发生在幕后的事情的暗示。</p>
 
@@ -293,13 +293,13 @@ spriteBatch.End();
 
 <p>首先是属性，按照这里所说的属性是四个，并且Processor是没有扩展的。（如引用区域内的那张小图，此图为官网使用的示例图，不能放大）这是基于GS2.0的教程，但是在我现在使用的3.1版中我们根本没有这第四个属性，反而是像我的截图（下图，点击放大）里的一样，Processor拥有了很多的属性。</p>
 
-<p><a href="/upload/2009-06-13_ContentPiplineProperty.jpg"><img src="/upload/2009-06-13_ContentPiplineProperty.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-13_ContentPiplineProperty.jpg"><img src="/images/uploads/zb/2009-06-13_ContentPiplineProperty.jpg" alt="" /></a></p>
 
 <p>其次就是ContentManager的解释，翻译里的描述的，我们采用的ContentManager类，其实不需要我们自己定义或实例化，在构造Game类的同时，这个ContentManager类已经作为Game类的一个属性被定义完成了，我们只需要直接调用(Game)this.Load<object>()方法就可以调用了。于是结合上面提到的GraphicsDeviceManager，我想，能不能也不要呢。于是我注释掉了两行代码，一个是声明一个是实例化，之后在运行到draw方法，需要用到this.GraphicsDevice类的时候提示：This property requires a graphics device service in the game service container. 这么说来ContentManager已经会自动被实例化，可是GraphicsDeviceManager却不可以。毕竟从这些代码上面来看，构造ContentManager只需要一个IServiceProvider作为如参，那么Game实例化过程中就可以完成这个操作。而GraphicsDeviceManager需要的入参是Game，这就不可能自动在构造Game的时候完成。（当然在我们看不到的地方是完全可以实现的）看来究竟内部如何实现的，又有什么考量，有深入研究的价值。</p>
 
 <p><strong>二、sprites，sprite绘制，和spritebatch</strong></p>
 
-<blockquote><p><img src="/upload/BG_3.4.3.1pd.png" alt="" /></p>
+<blockquote><p><img src="/images/uploads/zb/BG_3.4.3.1pd.png" alt="" /></p>
 
 <p>Sprite（常译作精灵，此处不翻译）是游戏中显示的2D图形的常用名字。在过去，几乎所有的游戏是基于sprite方式的；2D图形曾是古老的处理器和电视游戏系统所能实时处理的全部。随着当前计算机和电视游戏主机中包含的图形处理但与（GPU）的降临，很多游戏转向了3D图形，但是在那些游戏当中，sprite仍然出现了，成为诸如烟和火这样一类的效果的首选方式，给予了他们不高的复杂度和较快的绘图速度。</p>
 
@@ -361,7 +361,7 @@ spriteBatch.End();
 			XNA教程-2D游戏-03-添加Assets</a>
 	</h2>
 	<div class="entry-content">
-		<p><a href="/upload/2009-06-13_WhatIsAssets.jpg"><img src="/upload/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
+		<p><a href="/images/uploads/zb/2009-06-13_WhatIsAssets.jpg"><img src="/images/uploads/zb/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
 
 <p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset</strong></p>
 
@@ -399,15 +399,15 @@ spriteBatch.End();
 
 <p>2、右键单击Sprites文件夹 &#8211; Add &#8211; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
 
-<p><a href="/upload/2009-06-13_AddAssets.jpg"><img src="/upload/2009-06-13_AddAssets.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-13_AddAssets.jpg"><img src="/images/uploads/zb/2009-06-13_AddAssets.jpg" alt="" /></a></p>
 
 <p>很神奇吧，做完这个，其实内容就已经完成了，看上去真是有点脑残了。完成如下图。</p>
 
-<p><a href="/upload/2009-06-13_AddedAssets.jpg"><img src="/upload/2009-06-13_AddedAssets.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-13_AddedAssets.jpg"><img src="/images/uploads/zb/2009-06-13_AddedAssets.jpg" alt="" /></a></p>
 
 <p>这就是本章要讲解的内容，万事开头难，大家要有耐心，虽然做起来很简单，不过无论是Content还是Asset都是微软给我们的概念，一定要记住了。</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=150"><img src="/upload/2009-06-12_download_XNA.png" alt="" />示例代码下载</a></p>
+<p><a href="http://creators.xna.com/downloads/?id=150"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" />示例代码下载</a></p>
 
 		
 		
@@ -447,7 +447,7 @@ spriteBatch.End();
 			XNA教程-2D游戏-02-创建游戏工程</a>
 	</h2>
 	<div class="entry-content">
-		<p><a href="/upload/2009-06-13_PlatformerGameDemo.jpg"><img src="/upload/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
+		<p><a href="/images/uploads/zb/2009-06-13_PlatformerGameDemo.jpg"><img src="/images/uploads/zb/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
 
 <p><strong> XNA教程 &#8211; 2D游戏 &#8211; Chapter 2 &#8211; 创建游戏工程</strong></p>
 
@@ -459,7 +459,7 @@ spriteBatch.End();
 
 <p>这一步骤简单的雷人。稍微讲讲就过去了吧。首先要安装好VS和GS，就像之前说到的，然后我们看一下VS的新建。新建中总共有这么几项（GS3.1+VS2008，不保证其他版本有一样的工程）</p>
 
-<p><a href="/upload/2009-06-13_VS2008GS31.jpg"><img src="/upload/2009-06-13_VS2008GS31.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-13_VS2008GS31.jpg"><img src="/images/uploads/zb/2009-06-13_VS2008GS31.jpg" alt="" /></a></p>
 
 <blockquote><ul>
 <li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
@@ -481,7 +481,7 @@ spriteBatch.End();
 
 <p>比如我新建一个Windows Game (3.1)工程，并且取名为Chapter2。</p>
 
-<p><img src="/upload/2009-06-13_Project.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-06-13_Project.jpg" alt="" /></p>
 
 <p>可以看到IDE为我们创建了如图一些文件，具体都是什么呢？</p>
 
@@ -496,11 +496,11 @@ spriteBatch.End();
 
 <p>GameThumbnail.png原图如下</p>
 
-<p><img src="/upload/2009-06-13_GameThumb.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-06-13_GameThumb.jpg" alt="" /></p>
 
 <p>接下去本章很重要的一部就是下载必须的游戏素材。这里提供官方链接，下载解压缩后放入Content文件夹中，这是我们制作我们示例要用到的全部素材了。只有一个lisense文件和sprite文件夹，sprite文件夹中有四张图，看看就知道干什么了～</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=149"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a>素材下载点击图标</p>
+<p><a href="http://creators.xna.com/downloads/?id=149"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a>素材下载点击图标</p>
 
 <p>OK，好了这一章很简单，就说到这里吧。</p>
 
@@ -542,7 +542,7 @@ spriteBatch.End();
 			XNA教程-2D游戏-01-2D游戏教程简介</a>
 	</h2>
 	<div class="entry-content">
-		<p><a href="/upload/2009-06-13_XNA_logo.jpg"><img src="/upload/2009-06-13_XNA_logo.jpg" alt="" /></a></p>
+		<p><a href="/images/uploads/zb/2009-06-13_XNA_logo.jpg"><img src="/images/uploads/zb/2009-06-13_XNA_logo.jpg" alt="" /></a></p>
 
 <p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 1.1 &#8211; 2D游戏教程简介</strong></p>
 
@@ -554,7 +554,7 @@ spriteBatch.End();
 
 <p>本2D教程最终我们要完成的，是一个炮塔攻击UFO的简单的demo（效果如图）。而在对3D感兴趣的朋友，在完成2D的教程之后，我将继续写3D的部分，不过即便是想学习3D的内容，也不要放弃对2D的学习，这对于3D游戏的开发将具有非常重要的作用。</p>
 
-<p><img src="/upload/2009-06-13_2DGameDemo.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-06-13_2DGameDemo.jpg" alt="" /></p>
 
 <p>另外，为了方便大家看到效果，特地在博客中加入了lightbox，所以任何一张图片都是可以通过点击放大查看的～ 希望能给大家带来更好的体验。那么看完这篇文章，下一篇就将是这个教程真正的开始了。你准备好了吗？</p>
 
@@ -596,7 +596,7 @@ spriteBatch.End();
 			XNA Game Studio 3.1 Available</a>
 	</h2>
 	<div class="entry-content">
-		<p><img src="/upload/2009-06-12_XNA.png" alt="" /></p>
+		<p><img src="/images/uploads/zb/2009-06-12_XNA.png" alt="" /></p>
 
 <p>微软的XNA一直是个好东西，依靠他不但可以做出Game For Windows，还可以直接在XBOX360上使用，当然前提是你的游戏做的足够好，你的会员资格是白金。</p>
 
@@ -608,9 +608,9 @@ spriteBatch.End();
 
 <p>而XNA提供开发者的工具也是相当的便捷 &#8212;- XNA Game Studio。它不但提供了XNA库，还有一堆一堆的工具插件附加到Visual Studio上，所以几乎让习惯于.net开发的程序员不用做任何的习惯上的改变。昨天XNA GS 3.1正式公布了。</p>
 
-<p><img src="/upload/2009-06-12_XNAGameSudio3.1.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-06-12_XNAGameSudio3.1.jpg" alt="" /></p>
 
-<p><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=80782277-d584-42d2-8024-893fcd9d3e82&amp;displaylang=en"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=80782277-d584-42d2-8024-893fcd9d3e82&amp;displaylang=en">下载地址</a></p>
+<p><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=80782277-d584-42d2-8024-893fcd9d3e82&amp;displaylang=en"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=80782277-d584-42d2-8024-893fcd9d3e82&amp;displaylang=en">下载地址</a></p>
 
 <p>微软还提供了一个<a href="http://creators.xna.com/en-US/">XNA爱好者平台</a>，可以论坛交流，上传游戏等等，让XNA这个以免费为宗旨的基于开发爱好者的游戏开发平台更加完善。</p>
 
@@ -620,23 +620,23 @@ spriteBatch.End();
 
 <p><strong>安装</strong>：</p>
 
-<p><img src="/upload/2009-06-12_forVS2008.png" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-06-12_forVS2008.png" alt="" /></p>
 
 <p>安装完毕，看看我们能用的东西。IDE直接使用VS2008，device center可以加载device来运行。提供了文档以及一些音频等制作工具，还有命令行工具。</p>
 
-<p><img src="/upload/2009-06-12_XNA_files.png" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-06-12_XNA_files.png" alt="" /></p>
 
 <p>打开VS2008，<strong>新建工程：</strong></p>
 
-<p><a href="/upload/2009-06-12_XNA_VS2008_NEW.png"><img src="/upload/2009-06-12_XNA_VS2008_NEW.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-12_XNA_VS2008_NEW.png"><img src="/images/uploads/zb/2009-06-12_XNA_VS2008_NEW.png" alt="" /></a></p>
 
 <p>会自动<strong>genarate一些代码和文件</strong>。</p>
 
-<p><a href="/upload/2009-06-12_XNA_VS2008_CODE.png"><img src="/upload/2009-06-12_XNA_VS2008_CODE.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-12_XNA_VS2008_CODE.png"><img src="/images/uploads/zb/2009-06-12_XNA_VS2008_CODE.png" alt="" /></a></p>
 
 <p>直接<strong>运行</strong>：</p>
 
-<p><a href="/upload/2009-06-12_XNAGame.jpg"><img src="/upload/2009-06-12_XNAGame.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-12_XNAGame.jpg"><img src="/images/uploads/zb/2009-06-12_XNAGame.jpg" alt="" /></a></p>
 
 <p>OK，这里就不详细说怎么去写一个XNA游戏了。微软在这里提供了<a href="http://creators.xna.com/en-US/education/gettingstarted">视频教程</a>，2D或者3D的教程都有。感兴趣的同学可以去学习一下，希望大家一切顺利。</p>
 
@@ -971,13 +971,13 @@ public partial class _Default : System.Web.UI.Page
 
 <p>图片（本人没有PSP3000，所以图片转自scener.org，版本归原发布者拥有）：</p>
 
-<p><img src="/upload/20090608-cfwenabler1.png" alt="" /></p>
+<p><img src="/images/uploads/zb/20090608-cfwenabler1.png" alt="" /></p>
 
-<p><img src="/upload/20090608-cfwenabler2.png" alt="" /></p>
+<p><img src="/images/uploads/zb/20090608-cfwenabler2.png" alt="" /></p>
 
-<p><img src="/upload/20090608-cfwenabler4.png" alt="" /></p>
+<p><img src="/images/uploads/zb/20090608-cfwenabler4.png" alt="" /></p>
 
-<p><img src="/upload/20090608-cfwenabler5.png" alt="" /></p>
+<p><img src="/images/uploads/zb/20090608-cfwenabler5.png" alt="" /></p>
 
 		
 		
@@ -1103,7 +1103,7 @@ public partial class _Default : System.Web.UI.Page
 
 <p>此时我也不知道是高兴还是难过，先看结果把，在做评论。</p>
 
-<p><img src="/upload/psp3000_5.03gen_for_hen.png" alt="" /></p>
+<p><img src="/images/uploads/zb/psp3000_5.03gen_for_hen.png" alt="" /></p>
 
 		
 		
@@ -1161,7 +1161,7 @@ public partial class _Default : System.Web.UI.Page
 
 <p>补充一张图，昨天是微软CEO鲍尔默同学在某演讲上用苹果电脑的照片。那么今天发一张显示大公司有大气度的照片，是E3展上，宫本茂（任天堂）亲自排队体验PSP GO!（sony的掌机）的场面。很美～很感动～</p>
 
-<p><img src="/upload/090604023545765.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/090604023545765.jpg" alt="" /></p>
 
 		
 		

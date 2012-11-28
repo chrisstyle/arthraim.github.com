@@ -107,7 +107,7 @@
 
 <p>编译运行一下，可以看到截图如下，正常的播放着。背景是加上了白色属性的，默认的也是白色，不过不加上这个属性，背景的处理效果就不一样了，可以试试看。</p>
 
-<p><a href="/upload/2009-07-20_GPUacceleration1.png"><img src="/upload/2009-07-20_GPUacceleration1.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-20_GPUacceleration1.png"><img src="/images/uploads/zb/2009-07-20_GPUacceleration1.png" alt="" /></a></p>
 
 <p><strong>2、修改客户端网页</strong></p>
 
@@ -123,7 +123,7 @@
 
 <p>然后编译运行，哇，真是惨不忍睹，好好的视频怎么变成红色了，包括背景和左边的海报都一并红色了。其实这就是添加第二个属性的作用，红色的区域就是指没有应用GPU硬件加速的区域。</p>
 
-<p><a href="/upload/2009-07-20_GPUacceleration2.png"><img src="/upload/2009-07-20_GPUacceleration2.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-20_GPUacceleration2.png"><img src="/images/uploads/zb/2009-07-20_GPUacceleration2.png" alt="" /></a></p>
 
 <p><strong>3、修改UI</strong></p>
 
@@ -137,7 +137,7 @@
 
 <p>编译运行。中间没有红色遮盖的部分，就是真正表示了被GPU加速处理的部分。</p>
 
-<p><a href="/upload/2009-07-20_GPUacceleration3.png"><img src="/upload/2009-07-20_GPUacceleration3.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-20_GPUacceleration3.png"><img src="/images/uploads/zb/2009-07-20_GPUacceleration3.png" alt="" /></a></p>
 
 <p>值得一提的是旁边的图片（本来是做对比用的，结果恰好遇到了这种情况）变成了绿色（无论Image是否设置了CacheMode属性），我Google了会儿，在官方论坛上也没有人答出个所以然来，据说没有加速的会被tint a color，但是没说绿色和红色分别代表了什么。我是先看到这个帖子，才自己碰到这个情况的，很巧这个例子刚好可以碰到，究竟绿色是怎么回事，知道的朋友告诉我下～</p>
 
@@ -149,7 +149,7 @@
 
 <p>另外，也不知这个所谓的GPU加速功能有没有用到CUBA技术。</p>
 
-<p><a href="/upload/2009-07-20_GPUacceleration5.jpg"><img src="/upload/2009-07-20_GPUacceleration5.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-20_GPUacceleration5.jpg"><img src="/images/uploads/zb/2009-07-20_GPUacceleration5.jpg" alt="" /></a></p>
 
 <hr />
 
@@ -157,7 +157,7 @@
 
 <p>无聊试试看同一个例子下，把MediaElement 给3D处理后还能不能硬件加速，绕Y轴旋转了点角度。从红色分布的情况来看似乎是不能加速，希望有朋友能继续探究一下这个问题。</p>
 
-<p><a href="/upload/2009-07-20_GPUacceleration4.png"><img src="/upload/2009-07-20_GPUacceleration4.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-20_GPUacceleration4.png"><img src="/images/uploads/zb/2009-07-20_GPUacceleration4.png" alt="" /></a></p>
 
 <p>简单的写到这里吧，还有很多值得深入下去，当然，关于硬件加速方面留给微软的工作恐怕也还有很多很多。这个例子很好，不但遇到了一些特殊情况，还包括了H.264和3D等新特性的应用。</p>
 </div>

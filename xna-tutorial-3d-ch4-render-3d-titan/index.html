@@ -124,15 +124,15 @@ Matrix cameraViewMatrix;
 
 <p><strong>例一</strong>：平移 W(wx,wy,wz)</p>
 
-<p><img src="/upload/2009-07-03_Matrix1.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-03_Matrix1.jpg" alt="" /></p>
 
 <p><strong>例二</strong>：缩放 T(tx,ty,tz)</p>
 
-<p><img src="/upload/2009-07-03_Matrix2.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-03_Matrix2.jpg" alt="" /></p>
 
 <p><strong>例三</strong>：绕X轴旋转alpha度</p>
 
-<p><img src="/upload/2009-07-03_Matrix3.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-03_Matrix3.jpg" alt="" /></p>
 
 <p>当然在XNA framework里封装的Matrix类不是一个简单的矩阵的实现了，还加上了很多智能的功能，当然也包括变换，至于如何使用这样一个Matrix，以及我们声明的Matrix是做什么样的变换的，看下去。</p>
 
@@ -248,11 +248,11 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>还等什么呢？现在就是编译运行的时候了！效果图。</p>
 
-<p><a href="/upload/2009-07-03_Runtime.jpg"><img src="/upload/2009-07-03_Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-03_Runtime.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime.jpg" alt="" /></a></p>
 
 <p>下面加了4张修改了参数之后的图，方便理解一些参数。[点击放大]</p>
 
-<p><a href="/upload/2009-07-03_Runtime_Down.jpg"><img src="/upload/2009-07-03_Runtime_Down.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_100CameraHeight.jpg"><img src="/upload/2009-07-03_Runtime_100CameraHeight.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_95Radians.jpg"><img src="/upload/2009-07-03_Runtime_95Radians.jpg" alt="" /></a> <a href="/upload/2009-07-03_Runtime_5000Depth.jpg"><img src="/upload/2009-07-03_Runtime_5000Depth.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-03_Runtime_Down.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_Down.jpg" alt="" /></a> <a href="/images/uploads/zb/2009-07-03_Runtime_100CameraHeight.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_100CameraHeight.jpg" alt="" /></a> <a href="/images/uploads/zb/2009-07-03_Runtime_95Radians.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_95Radians.jpg" alt="" /></a> <a href="/images/uploads/zb/2009-07-03_Runtime_5000Depth.jpg"><img src="/images/uploads/zb/2009-07-03_Runtime_5000Depth.jpg" alt="" /></a></p>
 
 <ul>
 <li><p>cameraViewMatrix实例化，CreateLookAt时，修改第三个参数为Vector3.Down</p></li>
@@ -264,7 +264,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=159"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=159"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -280,7 +280,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>在XNA Game Studio这哦你，3D的变化意味着，取代在平面世界中画静态的Texture2D对象的是绘制用Model类表示的3D模型。Model类是被叫做网络（mesh）的许多有联系的3D点的集合，在整个世界中，最终渲染在屏幕上的对象，取决于对象的位置和方向，和镜头的位置和方向。</p>
 
-<p><a href="/upload/BG_4.4.1.1pd.png"><img src="/upload/BG_4.4.1.1pd.png" alt="" /></a>这过程也许初看十分复杂，但其实在3D世界编程，只依靠一些非常基本的元素。想象一个点在3D空间中，一个点有一个X坐标,一个Y坐标,和一个Z坐标。非常类似2D空间中的一个点，3D空间中的一个点也可以使用一个向量来移动，但是在3D空间中，我们使用包含Z坐标的Vector3类。</p>
+<p><a href="/images/uploads/zb/BG_4.4.1.1pd.png"><img src="/images/uploads/zb/BG_4.4.1.1pd.png" alt="" /></a>这过程也许初看十分复杂，但其实在3D世界编程，只依靠一些非常基本的元素。想象一个点在3D空间中，一个点有一个X坐标,一个Y坐标,和一个Z坐标。非常类似2D空间中的一个点，3D空间中的一个点也可以使用一个向量来移动，但是在3D空间中，我们使用包含Z坐标的Vector3类。</p>
 
 <p>然而，使用一个叫做矩阵的数学结构体，可以使3D点做更多的事情。这些结构体，在XNA Framework中表示为Matrix类，它描述了一系列可以应用于点的变换、点的集合、或一个响亮。使用矩阵，3D对象可以移动、旋转、切割、以及（通过使用被叫做视点矩阵和投影矩阵的特殊的矩阵）绘制成一个可以显示在屏幕上的2D图像。</p>
 
@@ -292,7 +292,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>用2D绘制一个3D场景最后还需要一些其他信息。像视点的视角和领域的信息，控制着3D点如何绘制在2D计算机屏幕上。这些信息存储在一个投影矩阵中，应用之后，把3D坐标的系统中的点转换到2D坐标系统中，2D坐标系统被成为&#8221;屏幕空间&#8221;，这样点被绘制成像素。</p>
 
-<p><a href="/upload/BG_4.4.1.2pd.png"><img src="/upload/BG_4.4.1.2pd.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/BG_4.4.1.2pd.png"><img src="/images/uploads/zb/BG_4.4.1.2pd.png" alt="" /></a></p>
 
 <p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&#8212;-Mesh类，Matrix类和Vector类。</p></blockquote>
 
@@ -316,7 +316,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>在BasicEffect的参数被设置后，剩下的就只有调用ModelMesh.Draw方法，使用之前为BasicEffect设置的参数，来绘制ModelMesh到屏幕上了。</p>
 
-<p><a href="/upload/BG_4.4.2.1pd.png"><img src="/upload/BG_4.4.2.1pd.png" alt="" /></a></p></blockquote>
+<p><a href="/images/uploads/zb/BG_4.4.2.1pd.png"><img src="/images/uploads/zb/BG_4.4.2.1pd.png" alt="" /></a></p></blockquote>
 </div>
 
 

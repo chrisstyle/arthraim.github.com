@@ -4,7 +4,7 @@
   <title><![CDATA[Category: internet | Artoirus]]></title>
   <link href="http://Arthraim.github.com/blog/categories/internet/atom.xml" rel="self"/>
   <link href="http://Arthraim.github.com/"/>
-  <updated>2012-11-27T14:05:47+08:00</updated>
+  <updated>2012-11-28T21:25:55+08:00</updated>
   <id>http://Arthraim.github.com/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -74,7 +74,7 @@ C:-----1=4==6=-------------
     <id>http://Arthraim.github.com/wordpress-3-is-available</id>
     <content type="html"><![CDATA[<p>今天登陆后台，就看到说wordpress 3.0 is available! 正式版终于可以升级了啊，改动挺大的，我正在犹豫要不要升级，要不还是过两天在升级吧，升级之后我也要考虑下是不是换个模板了，因为很多new features都只有新的Default主题能用。当然我用的是英文版的Wordpress，中文版貌似还没有升级到3.0。总之升级还真的是一件麻烦的事情【顾虑太多了吧你】</p>
 
-<p><a href="/wp-content/uploads/wordpress_org.png"><img src="/wp-content/uploads/wordpress_org.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/wordpress_org.png"><img src="/images/uploads/wp/wordpress_org.png" alt="" /></a></p>
 
 <p>可以后台自动升级，很方便的一办法，不过需要用到FTP或FTPS密码。不然就去<a href="http://wordpress.org/download/">这里</a>下载咯。</p>
 
@@ -89,7 +89,7 @@ C:-----1=4==6=-------------
     <id>http://Arthraim.github.com/google-app-engine-unapplied-writes</id>
     <content type="html"><![CDATA[<p>话说刚才收到一封来自Google App Engine的邮件，大致内容是说在2010-5-25日的时候服务有我的某个程序的服务器发生了大约长达50分钟的停机，于是因此在这段时间里我的应用依然产生了数据库的写入操作，这时候产生的数据被记录到了别的服务器上，并且被称为Unapplied Writes。主要在告诉我如何挽救这些数据的同时，还为给我带来的不便说了抱歉。下面是Email的全文~</p>
 
-<p><a href="/wp-content/uploads/2010-06-11_GAE_uapplied_writes.jpg"><img src="/wp-content/uploads/2010-06-11_GAE_uapplied_writes.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-06-11_GAE_uapplied_writes.jpg"><img src="/images/uploads/wp/2010-06-11_GAE_uapplied_writes.jpg" alt="" /></a></p>
 
 <p>于是让我百思不得其解的事情就是为什么jmini-arthraim这个应用有这么NB，这么巧合，在断电的时候有数据写入还造成了数据不同步呢？让Arthur来帮大家回忆一下jmini-arthraim究竟是个什么东西。</p>
 
@@ -97,7 +97,7 @@ C:-----1=4==6=-------------
 
 <p>我去后台看了一下这个应用的数据，去掉前11条是真正有朋友来测试的消息以外，从去年11月19日开始就有无数的spam数据开始刷了。真是场面何其壮观啊！总共有多少条记录呢？133,876（狂汗）估计这是我目前为止自己创建过的信息量最庞大的数据库了。如下图所示：</p>
 
-<p><a href="/wp-content/uploads/2010-06-11_GAE_store_statistics.jpg"><img src="/wp-content/uploads/2010-06-11_GAE_store_statistics.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-06-11_GAE_store_statistics.jpg"><img src="/images/uploads/wp/2010-06-11_GAE_store_statistics.jpg" alt="" /></a></p>
 
 <p>我写这篇文章的原因有3：</p>
 
@@ -119,7 +119,7 @@ C:-----1=4==6=-------------
     <id>http://Arthraim.github.com/imified-a-free-im-bot-servic</id>
     <content type="html"><![CDATA[<p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
 
-<p><a href="/wp-content/uploads/logo_shine.png"><img src="/wp-content/uploads/logo_shine.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/logo_shine.png"><img src="/images/uploads/wp/logo_shine.png" alt="" /></a></p>
 
 <p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
 
@@ -146,12 +146,12 @@ if($step &gt; 3){
     break;
     }
 }
-?&gt; 
+?&gt;
 </code></pre>
 
 <p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
 
-<p><a href="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/wp-content/uploads/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
 
 <p>再之后他就只会回应hi和hello了，Arthur同学表示不会php，所以对我来说好像没有什么可以创造的东西。会php的同学可以做很多事情啊~</p>
 
@@ -164,7 +164,7 @@ if($step &gt; 3){
     <link href="http://Arthraim.github.com/farewell-levelup-cn/"/>
     <updated>2010-04-29T09:18:10+08:00</updated>
     <id>http://Arthraim.github.com/farewell-levelup-cn</id>
-    <content type="html"><![CDATA[<p><a href="/wp-content/uploads/2010-04-29_levelup_cn_logo.jpg"><img src="/wp-content/uploads/2010-04-29_levelup_cn_logo.jpg" alt="" /></a>这是今年第二次为一个.cn网站说farewell了，是的，经历了到处都是小道消息的一个多月之后，我确定了，我们都确定了 ---- 游戏城寨(levelup.cn)真的离开大家了。</p>
+    <content type="html"><![CDATA[<p><a href="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg"><img src="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg" alt="" /></a>这是今年第二次为一个.cn网站说farewell了，是的，经历了到处都是小道消息的一个多月之后，我确定了，我们都确定了 ---- 游戏城寨(levelup.cn)真的离开大家了。</p>
 
 <p><strong>一个月前（3月20日左右）</strong>，突然发现游戏门户网站（依托国内第一电视游戏杂志《游戏机实用技术》的游戏咨询门户网站，以及一个同样内容的BBS社区）不能上去了，bbs.levelup.cn的访问量大，服务器压力大，故障时有发生，在levelup混的朋友都戏称这种现象为"月经"，每个月要经历一次，所以那天我也不以为然，但是的确，bbs挂掉的时候很多，主站挂掉是很难得的事情。</p>
 
@@ -181,7 +181,7 @@ if($step &gt; 3){
 
 <blockquote><p>Hikaru</p></blockquote>
 
-<pre><code>    levelup.cn  
+<pre><code>    levelup.cn
 
     2010年3月23日
 </code></pre>
@@ -198,14 +198,14 @@ if($step &gt; 3){
 
 <p>Hikaru</p></blockquote>
 
-<pre><code>    levelup.cn  
+<pre><code>    levelup.cn
 
     2010年3月23日，24日
 </code></pre>
 
 <blockquote><hr /></blockquote>
 
-<pre><code>    近期游戏攻略、评测请查看UpTeam官方百度贴吧。  
+<pre><code>    近期游戏攻略、评测请查看UpTeam官方百度贴吧。
 
     点击进入临时论坛，感谢罗伊SD提供。
 </code></pre>
@@ -230,7 +230,7 @@ if($step &gt; 3){
 
 <p>今年有点特殊，没蛋糕，送上这张图，这是大家五年在城寨上全部可以数据化的内容，以及送上不能用数据代替的感情。</p>
 
-<p><img src="/wp-content/uploads/2010-04-29_levelup_cn_servers.jpg" alt="levelup_cn_servers" /></p></blockquote>
+<p><img src="/images/uploads/wp/2010-04-29_levelup_cn_servers.jpg" alt="levelup_cn_servers" /></p></blockquote>
 
 <p><strong>4月10日</strong>。在方寸的那篇文章之后，这个新浪博客停止更新了一段时间，让人感到一阵心慌，不过几天后，博客又开始更新了，就这样断断续续的一直更新到了4月10日，之后这个博客再也没有动静了，后面的十几天里这个博客也再没有像之前一样"复活"过。与此同时，levelup.cn的主站，也再也没有能ping到过。</p>
 
@@ -238,23 +238,23 @@ if($step &gt; 3){
 
 <blockquote><p>《有一天，世界会原谅我们的无知吗》</p>
 
-<p><a href="/wp-content/uploads/2010-04-29_levelup_cn_staff.jpg"><img src="/wp-content/uploads/2010-04-29_levelup_cn_staff.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-04-29_levelup_cn_staff.jpg"><img src="/images/uploads/wp/2010-04-29_levelup_cn_staff.jpg" alt="" /></a></p>
 
 <p>已经这么多年了</p></blockquote>
 
-<pre><code>    你还在为自己的梦想而奋斗吗  
+<pre><code>    你还在为自己的梦想而奋斗吗
 
-    你还在努力改变生活吧  
+    你还在努力改变生活吧
 
-    你知道的  
+    你知道的
 
-    我们被生活俘虏，就像电子被质子俘虏  
+    我们被生活俘虏，就像电子被质子俘虏
 
-    我们逃不出身边的概率云，这就是命运  
+    我们逃不出身边的概率云，这就是命运
 
-    人，大概永远也得不到最爱的东西吧  
+    人，大概永远也得不到最爱的东西吧
 
-    也许上天就是这样骗我们继续生活下去  
+    也许上天就是这样骗我们继续生活下去
 
     有一天，世界会原谅我们的无知吗
 </code></pre>

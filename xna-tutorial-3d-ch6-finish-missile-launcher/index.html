@@ -105,7 +105,7 @@ missileLauncherHead.position = missileLauncherBase.position +
 
 <p>这里不妨先完成第三步，看看效果。不过按照之前的习惯，都是完成了逻辑代码之后再绘制的。（微软的工程师都是天才，囧）</p>
 
-<p><img src="/upload/2009-07-07_151248.jpg" alt="" /><img src="/upload/2009-07-07_151225.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-07_151248.jpg" alt="" /><img src="/images/uploads/zb/2009-07-07_151225.jpg" alt="" /></p>
 
 <p>不难看出变化吧～</p>
 
@@ -196,13 +196,13 @@ missileLauncherHead.rotation.X = MathHelper.Clamp(
 
 <p>OK，编译、运行～</p>
 
-<p><a href="/upload/2009-07-07_Runtime.jpg"><img src="/upload/2009-07-07_Runtime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-07_Runtime.jpg"><img src="/images/uploads/zb/2009-07-07_Runtime.jpg" alt="" /></a></p>
 
 <p>大功告成，炮台可以旋转，并且在一定的范围之内了，试着变化这个范围DIY一下。</p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=161"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=161"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -218,13 +218,13 @@ missileLauncherHead.rotation.X = MathHelper.Clamp(
 
 <p>我们在这个教程中使用的方法包括了一系列被叫做欧拉旋转的中间旋转。想象欧拉旋转为一系列的3个不同弧度的角，从0到2π，分别在不同的三个轴上。这些轴（X轴,Y轴,Z轴）可以被想象为低头、偏转、翻转轴（pitch, yaw and roll axes）。</p>
 
-<p><a href="/upload/BG_4.6.2.1pd.png"><img src="/upload/BG_4.6.2.1pd.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/BG_4.6.2.1pd.png"><img src="/images/uploads/zb/BG_4.6.2.1pd.png" alt="" /></a></p>
 
 <p>低头（picth），根据X轴测量，可以被想象为飞机头的方向向上或向下。</p></blockquote>
 
-<pre><code>    偏转（yaw），根据Y轴测量，使得飞机从一边摆向（swing）另一边。  
+<pre><code>    偏转（yaw），根据Y轴测量，使得飞机从一边摆向（swing）另一边。
 
-    翻转（roll），根据Z轴测量，可以想象为飞机翻向（banking）左边或右边。  
+    翻转（roll），根据Z轴测量，可以想象为飞机翻向（banking）左边或右边。
 
     （英文中中西表述方式不同，难以理解，图片非常说明问题）
 </code></pre>

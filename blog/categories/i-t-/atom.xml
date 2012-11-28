@@ -4,7 +4,7 @@
   <title><![CDATA[Category: I.T. | Artoirus]]></title>
   <link href="http://Arthraim.github.com/blog/categories/i-t-/atom.xml" rel="self"/>
   <link href="http://Arthraim.github.com/"/>
-  <updated>2012-11-27T14:05:47+08:00</updated>
+  <updated>2012-11-28T21:25:55+08:00</updated>
   <id>http://Arthraim.github.com/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -67,9 +67,9 @@
     <id>http://Arthraim.github.com/windows-phone-emulator</id>
     <content type="html"><![CDATA[<p>昨晚大半夜的想去下载XNA Studio的，结果发现除了4beta，而且4beta最重要的还是Windows Phone，不但有XNA里支持Windows Phone的更新，居然还有silverlight，VS2010的插件，Expression Blend的插件等等一堆好东西，还有一个emulator。今天忙了一天，没时间玩，刚才蛋疼打开来建了个silverlight的工程，结果开始玩那个模拟器，真的很给力啊，虽然只有自己写的一个应用和Internet Explorer而已……不过setting，还有bing搜索的界面都很棒~</p>
 
-<p><a href="/wp-content/uploads/2010-08-04_Windows_Phone_Emulator.png"><img src="/wp-content/uploads/2010-08-04_Windows_Phone_Emulator.png" alt="" /></a><a href="/wp-content/uploads/2010-08-04_Silverlight_Phone_hello_world.png"><img src="/wp-content/uploads/2010-08-04_Silverlight_Phone_hello_world.png" alt="" /></a><a href="/wp-content/uploads/2010-08-04_Windows_Phone_Settings.png"><img src="/wp-content/uploads/2010-08-04_Windows_Phone_Settings.png" alt="" /></a><a href="/wp-content/uploads/2010-08-04_Windows_Phone_Bing_Search.png"><img src="/wp-content/uploads/2010-08-04_Windows_Phone_Bing_Search.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-08-04_Windows_Phone_Emulator.png"><img src="/images/uploads/wp/2010-08-04_Windows_Phone_Emulator.png" alt="" /></a><a href="/images/uploads/wp/2010-08-04_Silverlight_Phone_hello_world.png"><img src="/images/uploads/wp/2010-08-04_Silverlight_Phone_hello_world.png" alt="" /></a><a href="/images/uploads/wp/2010-08-04_Windows_Phone_Settings.png"><img src="/images/uploads/wp/2010-08-04_Windows_Phone_Settings.png" alt="" /></a><a href="/images/uploads/wp/2010-08-04_Windows_Phone_Bing_Search.png"><img src="/images/uploads/wp/2010-08-04_Windows_Phone_Bing_Search.png" alt="" /></a></p>
 
-<p><a href="/wp-content/uploads/2010-08-04_Windows_Phone_Silverlight_IDE.png"><img src="/wp-content/uploads/2010-08-04_Windows_Phone_Silverlight_IDE.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-08-04_Windows_Phone_Silverlight_IDE.png"><img src="/images/uploads/wp/2010-08-04_Windows_Phone_Silverlight_IDE.png" alt="" /></a></p>
 
 <p>我觉得bing搜索的界面真的很酷…… 尤其是搜索的时候飘过来的5颗小珠子~ animation效果用的很多，而且感觉很舒服~ 既然开发环境有了，程序员们可以抢占第一高地啦！尤其是@redjackwong这样本身silverlight用的很愉快的童鞋，可以去给人间开发客户端了，咔咔~</p>
 
@@ -84,9 +84,9 @@
     <id>http://Arthraim.github.com/egit-084-more-than-better</id>
     <content type="html"><![CDATA[<p>前两天更新了下eclipse的插件，发现git的eclipse插件EGit更新到了0.8.4，交互设计发生了很大的变化，现在用起来更加顺手了，只是莫名其妙的错误还很多，diff的时候中文是乱码（难道是设置问题？）。这次EGit主要是更新支持eclipse3.6。很喜欢git，所以义不容辞的为其相关的东东宣传宣传。</p>
 
-<p><a href="/wp-content/uploads/2010-06-24_EGit_084.png"><img src="/wp-content/uploads/2010-06-24_EGit_084.png" alt="" /></a></p>
+<p><a href="/images/uploads/wp/2010-06-24_EGit_084.png"><img src="/images/uploads/wp/2010-06-24_EGit_084.png" alt="" /></a></p>
 
-<pre><code>[![](/wp-content/uploads/2010-06-24_EGit_084_menu.png)](/wp-content/uploads/2010-06-24_EGit_084_menu.png)
+<pre><code>[![](/images/uploads/wp/2010-06-24_EGit_084_menu.png)](/images/uploads/wp/2010-06-24_EGit_084_menu.png)
 </code></pre>
 
 <p>以上……</p>
@@ -100,7 +100,7 @@
     <id>http://Arthraim.github.com/gordon-javascript-flash-engnine</id>
     <content type="html"><![CDATA[<p>请大家检验，<a href="http://jancona.com/gordon/demos/buttons.html">这个</a>（最好用Chrome打开，No IE）究竟是个什么东西。如果我告诉你，这是一个Flash你会怎么想？不可能啊，右键点击了是网页啊……… So，这个叫做Gordon的开源javascript flash解释器就是实现这个应用的家伙。很多关注前沿的同学一定已经知道了，不过我刚知道 - -</p>
 
-<p><a href="ttp://arthraim.cn/upload/2010-01-21_gordon_flash_javascript.png"><img src="/upload/2010-01-21_gordon_flash_javascript.png" alt="" /></a></p>
+<p><a href="ttp://arthraim.cn/upload/2010-01-21_gordon_flash_javascript.png"><img src="/images/uploads/zb/2010-01-21_gordon_flash_javascript.png" alt="" /></a></p>
 
 <blockquote><p>开发者<a href="http://github.com/tobeytailor">Tobias Schneider</a>在JavaScript中编写了<a href="http://apcmag.com/Content.aspx?id=5078">一个Flash解释程序</a>，名叫<a href="http://github.com/tobeytailor/gordon">Gordon</a>的开源程序允许在支持SVG/HTML5的浏览器（iPhone内置了SVG支持）上播放Flash。</p>
 
@@ -119,7 +119,7 @@
     <id>http://Arthraim.github.com/blu-ray-3d-logo</id>
     <content type="html"><![CDATA[<p>这是今天看到的比较让人兴奋的消息了，因为蓝光设计的还是不错的（不得不承认索尼在光盘标准上吃亏的次数太多了，的确是应该吸取教训设计个够好的了），使得其支持3D比任何其他光盘（其他？HDDVD？笑话一个）标准都快了许多，在对未来3D需求的竞争上蓝光又领先了，彻底击碎了那一小撮试图寻找契机反击的同学。额，本文是标识。</p>
 
-<p><img src="/upload/bluray3dlogo.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/bluray3dlogo.jpg" alt="" /></p>
 
 <blockquote><p>去年12月，蓝光光盘协会(BDA)正式宣布完成Blu-ray 3D™标准的制定，并发布规格书。根据国外媒体报道，在2010年的CES展会前夕，BDA公布了最终确定的Blu-ray 3D官方标识。Blu-ray 3D标识是在原有蓝光标识的基础上加上立体阴影效果的"3D"字样，新标识预计将出现在今年晚些时候发布所有Blu-ray 3D产品上。</p></blockquote>
 

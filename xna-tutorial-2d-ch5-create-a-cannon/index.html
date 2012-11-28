@@ -98,7 +98,7 @@
 
 <p>（如下图，点击放大）</p>
 
-<p><a href="/upload/2009-06-14_AddGameObject.jpg"><img src="/upload/2009-06-14_AddGameObject.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_AddGameObject.jpg"><img src="/images/uploads/zb/2009-06-14_AddGameObject.jpg" alt="" /></a></p>
 
 <p><strong>1.2、添加引用。</strong></p>
 
@@ -134,7 +134,7 @@ public Vector2 center;
 
 <p>传入一个Texture2D作为GameObject中的Texture2D sprite，并且初始化角度为0，位置为0，旋转中心为sprite的中心点。中心点可不是一定的，看下图，我们的中心点刚好是Sprite的二分之一高度二分之一宽度的地方，如果不是，那么要根据具体情况重新决定。</p>
 
-<p><a href="/upload/2009-06-14_OriginalCannon.jpg"><img src="/upload/2009-06-14_OriginalCannon.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_OriginalCannon.jpg"><img src="/images/uploads/zb/2009-06-14_OriginalCannon.jpg" alt="" /></a></p>
 
 <p><strong>2、在Game1中载入加农炮。</strong></p>
 
@@ -263,11 +263,11 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>这样我们就画好了加农炮。运行一下吧，你已经在游戏上面做了一个可以转动的加农炮了。然后修改一下之前的一些代码看看有什么不同的变化～比如旋转的角度限定注释掉，炮会很可爱的。</p>
 
-<p><a href="/upload/2009-06-14_RunTime.jpg"><img src="/upload/2009-06-14_RunTime.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_RunTime.jpg"><img src="/images/uploads/zb/2009-06-14_RunTime.jpg" alt="" /></a></p>
 
 <p>【官方源代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=152"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=152"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -277,7 +277,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>我们在代码过程中，创建了一个GameObject，并且实例化为Cannon，可是为什么要自己创建一个GameObject呢？不是简单的把四个变量放到Game1里面就可以了吗？来看看下面这段翻译。（下文由本人翻译自<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/details/5_1">这里</a>，转载请注明翻译作者Arthraim，并表明出处，尊重我的劳动成功）</p>
 
-<blockquote><p><a href="/upload/BG_3.5.1.1pd_a.png"><img src="/upload/BG_3.5.1.1pd_a.png" alt="" /></a></p>
+<blockquote><p><a href="/images/uploads/zb/BG_3.5.1.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.1.1pd_a.png" alt="" /></a></p>
 
 <p>目前为止，你已经使用过了一段时间XNA Framework中的一些实现定义好的类（代码层面的对象，包含了数据和针对数据的操作的方法）了。</p>
 
@@ -305,13 +305,13 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &#8212;- 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
 
-<p><a href="/upload/BG_3.5.2.1pd_a.png"><img src="/upload/BG_3.5.2.1pd_a.png" alt="" /></a></p>
+<p><a href="/images/uploads/zb/BG_3.5.2.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.2.1pd_a.png" alt="" /></a></p>
 
 <p>当使用SpriteBatch.Draw画一个Sprite，或者当你创建一些用来旋转的矩阵的时候，你需要弧度来传入旋转的值。但是如果你觉得角度更加方便的话，你可以在游戏中继续使用它，只要你在调用一些XNA Framework中需要传入弧度的方法的时候把它们转换成弧度就可以了。你可以使用MathHelper.ToRadians来完成这个工作，只要传入你要转换的角度即可。</p></blockquote>
 
 <p>这也是之前说到的会详细说的内容。最后我再补上一张图，方便大家学习吧。</p>
 
-<p><a href="/upload/2009-06-14_CordinateSystem.jpg"><img src="/upload/2009-06-14_CordinateSystem.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-06-14_CordinateSystem.jpg"><img src="/images/uploads/zb/2009-06-14_CordinateSystem.jpg" alt="" /></a></p>
 
 <p>画是画的难看一点。</p>
 

@@ -80,11 +80,11 @@
 
 <p>游戏很重要的一个因素是声音，在之前的2D教程中，却没有涉及到这个内容。在XNA中，我们使用的音效将是被包含在另一个声音工程当中的，这就要使用到XNA Game Studio中的一个工具 &#8212;- Microsoft Cross-Platform Audio Creation Tool 简称为XACT。在开始菜单中选择它，有v2或v3两个版本，这里我们和教程一样v3，大概的功能都是一样的。（参见文章后方的翻译1、什么是XACT？）</p>
 
-<p><img src="/upload/2009-07-13_XACTs.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-13_XACTs.jpg" alt="" /></p>
 
 <p>打开后界面如下图所示，除了工具栏，左侧上方是一个树形视图，有一些项目已经存在。</p>
 
-<p><a href="/upload/2009-07-13_XactUserInterface.jpg"><img src="/upload/2009-07-13_XactUserInterface.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_XactUserInterface.jpg"><img src="/images/uploads/zb/2009-07-13_XactUserInterface.jpg" alt="" /></a></p>
 
 <hr />
 
@@ -98,7 +98,7 @@
 
 <p>选择路径（比如我使用如上路径），保存为任意的名字，[确定]，这样创建就算成功了。</p>
 
-<p><img src="/upload/2009-07-13_NewXactProject.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-13_NewXactProject.jpg" alt="" /></p>
 
 <p><strong>2、新建Wave Band</strong></p>
 
@@ -108,7 +108,7 @@
 
 <p>最后在左边树形图上，SoundBand处右键->New Sound Band。新建一个Sound Band。</p>
 
-<p><a href="/upload/2009-07-13_NewWaveBand_NewSoundBand.jpg"><img src="/upload/2009-07-13_NewWaveBand_NewSoundBand.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_NewWaveBand_NewSoundBand.jpg"><img src="/images/uploads/zb/2009-07-13_NewWaveBand_NewSoundBand.jpg" alt="" /></a></p>
 
 <hr />
 
@@ -118,21 +118,21 @@
 
 <p>右键单击右侧Wave Band的子窗口空白处，选择Insert Wave Files。</p>
 
-<p><a href="/upload/2009-07-13_AddWavesToWaveBand.jpg"><img src="/upload/2009-07-13_AddWavesToWaveBand.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_AddWavesToWaveBand.jpg"><img src="/images/uploads/zb/2009-07-13_AddWavesToWaveBand.jpg" alt="" /></a></p>
 
 <p>记得我们之前排除到GS游戏工程外面的那两个wav文件吗，现在把他们找到并且插入进来。一个是发射导弹的声音，一个是爆炸的声音。</p>
 
-<p><a href="/upload/2009-07-13_Waves.jpg"><img src="/upload/2009-07-13_Waves.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_Waves.jpg"><img src="/images/uploads/zb/2009-07-13_Waves.jpg" alt="" /></a></p>
 
 <p>插入之后如下图所显示的，这样我们准备好了Wave了。</p>
 
-<p><a href="/upload/2009-07-13_AfterAddedWaves.jpg"><img src="/upload/2009-07-13_AfterAddedWaves.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_AfterAddedWaves.jpg"><img src="/images/uploads/zb/2009-07-13_AfterAddedWaves.jpg" alt="" /></a></p>
 
 <p><strong>2、创建Sound</strong></p>
 
 <p>这里利用一些XACT提供的便捷操作，我们很容易办到。简单的把Wave Band子窗体内的两个wav，拖拽到Sound Band子窗体的Cue区域内，这样会自动创建出我们需要的一切。</p>
 
-<p><a href="/upload/2009-07-13_AddWavesToCue.jpg"><img src="/upload/2009-07-13_AddWavesToCue.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_AddWavesToCue.jpg"><img src="/images/uploads/zb/2009-07-13_AddWavesToCue.jpg" alt="" /></a></p>
 
 <p>Wave, Sound, Cue是XACT中涉及的重要的概念，如上图我们是这样的处理顺序，但是其实内部处理时不是这样的。（参见文章后方的翻译2、设计时与运行时的XACT对象）</p>
 
@@ -146,11 +146,11 @@
 
 <p>右键单击Content下的Audio目录，选择Add->Existing Items。</p>
 
-<p><a href="/upload/2009-07-13_AddXactProjectToGs.jpg"><img src="/upload/2009-07-13_AddXactProjectToGs.jpg" alt="" /></a></p>
+<p><a href="/images/uploads/zb/2009-07-13_AddXactProjectToGs.jpg"><img src="/images/uploads/zb/2009-07-13_AddXactProjectToGs.jpg" alt="" /></a></p>
 
 <p>找到保存起来的xap工程文件，[确定]。（比如我刚才保存的是TAudio.xap，找到它）</p>
 
-<p><img src="/upload/2009-07-13_AfterAddedXactProject.jpg" alt="" /></p>
+<p><img src="/images/uploads/zb/2009-07-13_AfterAddedXactProject.jpg" alt="" /></p>
 
 <p>如上图，声音就添加成功了。</p>
 
@@ -214,7 +214,7 @@ soundBank = new SoundBank(audioEngine, @"ContentAudioSound Band.xsb");
 
 <p>【官方代码下载】</p>
 
-<p><a href="http://creators.xna.com/downloads/?id=163"><img src="/upload/2009-06-12_download_XNA.png" alt="" /></a></p>
+<p><a href="http://creators.xna.com/downloads/?id=163"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
 
 <hr />
 
@@ -280,7 +280,7 @@ soundBank = new SoundBank(audioEngine, @"ContentAudioSound Band.xsb");
 
 <p>下面的插图解释了文件的一些关系，从音频设计者在设计时的形式，到通过内容管道编译时的形式，最终成为运行时游戏开始后被载入的形式。</p>
 
-<p><a href="/upload/BG_4.8.5.4pd.png"><img src="/upload/BG_4.8.5.4pd.png" alt="" /></a></p></blockquote>
+<p><a href="/images/uploads/zb/BG_4.8.5.4pd.png"><img src="/images/uploads/zb/BG_4.8.5.4pd.png" alt="" /></a></p></blockquote>
 </div>
 
 
