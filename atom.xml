@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://Arthraim.github.com/atom.xml" rel="self"/>
   <link href="http://Arthraim.github.com/"/>
-  <updated>2012-11-28T21:25:55+08:00</updated>
+  <updated>2012-12-09T11:06:44+08:00</updated>
   <id>http://Arthraim.github.com/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -91,8 +91,7 @@
     <id>http://Arthraim.github.com/abandon-arthraim-cn</id>
     <content type="html"><![CDATA[<p>arthraim.cn的域名又到期了，因为之前的代理被卖到别的地方了所以很烦躁这个域名不要了.cn域名也实在是操蛋的可以。</p>
 
-<pre><code>之前留着也只是为了做一个重定向，现在重定向了一年了搜索引擎什么的也应该反应过来了，所以就不要了吧。
-</code></pre>
+<p>之前留着也只是为了做一个重定向，现在重定向了一年了搜索引擎什么的也应该反应过来了，所以就不要了吧。</p>
 
 <p>再见arthraim.cn</p>
 ]]></content>
@@ -141,30 +140,54 @@
     <id>http://Arthraim.github.com/ruby-is-horribl</id>
     <content type="html"><![CDATA[<p>接触ruby时间不长，用的机会就更少了，所以偶尔用一下的时候难免还要去翻翻文档什么的。维护某个后台的时候，有个随机输出的需求，所以我写了下面这样一段代码。</p>
 
-<pre><code>def index
-  ver = params[:version] == nil ? 'i' : params[:version]
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">index</span>
+</span><span class='line'>  <span class="n">ver</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="ss">:version</span><span class="o">]</span> <span class="o">==</span> <span class="kp">nil</span> <span class="p">?</span> <span class="s1">&#39;i&#39;</span> <span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="ss">:version</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@preview_items</span> <span class="o">=</span> <span class="no">MyItem</span><span class="o">.</span><span class="n">where</span><span class="p">({</span><span class="ss">:version</span> <span class="o">=&gt;</span> <span class="n">ver</span><span class="p">,</span> <span class="ss">:order</span><span class="o">.</span><span class="n">gt</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">[</span><span class="ss">:order</span><span class="p">,</span> <span class="ss">:desc</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">map</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span class='line'>  <span class="vi">@preview_items</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">item</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">order</span> <span class="o">=</span> <span class="n">item</span><span class="o">[</span><span class="s1">&#39;order&#39;</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">map</span><span class="o">[</span><span class="n">order</span><span class="o">]</span> <span class="o">=</span> <span class="o">[]</span> <span class="k">if</span> <span class="n">map</span><span class="o">[</span><span class="n">order</span><span class="o">]</span> <span class="o">==</span> <span class="kp">nil</span>
+</span><span class='line'>    <span class="n">map</span><span class="o">[</span><span class="n">order</span><span class="o">].</span><span class="n">push</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@json_items</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>  <span class="n">map</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">arr</span> <span class="o">=</span> <span class="n">map</span><span class="o">[</span><span class="n">key</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="vi">@json_items</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">arr</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="vi">@json_items</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">arr</span><span class="o">[</span><span class="nb">rand</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">count</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="n">render</span> <span class="n">json</span><span class="p">:</span> <span class="vi">@json_items</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="ss">:callback</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-  @preview_items = MyItem.where({:version =&gt; ver, :order.gt =&gt; 0}).order_by([:order, :desc])
-
-  map = {}
-  @preview_items.each do |item|
-    order = item['order']
-    map[order] = [] if map[order] == nil
-    map[order].push(item)
-  end
-
-  @json_items = []
-  map.keys.each do |key|
-    arr = map[key]
-    if arr.count == 1
-      @json_items.push(arr[0])
-    else
-      @json_items.push(arr[rand(arr.count)])
-    end
-  end
-  render json: @json_items, callback: params[:callback]
-end
-</code></pre>
 
 <p>rails某个模型的index页面，具体做了什么呢？大概是四件事情：</p>
 
@@ -180,12 +203,18 @@ end
 
 <p>看起来很满足什么的，就提交代码了。之后同事部署前，看了看这里的更新，然后最终把代码完全改掉了。只用了一行 =。=</p>
 
-<pre><code>def index
-  @json_items = MyItem.where({:version =&gt; params[:version] || 'i', :order.gt =&gt; 0}).order_by([:order, :desc])
-    .group_by(&amp;:order).map {|k,v| v.sample}
-  render json: @json_items, callback: params[:callback]
-end
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">index</span>
+</span><span class='line'>  <span class="vi">@json_items</span> <span class="o">=</span> <span class="no">MyItem</span><span class="o">.</span><span class="n">where</span><span class="p">({</span><span class="ss">:version</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:version</span><span class="o">]</span> <span class="o">||</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="ss">:order</span><span class="o">.</span><span class="n">gt</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">[</span><span class="ss">:order</span><span class="p">,</span> <span class="ss">:desc</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:order</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="o">|</span> <span class="n">v</span><span class="o">.</span><span class="n">sample</span><span class="p">}</span>
+</span><span class='line'>  <span class="n">render</span> <span class="n">json</span><span class="p">:</span> <span class="vi">@json_items</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="ss">:callback</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>做的事情是完全一样的。</p>
 
@@ -214,11 +243,15 @@ end
 
 <p>重新搭新环境，先装了rvm，然后装上gem，用gem装了rails。之后呢问题就出来，尝试用bundle exec rake db:seeds的时候会出错，加上&#8211;track参数一看大概是这样子。</p>
 
-<blockquote><p>undefined method `specifications&#8217; for &#8220;/Users/arthraim/.rvm/gems/ruby-1.9.2-p290&#8221;:String</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>undefined method `specifications' for "/Users/arthraim/.rvm/gems/ruby-1.9.2-p290":String</span></code></pre></td></tr></table></div></figure>
+
 
 <p>好像后面也不是特别重要了，只是这个问题比较费解，之前同事好像也遇到过。去Google了一下，居然是gem版本太高的关系，要把gem降级到早一些的版本。不想深究下去了，就说一下解决的办法好了。</p>
 
-<blockquote><p>gem update &#8211;system 1.7.2</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem update --system 1.7.2</span></code></pre></td></tr></table></div></figure>
+
 
 <p>之前我的版本是1.8.5，虽然不知道具体什么情况，不过1.7.2就可以了。话说gem update到老版本的方法好神奇 -。-</p>
 ]]></content>
@@ -231,23 +264,21 @@ end
     <id>http://Arthraim.github.com/the-update-of-rubygems-causes-yaml-parsing-problem</id>
     <content type="html"><![CDATA[<p>遇到个很蛋疼的问题，mongoid的配置文件（一个YAML）文件引发了下面这个错误：</p>
 
-<blockquote><p>db_name must be a string or symbol</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>db_name must be a string or symbol
+</span><span class='line'>...MONGOID_PATH/lib/mongo/util/support.rb:50:in `validate_db_name'</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>    ...MONGOID_PATH/lib/mongo/util/support.rb:50:in `validate_db_name'
-</code></pre>
-
-<blockquote></blockquote>
 
 <p>Google到<a href="http://cstrahan.com/2011/05/14/mongoid-yaml-rails-conflict.html">这里</a>，知道原因是RubyGem v1.5.0开始把默认的yaml parser从syck改成了psych。</p>
 
 <p>解决方法一当然是改你的yaml让它可以被parse，如果需要使用之前的parser，那要在config/environment.rb中加上以下两行</p>
 
-<blockquote><p>require &#8216;yaml&#8217;</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'yaml'
+</span><span class='line'>YAML::ENGINE.yamler= 'syck'</span></code></pre></td></tr></table></div></figure>
 
-<pre><code>    YAML::ENGINE.yamler= 'syck'
-</code></pre>
-
-<blockquote></blockquote>
 
 <p>话说这好像是第一次写ruby/rails的文章，刚刚玩了两三个星期~</p>
 
@@ -268,8 +299,7 @@ end
 
 <p>索尼的展前发布会之前，NGP已经在各种场合出现过了，伴随着PSN故障的道歉，各种软件的介绍，等到平井一夫上台的时候，大家知道今年的重头戏来了 &#8212;- NGP。和之前传闻一样，NGP的真名的确是Playstation Vita（生命）。当然PSV的硬件规格早就不是秘密，不过发售计划和价格才是人们关注的焦点，接近PS3技能的掌机，几乎应该是不敢想象的昂贵。不过事实证明索尼赢了，&#8221;业界最后的良心&#8221;是大家的评论，PSV售价24800日元（249.9美元），哪怕是3DS也要25000日元，索尼这个价格实在是太震撼了！</p>
 
-<pre><code>另外索尼公布的3D电视利用LL/RR的眼镜原理可以让两名玩家看到完全不同的画面，这样一来夫妻两个盯着同一个屏幕一个看电视一个玩游戏的梦想不远了！唯一的遗憾是两个人都要带着有色眼镜看电视了。
-</code></pre>
+<p>另外索尼公布的3D电视利用LL/RR的眼镜原理可以让两名玩家看到完全不同的画面，这样一来夫妻两个盯着同一个屏幕一个看电视一个玩游戏的梦想不远了！唯一的遗憾是两个人都要带着有色眼镜看电视了。</p>
 
 <p><a href="http://Arthraim.github.com/2011-e3-press-conferences/2011_e3_sony/"><img src="http://Arthraim.github.com/images/uploads/wp/2011_e3_sony-500x280.jpg" alt="" /></a></p>
 
@@ -292,7 +322,7 @@ end
 
 <p>事实上很多改造是因为scribe-java的确还存在一些问题, 比如oauth参数不支持querystring等, 所以改造工作不可避免. 不过随着作者非常快速的更新, 现在它已经大大改善了这些方面的功能. 回过头来再看自己的folk, 事实上也完全没有必要了.</p>
 
-<p>当然很希望国内的开发者在pom.xml里写上scribe-java就可以直接支持国内的各个微博, 所以我整理了一下我的分支正式的发起了pull request. 经过几次交流, 最终 新浪微博 / 网易微博 / 搜狐微博 的相关支持已经正式纳入了原作者的版本中得到支持了. 另外我一起提出请求的QQ微博和人人2.0最终因为代码的修改太大, 作者没有采纳(如果你要使用, 可以下载<a href="https://github.com/Arthraim/scribe-java">我的folk</a>).</p>
+<p>当然很希望国内的开发者在pom.xml里写上scribe-java就可以直接支持国内的各个微博, 所以我整理了一下我的分支正式的发起了pull request. 经过几次交流, 最终 新浪微博 / 网易微博 / 搜狐微博 的相关支持已经正式纳入了原作者的版本中得到支持了. 另外我一起提出请求的QQ微博和人人2.0最终因为代码的修改太大, 作者没有采纳(如果你要使用, 可以下载<a href="https://github.com/Arthraim/scribe-java">我的folk</a>.</p>
 
 <p>具体用法欢迎参考<a href="https://github.com/fernandezpablo85/scribe-java/blob/master/src/test/java/org/scribe/examples/SinaWeiboExample.java">这个例子</a> :) 开源是个尝到甜头就像继续下去的工作, 哪怕你的贡献再渺小, 也非常的美好. 让我鸡冻的感谢一下原作者Pablo Fernandez, 来自阿根廷.</p>
 ]]></content>
@@ -360,8 +390,7 @@ end
 
 <p>大问题放前面, 后面还有小问题呢. 在请求request_token时传递oauth_callback参数, 因为写测试没用到callback, 所以肯定库会帮我填上oob(out-of-bound), 不过让我很崩溃的是企鹅大爷不高兴了, 给我跳转到了一个这样一个地方: https://open.t.qq.com/oauth_html/oob?oauth_token=xxxxx&amp;oauth_verifier=xxxxxx, 这当然是NOT FOUND, 这是企鹅大哥的地盘, 我不能做主啊.</p>
 
-<pre><code>千辛万苦查到了企鹅大哥的文档里写了这么一句话: __① 用户授权后web应用将会重定向到oauth_callback。当应用为pc客户端或手机客户端应用时，没有回调url(oauth_callback)的概念，此时设置为字符串null即可。字符串"null"必须是小写。__爹啊... 你是我亲爹啊. 不按套路出牌的啊! ([愤怒的同学](http://open.t.qq.com/bbs/viewthread.php?tid=2352)显然不止我一个, 而且没人理他)
-</code></pre>
+<p>千辛万苦查到了企鹅大哥的文档里写了这么一句话: <strong>① 用户授权后web应用将会重定向到oauth_callback。当应用为pc客户端或手机客户端应用时，没有回调url(oauth_callback)的概念，此时设置为字符串null即可。字符串&#8221;null&#8221;必须是小写。</strong>爹啊&#8230; 你是我亲爹啊. 不按套路出牌的啊! (<a href="http://open.t.qq.com/bbs/viewthread.php?tid=2352">愤怒的同学</a>显然不止我一个, 而且没人理他)</p>
 
 <p>对了, 今天还发现腾讯微博开发平台的文档修改过了, 不过&#8230;&#8230;&#8230;&#8230;.. 被修改的似乎只有文档而已.</p>
 
@@ -404,18 +433,16 @@ end
 
 <p>在windows下用maven2，遇到一个错：<strong>编码 GBK 的不可映射字符</strong>，原因是windows版的maven2默认编码是GBK。如果有windows的参与者，那解决方法是在pom.xml里加入以下语句：</p>
 
-<pre><code>&lt;properties&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;properties&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;maven.compiler.encoding&gt;</span>UTF-8<span class="nt">&lt;/maven.compiler.encoding&gt;</span>
+</span><span class='line'><span class="nt">&lt;/properties&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>&lt;project.build.sourceEncoding>UTF-8&lt;/project.build.sourceEncoding></p>
-
-<pre><code> &lt;maven.compiler.encoding&gt;UTF-8&lt;/maven.compiler.encoding&gt;
-
-
-
-
-&lt;/properties&gt;
-</code></pre>
 
 <p>另外后面一句是在使用mvn compile命令的时候才需要的。</p>
 
@@ -433,9 +460,12 @@ end
 
 <hr />
 
-<p>还是一个git的小问题，一直很顺的用 <strong>git pull 仓库名 分支名</strong> 和 <strong>git push 仓库名 分支名</strong> 突然有人问起本地分支和远程分支的命名不一样的时候怎么办。。。 还真是查了很久啊。发现原来git pull 语句是这样描述的：</p>
+<p>还是一个git的小问题，一直很顺的用 <code>git pull 仓库名 分支名</code> 和 <code>git push 仓库名 分支名</code> 突然有人问起本地分支和远程分支的命名不一样的时候怎么办。。。 还真是查了很久啊。发现原来git pull 语句是这样描述的：</p>
 
-<blockquote><p>git push [远程仓库名] [本地分支]:[远程分支]</p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git push <span class="o">[</span>远程仓库名<span class="o">]</span> <span class="o">[</span>本地分支<span class="o">]</span> :<span class="o">[</span>远程分支<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这个冒号很微妙啊。。以前都是偷懒了用了他的默认。</p>
 
@@ -447,7 +477,7 @@ end
 
 <p>${some_double_number?string(0.######)}</p>
 
-<h1>的数量你懂的。更多具体的选项请看下面的链接。</h1>
+<p>&#8217;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
 
 <p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
 ]]></content>
@@ -460,87 +490,104 @@ end
     <id>http://Arthraim.github.com/nginx-411-error</id>
     <content type="html"><![CDATA[<p>今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, 生产环境测试环境都没有nginx, 唯独产品服务器上是, 糟糕吧.</p>
 
-<p><strong>引发411的原因</strong></p>
+<h2>引发411的原因</h2>
 
 <p>nginx给出的官方解释有三种情况会引发nginx弹411回去</p>
 
 <ol>
-<li><p>client sent invalid &#8220;Content-Length&#8221; header</p></li>
-<li><p>client sent … method without &#8220;Content-Length&#8221; header</p></li>
-<li><p>client sent &#8220;Transfer-Encoding: chunked&#8221; header</p></li>
+<li>client sent invalid &#8220;Content-Length&#8221; header</li>
+<li>client sent … method without &#8220;Content-Length&#8221; header</li>
+<li>client sent &#8220;Transfer-Encoding: chunked&#8221; header</li>
 </ol>
 
 
 <p>我的场景是这样的, 用httpclient4(java)去调用一个api服务, 这个api使用的server正是nginx, 使用multipart提交图片文件的时候因为它忽略或省略了文件的真正的长度, 所以(通过firebug发现)在request header里就压根没有Content-Length. 那显然符合上面的第二种情况.</p>
 
-<p><strong>改代码</strong></p>
+<h2>改代码</h2>
 
 <p>然后我尝试通过修改代码来解决, 自己填充这个header, 但是httpclient很硬气, 我写了一句</p>
 
-<pre><code>header httppost.setHeader("Content-Length", "0");
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">header</span> <span class="s">httppost.setHeader(&quot;Content-Length&quot;,</span> <span class="s">&quot;0&quot;)</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>它直接就报错了</p>
 
-<pre><code>org.apache.http.ProtocolException: Content-Length header already present at org.apache.http.protocol.RequestContent.process(RequestContent.java:67)  ...... 
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">org.apache.http.ProtocolException:</span> <span class="s">Content-Length</span> <span class="s">header</span> <span class="s">already</span> <span class="s">present</span> <span class="s">at</span> <span class="s">org.apache.http.protocol.RequestContent.process(RequestContent.java:67)</span>  <span class="s">......</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>看来想在包外面改还不是那么容易, 算了, 继续Google, 一定有合理的办法. <strong>不用改代码.</strong></p>
 
-<p><strong>重新编译nginx</strong></p>
+<h2>重新编译nginx</h2>
 
 <p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &#8211; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
 
 <ol>
 <li><p>下载新版nginx(或者你还有原来的nginx代码在?), 并下载nginxHttpChunkinModule, 然后解压缩. (下载地址就不帖了, 前者版本更新很快, 后者最近又在开始更新支持DELETE方法了)</p></li>
-<li><p>nginx -V 查一下之前编译nginx时候的参数, 并且记下来</p></li>
-<li><p>./configure 并加上一堆参数, 尤其记得要加上 &#8211;add-module=/path/to/your/module</p></li>
-<li><p>make (不要马上make install)</p></li>
+<li><p><code>nginx -V</code> 查一下之前编译nginx时候的参数, 并且记下来</p></li>
+<li><p><code>./configure</code> 并加上一堆参数, 尤其记得要加上 <code>--add-module=/path/to/your/module</code></p></li>
+<li><p><code>make</code> (不要马上<code>make install</code>)</p></li>
 </ol>
 
 
-<p><strong>不停掉nginx, 平滑过渡到新版本</strong></p>
+<h2>不停掉nginx, 平滑过渡到新版本</h2>
 
 <p>这才是最最技术的活&#8230; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
 
 <ol>
 <li><p>备份原来的nginx可执行文件, 比如nginx_bak</p></li>
-<li><p><strong>cp obj/nginx</strong>到旧的nginx可执行文件的位置, 因为它还在跑所以要加上参数 -f</p></li>
-<li><p><strong>kill -USR2 旧版本的nginx主进程号</strong> (用ps aux | grep nginx 找到, 除了主进程还有一个worker process), 之后再ps会发现一个新的nginx进程被启动, 并且一个新的worker process也开始启动. 这个时候它们同时在工作.</p></li>
-<li><p><strong>kill - WHINCH 旧版本的nginx主进程号</strong> 这会让旧的nginx进程不再处理新的请求, 过一段时间之后再ps, 会看到旧的worker process已经消失停止了. 这时候所有的请求都交给新的nginx在处理了.</p></li>
-<li><p><strong>kill -QUIT 旧版本的nginx主进程号</strong> 退出旧的进程, 新的进程就可以使用了.</p></li>
+<li><p><code>cp obj/nginx</code>到旧的nginx可执行文件的位置, 因为它还在跑所以要加上参数 <code>-f</code></p></li>
+<li><p><code>kill -USR2 旧版本的nginx主进程号</code> (用<code>ps aux | grep nginx</code>找到, 除了主进程还有一个worker process), 之后再ps会发现一个新的nginx进程被启动, 并且一个新的worker process也开始启动. 这个时候它们同时在工作.</p></li>
+<li><p><code>kill - WHINCH 旧版本的nginx主进程号</code> 这会让旧的nginx进程不再处理新的请求, 过一段时间之后再ps, 会看到旧的worker process已经消失停止了. 这时候所有的请求都交给新的nginx在处理了.</p></li>
+<li><p><code>kill -QUIT 旧版本的nginx主进程号</code> 退出旧的进程, 新的进程就可以使用了.</p></li>
 </ol>
 
 
 <p>当然这个平滑过渡适用版本升级等各种更换nginx可执行文件的情况, 所以再额外提一下如果发现新版本不好要退回去的时候怎么办.</p>
 
 <ul>
-<li><p>kill -HUP 旧的nginx主进程号 <em>不reload配置文件就直接重新启动旧的nginx</em></p></li>
-<li><p>kill -QUIT 新的nginx主进程号 <em>从容关闭新的Nginx实例</em></p></li>
-<li><p>kill -TERM 新的nginx主进程号 <em>这个和上面的可以二选一</em></p></li>
+<li><p><code>kill -HUP 旧的nginx主进程号</code> 不reload配置文件就直接重新启动旧的nginx</p></li>
+<li><p><code>kill -QUIT 新的nginx主进程号</code> 从容关闭新的Nginx实例</p></li>
+<li><p><code>kill -TERM 新的nginx主进程号</code> 这个和上面的可以二选一</p></li>
 <li><p>之后可以把之前的nginx_bak重新复制回来覆盖新的</p></li>
 </ul>
 
 
 <p>当然以上都是文明人的做法, 想施暴也是可以的&#8230;</p>
 
-<p><strong>修改nginx的配置文件</strong></p>
+<h2>修改nginx的配置文件</h2>
 
 <p>然后要改一下配置, 使新的模块生效</p>
 
-<pre><code>  chunkin on;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">chunkin</span> <span class="no">on</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">error_page</span> <span class="mi">411</span> <span class="p">=</span> <span class="s">@my_411_error</span><span class="p">;</span>
+</span><span class='line'><span class="k">location</span> <span class="s">@my_411_error</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kn">chunkin_resume</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">location</span> <span class="s">/foo</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1"># your fastcgi_pass/proxy_pass/set/if and</span>
+</span><span class='line'>    <span class="c1"># any other config directives go here...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">...</span>
+</span></code></pre></td></tr></table></div></figure>
 
-  error_page 411 = @my_411_error;
-  location @my_411_error {
-      chunkin_resume;
-  }
-
-  location /foo {
-      # your fastcgi_pass/proxy_pass/set/if and
-      # any other config directives go here...
-  }
-  ...
-</code></pre>
 
 <p>这样改过之后reload nginx就可以正常工作了, 详细配置方法请参考<a href="http://wiki.nginx.org/NginxHttpChunkinModule">wiki</a>谢谢.</p>
 
@@ -586,39 +633,58 @@ end
 
 <p>先很简单的创建一个django的工程(具体不说django), 然后弄个小app或者随便哪里写个view就好了. 然后我用了几步就确定它可以正常使用了.</p>
 
-<ol>
-<li><p>首先修改settings.py, 原来DATABASES完全不用去管它了, 全部设为空串就好, 然后在文件里加上下面的内容</p>
+<p>首先修改settings.py, 原来DATABASES完全不用去管它了, 全部设为空串就好, 然后在文件里加上下面的内容</p>
 
-<p> from mongoengine import connect
- connect(&#8216;DB_NAME&#8217;)</p></li>
-<li><p>在models.py里随便写个模型, 这里要用到mongoengine的一些内容</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">connect</span>
+</span><span class='line'><span class="n">connect</span><span class="p">(</span><span class="s">&#39;DB_NAME&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p> from mongoengine import Document</p>
 
-<p> class TestModel(Document):</p>
+<p>在models.py里随便写个模型, 这里要用到mongoengine的一些内容</p>
 
-<pre><code> test_key = StringField(required=True)
- test_value = StringField(max_length=50)
-</code></pre></li>
-<li><p>在某个views.py里随便哪里写点逻辑, 添加条数据而已(两种方式都可以填数据)</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="kn">from</span> <span class="nn">mongoengine</span> <span class="kn">import</span> <span class="n">Document</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">TestModel</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">test_key</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">test_value</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p> entry = TestModel(test_key=&#8217;arthur&#8217;)
- entry.test_value = &#8216;Wang&#8217;
- entry.save()</p></li>
-<li><p>然后就可以看看数据输出啦</p>
 
-<p> for entry in TestModel.objects:</p>
+<p>在某个views.py里随便哪里写点逻辑, 添加条数据而已(两种方式都可以填数据)</p>
 
-<pre><code> print entry.test_key
-</code></pre></li>
-</ol>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">entry</span> <span class="o">=</span> <span class="n">TestModel</span><span class="p">(</span><span class="n">test_key</span><span class="o">=</span><span class="s">&#39;arthur&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">entry</span><span class="o">.</span><span class="n">test_value</span> <span class="o">=</span> <span class="s">&#39;Wang&#39;</span>
+</span><span class='line'><span class="n">entry</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后就可以看看数据输出啦</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">TestModel</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+</span><span class='line'>    <span class="k">print</span> <span class="n">entry</span><span class="o">.</span><span class="n">test_key</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>好吧, 如果顺利就应该可以看到console输出的结果, 很给力. 当然在mongo中可以查到如下结果</p>
 
-<pre><code>&gt; db.testmodel.find()
-{ "_id" : ObjectId("4d34267f7ecfdb3b7c000000"), "test_key" : "arthur", "test_value" : "Wang", "_types" : [ "TestModel" ], "_cls" : "TestModel" }
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>db.testmodel.find<span class="o">()</span>
+</span><span class='line'><span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : ObjectId<span class="o">(</span><span class="s2">&quot;4d34267f7ecfdb3b7c000000&quot;</span><span class="o">)</span>, <span class="s2">&quot;test_key&quot;</span> : <span class="s2">&quot;arthur&quot;</span>, <span class="s2">&quot;test_value&quot;</span> : <span class="s2">&quot;Wang&quot;</span>, <span class="s2">&quot;_types&quot;</span> : <span class="o">[</span> <span class="s2">&quot;TestModel&quot;</span> <span class="o">]</span>, <span class="s2">&quot;_cls&quot;</span> : <span class="s2">&quot;TestModel&quot;</span> <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>挺好玩的. 最重要的是它支持sessions, 支持User authentication, 还可以使用gridfs做文件存储, 具体可以在<a href="http://mongoengine.org/docs/v0.4/django.html">这里</a>查到.</p>
 ]]></content>
@@ -633,57 +699,53 @@ end
 
 <p>和去年一样, 还是先罗列数据一些数据吧~</p>
 
-<p><strong>文章的统计数据</strong></p>
+<h2>文章的统计数据</h2>
 
 <ul>
-<li><p>January: 12</p></li>
-<li><p>February: 2</p></li>
-<li><p>March: 3</p></li>
-<li><p>April: 8</p></li>
-<li><p>May: 7</p></li>
-<li><p>June: 11</p></li>
-<li><p>July: 3</p></li>
-<li><p>August: 5</p></li>
-<li><p>September: 3</p></li>
-<li><p>October: 3</p></li>
-<li><p>November: 7</p></li>
-<li><p>December: 1</p></li>
+<li>January: 12</li>
+<li>February: 2</li>
+<li>March: 3</li>
+<li>April: 8</li>
+<li>May: 7</li>
+<li>June: 11</li>
+<li>July: 3</li>
+<li>August: 5</li>
+<li>September: 3</li>
+<li>October: 3</li>
+<li>November: 7</li>
+<li>December: 1</li>
 </ul>
 
 
 <p>这样的更新数量好像挺健康的~ 去年一个月将近30篇也太猛了&#8230;</p>
 
 <ul>
-<li><p>Programing: 18</p></li>
-<li><p>Video Game: 10</p></li>
-<li><p>Life: 12</p></li>
-<li><p>internet: 13</p></li>
-<li><p>Movie: 9</p></li>
-<li><p>O.S.: 3</p></li>
-<li><p>I.T.: 2</p></li>
-<li><p>Book: 0</p></li>
-<li><p>Music: 0</p></li>
+<li>Programing: 18</li>
+<li>Video Game: 10</li>
+<li>Life: 12</li>
+<li>internet: 13</li>
+<li>Movie: 9</li>
+<li>O.S.: 3</li>
+<li>I.T.: 2</li>
+<li>Book: 0</li>
+<li>Music: 0</li>
 </ul>
 
 
 <p>数据和上面的总和有出入, 因为没有细细统计, 看个大概的分类排名就好了. 显然编程还是本博客的主题, 之后生活排在第三位. 读书音乐这两个分类, 实在是觉得不用写在博客上了..</p>
 
-<p><strong>本人生活相关:</strong></p>
+<h2>本人生活相关:</h2>
 
-<p>人间网发言: 15815  (截止1月17日2时13分, 没有剥离往年的数据)</p>
+<ul>
+<li>人间网发言: 15815  (截止1月17日2时13分, 没有剥离往年的数据)</li>
+<li>新浪微博发言: 1791  (同上)</li>
+<li>看书: 2  (记录在豆瓣&#8221;读过&#8221;, &#8220;在读&#8221;中有7本)</li>
+<li>电影: 145  (通过豆瓣中&#8221;看过&#8221;计算出来的数据, 误差在10)</li>
+<li>美日剧: 190+  (估算, 误差在+-20之内)</li>
+<li>动画: 120+  (估算, 看完整了6部新番, 还有其他短小的OVA等)</li>
+<li>游戏: (尚未统计, 之后更新&#8230;)</li>
+</ul>
 
-<pre><code>新浪微博发言: 1791  (同上)
-
-看书: 2  (记录在豆瓣"读过", "在读"中有7本)
-
-电影: 145  (通过豆瓣中"看过"计算出来的数据, 误差在10)
-
-美日剧: 190+  (估算, 误差在+-20之内)
-
-动画: 120+  (估算, 看完整了6部新番, 还有其他短小的OVA等)
-
-游戏: (尚未统计, 之后更新...)
-</code></pre>
 
 <p>2010年, 完成了从学生到社会人的角色转换, 当然心理上到底算不算转换成功了尚且不得而知. 显然看书看得不多, 很多都没有读完. 看了好多好多电影, 在后面9个月都有些中间报告系列, 所以看过的所有电影都记录在案了. 因为工作了所有PS3游戏可以多买几个了, 不过因为飘在上海, 只有周末的时候回到嘉兴的家里玩, 所以其实玩的时候并不多.</p>
 
@@ -708,40 +770,33 @@ end
     <id>http://Arthraim.github.com/arthur_movie_report_2010_12</id>
     <content type="html"><![CDATA[<p>在博客停掉的时候没啥动力码字，每次打几个字就没有动力写下去了。现在它复活了我很高兴，虽然不是原地满血复活，不过我的动力倒是最大限度的复活了。补上12月份的电影报告，hoho~ 因为12月份是一个挺忙的月，人间网第二个产品<a href="http://www.aizheke.com">爱折客</a>是整个在这个月里rush出来的，所以博客几乎没有更新，电影也看的不多。</p>
 
-<p><img src="http://img3.douban.com/spic/s4404427.jpg" alt="Easy A" /><img src="http://img3.douban.com/spic/s4436998.jpg" alt="Monsters" /><img src="http://img3.douban.com/spic/s4511721.jpg" alt="Wild Target" /><img src="http://img3.douban.com/spic/s4433349.jpg" alt="3 Idiots" /><img src="http://img3.douban.com/spic/s4063848.jpg" alt="Salt" /><img src="http://img3.douban.com/spic/s4357597.jpg" alt="Despicable Me" /><img src="http://img3.douban.com/spic/s4100333.jpg" alt="涼宮ハルヒの消失" /><img src="http://img3.douban.com/spic/s4451119.jpg" alt="Skyline" /><img src="http://img5.douban.com/spic/s4387115.jpg" alt="The Social Network" /><img src="http://img3.douban.com/spic/s4440289.jpg" alt="The Town" /></p>
+<p><img src="http://img3.douban.com/spic/s4404427.jpg" alt="" /><img src="http://img3.douban.com/spic/s4436998.jpg" alt="" /><img src="http://img3.douban.com/spic/s4511721.jpg" alt="" /><img src="http://img3.douban.com/spic/s4433349.jpg" alt="" /><img src="http://img3.douban.com/spic/s4063848.jpg" alt="" /><img src="http://img3.douban.com/spic/s4357597.jpg" alt="" /><img src="http://img3.douban.com/spic/s4100333.jpg" alt="" /><img src="http://img3.douban.com/spic/s4451119.jpg" alt="" /><img src="http://img5.douban.com/spic/s4387115.jpg" alt="" /><img src="http://img3.douban.com/spic/s4440289.jpg" alt="" /></p>
 
 <p>豆列的传送门<a href="http://movie.douban.com/doulist/943509/">在此</a>。本月10部，这数字挺好，3天一部比较健康。而且没有太多猎奇，所以这个月看到了很多佳作。豆瓣第一时间的留言如下。</p>
 
-<p><strong>城中大盗 / The Town</strong>：本阿弗莱克导演的第二个作品，非常棒！</p>
+<ol>
+<li><p><strong>城中大盗 / The Town</strong>：本阿弗莱克导演的第二个作品，非常棒！</p></li>
+<li><p><strong>社交网络 / The Social Network</strong>：创造帝国的过程中免不了明争暗斗弱肉强食. 多米诺骨牌的比喻我很喜欢&#8230;</p></li>
+<li><p><strong>天际浩劫 / Skyline</strong>：特技还不错&#8230; 剧情演员逻辑其他什么都是狗屎..</p></li>
+<li><p><strong>凉宫春日的消失 / 涼宮ハルヒの消失</strong>：神作啊!!!!!!!!!!!!!!!!!!!!!!!! 凉宫春日!! 没有你的日子萨必西乃!!</p></li>
+<li><p><strong>卑鄙的我 / Despicable Me</strong>：剧情比较老套，那个很萌的黄色药丸一样的人的行为也比较像疯兔。不过不得不说借鉴了其他很多作品的同时做了很多颇有意义的创新，很多细节也处理的很萌，比如一只飘在天上那只和缩小的那只。。。</p></li>
+<li><p><strong>特工绍特 / Salt</strong>：非常牛X的节奏！一直很紧凑但是情节也有起伏，穿插的回忆一来慢慢的交代了故事的前因，二来交代了salt的心理变化和做这些事情…… 值得品味的好片~~</p></li>
+<li><p><strong>三个傻瓜 / 3 Idiots</strong>：好片子，剧情寓意都不错，不过我还是不太能接受印度电影里歌舞的那些桥段 orz</p></li>
+<li><p><strong>狂野目标 / Wild Target</strong>：英国人的搞笑方式还真不太一样，女主角很漂亮。。。</p></li>
+<li><p><strong>怪兽 / Monsters</strong>：看到结尾来救他们的士兵，然后拉回开头一看，发现原来之前都没有注意到的战斗场景里其实就有男女主角，男主角在叫help，女主角似乎死在了他的怀中………… I don&#8217;t wanna go home&#8230;..似乎她如愿了</p></li>
+<li><p><strong>绯闻计划 / Easy A</strong>：这就是青春啊~ 可以抱着轻松愉快的心情看完的电影，非常不错</p></li>
+</ol>
 
-<pre><code>**社交网络 / The Social Network**：创造帝国的过程中免不了明争暗斗弱肉强食. 多米诺骨牌的比喻我很喜欢...  
 
-**天际浩劫 / Skyline**：特技还不错... 剧情演员逻辑其他什么都是狗屎..  
-
-**凉宫春日的消失 / 涼宮ハルヒの消失**：神作啊!!!!!!!!!!!!!!!!!!!!!!!! 凉宫春日!! 没有你的日子萨必西乃!!  
-
-**卑鄙的我 / Despicable Me**：剧情比较老套，那个很萌的黄色药丸一样的人的行为也比较像疯兔。不过不得不说借鉴了其他很多作品的同时做了很多颇有意义的创新，很多细节也处理的很萌，比如一只飘在天上那只和缩小的那只。。。  
-
-**特工绍特 / Salt**：非常牛X的节奏！一直很紧凑但是情节也有起伏，穿插的回忆一来慢慢的交代了故事的前因，二来交代了salt的心理变化和做这些事情…… 值得品味的好片~~  
-
-**三个傻瓜 / 3 Idiots**：好片子，剧情寓意都不错，不过我还是不太能接受印度电影里歌舞的那些桥段 orz  
-
-**狂野目标 / Wild Target**：英国人的搞笑方式还真不太一样，女主角很漂亮。。。  
-
-**怪兽 / Monsters**：看到结尾来救他们的士兵，然后拉回开头一看，发现原来之前都没有注意到的战斗场景里其实就有男女主角，男主角在叫help，女主角似乎死在了他的怀中………… I don't wanna go home.....似乎她如愿了  
-
-**绯闻计划 / Easy A**：这就是青春啊~ 可以抱着轻松愉快的心情看完的电影，非常不错
-</code></pre>
-
-<p><strong>力荐</strong></p>
+<h2>力荐</h2>
 
 <p>强力推荐的是<strong>三个傻瓜</strong>、<strong>特工邵特</strong>、<strong>凉宫春日的消失</strong>、<strong>社交网络</strong>、<strong>城中大盗</strong>。是不是有点多啊，因为都是超强的片子。鉴于<strong>三个傻瓜</strong>已经美名传天下我就不说了，不过宝莱坞的电影的确有其魅力所在。<strong>特工绍特</strong>是商业动作片，不过片子的剪切非常牛B，非常棒的电影，如果国内可以上映一定再去看一看。<strong>凉宫春日的消失</strong>是动画，在去年MACROSS、高达OO、Fate、柯南剧场都不给力的大环境下，凉宫春日的消失可谓是一枝独秀，宇宙人、未来人、超能力者和神一样的春日的集体消失，世界会变得多寂寞啊，看过才懂。<strong>社交网络</strong>也很给力，跟不上台词。虽然facebook的发迹史的确是扣人心弦，不过我对Zack其人倒是持保留态度，究竟是技术出生的幸运儿，还是权力斗争胜利的闷骚男呢？<strong>城中大盗</strong>是本阿弗莱克这个才子的最新作，充满了浪漫主义的大盗们，出彩！剧情演技导演都没的说，给力。</p>
 
-<p><strong>好片</strong></p>
+<h2>好片</h2>
 
 <p><strong>绯闻计划A</strong>和<strong>怪兽</strong>绝对也是强片！放在第二档有些许委屈了。前者是青春校园喜剧，我还是很感冒的。后者就是典型的小成本小视角的大SI-FI，绝对好看，影射了战争的很多古老的话题比如正义比如人性。<strong>卑鄙的我</strong>属于黑马作品，在好莱坞，不是只有皮克斯出得了好动画片哦！</p>
 
-<p><strong>烂片</strong></p>
+<h2>烂片</h2>
 
 <p><strong>野性目标</strong>虽然稍微有点委屈不算是烂片，不过的确不对我们的胃口啊，英式的幽默实在是。。。 <strong>Skyline</strong>属于大成本大科幻，不过看见男主角的时候我就预感到是烂片，没想到这么么烂，千万别看，终生后悔！</p>
 

@@ -81,55 +81,65 @@
 			在Windows编译MySQLdb for Python</a>
 	</h2>
 	<div class="entry-content">
-		<p>之前倒是在ubuntu上用过，双系统在win下面工作，出于懒得重启这么个原因于是想快速在win上跑一段python代码，想想是挺快的一件事情结果倒还真是折腾了一段时间。在<a href="http://sourceforge.net/projects/mysql-python/">sourceforge</a>上下载了最新版（1.2.3），开始安装，于是在执行python setup.py install的时候先后遇到了三个问题，分别记录如下：</p>
+		<p>之前倒是在ubuntu上用过，双系统在win下面工作，出于懒得重启这么个原因于是想快速在win上跑一段python代码，想想是挺快的一件事情结果倒还真是折腾了一段时间。在<a href="http://sourceforge.net/projects/mysql-python/">sourceforge</a>上下载了最新版（1.2.3），开始安装，于是在执行<code>python setup.py install</code>的时候先后遇到了三个问题，分别记录如下：</p>
 
 <hr />
 
-<p><strong>问题</strong>： _mysql.c(34) : fatal error C1083: Cannot open include file: &#8216;config-win.h&#8217;: No such file or directory</p>
+<p><strong>问题</strong>：</p>
 
-<pre><code>error: command '"C:Program FilesMicrosoft Visual Studio 9.0VCBINcl.exe"' failed with exit status 2
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>_mysql.c(34) : fatal error C1083: Cannot open include file: 'config-win.h': No such file or directory
+</span><span class='line'>error: command '"C:Program FilesMicrosoft Visual Studio 9.0VCBINcl.exe"' failed with exit status 2</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>原因</strong>：原因是安装MySQL的时候没有安装C语言库。</p>
 
-<p><strong>解决</strong>：重新运行MySQL的安装程序，选择Modify，把&#8221;C Include Files / Lib Files&#8221;勾选上，并安装。</p>
+<p><strong>解决</strong>：重新运行MySQL的安装程序，选择Modify，把<code>C Include Files / Lib Files</code>勾选上，并安装。</p>
 
 <hr />
 
-<p><strong>问题</strong>：Traceback (most recent call last):</p>
+<p><strong>问题</strong>：</p>
 
-<pre><code> File "setup.py", line 15, in &lt;module&gt;  
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Traceback (most recent call last):
+</span><span class='line'> File "setup.py", line 15, in &lt;module&gt;
+</span><span class='line'> metadata, options = get_config()
+</span><span class='line'> File "C:MySQL-python-1.2.3setup_windows.py", line 7, in get_config
+</span><span class='line'> serverKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, options['registry_key'])
+</span><span class='line'>WindowsError: [Error 2] The system cannot find the file specified</span></code></pre></td></tr></table></div></figure>
 
- metadata, options = get_config()  
-
- File "C:MySQL-python-1.2.3setup_windows.py", line 7, in get_config  
-
- serverKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, options['registry_key'])  
-
-WindowsError: [Error 2] The system cannot find the file specified
-</code></pre>
 
 <p><strong>原因</strong>：MySQL for python 1.2.3仍然是在寻找MySQL5.0的版本</p>
 
-<p><strong>解决</strong>：1、打开目录下site.cfg文件，修改最后一行为&#8221;registry_key = SOFTWAREMySQL ABMySQL Server 5.1&#8221;</p>
+<p><strong>解决</strong>：</p>
 
-<pre><code>2、打开setup_windows.py文件，修改第七行为"serverKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, 'SOFTWAREMySQL ABMySQL Server 5.1')"
-</code></pre>
+<p>1、打开目录下site.cfg文件，修改最后一行为<code>registry_key = SOFTWAREMySQL ABMySQL Server 5.1</code></p>
+
+<p>2、打开setup_windows.py文件，修改第七行为<code>serverKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, 'SOFTWAREMySQL ABMySQL Server 5.1')</code></p>
 
 <hr />
 
-<p><strong>问题</strong>：buildtemp.win32-2.7Release_mysql.pyd.manifest : general error c1010070: Failed to load and parse the manifest. The system cannot find the file specified.</p>
+<p><strong>问题</strong>：</p>
 
-<pre><code>error: command 'mt.exe' failed with exit status 31
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>buildtemp.win32-2.7Release_mysql.pyd.manifest : general error c1010070: Failed to load and parse the manifest. The system cannot find the file specified.
+</span><span class='line'>error: command 'mt.exe' failed with exit status 31</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>原因</strong>：路径发生变化？</p>
 
-<p><strong>解决</strong>：打开&#8221;你的PYTHON安装目录Libdistutilsmsvc9compiler.py&#8221;文件，找到&#8221;ld_args.append(&#8216;/MANIFESTFILE:&#8217; + temp_manifest)&#8221;这行代码，将其改为&#8221;ld_args.append(&#8216;/MANIFEST&#8217;)&#8221;</p>
+<p><strong>解决</strong>：打开<code>你的PYTHON安装目录Libdistutilsmsvc9compiler.py</code>文件，找到<code>ld_args.append('/MANIFESTFILE:' + temp_manifest)</code>这行代码，将其改为<code>ld_args.append('/MANIFEST')</code></p>
 
 <hr />
 
-<p>这样应该就可以正常python setup.py install了。</p>
+<p>这样应该就可以正常<code>python setup.py install</code>了。</p>
 
 <p>以上。</p>
 

@@ -76,18 +76,16 @@
 
 <p>在windows下用maven2，遇到一个错：<strong>编码 GBK 的不可映射字符</strong>，原因是windows版的maven2默认编码是GBK。如果有windows的参与者，那解决方法是在pom.xml里加入以下语句：</p>
 
-<pre><code>&lt;properties&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;properties&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;maven.compiler.encoding&gt;</span>UTF-8<span class="nt">&lt;/maven.compiler.encoding&gt;</span>
+</span><span class='line'><span class="nt">&lt;/properties&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>&lt;project.build.sourceEncoding>UTF-8&lt;/project.build.sourceEncoding></p>
-
-<pre><code> &lt;maven.compiler.encoding&gt;UTF-8&lt;/maven.compiler.encoding&gt;
-
-
-
-
-&lt;/properties&gt;
-</code></pre>
 
 <p>另外后面一句是在使用mvn compile命令的时候才需要的。</p>
 
@@ -105,9 +103,12 @@
 
 <hr />
 
-<p>还是一个git的小问题，一直很顺的用 <strong>git pull 仓库名 分支名</strong> 和 <strong>git push 仓库名 分支名</strong> 突然有人问起本地分支和远程分支的命名不一样的时候怎么办。。。 还真是查了很久啊。发现原来git pull 语句是这样描述的：</p>
+<p>还是一个git的小问题，一直很顺的用 <code>git pull 仓库名 分支名</code> 和 <code>git push 仓库名 分支名</code> 突然有人问起本地分支和远程分支的命名不一样的时候怎么办。。。 还真是查了很久啊。发现原来git pull 语句是这样描述的：</p>
 
-<blockquote><p>git push [远程仓库名] [本地分支]:[远程分支]</p></blockquote>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git push <span class="o">[</span>远程仓库名<span class="o">]</span> <span class="o">[</span>本地分支<span class="o">]</span> :<span class="o">[</span>远程分支<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这个冒号很微妙啊。。以前都是偷懒了用了他的默认。</p>
 
@@ -119,7 +120,7 @@
 
 <p>${some_double_number?string(0.######)}</p>
 
-<h1>的数量你懂的。更多具体的选项请看下面的链接。</h1>
+<p>&#8217;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
 
 <p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
 </div>

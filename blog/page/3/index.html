@@ -197,7 +197,7 @@
 </ul>
 
 
-<p><strong>> 力荐：</strong></p>
+<h2>力荐</h2>
 
 <p><img src="http://img3.douban.com/spic/s3932456.jpg" alt="" /><img src="http://img3.douban.com/spic/s4515668.jpg" alt="" /><img src="http://img3.douban.com/spic/s1640133.jpg" alt="" /><img src="http://img3.douban.com/spic/s3220782.jpg" alt="" /></p>
 
@@ -207,7 +207,7 @@
 
 <p>另外要推荐<strong>12猴子</strong>和<strong>人猿星球</strong>，两部老片子，感觉有点像，这应该轮不到我来推荐了吧，都是经典中的经典，都是久闻其名却没有真正看过的。12猴子是一部科幻和商业结合的非常完美的片子，虽然比不上Inception这种于商业片结合的极致。另外人猿星球会在后面重点提到。</p>
 
-<p><strong>> 补完</strong>：</p>
+<h2>补完</h2>
 
 <p><img src="http://img3.douban.com/spic/s3220782.jpg" alt="" /><img src="http://img3.douban.com/spic/s3967622.jpg" alt="" /><img src="http://img3.douban.com/spic/s2375383.jpg" alt="" /><img src="http://img3.douban.com/spic/s1888574.jpg" alt="" /><img src="http://img3.douban.com/spic/s2677371.jpg" alt="" /> | <img src="http://img3.douban.com/spic/s2862896.jpg" alt="" /></p>
 
@@ -217,7 +217,7 @@
 
 <p>最后稍微提一下上月欠下的<strong>机械战警</strong>系列。同样系列最经典还是第一部，而且第一部要在我心里放个位置其实也就是中上吧。带着美好回忆去看的，不过并不是特别的感动。小时候的要求和标准不一样吧，或者说花花世界看多了，这样的片子完全没有杀伤力。三部曲一部比一部差，虽然对于没有看过的人来说是值得补完的系列，不过绝对不是高优先级的片子。不多说了~</p>
 
-<p><strong>> 其他</strong>：</p>
+<h2>其他</h2>
 
 <p>另外这个月也看过几部值得推荐的电影，虽然站不到非常高的高度，也不是什么经典的系列不过也是不得不提的。</p>
 
@@ -277,12 +277,12 @@
 <li><p>%eclispe_dir%/configration/config.ini文件</p>
 
 <ul>
-<li><p>org.eclipse.update.reconcile=false, 改成true</p></li>
-<li><p>或者加上osgi.checkconfiguration=true</p></li>
+<li><p><code>org.eclipse.update.reconcile=false</code>, 改成<code>true</code></p></li>
+<li><p>或者加上<code>osgi.checkconfiguration=true</code></p></li>
 </ul>
 </li>
-<li><p>删除整个目录/eclipse/configuration/org.eclipse.update/，重启eclipse</p></li>
-<li><p>在启动eclipse时带上 -clean参数</p></li>
+<li><p>删除整个目录<code>/eclipse/configuration/org.eclipse.update/</code>，重启eclipse</p></li>
+<li><p>在启动eclipse时带上 <code>-clean</code>参数</p></li>
 </ul>
 
 
@@ -334,44 +334,81 @@
 
 <p>在用户目录下(就是.bashrc的目录) 修改或创建 .gtkrc 文件, 然后填上以下内容.</p>
 
-<pre><code>style "gtkcompact" {
-font_name="Sans 8"
-GtkButton::default_border={0,0,0,0}
-GtkButton::default_outside_border={0,0,0,0}
-GtkButtonBox::child_min_width=0
-GtkButtonBox::child_min_heigth=0
-GtkButtonBox::child_internal_pad_x=0
-GtkButtonBox::child_internal_pad_y=0
-GtkMenu::vertical-padding=1
-GtkMenuBar::internal_padding=0
-GtkMenuItem::horizontal_padding=4
-GtkToolbar::internal-padding=0
-GtkToolbar::space-size=0
-GtkOptionMenu::indicator_size=0
-GtkOptionMenu::indicator_spacing=0
-GtkPaned::handle_size=4
-GtkRange::trough_border=0
-GtkRange::stepper_spacing=0
-GtkScale::value_spacing=0
-GtkScrolledWindow::scrollbar_spacing=0
-GtkExpander::expander_size=10
-GtkExpander::expander_spacing=0
-GtkTreeView::vertical-separator=0
-GtkTreeView::horizontal-separator=0
-GtkTreeView::expander-size=8
-GtkTreeView::fixed-height-mode=TRUE
-GtkWidget::focus_padding=0
-}
-class "GtkWidget" style "gtkcompact"
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>style "gtkcompact" {
+</span><span class='line'>font_name="Sans 8"
+</span><span class='line'>GtkButton::default_border={0,0,0,0}
+</span><span class='line'>GtkButton::default_outside_border={0,0,0,0}
+</span><span class='line'>GtkButtonBox::child_min_width=0
+</span><span class='line'>GtkButtonBox::child_min_heigth=0
+</span><span class='line'>GtkButtonBox::child_internal_pad_x=0
+</span><span class='line'>GtkButtonBox::child_internal_pad_y=0
+</span><span class='line'>GtkMenu::vertical-padding=1
+</span><span class='line'>GtkMenuBar::internal_padding=0
+</span><span class='line'>GtkMenuItem::horizontal_padding=4
+</span><span class='line'>GtkToolbar::internal-padding=0
+</span><span class='line'>GtkToolbar::space-size=0
+</span><span class='line'>GtkOptionMenu::indicator_size=0
+</span><span class='line'>GtkOptionMenu::indicator_spacing=0
+</span><span class='line'>GtkPaned::handle_size=4
+</span><span class='line'>GtkRange::trough_border=0
+</span><span class='line'>GtkRange::stepper_spacing=0
+</span><span class='line'>GtkScale::value_spacing=0
+</span><span class='line'>GtkScrolledWindow::scrollbar_spacing=0
+</span><span class='line'>GtkExpander::expander_size=10
+</span><span class='line'>GtkExpander::expander_spacing=0
+</span><span class='line'>GtkTreeView::vertical-separator=0
+</span><span class='line'>GtkTreeView::horizontal-separator=0
+</span><span class='line'>GtkTreeView::expander-size=8
+</span><span class='line'>GtkTreeView::fixed-height-mode=TRUE
+</span><span class='line'>GtkWidget::focus_padding=0
+</span><span class='line'>}
+</span><span class='line'>class "GtkWidget" style "gtkcompact"
+</span><span class='line'>
+</span><span class='line'>style "gtkcompactextra" {
+</span><span class='line'>xthickness=0
+</span><span class='line'>ythickness=0
+</span><span class='line'>}
+</span><span class='line'>class "GtkButton" style "gtkcompactextra"
+</span><span class='line'>class "GtkToolbar" style "gtkcompactextra"
+</span><span class='line'>class "GtkPaned" style "gtkcompactextra"</span></code></pre></td></tr></table></div></figure>
 
-style "gtkcompactextra" {
-xthickness=0
-ythickness=0
-}
-class "GtkButton" style "gtkcompactextra"
-class "GtkToolbar" style "gtkcompactextra"
-class "GtkPaned" style "gtkcompactextra"
-</code></pre>
 
 <p>说实话小气鬼真的看不懂, 也懒得看懂, 反正eclipse现在不碍着我了, 缺点是没有碍着我的其他软件其他界面里的一些布局都发生了一些变化, 不过这种让出屏幕空间的变化对一般人来说是缺点, 但是对小气鬼来说也不能不说是另一种feature~!  最后小气鬼心满意足的放一张截图<del>~ 这窄窄的看上去多顺眼啊</del></p>
 
@@ -421,12 +458,11 @@ class "GtkPaned" style "gtkcompactextra"
 	<div class="entry-content">
 		<p>首先声明这个文字的内容是在阮一峰的英文博客上看到的，先把原文贴过来吧：</p>
 
-<blockquote><p>5 Technology Trends Programmers Should Know</p></blockquote>
+<blockquote><p>5 Technology Trends Programmers Should Know</p>
 
-<pre><code>    by ruanyf
-</code></pre>
+<p>by ruanyf</p>
 
-<blockquote><ul>
+<ul>
 <li><p><strong>Learn and use a modern scripting language</strong>. Ruby, Python, Groovy… What matters is having a quick and easy tool at hand for anything.</p></li>
 <li><p><strong>Learn and use a modern version control system</strong>. Git or Mercurial.</p></li>
 <li><p><strong>Be familiar with NoSQL solutions</strong>, like MongoDB and CouchDB. They works when traditional relational DBs reach their limits at scaling and performance.</p></li>
@@ -435,14 +471,11 @@ class "GtkPaned" style "gtkcompactextra"
 </ul>
 
 
-<p>via:[</p></blockquote>
+<p>via:</p>
 
-<pre><code>    http://blog.mostof.it/top-5-trends-in-software-development/](http://blog.mostof.it/top-5-trends-in-software-development/)  
+<p><a href="http://blog.mostof.it/top-5-trends-in-software-development/">http://blog.mostof.it/top-5-trends-in-software-development/</a></p>
 
-    [http://www.ruanyifeng.com/en/2010/11/5-technology-trends-programmers-should-know/](http://www.ruanyifeng.com/en/2010/11/5-technology-trends-programmers-should-know/)
-</code></pre>
-
-<blockquote></blockquote>
+<p><a href="http://www.ruanyifeng.com/en/2010/11/5-technology-trends-programmers-should-know/">http://www.ruanyifeng.com/en/2010/11/5-technology-trends-programmers-should-know/</a></p></blockquote>
 
 <p>后面是我大概说说，说说自己对它们的了解，欢迎大家一起讨论~</p>
 
@@ -500,8 +533,10 @@ class "GtkPaned" style "gtkcompactextra"
 	<div class="entry-content">
 		<p>升级到10.10之后Alt + Print Screen就失效了, 今天Google了下发现原来不单单是我的问题, 这里有个解决办法. 在terminal输入以下命令:</p>
 
-<pre><code>sysctl -w kernel.sysrq=0
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sysctl -w kernel.sysrq<span class="o">=</span>0
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>就搞定了. 如果重启之后问题依旧就把这一行加到 /etc/rc.local 里. 不知道这个问题会不会得到ubuntu之后升级的修复.</p>
 
@@ -609,10 +644,7 @@ class "GtkPaned" style "gtkcompactextra"
 	<div class="entry-content">
 		<p>又是月初才写上个月的内容，话说时间过得好快，以前每年都觉得上半年比较快，下半年比较慢，今年一下子已经到了10月份了，真是时光飞逝啊。有的时候我也会想这博客存在的意义是什么，因为好像每个月就指望这篇电影报告了。我的程序都不知道飞到哪里去了。大概一个是因为工作了，自己瞎摆弄别的东西的时间少了，另外很大程度上，以前会写下来的鸡毛蒜皮的小经验，现在有些不屑一顾了。</p>
 
-<p><img src="http://img3.douban.com/spic/s4101601.jpg" alt="Frozen" /><img src="http://img3.douban.com/spic/s1441712.jpg" alt="Mercury Rising" /><img src="http://img3.douban.com/spic/s3109578.jpg" alt="The Hitchhiker's Guide to the Galaxy" /><img src="http://img3.douban.com/spic/s4407096.jpg" alt="名探偵コナン 天空の難破船" /></p>
-
-<pre><code>![Macross F](http://img3.douban.com/spic/s3276984.jpg)![RoboCop](http://img3.douban.com/spic/s1430161.jpg)![Robocop 2](http://img5.douban.com/spic/s2862895.jpg)![Leaves of Grass](http://img3.douban.com/spic/s3249948.jpg)
-</code></pre>
+<p><img src="http://img3.douban.com/spic/s4101601.jpg" alt="" /><img src="http://img3.douban.com/spic/s1441712.jpg" alt="" /><img src="http://img3.douban.com/spic/s3109578.jpg" alt="" /><img src="http://img3.douban.com/spic/s4407096.jpg" alt="" /><img src="http://img3.douban.com/spic/s3276984.jpg" alt="" /><img src="http://img3.douban.com/spic/s1430161.jpg" alt="" /><img src="http://img5.douban.com/spic/s2862895.jpg" alt="" /><img src="http://img3.douban.com/spic/s3249948.jpg" alt="" /></p>
 
 <p>这个月美剧全面回归，因为24和LOST的完结，Arthur追的美剧其实越来越少了，这一季追的只有Dexter, House M.D., Fringe, TBBT四部了，因为医龙3也回归了，所以还追了一部日剧。这个月看的东西如上，豆列<a href="http://movie.douban.com/doulist/766853/">在此</a>。</p>
 

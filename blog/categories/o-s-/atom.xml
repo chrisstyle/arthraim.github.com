@@ -4,7 +4,7 @@
   <title><![CDATA[Category: O.S. | Artoirus]]></title>
   <link href="http://Arthraim.github.com/blog/categories/o-s-/atom.xml" rel="self"/>
   <link href="http://Arthraim.github.com/"/>
-  <updated>2012-11-28T21:25:55+08:00</updated>
+  <updated>2012-12-09T11:06:44+08:00</updated>
   <id>http://Arthraim.github.com/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -25,6 +25,8 @@
 <p>于是我生气了, 于是我在寻求了别人帮助未果然后憋屈了好多年之后我终于生气了. 于是我今天去Google了, 于是我Google到了, 顺便提一下另外一个很让小气鬼生气的事情是Google到的结果是要翻墙才能看到的. 于是我在墙外某处看到了一个灰常牛B的做法, 自己改.gtkrc文件.</p>
 
 <p>在用户目录下(就是.bashrc的目录) 修改或创建 .gtkrc 文件, 然后填上以下内容.</p>
+
+<p>```</p>
 
 <pre><code>style "gtkcompact" {
 font_name="Sans 8"
@@ -65,6 +67,8 @@ class "GtkToolbar" style "gtkcompactextra"
 class "GtkPaned" style "gtkcompactextra"
 </code></pre>
 
+<p>```</p>
+
 <p>说实话小气鬼真的看不懂, 也懒得看懂, 反正eclipse现在不碍着我了, 缺点是没有碍着我的其他软件其他界面里的一些布局都发生了一些变化, 不过这种让出屏幕空间的变化对一般人来说是缺点, 但是对小气鬼来说也不能不说是另一种feature~!  最后小气鬼心满意足的放一张截图<del>~ 这窄窄的看上去多顺眼啊</del></p>
 
 <p><a href="/images/uploads/wp/2010-11-24_better_look_eclipse.png"><img src="/images/uploads/wp/2010-11-24_better_look_eclipse.png" alt="" /></a></p>
@@ -82,8 +86,12 @@ class "GtkPaned" style "gtkcompactextra"
     <id>http://Arthraim.github.com/ubuntu-10-10-alt-print-screen-is-not-working</id>
     <content type="html"><![CDATA[<p>升级到10.10之后Alt + Print Screen就失效了, 今天Google了下发现原来不单单是我的问题, 这里有个解决办法. 在terminal输入以下命令:</p>
 
+<p>```sh</p>
+
 <pre><code>sysctl -w kernel.sysrq=0
 </code></pre>
+
+<p>```</p>
 
 <p>就搞定了. 如果重启之后问题依旧就把这一行加到 /etc/rc.local 里. 不知道这个问题会不会得到ubuntu之后升级的修复.</p>
 

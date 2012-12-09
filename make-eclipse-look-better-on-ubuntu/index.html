@@ -80,44 +80,81 @@
 
 <p>在用户目录下(就是.bashrc的目录) 修改或创建 .gtkrc 文件, 然后填上以下内容.</p>
 
-<pre><code>style "gtkcompact" {
-font_name="Sans 8"
-GtkButton::default_border={0,0,0,0}
-GtkButton::default_outside_border={0,0,0,0}
-GtkButtonBox::child_min_width=0
-GtkButtonBox::child_min_heigth=0
-GtkButtonBox::child_internal_pad_x=0
-GtkButtonBox::child_internal_pad_y=0
-GtkMenu::vertical-padding=1
-GtkMenuBar::internal_padding=0
-GtkMenuItem::horizontal_padding=4
-GtkToolbar::internal-padding=0
-GtkToolbar::space-size=0
-GtkOptionMenu::indicator_size=0
-GtkOptionMenu::indicator_spacing=0
-GtkPaned::handle_size=4
-GtkRange::trough_border=0
-GtkRange::stepper_spacing=0
-GtkScale::value_spacing=0
-GtkScrolledWindow::scrollbar_spacing=0
-GtkExpander::expander_size=10
-GtkExpander::expander_spacing=0
-GtkTreeView::vertical-separator=0
-GtkTreeView::horizontal-separator=0
-GtkTreeView::expander-size=8
-GtkTreeView::fixed-height-mode=TRUE
-GtkWidget::focus_padding=0
-}
-class "GtkWidget" style "gtkcompact"
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>style "gtkcompact" {
+</span><span class='line'>font_name="Sans 8"
+</span><span class='line'>GtkButton::default_border={0,0,0,0}
+</span><span class='line'>GtkButton::default_outside_border={0,0,0,0}
+</span><span class='line'>GtkButtonBox::child_min_width=0
+</span><span class='line'>GtkButtonBox::child_min_heigth=0
+</span><span class='line'>GtkButtonBox::child_internal_pad_x=0
+</span><span class='line'>GtkButtonBox::child_internal_pad_y=0
+</span><span class='line'>GtkMenu::vertical-padding=1
+</span><span class='line'>GtkMenuBar::internal_padding=0
+</span><span class='line'>GtkMenuItem::horizontal_padding=4
+</span><span class='line'>GtkToolbar::internal-padding=0
+</span><span class='line'>GtkToolbar::space-size=0
+</span><span class='line'>GtkOptionMenu::indicator_size=0
+</span><span class='line'>GtkOptionMenu::indicator_spacing=0
+</span><span class='line'>GtkPaned::handle_size=4
+</span><span class='line'>GtkRange::trough_border=0
+</span><span class='line'>GtkRange::stepper_spacing=0
+</span><span class='line'>GtkScale::value_spacing=0
+</span><span class='line'>GtkScrolledWindow::scrollbar_spacing=0
+</span><span class='line'>GtkExpander::expander_size=10
+</span><span class='line'>GtkExpander::expander_spacing=0
+</span><span class='line'>GtkTreeView::vertical-separator=0
+</span><span class='line'>GtkTreeView::horizontal-separator=0
+</span><span class='line'>GtkTreeView::expander-size=8
+</span><span class='line'>GtkTreeView::fixed-height-mode=TRUE
+</span><span class='line'>GtkWidget::focus_padding=0
+</span><span class='line'>}
+</span><span class='line'>class "GtkWidget" style "gtkcompact"
+</span><span class='line'>
+</span><span class='line'>style "gtkcompactextra" {
+</span><span class='line'>xthickness=0
+</span><span class='line'>ythickness=0
+</span><span class='line'>}
+</span><span class='line'>class "GtkButton" style "gtkcompactextra"
+</span><span class='line'>class "GtkToolbar" style "gtkcompactextra"
+</span><span class='line'>class "GtkPaned" style "gtkcompactextra"</span></code></pre></td></tr></table></div></figure>
 
-style "gtkcompactextra" {
-xthickness=0
-ythickness=0
-}
-class "GtkButton" style "gtkcompactextra"
-class "GtkToolbar" style "gtkcompactextra"
-class "GtkPaned" style "gtkcompactextra"
-</code></pre>
 
 <p>说实话小气鬼真的看不懂, 也懒得看懂, 反正eclipse现在不碍着我了, 缺点是没有碍着我的其他软件其他界面里的一些布局都发生了一些变化, 不过这种让出屏幕空间的变化对一般人来说是缺点, 但是对小气鬼来说也不能不说是另一种feature~!  最后小气鬼心满意足的放一张截图<del>~ 这窄窄的看上去多顺眼啊</del></p>
 

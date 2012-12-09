@@ -76,11 +76,15 @@
 
 <p>重新搭新环境，先装了rvm，然后装上gem，用gem装了rails。之后呢问题就出来，尝试用bundle exec rake db:seeds的时候会出错，加上&#8211;track参数一看大概是这样子。</p>
 
-<blockquote><p>undefined method `specifications&#8217; for &#8220;/Users/arthraim/.rvm/gems/ruby-1.9.2-p290&#8221;:String</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>undefined method `specifications' for "/Users/arthraim/.rvm/gems/ruby-1.9.2-p290":String</span></code></pre></td></tr></table></div></figure>
+
 
 <p>好像后面也不是特别重要了，只是这个问题比较费解，之前同事好像也遇到过。去Google了一下，居然是gem版本太高的关系，要把gem降级到早一些的版本。不想深究下去了，就说一下解决的办法好了。</p>
 
-<blockquote><p>gem update &#8211;system 1.7.2</p></blockquote>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem update --system 1.7.2</span></code></pre></td></tr></table></div></figure>
+
 
 <p>之前我的版本是1.8.5，虽然不知道具体什么情况，不过1.7.2就可以了。话说gem update到老版本的方法好神奇 -。-</p>
 </div>

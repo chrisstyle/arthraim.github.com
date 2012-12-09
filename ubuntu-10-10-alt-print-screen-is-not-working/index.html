@@ -7,7 +7,8 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="升级到10.10之后Alt + Print Screen就失效了, 今天Google了下发现原来不单单是我的问题, 这里有个解决办法. 在terminal输入以下命令: sysctl -w kernel.sysrq=0 就搞定了. 如果重启之后问题依旧就把这一行加到 /etc/rc.local 里 &hellip;">
+	<meta name="description" content="升级到10.10之后Alt + Print Screen就失效了, 今天Google了下发现原来不单单是我的问题, 这里有个解决办法. 在terminal输入以下命令: 1
+sysctl -w kernel.sysrq=0 就搞定了. 如果重启之后问题依旧就把这一行加到 /etc/rc.local &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,8 +75,10 @@
 	<h2 class="title">Ubuntu 10.10的Alt+Print Screen截图无效</h2>
 	<div class="entry-content"><p>升级到10.10之后Alt + Print Screen就失效了, 今天Google了下发现原来不单单是我的问题, 这里有个解决办法. 在terminal输入以下命令:</p>
 
-<pre><code>sysctl -w kernel.sysrq=0
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sysctl -w kernel.sysrq<span class="o">=</span>0
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>就搞定了. 如果重启之后问题依旧就把这一行加到 /etc/rc.local 里. 不知道这个问题会不会得到ubuntu之后升级的修复.</p>
 
