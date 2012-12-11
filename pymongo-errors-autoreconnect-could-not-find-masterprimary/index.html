@@ -76,22 +76,33 @@
 
 <p>具体错误如下:</p>
 
-<pre><code>Traceback (most recent call last):
-  File "/home/arthur/workspace/DUMMY/python/DUMMY.py", line 7, in &lt;module&gt;
-    mongo_con = pymongo.Connection( )
-  File "/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py", line 291, in __init__
-    self.__find_master()
-  File "/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py", line 495, in __find_master
-    raise AutoReconnect("could not find master/primary")
-pymongo.errors.AutoReconnect: could not find master/primary&lt;/module&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/home/arthur/workspace/DUMMY/python/DUMMY.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="n">mongo_con</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">291</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__init__</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">__find_master</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">495</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__find_master</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="n">AutoReconnect</span><span class="p">(</span><span class="s">&quot;could not find master/primary&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">pymongo</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">AutoReconnect</span><span class="p">:</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">find</span> <span class="n">master</span><span class="o">/</span><span class="n">primary</span><span class="o">&lt;/</span><span class="n">module</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>引起这个错误的原因有很多, 比如mongod根本没有起来, Google到还有早期版本可能存在的bug. 我连接任何一台计算机上的mongodb都是正常的, 唯独连接那台的有问题. 在我闷头升级服务器的python版本(2.7), 升级了服务器的mongodb版本(1.8.1), 都于事无补(事实上在我的尝试看来, pymongo 1.8.1连接1.4.3以上的mongodb都没有问题).</p>
 
 <p>最后问题是因为Master-Slave. 因为升级mongo的时候要更新各个节点, 之后同事重启后才突然想到, 连不上是因为这台服务器是slave. 找会不会是这个原因引发的问题的时候, 在<a href="http://api.mongodb.org/python/1.7/api/pymongo/master_slave_connection.html">这里</a>仔细一看发现构建Connection的时候, 有一个slave_okay的参数, 设置为True之后就可以单独连接一个slave节点了. 当然文档里pymongo.master_slave_connection.MasterSlaveConnection类就更重了.</p>
 
-<pre><code>mongo_con = pymongo.Connection(slave_okay=True)
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">mongo_con</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">slave_okay</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>最后随便说一句, mongodb真的是个好东西, <a href="http://renjian.com">人间网</a>的技术人员从我来之前就一直尝试使用它.</p>
 

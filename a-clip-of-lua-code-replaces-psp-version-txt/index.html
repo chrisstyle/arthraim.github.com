@@ -76,12 +76,17 @@
 
 <p>当然办法不是没有，要说起PSP的flash0（下次有机会一定要好好写写PSP的破解）。大概介绍下，flash0是存放内核的空间，而flash1是存放用户设置的地方。内核的验证也就很简单（不是所有的验证都这样，因为新内核会有新插件、新模块），验证一个txt文本文件 &#8212;- version.txt。名字叫的太高调了。那么现在欺骗的办法就有了，只要改version.txt！但是不得不说一下version.txt，这个东西不是我凭空讲讲写写改个数字就好了，里面有一堆信息，这里我贴个5.55的version.txt。</p>
 
-<pre><code>release:5.55:
-build:3230,0,3,1,0:builder@vsh-build6
-system:52556@release_555,0x05050510:
-vsh:p6434@release_555,v52629@release_555,20090608:
-target:1:WorldWide
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>release:5.55:
+</span><span class='line'>build:3230,0,3,1,0:builder@vsh-build6
+</span><span class='line'>system:52556@release_555,0x05050510:
+</span><span class='line'>vsh:p6434@release_555,v52629@release_555,20090608:
+</span><span class='line'>target:1:WorldWide</span></code></pre></td></tr></table></div></figure>
+
 
 <p>很复杂，所谓的5.55只是release的版本号，至于他的其他编译信息非常详细，一般来说（具体情况无从考证）软件都是全部要验证的。</p>
 
@@ -91,287 +96,557 @@ target:1:WorldWide
 
 <p>代码很长，所以折叠起来了，可以点击&#8221;expend source&#8221;来展开；</p>
 
-<pre><code>另外没有Lua的高亮，所以我用SQL的高亮代替一下，注释看得出就好了。
+<p>另外没有Lua的高亮，所以我用SQL的高亮代替一下，注释看得出就好了。</p>
 
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="c1">-- Not edit!!!</span>
+</span><span class='line'><span class="c1">-- DAS IST NUR EINE VORL腢FIGE vERSION DIE oRIGINALLE WIRD BESSER -- ---------------------------------------</span>
+</span><span class='line'><span class="n">red</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="n">black</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Hule true make clean -- ---------------------------------------</span>
+</span><span class='line'><span class="k">while</span> <span class="kc">true</span> <span class="k">do</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Learn for school -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">memclean</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- make a cooktail -- ---------------------------------------</span>
+</span><span class='line'><span class="n">CPU</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">setcpuspeed</span><span class="p">(</span><span class="mi">333</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Lose your key -- ---------------------------------------</span>
+</span><span class='line'><span class="k">if</span> <span class="n">System</span><span class="p">.</span><span class="n">cfwVersion</span><span class="p">()</span> <span class="o">&gt;</span> <span class="s2">&quot;</span><span class="s">5.50&quot;</span> <span class="k">then</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Make a Panorama -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">CGTP is just for 5.50 GEN-B2&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Cookkiing with freiends -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Killer a man killer -- ---------------------------------------</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Ending the story -- ---------------------------------------</span>
+</span><span class='line'><span class="k">if</span> <span class="n">System</span><span class="p">.</span><span class="n">cfwVersion</span><span class="p">()</span> <span class="o">&lt;</span> <span class="s2">&quot;</span><span class="s">5.50&quot;</span> <span class="k">then</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Not editer because code by Team CGTP -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">CGTP is just for 5.50 GEN-B2&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- MCpsp the Forum -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- if system clear then -- ---------------------------------------</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- end with sucks -- ---------------------------------------</span>
+</span><span class='line'><span class="k">if</span> <span class="n">System</span><span class="p">.</span><span class="n">powerGetBatteryLifePercent</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">15</span> <span class="k">then</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- make Pandora with vlf -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Charge your batterie over 15 %&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Pudinng a joke -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- tell you something -- ---------------------------------------</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- End the next Story -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="n">clear</span><span class="p">(</span><span class="n">black</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Do not edit  -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">5.55 CGTP Installer&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- because its my code -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">By Team CGTP&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- its an easy code -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Press X to Install 5.55 CGTP&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Installing friends -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Press O to Exit&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Love a dog with cookies -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">www.cngba.com&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- and the code makes Pudding -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">--System making piece -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Wild world maker -- ---------------------------------------</span>
+</span><span class='line'><span class="n">pad</span> <span class="o">=</span> <span class="n">Controls</span><span class="p">.</span><span class="n">read</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- No Joke without Fire -- ---------------------------------------</span>
+</span><span class='line'><span class="n">X</span> <span class="o">=</span> <span class="n">pad</span><span class="p">:</span><span class="n">cross</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- A Womanizer -- ---------------------------------------</span>
+</span><span class='line'><span class="n">O</span> <span class="o">=</span> <span class="n">pad</span><span class="p">:</span><span class="n">circle</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Codeing this little CFW -- ---------------------------------------</span>
+</span><span class='line'><span class="k">if</span> <span class="n">O</span> <span class="k">then</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Team Philix see you -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Do nothing without us -- ---------------------------------------</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- make some more pudding -- ---------------------------------------</span>
+</span><span class='line'><span class="k">if</span> <span class="n">X</span> <span class="k">then</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- clear to somone -- ---------------------------------------</span>
+</span><span class='line'><span class="k">function</span> <span class="nc">System</span><span class="p">.</span><span class="nf">EasyAssign</span><span class="p">(</span><span class="n">flash</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- definition somethink withoaut some -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">unassign</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">flash&quot;</span><span class="o">..</span><span class="n">flash</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">:&quot;</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Learn for school -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">800</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- Dont be afraid -- ---------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">flash&quot;</span><span class="o">..</span><span class="n">flash</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">:&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">lflash0:0,&quot;</span><span class="o">..</span><span class="n">flash</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">flashfat&quot;</span><span class="o">..</span><span class="n">flash</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">:&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="c1">-- I kill you (not) -- --------------s--------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">800</span><span class="p">)</span> <span class="c1">-- ---------------f-----fs----------------------------</span>
+</span><span class='line'><span class="c1">-- lua is baaad -- -----------------------------sf---------------------</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- ------------------------------fs---------fs-----------------------</span>
+</span><span class='line'><span class="c1">-- Have fun with this tool -- ------s---------fs-----------fs-------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">EasyAssign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1">-- ----------------------------------fs----------</span>
+</span><span class='line'><span class="c1">-- did you have finished?  -- ---------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Install 5.55 CGTP...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- --------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- ----------------------------------sdf----------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Do not Shutdown...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ---------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- ---------------------------sdf-----------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ----------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- ---------s-------------sfs----------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -----------------------------------sfs--------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ------------------------sfs---------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- ---------------sf---sfsd-------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- ----------------------gd---------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Creat Folders...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- ----------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ---------------------------------df------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="c1">-- -------------dgd-------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- ---------------------------hfh----------------</span>
+</span><span class='line'><span class="n">kp</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">createDirectory</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">flash0://kp&quot;</span><span class="p">)</span> <span class="c1">-- ----------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------dhf------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ---------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school  -- ------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- --------------fhg-------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Done&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- -------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ---------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="c1">-- --------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- ---------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- ---------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Flashing Files...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- --------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1">-- --------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for school -- -------------------------------------------</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">copyFile</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">version.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">flash0:/vsh/etc/version.txt&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- -------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- -------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Done&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- -----------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- -------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="c1">-- -------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- -------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1">-- -------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Shutdown in 3 Seconds&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span> <span class="c1">-- --------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span> <span class="c1">-- -----------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span> <span class="c1">-- ------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">screen</span><span class="p">:</span><span class="n">clear</span><span class="p">(</span><span class="n">black</span><span class="p">)</span> <span class="c1">-- --------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="n">System</span><span class="p">.</span><span class="n">shutdown</span><span class="p">()</span> <span class="c1">-- -----------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- -------------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="k">end</span> <span class="c1">-- ------------------------------------------------------</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span><span class='line'><span class="c1">-- lorning for schoollearning and not edit this code or copy</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-
--- Not edit!!!
--- DAS IST NUR EINE VORL腢FIGE vERSION DIE oRIGINALLE WIRD BESSER -- ---------------------------------------
-red = Color.new(255,255,255) -- ---------------------------------------
-black = Color.new(0,0,0) -- ---------------------------------------
--- Hule true make clean -- ---------------------------------------
-while true do -- ---------------------------------------
--- Learn for school -- ---------------------------------------
-System.memclean() -- ---------------------------------------
--- make a cooktail -- ---------------------------------------
-CPU = System.setcpuspeed(333) -- ---------------------------------------
--- Lose your key -- ---------------------------------------
-if System.cfwVersion() &gt; "5.50" then -- ---------------------------------------
--- Make a Panorama -- ---------------------------------------
-System.message("CGTP is just for 5.50 GEN-B2",0) -- ---------------------------------------
--- Cookkiing with freiends -- ---------------------------------------
-System.Quit() -- ---------------------------------------
--- Killer a man killer -- ---------------------------------------
-end -- ---------------------------------------
--- Ending the story -- ---------------------------------------
-if System.cfwVersion() &lt; "5.50" then -- ---------------------------------------
--- Not editer because code by Team CGTP -- ---------------------------------------
-System.message("CGTP is just for 5.50 GEN-B2",0) -- ---------------------------------------
--- MCpsp the Forum -- ---------------------------------------
-System.Quit() -- ---------------------------------------
--- if system clear then -- ---------------------------------------
-end -- ---------------------------------------
--- end with sucks -- ---------------------------------------
-if System.powerGetBatteryLifePercent() &lt; 15 then -- ---------------------------------------
--- make Pandora with vlf -- ---------------------------------------
-System.message("Charge your batterie over 15 %",0) -- ---------------------------------------
--- Pudinng a joke -- ---------------------------------------
-System.Quit() -- ---------------------------------------
--- tell you something -- ---------------------------------------
-end -- ---------------------------------------
--- End the next Story -- ---------------------------------------
-screen:clear(black) -- ---------------------------------------
--- Do not edit  -- ---------------------------------------
-screen:print(1,1,"5.55 CGTP Installer", red) -- ---------------------------------------
--- because its my code -- ---------------------------------------
-screen:print(1,20,"By Team CGTP", red) -- ---------------------------------------
--- its an easy code -- ---------------------------------------
-screen:print(1,50,"Press X to Install 5.55 CGTP", red) -- ---------------------------------------
--- Installing friends -- ---------------------------------------
-screen:print(1,60,"Press O to Exit", red) -- ---------------------------------------
--- Love a dog with cookies -- ---------------------------------------
-screen:print(1,30,"www.cngba.com", red) -- ---------------------------------------
--- and the code makes Pudding -- ---------------------------------------
-screen.flip() -- ---------------------------------------
---System making piece -- ---------------------------------------
-screen.waitVblankStart(0) -- ---------------------------------------
--- Wild world maker -- ---------------------------------------
-pad = Controls.read() -- ---------------------------------------
--- No Joke without Fire -- ---------------------------------------
-X = pad:cross() -- ---------------------------------------
--- A Womanizer -- ---------------------------------------
-O = pad:circle() -- ---------------------------------------
--- Codeing this little CFW -- ---------------------------------------
-if O then -- ---------------------------------------
--- Team Philix see you -- ---------------------------------------
-System.Quit() -- ---------------------------------------
--- Do nothing without us -- ---------------------------------------
-end -- ---------------------------------------
--- make some more pudding -- ---------------------------------------
-if X then -- ---------------------------------------
--- clear to somone -- ---------------------------------------
-function System.EasyAssign(flash) -- ---------------------------------------
--- definition somethink withoaut some -- ---------------------------------------
-System.unassign("flash"..flash..":") -- ---------------------------------------
--- Learn for school -- ---------------------------------------
-System.sleep(800) -- ---------------------------------------
--- Dont be afraid -- ---------------------------------------
-System.assign("flash"..flash..":","lflash0:0,"..flash,"flashfat"..flash..":")
--- I kill you (not) -- --------------s--------------------------------
-System.sleep(800) -- ---------------f-----fs----------------------------
--- lua is baaad -- -----------------------------sf---------------------
-end -- ------------------------------fs---------fs-----------------------
--- Have fun with this tool -- ------s---------fs-----------fs-------------
-System.EasyAssign(0)  -- ----------------------------------fs----------
--- did you have finished?  -- ---------------------------------------
-screen:print(1,80,"Install 5.55 CGTP...", red) -- --------------
--- lorning for school -- ----------------------------------sdf----------
-screen:print(1,90,"Do not Shutdown...", red) -- ---------------------
--- lorning for school -- ---------------------------sdf-----------------
-screen.flip() -- ----------------------------------------------------
--- lorning for school -- ---------s-------------sfs----------------------
--- lorning for school -- -----------------------------------sfs--------
-screen.flip() -- ------------------------sfs---------------------------
--- lorning for school -- ---------------sf---sfsd-------------------------
-screen.waitVblankStart(0) -- ---------------------------------------
--- lorning for school -- ----------------------gd---------------------
-screen:print(1,100,"Creat Folders...", red) -- ----------------------
--- lorning for school -- -------------------------------------------
-screen.flip() -- ---------------------------------df------------------
--- lorning for school -- -------------------------------------------
-screen.waitVblankStart(60) -- -------------dgd-------------------------
--- lorning for school -- ---------------------------hfh----------------
-kp = System.createDirectory("flash0://kp") -- ----------------------
--- lorning for school -- -------------------------dhf------------------
-screen.flip() -- ---------------------------------------------------
--- lorning for school  -- ------------------------------------------
-screen.waitVblankStart(0) -- --------------fhg-------------------------
--- lorning for school -- -------------------------------------------
-screen:print(140,100,"Done", red) -- -------------------------------
--- lorning for school -- -------------------------------------------
-screen.flip() -- ---------------------------------------------------
--- lorning for school -- -------------------------------------------
-screen.waitVblankStart(50) -- --------------------------------------
--- lorning for school -- -------------------------------------------
-screen.flip() -- ---------------------------------------------------
--- lorning for school -- -------------------------------------------
-screen.waitVblankStart(0) -- ---------------------------------------
--- lorning for school -- -------------------------------------------
-screen:print(1,110,"Flashing Files...", red) -- --------------------
--- lorning for school -- -------------------------------------------
-screen.flip(5) -- --------------------------------------------------
--- lorning for school -- -------------------------------------------
-System.copyFile("version.txt", "flash0:/vsh/etc/version.txt", 0)
--- lorning for schoollearning and not edit this code or copy
-screen.flip() -- -------------------------------------------
--- lorning for schoollearning and not edit this code or copy
-screen.waitVblankStart(0) -- -------------------------------
--- lorning for schoollearning and not edit this code or copy
-screen:print(140,110,"Done", red) -- -----------------------
--- lorning for schoollearning and not edit this code or copy
-screen.flip() -- -------------------------------------------
--- lorning for schoollearning and not edit this code or copy
-screen.waitVblankStart(40) -- -------------------------------
--- lorning for schoollearning and not edit this code or copy
-screen.flip() -- -------------------------------------------
--- lorning for schoollearning and not edit this code or copy
-screen.waitVblankStart(0) -- -------------------------------
--- lorning for schoollearning and not edit this code or copy
-screen:print(1,120,"Shutdown in 3 Seconds", red) -- --------
--- lorning for schoollearning and not edit this code or copy
-screen.flip() -- -----------------------------------------
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
-screen.waitVblankStart(120) -- ------------------------------
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
-screen:clear(black) -- --------------------------------------
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
-System.shutdown() -- -----------------------------------------
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
-end -- -------------------------------------------------------
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
-end -- ------------------------------------------------------
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
--- lorning for schoollearning and not edit this code or copy
-</code></pre>
 
 <p>整理起来是很辛苦的事情，可读性差不过代码还是很简单的，还真有无聊的人去整理了一下（比如说我），整理之后如下。</p>
 
-<pre><code>red = Color.new(255,255,255)
-black = Color.new(0,0,0)
-while true do
-    System.memclean()
-    CPU = System.setcpuspeed(333)
-    if System.cfwVersion() &gt; "5.50" then
-        System.message("CGTP is just for 5.50 GEN-B2",0)
-        System.Quit()
-    end
-    if System.cfwVersion() &lt; "5.50" then
-        System.message("CGTP is just for 5.50 GEN-B2",0)
-        System.Quit()
-    end
-    if System.powerGetBatteryLifePercent() &lt; 15 then
-        System.message("Charge your batterie over 15 %",0)
-        System.Quit()
-    end
-    screen:clear(black)
-    screen:print(1,1,"5.55 CGTP Installer", red)
-    screen:print(1,20,"By Team CGTP", red)
-    screen:print(1,50,"Press X to Install 5.55 CGTP", red)
-    screen:print(1,60,"Press O to Exit", red)
-    screen:print(1,30,"www.cngba.com", red)
-    screen.flip()
-    screen.waitVblankStart(0)
-    pad = Controls.read()
-    X = pad:cross()
-    O = pad:circle()
-    if O then
-        System.Quit()
-    end
-    if X then
-        function System.EasyAssign(flash)
-            System.unassign("flash"..flash..":")
-            System.sleep(800)
-            System.assign("flash"..flash..":","lflash0:0,"..flash,"flashfat"..flash..":")
-            System.sleep(800)
-        end
-        System.EasyAssign(0)
-        screen:print(1,80,"Install 5.55 CGTP...", red)
-        screen:print(1,90,"Do not Shutdown...", red)
-        screen.flip()
-        screen.flip()
-        screen.waitVblankStart(0)
-        screen:print(1,100,"Creat Folders...", red)
-        screen.flip()
-        screen.waitVblankStart(60)
-        kp = System.createDirectory("flash0://kp")
-        screen.flip()
-        screen.waitVblankStart(0)
-        screen:print(140,100,"Done", red)
-        screen.flip()
-        screen.waitVblankStart(50)
-        screen.flip()
-        screen.waitVblankStart(0)
-        screen:print(1,110,"Flashing Files...", red)
-        screen.flip(5)
-        System.copyFile("version.txt", "flash0:/vsh/etc/version.txt", 0)
-        screen.flip()
-        screen.waitVblankStart(0)
-        screen:print(140,110,"Done", red)
-        screen.flip()
-        screen.waitVblankStart(40)
-        screen.flip()
-        screen.waitVblankStart(0)
-        screen:print(1,120,"Shutdown in 3 Seconds", red)
-        screen.flip()
-        screen.waitVblankStart(120)
-        screen:clear(black)
-        System.shutdown()
-    end
-end
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+</pre></td><td class='code'><pre><code class='lua'><span class='line'><span class="n">red</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+</span><span class='line'><span class="n">black</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="k">while</span> <span class="kc">true</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">System</span><span class="p">.</span><span class="n">memclean</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">CPU</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">setcpuspeed</span><span class="p">(</span><span class="mi">333</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">System</span><span class="p">.</span><span class="n">cfwVersion</span><span class="p">()</span> <span class="o">&gt;</span> <span class="s2">&quot;</span><span class="s">5.50&quot;</span> <span class="k">then</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">CGTP is just for 5.50 GEN-B2&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">System</span><span class="p">.</span><span class="n">cfwVersion</span><span class="p">()</span> <span class="o">&lt;</span> <span class="s2">&quot;</span><span class="s">5.50&quot;</span> <span class="k">then</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">CGTP is just for 5.50 GEN-B2&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">System</span><span class="p">.</span><span class="n">powerGetBatteryLifePercent</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">15</span> <span class="k">then</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">message</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Charge your batterie over 15 %&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">:</span><span class="n">clear</span><span class="p">(</span><span class="n">black</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">5.55 CGTP Installer&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">By Team CGTP&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Press X to Install 5.55 CGTP&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Press O to Exit&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">www.cngba.com&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">pad</span> <span class="o">=</span> <span class="n">Controls</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">X</span> <span class="o">=</span> <span class="n">pad</span><span class="p">:</span><span class="n">cross</span><span class="p">()</span>
+</span><span class='line'>    <span class="n">O</span> <span class="o">=</span> <span class="n">pad</span><span class="p">:</span><span class="n">circle</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">O</span> <span class="k">then</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">Quit</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">X</span> <span class="k">then</span>
+</span><span class='line'>        <span class="k">function</span> <span class="nc">System</span><span class="p">.</span><span class="nf">EasyAssign</span><span class="p">(</span><span class="n">flash</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">System</span><span class="p">.</span><span class="n">unassign</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">flash&quot;</span><span class="o">..</span><span class="n">flash</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">:&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">System</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">800</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">System</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">flash&quot;</span><span class="o">..</span><span class="n">flash</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">:&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">lflash0:0,&quot;</span><span class="o">..</span><span class="n">flash</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">flashfat&quot;</span><span class="o">..</span><span class="n">flash</span><span class="o">..</span><span class="s2">&quot;</span><span class="s">:&quot;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">System</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">800</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">EasyAssign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Install 5.55 CGTP...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Do not Shutdown...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Creat Folders...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">kp</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">createDirectory</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">flash0://kp&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Done&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Flashing Files...&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">copyFile</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">version.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">flash0:/vsh/etc/version.txt&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Done&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="s2">&quot;</span><span class="s">Shutdown in 3 Seconds&quot;</span><span class="p">,</span> <span class="n">red</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">flip</span><span class="p">()</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">.</span><span class="n">waitVblankStart</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">screen</span><span class="p">:</span><span class="n">clear</span><span class="p">(</span><span class="n">black</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">System</span><span class="p">.</span><span class="n">shutdown</span><span class="p">()</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>逻辑除去界面和操作，那只有两个意思：复制 version.txt 到 f0:/vsh/etc/ 目录；f0下创建一个kp目录。（目的何在？当然代码作者应该是分析了demo才做的）回头看看前面的干扰的注释是不是好有趣，内容也是颇为有趣~ 娱乐一下而已~</p>
 

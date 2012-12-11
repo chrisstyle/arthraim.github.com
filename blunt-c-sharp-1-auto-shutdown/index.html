@@ -82,54 +82,102 @@
 
 <p>话说这个程序现在看起来体验很好，因为时间匹配的时候不会直接把电脑关了，而会出来一个提示框，提示框上倒数30秒（足够我从被窝里爬出来去点取消），如果没点取消就关机~ 哈哈。当时不知道怎么想的，这么一个需求还要自己写个程序~ 果然有热情！</p>
 
-<pre><code>// 这个结构体将会传递给API。使用StructLayout(...特性，确保其中的成员是按顺序排列的，C#编译器不会对其进行调整。
-[StructLayout(LayoutKind.Sequential, Pack = 1)]
-internal struct TokPriv1Luid
-{
-    public int Count;
-    public long Luid;
-    public int Attr;
-}
-// 以下使用DllImport特性导入了所需的Windows API。
-// 导入的方法必须是static extern的，并且没有方法体。调用这些方法就相当于调用Windows API。
-[DllImport("kernel32.dll", ExactSpelling = true)]
-internal static extern IntPtr GetCurrentProcess();
-[DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
-internal static extern bool OpenProcessToken(IntPtr h, int acc, ref IntPtr phtok);
-[DllImport("advapi32.dll", SetLastError = true)]
-internal static extern bool LookupPrivilegeValue(string host, string name, ref long pluid);
-[DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
-internal static extern bool AdjustTokenPrivileges(IntPtr htok, bool disall,
-ref TokPriv1Luid newst, int len, IntPtr prev, IntPtr relen);
-[DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
-internal static extern bool ExitWindowsEx(int flg, int rea);
-// 以下定义了在调用WinAPI时需要的常数。这些常数通常可以从Platform SDK的包含文件（头文件）中找到
-internal const int SE_PRIVILEGE_ENABLED = 0x00000002;
-internal const int TOKEN_QUERY = 0x00000008;
-internal const int TOKEN_ADJUST_PRIVILEGES = 0x00000020;
-internal const string SE_SHUTDOWN_NAME = "SeShutdownPrivilege";
-internal const int EWX_LOGOFF = 0x00000000;
-internal const int EWX_SHUTDOWN = 0x00000001;
-internal const int EWX_REBOOT = 0x00000002;
-internal const int EWX_FORCE = 0x00000004;
-internal const int EWX_POWEROFF = 0x00000008;
-internal const int EWX_FORCEIFHUNG = 0x00000010;
-// 通过调用WinAPI实现关机，主要代码再最后一行ExitWindowsEx，这调用了同名的WinAPI，正好是关机用的。
-private static void DoExitWin(int flg)
-{
-    bool ok;
-    TokPriv1Luid tp;
-    IntPtr hproc = GetCurrentProcess();
-    IntPtr htok = IntPtr.Zero;
-    ok = OpenProcessToken(hproc, TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, ref htok);
-    tp.Count = 1;
-    tp.Luid = 0;
-    tp.Attr = SE_PRIVILEGE_ENABLED;
-    ok = LookupPrivilegeValue(null, SE_SHUTDOWN_NAME, ref tp.Luid);
-    ok = AdjustTokenPrivileges(htok, false, ref tp, 0, IntPtr.Zero, IntPtr.Zero);
-    ok = ExitWindowsEx(flg, 0);
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// 这个结构体将会传递给API。使用StructLayout(...特性，确保其中的成员是按顺序排列的，C#编译器不会对其进行调整。</span>
+</span><span class='line'><span class="na">[StructLayout(LayoutKind.Sequential, Pack = 1)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">struct</span> <span class="nc">TokPriv1Luid</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">long</span> <span class="n">Luid</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Attr</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 以下使用DllImport特性导入了所需的Windows API。</span>
+</span><span class='line'><span class="c1">// 导入的方法必须是static extern的，并且没有方法体。调用这些方法就相当于调用Windows API。</span>
+</span><span class='line'><span class="na">[DllImport(&quot;kernel32.dll&quot;, ExactSpelling = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="n">IntPtr</span> <span class="nf">GetCurrentProcess</span><span class="p">();</span>
+</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">OpenProcessToken</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">h</span><span class="p">,</span> <span class="kt">int</span> <span class="n">acc</span><span class="p">,</span> <span class="k">ref</span> <span class="n">IntPtr</span> <span class="n">phtok</span><span class="p">);</span>
+</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">LookupPrivilegeValue</span><span class="p">(</span><span class="kt">string</span> <span class="n">host</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">long</span> <span class="n">pluid</span><span class="p">);</span>
+</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">AdjustTokenPrivileges</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">htok</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">disall</span><span class="p">,</span>
+</span><span class='line'><span class="k">ref</span> <span class="n">TokPriv1Luid</span> <span class="n">newst</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">prev</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">relen</span><span class="p">);</span>
+</span><span class='line'><span class="na">[DllImport(&quot;user32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">ExitWindowsEx</span><span class="p">(</span><span class="kt">int</span> <span class="n">flg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rea</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 以下定义了在调用WinAPI时需要的常数。这些常数通常可以从Platform SDK的包含文件（头文件）中找到</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">SE_PRIVILEGE_ENABLED</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000002</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">TOKEN_QUERY</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000008</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">TOKEN_ADJUST_PRIVILEGES</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000020</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">SE_SHUTDOWN_NAME</span> <span class="p">=</span> <span class="s">&quot;SeShutdownPrivilege&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_LOGOFF</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000000</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_SHUTDOWN</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000001</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_REBOOT</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000002</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_FORCE</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000004</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_POWEROFF</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000008</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_FORCEIFHUNG</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000010</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 通过调用WinAPI实现关机，主要代码再最后一行ExitWindowsEx，这调用了同名的WinAPI，正好是关机用的。</span>
+</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">DoExitWin</span><span class="p">(</span><span class="kt">int</span> <span class="n">flg</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">ok</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">TokPriv1Luid</span> <span class="n">tp</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">IntPtr</span> <span class="n">hproc</span> <span class="p">=</span> <span class="n">GetCurrentProcess</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">IntPtr</span> <span class="n">htok</span> <span class="p">=</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">OpenProcessToken</span><span class="p">(</span><span class="n">hproc</span><span class="p">,</span> <span class="n">TOKEN_ADJUST_PRIVILEGES</span> <span class="p">|</span> <span class="n">TOKEN_QUERY</span><span class="p">,</span> <span class="k">ref</span> <span class="n">htok</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Luid</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Attr</span> <span class="p">=</span> <span class="n">SE_PRIVILEGE_ENABLED</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">LookupPrivilegeValue</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">SE_SHUTDOWN_NAME</span><span class="p">,</span> <span class="k">ref</span> <span class="n">tp</span><span class="p">.</span><span class="n">Luid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">AdjustTokenPrivileges</span><span class="p">(</span><span class="n">htok</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">ref</span> <span class="n">tp</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">ExitWindowsEx</span><span class="p">(</span><span class="n">flg</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>坦率的说我也不知道是哪里找来的这个代码，如果您看了，知道这个代码的原作者，也请告诉我，并不是我不尊重他，是我年少无知 =  =</p>
 

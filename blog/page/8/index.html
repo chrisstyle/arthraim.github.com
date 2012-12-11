@@ -212,6 +212,9 @@
 
 <p>这里借唐嫣的视频给大家拜年吧~~</p>
 
+<div><object id="ssss" width="480" height="370"><param name="allowScriptAccess" value="always" /><embed pluginspage="http://www.macromedia.com/go/getflashplayer" src="http://vhead.blog.sina.com.cn/player/outer_player.swf?auto=0&amp;vid=29250007&amp;uid=1230663070" type="application/x-shockwave-flash" name="ssss" allowfullscreen="true" allowscriptaccess="always" width="480" height="370"></embed></object></div>
+
+
 <p>以上……</p>
 
 		
@@ -258,53 +261,97 @@
 
 <p>代码如下。</p>
 
-<pre><code>#include &lt;pspkernel.h&gt;
-#include &lt;pspdebug.h&gt;
-PSP_MODULE_INFO("Hello World", 0, 1, 1);
-#define printf pspDebugScreenPrintf
-/* Exit callback */
-int exit_callback(int arg1, int arg2, void *common) {
-    sceKernelExitGame();
-    return 0;
-}
-/* Callback thread */
-int CallbackThread(SceSize args, void *argp) {
-    int cbid;
-    cbid = sceKernelCreateCallback("Exit Callback", exit_callback, NULL);
-    sceKernelRegisterExitCallback(cbid);
-    sceKernelSleepThreadCB();
-    return 0;
-}
-/* Sets up the callback thread and returns its thread id */
-int SetupCallbacks(void) {
-    int thid = 0;
-    thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
-    if(thid &gt;= 0) {
-        sceKernelStartThread(thid, 0, 0);
-    }
-    return thid;
-}
-int main() {
-    pspDebugScreenInit();
-    SetupCallbacks();
-    printf("Hello World");
-    sceKernelSleepThread();
-    return 0;
-}&lt;/pspdebug.h&gt;&lt;/pspkernel.h&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;pspkernel.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;pspdebug.h&gt;</span>
+</span><span class='line'><span class="n">PSP_MODULE_INFO</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="cp">#define printf pspDebugScreenPrintf</span>
+</span><span class='line'><span class="cm">/* Exit callback */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">exit_callback</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">common</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">sceKernelExitGame</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cm">/* Callback thread */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">CallbackThread</span><span class="p">(</span><span class="n">SceSize</span> <span class="n">args</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">argp</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">cbid</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">cbid</span> <span class="o">=</span> <span class="n">sceKernelCreateCallback</span><span class="p">(</span><span class="s">&quot;Exit Callback&quot;</span><span class="p">,</span> <span class="n">exit_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelRegisterExitCallback</span><span class="p">(</span><span class="n">cbid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelSleepThreadCB</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cm">/* Sets up the callback thread and returns its thread id */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">SetupCallbacks</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">thid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">thid</span> <span class="o">=</span> <span class="n">sceKernelCreateThread</span><span class="p">(</span><span class="s">&quot;update_thread&quot;</span><span class="p">,</span> <span class="n">CallbackThread</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0xFA0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">thid</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">sceKernelStartThread</span><span class="p">(</span><span class="n">thid</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">thid</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">pspDebugScreenInit</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">SetupCallbacks</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelSleepThread</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>当然如果要正常编译，还需要一个Makefile文件。如下：</p>
 
-<pre><code>TARGET = hello
-OBJS = main.o
-CFLAGS = -O2 -G0 -Wall
-CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
-ASFLAGS = $(CFLAGS)
-EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = Hello World
-PSPSDK=$(shell psp-config --pspsdk-path)
-include $(PSPSDK)/lib/build.mak
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='makefile'><span class='line'><span class="nv">TARGET</span> <span class="o">=</span> hello
+</span><span class='line'><span class="nv">OBJS</span> <span class="o">=</span> main.o
+</span><span class='line'><span class="nv">CFLAGS</span> <span class="o">=</span> -O2 -G0 -Wall
+</span><span class='line'><span class="nv">CXXFLAGS</span> <span class="o">=</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -fno-exceptions -fno-rtti
+</span><span class='line'><span class="nv">ASFLAGS</span> <span class="o">=</span> <span class="k">$(</span>CFLAGS<span class="k">)</span>
+</span><span class='line'><span class="nv">EXTRA_TARGETS</span> <span class="o">=</span> EBOOT.PBP
+</span><span class='line'><span class="nv">PSP_EBOOT_TITLE</span> <span class="o">=</span> Hello World
+</span><span class='line'><span class="nv">PSPSDK</span><span class="o">=</span><span class="k">$(</span>shell psp-config --pspsdk-path<span class="k">)</span>
+</span><span class='line'><span class="cp">include $(PSPSDK)/lib/build.mak</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Makefile决定了产生的EBOOT.PBP文件的一些信息，比如TITLE是Hello World，如果要加上图pic0 pic1那都是在Makefile里写得，不过只是helloworld就淡定一定吧 = = PSPSDK的环境变量当然也需要你事先配置好的（没打算说怎么配置环境）。</p>
 
@@ -354,8 +401,10 @@ include $(PSPSDK)/lib/build.mak
 
 <p>不就这么简单咩~ 其他浏览器也是一样的，在地址的地方输入这一段JS代码就好了，代码在下面……</p>
 
-<pre><code>javascript:if(!window.open('http://douban.fm/radio','radiowin','height=186,width=420,toolbar=no,menubar=no,scrollbars=no,location=no,status=no')){location.href='http://douban.fm/radio'}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">javascript</span><span class="o">:</span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;http://douban.fm/radio&#39;</span><span class="p">,</span><span class="s1">&#39;radiowin&#39;</span><span class="p">,</span><span class="s1">&#39;height=186,width=420,toolbar=no,menubar=no,scrollbars=no,location=no,status=no&#39;</span><span class="p">)){</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="o">=</span><span class="s1">&#39;http://douban.fm/radio&#39;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>So，一个小小的窍门而已，不过蛮方便的不是么~ 现在书签栏里点下豆瓣电台就出来了~ bookemarklet的体验，其实貌似原理都是一样的 - -</p>
 
@@ -401,32 +450,57 @@ include $(PSPSDK)/lib/build.mak
 	<div class="entry-content">
 		<p>Python之禅 :）在Python提示行输入import this。打印出来的这几行文字，需要慢慢的体会。想入Python教？先学Python禅～ 站在Python教门口的小Arthur同学，正在懵懂的体会着Python的魅力、艺术和禅。</p>
 
-<pre><code>$ python
-Python 2.6.4 (r264:75706, Dec  7 2009, 18:43:55)
-[GCC 4.4.1] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt; import this
-The Zen of Python, by Tim Peters
-Beautiful is better than ugly.
-Explicit is better than implicit.
-Simple is better than complex.
-Complex is better than complicated.
-Flat is better than nested.
-Sparse is better than dense.
-Readability counts.
-Special cases aren't special enough to break the rules.
-Although practicality beats purity.
-Errors should never pass silently.
-Unless explicitly silenced.
-In the face of ambiguity, refuse the temptation to guess.
-There should be one-- and preferably only one --obvious way to do it.
-Although that way may not be obvious at first unless you're Dutch.
-Now is better than never.
-Although never is often better than *right* now.
-If the implementation is hard to explain, it's a bad idea.
-If the implementation is easy to explain, it may be a good idea.
-Namespaces are one honking great idea -- let's do more of those!
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ python
+</span><span class='line'>Python 2.6.4 (r264:75706, Dec  7 2009, 18:43:55)
+</span><span class='line'>[GCC 4.4.1] on linux2
+</span><span class='line'>Type "help", "copyright", "credits" or "license" for more information.
+</span><span class='line'>&gt;&gt;&gt; import this
+</span><span class='line'>The Zen of Python, by Tim Peters
+</span><span class='line'>Beautiful is better than ugly.
+</span><span class='line'>Explicit is better than implicit.
+</span><span class='line'>Simple is better than complex.
+</span><span class='line'>Complex is better than complicated.
+</span><span class='line'>Flat is better than nested.
+</span><span class='line'>Sparse is better than dense.
+</span><span class='line'>Readability counts.
+</span><span class='line'>Special cases aren't special enough to break the rules.
+</span><span class='line'>Although practicality beats purity.
+</span><span class='line'>Errors should never pass silently.
+</span><span class='line'>Unless explicitly silenced.
+</span><span class='line'>In the face of ambiguity, refuse the temptation to guess.
+</span><span class='line'>There should be one-- and preferably only one --obvious way to do it.
+</span><span class='line'>Although that way may not be obvious at first unless you're Dutch.
+</span><span class='line'>Now is better than never.
+</span><span class='line'>Although never is often better than *right* now.
+</span><span class='line'>If the implementation is hard to explain, it's a bad idea.
+</span><span class='line'>If the implementation is easy to explain, it may be a good idea.
+</span><span class='line'>Namespaces are one honking great idea -- let's do more of those!</span></code></pre></td></tr></table></div></figure>
+
 
 		
 		
@@ -574,40 +648,48 @@ Namespaces are one honking great idea -- let's do more of those!
 	<div class="entry-content">
 		<p>装64位操作系统是一件很折腾人的事情，因为一些支持不好的软件往往只是考虑32位，比如flex for Linux alpha。我只是想尝试着在Linux环境搭建以下Flex Builder，没想到遇到很多问题…… 好吧，本文正题是安装32位JRE。Google到<a href="http://www.albertsong.com/read-167.html">这篇文章</a>，介绍了一个比较智能的办法～</p>
 
-<ol>
+<ul>
 <li><p>去Sun的官方网站下载一个32位的JRE包。比如，jre-6u18-linux-i586.bin。</p></li>
 <li><p>安装java-package</p></li>
-</ol>
+</ul>
 
 
-<pre><code>sudo apt-get install java-package
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install java-package
+</span></code></pre></td></tr></table></div></figure>
 
-<ol>
+
+<ul>
 <li>使用java-package将32位的jre做成一个.deb包</li>
-</ol>
+</ul>
 
 
-<pre><code>DEB_BUILD_GNU_TYPE=i486-linux-gnu DEB_BUILD_ARCH=i386 fakeroot make-jpkg jre-6u18-linux-i586.bin
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">DEB_BUILD_GNU_TYPE</span><span class="o">=</span>i486-linux-gnu <span class="nv">DEB_BUILD_ARCH</span><span class="o">=</span>i386 fakeroot make-jpkg jre-6u18-linux-i586.bin
+</span></code></pre></td></tr></table></div></figure>
 
-<ol>
+
+<ul>
 <li>安装.deb包（无视deb包的名字里的amd64字样）</li>
-</ol>
+</ul>
 
 
-<pre><code>sudo dpkg -i sun-j2re1.6_1.6.0+update18_amd64.deb
-</code></pre>
-
-<ol>
-<li>32位的JRE到这里已安装完成，位置在/usr/lib/j2re1.6-sun。</li>
-</ol>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo dpkg -i sun-j2re1.6_1.6.0+update18_amd64.deb
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>可以使用以下命令切换JRE了～（可以运行flexbuilder_linux_install_a5_112409.bin了）</p>
+<ul>
+<li><p>32位的JRE到这里已安装完成，位置在<code>/usr/lib/j2re1.6-sun</code>。</p>
 
-<pre><code>sudo update-alternatives --config java 
-</code></pre>
+<p>可以使用以下命令切换JRE了～（可以运行flexbuilder_linux_install_a5_112409.bin了）</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo update-alternatives --config java
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>小记一下～</p>
 
@@ -620,8 +702,10 @@ Namespaces are one honking great idea -- let's do more of those!
 </ol>
 
 
-<pre><code>alias java='你的路径/jre-6u18-linux-i586/bin/java'
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">java</span><span class="o">=</span><span class="s1">&#39;你的路径/jre-6u18-linux-i586/bin/java&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>以上……</p>
 
@@ -665,9 +749,9 @@ Namespaces are one honking great idea -- let's do more of those!
 	<div class="entry-content">
 		<p>从WindowsXP切换到Ubuntu910，一切又陌生又熟悉，装过无数Linux的版本，可是真正深入的用过几个倒是没有，大多数都是玩一下，除了玩mono的时候好好的体验了一把openSUSE。话说这次把所有的工作都切换到Linux上来，的确是遇到了很多问题，不过拿出对付Linux的精神，处理什么问题的能力都是会得到提高的。这次也遇到了一些问题，不过还是坚持想用eclipse里的git插件来完成所有的github的工作，你依赖图形吗？常年用Linux的我看都不怎么依赖…………</p>
 
-<p>依照<a href="http://github.com/guides/using-the-egit-eclipse-plugin-with-github">这个Guide</a>可以完成所有的工作，包括2009年10月更新了<a href="http://code.google.com/p/egit/issues/detail?id=104">一个issue</a>的solution。具体就是遇到了&#8221;Cannot list the available branches. Reason: git+ssh://git@[host]:[&#8230;]/[&#8230;].git: Auth fail&#8221; 这样一个错误。解决方法就是把$HOME/.ssh在原路径下复制一个，改名为ssh就好了。Windows里也是一样，把C:Documents and Settings{user}.ssh这个文件夹复制一个C:Documents and Settings{user}ssh。这样就直接可以图形上push了，非常的方便。</p>
+<p>依照<a href="http://github.com/guides/using-the-egit-eclipse-plugin-with-github">这个Guide</a>可以完成所有的工作，包括2009年10月更新了<a href="http://code.google.com/p/egit/issues/detail?id=104">一个issue</a>的solution。具体就是遇到了 <code>Cannot list the available branches. Reason: git+ssh://git@[host]:[...]/[...].git: Auth fail</code> 这样一个错误。解决方法就是把<code>$HOME/.ssh</code>在原路径下复制一个，改名为ssh就好了。Windows里也是一样，把<code>C:Documents and Settings{user}.ssh</code>这个文件夹复制一个<code>C:Documents and Settings{user}ssh</code>。这样就直接可以图形上push了，非常的方便。</p>
 
-<p>值得一提的是，因为要把之前windows上的东东弄到linux里，所以在import git repo的时候，我神奇的发现新的工程是不存在的，项目工程还要再导入一次，像我这样没有同步.project等文件，pydev又不能从现有文件导入成到新工程，就只能重新自己拼出这些文件了，好在写起来比较简单，建个新的工程改改名字就好了（和可恶的配置java工程比起来好像简单多了啊，3个多月了，至今我对Java依然望而生畏）。</p>
+<p>值得一提的是，因为要把之前windows上的东东弄到linux里，所以在<code>import git repo</code>的时候，我神奇的发现新的工程是不存在的，项目工程还要再导入一次，像我这样没有同步.project等文件，pydev又不能从现有文件导入成到新工程，就只能重新自己拼出这些文件了，好在写起来比较简单，建个新的工程改改名字就好了（和可恶的配置java工程比起来好像简单多了啊，3个多月了，至今我对Java依然望而生畏）。</p>
 
 <p>记上一笔～ 本来想多写点，不过那两个链接里啥都有了…………</p>
 

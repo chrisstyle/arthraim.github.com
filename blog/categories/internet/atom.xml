@@ -4,7 +4,7 @@
   <title><![CDATA[Category: internet | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/internet/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2012-12-11T20:48:25+08:00</updated>
+  <updated>2012-12-11T23:06:01+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -93,7 +93,7 @@ C:-----1=4==6=-------------
 
 <p>于是让我百思不得其解的事情就是为什么jmini-arthraim这个应用有这么NB，这么巧合，在断电的时候有数据写入还造成了数据不同步呢？让Arthur来帮大家回忆一下jmini-arthraim究竟是个什么东西。</p>
 
-<p>在去年我写了一篇《<a href="http://arthraim.cn/google-app-engine-apps-in-java/">用Java写个Google App Engine应用</a>》的文章介绍GAE的JAVA支持。程序本身很简单，完全没有任何参考价值，只是我对文章介绍了很多程序之外的软件安装啊环境搭建这样的简单的步骤。jmini-arthraim相当于一个简单的留言板，简单来说就是用户提交title content信息，写入数据库这样子。大概不知道这个程序和哪个刷spam的程序犯冲了，或是有人无聊到针对我对程序做了刷spam的程序，总之几个月来，这个应用一直忍受着常人难以忍受的委屈。</p>
+<p>在去年我写了一篇《<a href="http://artori.us/google-app-engine-apps-in-java/">用Java写个Google App Engine应用</a>》的文章介绍GAE的JAVA支持。程序本身很简单，完全没有任何参考价值，只是我对文章介绍了很多程序之外的软件安装啊环境搭建这样的简单的步骤。jmini-arthraim相当于一个简单的留言板，简单来说就是用户提交title content信息，写入数据库这样子。大概不知道这个程序和哪个刷spam的程序犯冲了，或是有人无聊到针对我对程序做了刷spam的程序，总之几个月来，这个应用一直忍受着常人难以忍受的委屈。</p>
 
 <p>我去后台看了一下这个应用的数据，去掉前11条是真正有朋友来测试的消息以外，从去年11月19日开始就有无数的spam数据开始刷了。真是场面何其壮观啊！总共有多少条记录呢？133,876（狂汗）估计这是我目前为止自己创建过的信息量最庞大的数据库了。如下图所示：</p>
 
@@ -123,31 +123,38 @@ C:-----1=4==6=-------------
 
 <p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
 
-<pre><code>&lt;?php
-$msg=$_REQUEST['msg'];
-$step=$_REQUEST['step'];
-if($step &gt; 3){
-    switch($msg){
-        case "hi":
-        case "hello":
-        echo "Hello there, I'm Arthurobot from Arthraim.cn";
-        break;
-    }
-} else {
-    switch ($step) {
-    case 1:
-    echo "Hello there, I'm Arthurobot from Arthraim.cn, so what's your name?";
+<p>```php
+&lt;?php
+$msg=$<em>REQUEST['msg'];
+$step=$</em>REQUEST['step'];
+if($step > 3){</p>
+
+<pre><code>switch($msg){
+    case "hi":
+    case "hello":
+    echo "Hello there, I'm Arthurobot from Arthraim.cn";
     break;
-    case 2:
-    echo "Hi " . $_REQUEST['value1'] . ", where do you live?";
-    break;
-    case 3:
-    echo "Well, welcome to this bot, " . $_REQUEST['value1'] . "&lt;br&gt;from " . $_REQUEST['value2'] . ".";
-    break;
-    }
 }
-?&gt;
 </code></pre>
+
+<p>} else {</p>
+
+<pre><code>switch ($step) {
+case 1:
+echo "Hello there, I'm Arthurobot from Arthraim.cn, so what's your name?";
+break;
+case 2:
+echo "Hi " . $_REQUEST['value1'] . ", where do you live?";
+break;
+case 3:
+echo "Well, welcome to this bot, " . $_REQUEST['value1'] . "&lt;br&gt;from " . $_REQUEST['value2'] . ".";
+break;
+}
+</code></pre>
+
+<p>}
+?>
+```</p>
 
 <p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
 
@@ -174,19 +181,15 @@ if($step &gt; 3){
 
 <blockquote><p>关于游戏城寨（levelup.cn）访问故障的公告</p>
 
-<p>游戏城寨网站因故需要停机维护。有最新消息我们会第一时间在本公告栏发布。</p></blockquote>
+<p>游戏城寨网站因故需要停机维护。有最新消息我们会第一时间在本公告栏发布。</p>
 
-<pre><code>    由此带来的不便，我们深表歉意。感谢大家的支持和理解。
-</code></pre>
+<p>由此带来的不便，我们深表歉意。感谢大家的支持和理解。</p>
 
-<blockquote><p>Hikaru</p></blockquote>
+<p>Hikaru</p>
 
-<pre><code>    levelup.cn
+<p>levelup.cn</p>
 
-    2010年3月23日
-</code></pre>
-
-<blockquote></blockquote>
+<p>2010年3月23日</p></blockquote>
 
 <p><strong>3月26日</strong>，我无意间看到了一个传闻，传闻说是"levelup 正式关闭，所有职员离职，遣散费一个人三个月的工资。"。看到这个小道消息的时候我很激动，当时订阅了上面提到的博客，但是没有上去，于是这一次一访问才发现博客的公告栏已经发生了一些变化。显然，真实的原因在24日的时候就已经浮出水面。</p>
 
@@ -196,21 +199,17 @@ if($step &gt; 3){
 
 <p>由此带来的不便，我们深表歉意。感谢大家的支持和理解。</p>
 
-<p>Hikaru</p></blockquote>
+<p>Hikaru</p>
 
-<pre><code>    levelup.cn
+<p>levelup.cn</p>
 
-    2010年3月23日，24日
-</code></pre>
+<p>2010年3月23日，24日</p>
 
-<blockquote><hr /></blockquote>
+<hr />
 
-<pre><code>    近期游戏攻略、评测请查看UpTeam官方百度贴吧。
+<p>近期游戏攻略、评测请查看UpTeam官方百度贴吧。</p>
 
-    点击进入临时论坛，感谢罗伊SD提供。
-</code></pre>
-
-<blockquote></blockquote>
+<p>点击进入临时论坛，感谢罗伊SD提供。</p></blockquote>
 
 <p><strong>同日</strong>，levelup成员（论坛管理员）在新浪博客里写了一篇文章----《<a href="http://blog.sina.com.cn/s/blog_66555c710100hp4y.html">这个五周年，有点不一样</a>》。是的恰逢levelup五周年，可是网站却无法访问，方寸的文章写得很好，原文如下：</p>
 
@@ -240,26 +239,25 @@ if($step &gt; 3){
 
 <p><a href="/images/uploads/wp/2010-04-29_levelup_cn_staff.jpg"><img src="/images/uploads/wp/2010-04-29_levelup_cn_staff.jpg" alt="" /></a></p>
 
-<p>已经这么多年了</p></blockquote>
+<p>已经这么多年了</p>
 
-<pre><code>    你还在为自己的梦想而奋斗吗
+<p>你还在为自己的梦想而奋斗吗</p>
 
-    你还在努力改变生活吧
+<p>你还在努力改变生活吧</p>
 
-    你知道的
+<p>你知道的</p>
 
-    我们被生活俘虏，就像电子被质子俘虏
+<p>我们被生活俘虏，就像电子被质子俘虏</p>
 
-    我们逃不出身边的概率云，这就是命运
+<p>我们逃不出身边的概率云，这就是命运</p>
 
-    人，大概永远也得不到最爱的东西吧
+<p>人，大概永远也得不到最爱的东西吧</p>
 
-    也许上天就是这样骗我们继续生活下去
+<p>也许上天就是这样骗我们继续生活下去</p>
 
-    有一天，世界会原谅我们的无知吗
-</code></pre>
+<p>有一天，世界会原谅我们的无知吗</p>
 
-<blockquote><p>----BY 栾东（原levelup.cn站长Hikaru，原UCG编辑泰坦）</p>
+<p>----BY 栾东（原levelup.cn站长Hikaru，原UCG编辑泰坦）</p>
 
 <p>（2010年3月22日，levelup.cn因为"相关部门的有关规定"而关闭。题图为2010年4月9日，levelup.cn仅剩的全体成员最后的"散伙饭"，就这顿饭还是大家AA制，因为公司不愿意----也不可能----掏钱。翌日，LU的文编们在领取遣散费之后正式下岗，而LU的技术员们至今仍有人还在为争取最后的利益与公司抗争。曾经国内最顶尖最专业的电视游戏资讯网站就此成为历史。）</p></blockquote>
 

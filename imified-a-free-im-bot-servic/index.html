@@ -78,31 +78,56 @@
 
 <p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
 
-<pre><code>&lt;?php
-$msg=$_REQUEST['msg'];
-$step=$_REQUEST['step'];
-if($step &gt; 3){
-    switch($msg){
-        case "hi":
-        case "hello":
-        echo "Hello there, I'm Arthurobot from Arthraim.cn";
-        break;
-    }
-} else {
-    switch ($step) {
-    case 1:
-    echo "Hello there, I'm Arthurobot from Arthraim.cn, so what's your name?";
-    break;
-    case 2:
-    echo "Hi " . $_REQUEST['value1'] . ", where do you live?";
-    break;
-    case 3:
-    echo "Well, welcome to this bot, " . $_REQUEST['value1'] . "&lt;br&gt;from " . $_REQUEST['value2'] . ".";
-    break;
-    }
-}
-?&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$msg</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$step</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$step</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">switch</span><span class="p">(</span><span class="nv">$msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hi&quot;</span><span class="o">:</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hello&quot;</span><span class="o">:</span>
+</span><span class='line'>      <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="nv">$step</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn, so what&#39;s your name?&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hi &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;, where do you live?&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Well, welcome to this bot, &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;from &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value2&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;.&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
 

@@ -7,7 +7,14 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="说django的静态文件说起来很简单，不过我还真是碰到了形形色色的问题并且追求完美。说起来一般做法用过django的应该都熟悉部署环境中只要利用web server去处理静态文件就可以了；调试时可能稍微特殊一点，按照官方文档所说，要在urls里加上这样的代码。 if settings.DEBUG &hellip;">
+	<meta name="description" content="说django的静态文件说起来很简单，不过我还真是碰到了形形色色的问题并且追求完美。说起来一般做法用过django的应该都熟悉部署环境中只要利用web server去处理静态文件就可以了；调试时可能稍微特殊一点，按照官方文档所说，要在urls里加上这样的代码。 1
+2
+3
+4
+5
+6
+7
+if &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,12 +81,22 @@
 	<h2 class="title">Django的静态文件服务</h2>
 	<div class="entry-content"><p>说django的静态文件说起来很简单，不过我还真是碰到了形形色色的问题并且追求完美。说起来一般做法用过django的应该都熟悉部署环境中只要利用web server去处理静态文件就可以了；调试时可能稍微特殊一点，按照<a href="http://docs.djangoproject.com/en/dev/howto/static-files/">官方文档</a>所说，要在urls里加上这样的代码。</p>
 
-<pre><code>if settings.DEBUG:
-        urlpatterns += patterns('',
-            (r'^media/(?P&lt;path&gt;.*)$', 'django.views.static.serve',
-                {'document_root': settings.MEDIA_ROOT}),
-        )
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">(</span><span class="s">r&#39;^media/(?P&lt;path&gt;.*)$&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">&#39;django.views.static.serve&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">{</span><span class="s">&#39;document_root&#39;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">),</span>
+</span><span class='line'>    <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>另外，settings里要做三个关于media的配置</p>
 
@@ -92,7 +109,7 @@
 
 <p>这是最正确的做法，按照这样做的话部署的时候什么代码都不用改动就可以保证media服务正常了。（最重要的是直接使用/media/写模板文件就好了）</p>
 
-<p>不过因为ADMIN_MEDIA_PREFIX的设置如果按照默认的/media/，那么就会使得调试时无法正常服务静态文件。如果MEDIA_ROOT不配置，ADMIN_MEDIA_PREFIX改成./media/，那么站点的静态文件能正常服务，但是admin页面的静态文件就错误了。如果不配置MEDIA_ROOT，也不修改ADMIN_MEDIA_PREFIX（就像默认的一样），那么一样只要在urls.py里写上之前的代码，并把setting.MEDIA_ROOT直接替换成本地的绝对路径，那么就能正常服务静态文件，唯一要做的，是不使用r&#8217;<sup>media/(?P<path>.*)$&#8217;，而改一个诸如r&#8217;<sup>dmedia/(?P<path>.*)$&#8217;之类的其他路径，我我很不喜欢这个方式，能解决问题，但是部署的时候我就是看得不顺眼，要改的话就要改所有模板、py中的所有路径。</sup></sup></p>
+<p>不过因为ADMIN_MEDIA_PREFIX的设置如果按照默认的/media/，那么就会使得调试时无法正常服务静态文件。如果MEDIA_ROOT不配置，ADMIN_MEDIA_PREFIX改成./media/，那么站点的静态文件能正常服务，但是admin页面的静态文件就错误了。如果不配置MEDIA_ROOT，也不修改ADMIN_MEDIA_PREFIX（就像默认的一样），那么一样只要在urls.py里写上之前的代码，并把setting.MEDIA_ROOT直接替换成本地的绝对路径，那么就能正常服务静态文件，唯一要做的，是不使用<code>r'^media/(?P&lt;path&gt;.*)$'</code>，而改一个诸如<code>r'^dmedia/(?P&lt;path&gt;.*)$'</code>之类的其他路径，我我很不喜欢这个方式，能解决问题，但是部署的时候我就是看得不顺眼，要改的话就要改所有模板、py中的所有路径。</p>
 
 <p>总之上面正确方法之后说的所有东西都是我碰到过的情况，按照文章一上来的做法做，那么调试到部署，一切都很简单。如有错误，或有更标准的做法，希望您留言。</p>
 

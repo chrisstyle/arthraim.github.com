@@ -80,16 +80,26 @@
 
 <p>贴个代码：</p>
 
-<pre><code>protected void Page_Load(object sender, EventArgs e)
-{
-    User loginUser = Session["user"] as User;
-    this.TextboxID.Text = loginUser.ID;
-    if (!Page.IsPostBack)
-    {
-        this.TextboxName.Text = loginUser.Name;
-    }
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">protected</span> <span class="k">void</span> <span class="nf">Page_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">User</span> <span class="n">loginUser</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span> <span class="k">as</span> <span class="n">User</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">TextboxID</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">loginUser</span><span class="p">.</span><span class="n">ID</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">Page</span><span class="p">.</span><span class="n">IsPostBack</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">TextboxName</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">loginUser</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这样写page_load，那如果页面上有一个按钮提交Textbox里修改好的内容，那id是不会被提交的，name则会。</p>
 

@@ -78,53 +78,97 @@
 
 <p>代码如下。</p>
 
-<pre><code>#include &lt;pspkernel.h&gt;
-#include &lt;pspdebug.h&gt;
-PSP_MODULE_INFO("Hello World", 0, 1, 1);
-#define printf pspDebugScreenPrintf
-/* Exit callback */
-int exit_callback(int arg1, int arg2, void *common) {
-    sceKernelExitGame();
-    return 0;
-}
-/* Callback thread */
-int CallbackThread(SceSize args, void *argp) {
-    int cbid;
-    cbid = sceKernelCreateCallback("Exit Callback", exit_callback, NULL);
-    sceKernelRegisterExitCallback(cbid);
-    sceKernelSleepThreadCB();
-    return 0;
-}
-/* Sets up the callback thread and returns its thread id */
-int SetupCallbacks(void) {
-    int thid = 0;
-    thid = sceKernelCreateThread("update_thread", CallbackThread, 0x11, 0xFA0, 0, 0);
-    if(thid &gt;= 0) {
-        sceKernelStartThread(thid, 0, 0);
-    }
-    return thid;
-}
-int main() {
-    pspDebugScreenInit();
-    SetupCallbacks();
-    printf("Hello World");
-    sceKernelSleepThread();
-    return 0;
-}&lt;/pspdebug.h&gt;&lt;/pspkernel.h&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;pspkernel.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;pspdebug.h&gt;</span>
+</span><span class='line'><span class="n">PSP_MODULE_INFO</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="cp">#define printf pspDebugScreenPrintf</span>
+</span><span class='line'><span class="cm">/* Exit callback */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">exit_callback</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">common</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">sceKernelExitGame</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cm">/* Callback thread */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">CallbackThread</span><span class="p">(</span><span class="n">SceSize</span> <span class="n">args</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">argp</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">cbid</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">cbid</span> <span class="o">=</span> <span class="n">sceKernelCreateCallback</span><span class="p">(</span><span class="s">&quot;Exit Callback&quot;</span><span class="p">,</span> <span class="n">exit_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelRegisterExitCallback</span><span class="p">(</span><span class="n">cbid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelSleepThreadCB</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cm">/* Sets up the callback thread and returns its thread id */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">SetupCallbacks</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">thid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">thid</span> <span class="o">=</span> <span class="n">sceKernelCreateThread</span><span class="p">(</span><span class="s">&quot;update_thread&quot;</span><span class="p">,</span> <span class="n">CallbackThread</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0xFA0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">thid</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">sceKernelStartThread</span><span class="p">(</span><span class="n">thid</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">thid</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">pspDebugScreenInit</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">SetupCallbacks</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelSleepThread</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>当然如果要正常编译，还需要一个Makefile文件。如下：</p>
 
-<pre><code>TARGET = hello
-OBJS = main.o
-CFLAGS = -O2 -G0 -Wall
-CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
-ASFLAGS = $(CFLAGS)
-EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = Hello World
-PSPSDK=$(shell psp-config --pspsdk-path)
-include $(PSPSDK)/lib/build.mak
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='makefile'><span class='line'><span class="nv">TARGET</span> <span class="o">=</span> hello
+</span><span class='line'><span class="nv">OBJS</span> <span class="o">=</span> main.o
+</span><span class='line'><span class="nv">CFLAGS</span> <span class="o">=</span> -O2 -G0 -Wall
+</span><span class='line'><span class="nv">CXXFLAGS</span> <span class="o">=</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -fno-exceptions -fno-rtti
+</span><span class='line'><span class="nv">ASFLAGS</span> <span class="o">=</span> <span class="k">$(</span>CFLAGS<span class="k">)</span>
+</span><span class='line'><span class="nv">EXTRA_TARGETS</span> <span class="o">=</span> EBOOT.PBP
+</span><span class='line'><span class="nv">PSP_EBOOT_TITLE</span> <span class="o">=</span> Hello World
+</span><span class='line'><span class="nv">PSPSDK</span><span class="o">=</span><span class="k">$(</span>shell psp-config --pspsdk-path<span class="k">)</span>
+</span><span class='line'><span class="cp">include $(PSPSDK)/lib/build.mak</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Makefile决定了产生的EBOOT.PBP文件的一些信息，比如TITLE是Hello World，如果要加上图pic0 pic1那都是在Makefile里写得，不过只是helloworld就淡定一定吧 = = PSPSDK的环境变量当然也需要你事先配置好的（没打算说怎么配置环境）。</p>
 

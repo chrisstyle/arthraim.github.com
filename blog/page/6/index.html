@@ -158,7 +158,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>于是让我百思不得其解的事情就是为什么jmini-arthraim这个应用有这么NB，这么巧合，在断电的时候有数据写入还造成了数据不同步呢？让Arthur来帮大家回忆一下jmini-arthraim究竟是个什么东西。</p>
 
-<p>在去年我写了一篇《<a href="http://arthraim.cn/google-app-engine-apps-in-java/">用Java写个Google App Engine应用</a>》的文章介绍GAE的JAVA支持。程序本身很简单，完全没有任何参考价值，只是我对文章介绍了很多程序之外的软件安装啊环境搭建这样的简单的步骤。jmini-arthraim相当于一个简单的留言板，简单来说就是用户提交title content信息，写入数据库这样子。大概不知道这个程序和哪个刷spam的程序犯冲了，或是有人无聊到针对我对程序做了刷spam的程序，总之几个月来，这个应用一直忍受着常人难以忍受的委屈。</p>
+<p>在去年我写了一篇《<a href="http://artori.us/google-app-engine-apps-in-java/">用Java写个Google App Engine应用</a>》的文章介绍GAE的JAVA支持。程序本身很简单，完全没有任何参考价值，只是我对文章介绍了很多程序之外的软件安装啊环境搭建这样的简单的步骤。jmini-arthraim相当于一个简单的留言板，简单来说就是用户提交title content信息，写入数据库这样子。大概不知道这个程序和哪个刷spam的程序犯冲了，或是有人无聊到针对我对程序做了刷spam的程序，总之几个月来，这个应用一直忍受着常人难以忍受的委屈。</p>
 
 <p>我去后台看了一下这个应用的数据，去掉前11条是真正有朋友来测试的消息以外，从去年11月19日开始就有无数的spam数据开始刷了。真是场面何其壮观啊！总共有多少条记录呢？133,876（狂汗）估计这是我目前为止自己创建过的信息量最庞大的数据库了。如下图所示：</p>
 
@@ -215,12 +215,22 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 	<div class="entry-content">
 		<p>说django的静态文件说起来很简单，不过我还真是碰到了形形色色的问题并且追求完美。说起来一般做法用过django的应该都熟悉部署环境中只要利用web server去处理静态文件就可以了；调试时可能稍微特殊一点，按照<a href="http://docs.djangoproject.com/en/dev/howto/static-files/">官方文档</a>所说，要在urls里加上这样的代码。</p>
 
-<pre><code>if settings.DEBUG:
-        urlpatterns += patterns('',
-            (r'^media/(?P&lt;path&gt;.*)$', 'django.views.static.serve',
-                {'document_root': settings.MEDIA_ROOT}),
-        )
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">(</span><span class="s">r&#39;^media/(?P&lt;path&gt;.*)$&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">&#39;django.views.static.serve&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">{</span><span class="s">&#39;document_root&#39;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">),</span>
+</span><span class='line'>    <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>另外，settings里要做三个关于media的配置</p>
 
@@ -233,7 +243,7 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>这是最正确的做法，按照这样做的话部署的时候什么代码都不用改动就可以保证media服务正常了。（最重要的是直接使用/media/写模板文件就好了）</p>
 
-<p>不过因为ADMIN_MEDIA_PREFIX的设置如果按照默认的/media/，那么就会使得调试时无法正常服务静态文件。如果MEDIA_ROOT不配置，ADMIN_MEDIA_PREFIX改成./media/，那么站点的静态文件能正常服务，但是admin页面的静态文件就错误了。如果不配置MEDIA_ROOT，也不修改ADMIN_MEDIA_PREFIX（就像默认的一样），那么一样只要在urls.py里写上之前的代码，并把setting.MEDIA_ROOT直接替换成本地的绝对路径，那么就能正常服务静态文件，唯一要做的，是不使用r&#8217;<sup>media/(?P<path>.*)$&#8217;，而改一个诸如r&#8217;<sup>dmedia/(?P<path>.*)$&#8217;之类的其他路径，我我很不喜欢这个方式，能解决问题，但是部署的时候我就是看得不顺眼，要改的话就要改所有模板、py中的所有路径。</sup></sup></p>
+<p>不过因为ADMIN_MEDIA_PREFIX的设置如果按照默认的/media/，那么就会使得调试时无法正常服务静态文件。如果MEDIA_ROOT不配置，ADMIN_MEDIA_PREFIX改成./media/，那么站点的静态文件能正常服务，但是admin页面的静态文件就错误了。如果不配置MEDIA_ROOT，也不修改ADMIN_MEDIA_PREFIX（就像默认的一样），那么一样只要在urls.py里写上之前的代码，并把setting.MEDIA_ROOT直接替换成本地的绝对路径，那么就能正常服务静态文件，唯一要做的，是不使用<code>r'^media/(?P&lt;path&gt;.*)$'</code>，而改一个诸如<code>r'^dmedia/(?P&lt;path&gt;.*)$'</code>之类的其他路径，我我很不喜欢这个方式，能解决问题，但是部署的时候我就是看得不顺眼，要改的话就要改所有模板、py中的所有路径。</p>
 
 <p>总之上面正确方法之后说的所有东西都是我碰到过的情况，按照文章一上来的做法做，那么调试到部署，一切都很简单。如有错误，或有更标准的做法，希望您留言。</p>
 
@@ -281,11 +291,11 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p><a href="/images/uploads/wp/pydev_banner.gif"><img src="/images/uploads/wp/pydev_banner.gif" alt="" /></a><a href="/images/uploads/wp/django-logo.jpg"><img src="/images/uploads/wp/django-logo.jpg" alt="" /></a></p>
 
-<p>以前的做法是创建pydev项目，在项目目录下django-admin.py startproject，然后把新建的目录设为src，再自己设置Run和Debug，使用manage.py runserver 0.0.0.0:8080。</p>
+<p>以前的做法是创建pydev项目，在项目目录下<code>django-admin.py startproject</code>，然后把新建的目录设为src，再自己设置Run和Debug，使用manage.py runserver 0.0.0.0:8080。</p>
 
-<p>如今pydev会自动在新建Django项目的时候startproject，自动设为src，和我们手动做的其实都是一样的。不过还会自动添加DJANGO_MANAGE_LOCATION和DJANGO_SETTINGS_MODULE两个字符串替换变量（string substitution variable）分别指向项目目录下的manage.py和settings.py。</p>
+<p>如今pydev会自动在新建Django项目的时候startproject，自动设为src，和我们手动做的其实都是一样的。不过还会自动添加<code>DJANGO_MANAGE_LOCATION</code>和<code>DJANGO_SETTINGS_MODULE</code>两个字符串替换变量（string substitution variable）分别指向项目目录下的manage.py和settings.py。</p>
 
-<p>当然，以前手动处理的项目，也可以使用右键-pydev-Set As Django Project把原有的项目转换为Pydev Django项目。当然一样要确认下是不是有DJANGO_MANAGE_LOCATION和DJANGO_SETTINGS_MODULE两个变量。</p>
+<p>当然，以前手动处理的项目，也可以使用右键-pydev-Set As Django Project把原有的项目转换为Pydev Django项目。当然一样要确认下是不是有<code>DJANGO_MANAGE_LOCATION</code>和<code>DJANGO_SETTINGS_MODULE</code>两个变量。</p>
 
 <p><a href="/images/uploads/wp/2010-06-05_pydev_django_vaviables.png"><img src="/images/uploads/wp/2010-06-05_pydev_django_vaviables.png" alt="" /></a></p>
 
@@ -416,26 +426,23 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>CP6今年较去年我们来的时候（那次貌似算CP4）组织工作进步了很多很多~ 会场从楼上搬到了楼下的大展厅，这样出入口更多，疏散工作肯定更好了。另外这次一个展位两张工作证，工作证入场后打口，打口工作证出展厅要从NPC处拿一张&#8221;无懈可击&#8221;卡，下一次要凭此卡进入会场，这样就不能带别人进去了。【作为没打洞进进出出了n次的我真是感到惭愧啊</p>
 
-<p>我和@rubyQ第一个进入会场，当时保安只是看有工作证就放行（没有打孔），于是进去之后找到E13展位，我就带着两张工作证重新走出来，带了@yingdracula进去，之后就一个一个的带了森也进来。</p></blockquote>
+<p>我和@rubyQ第一个进入会场，当时保安只是看有工作证就放行（没有打孔），于是进去之后找到E13展位，我就带着两张工作证重新走出来，带了@yingdracula进去，之后就一个一个的带了森也进来。</p>
 
-<pre><code>    话说从宾馆出门的时候，森第一个化妆完毕，所以一起走的。其他人还在房间化妆，他们都要cos V家的角色
-</code></pre>
+<p>话说从宾馆出门的时候，森第一个化妆完毕，所以一起走的。其他人还在房间化妆，他们都要cos V家的角色</p>
 
-<blockquote><p>进入会场是8点左右，后来NPC就来打孔了。@yingdracula一直在忙着找各处记过来寄售的同人本。说起来很复杂，我们的展位是三波人一起卖东西的，都是@raya0000在百度贴吧的朋友吧<del> 我也不太清楚，只知道去年这些人也都见过</del> 【100一个展位，你们究竟在省什么钱</p>
+<p>进入会场是8点左右，后来NPC就来打孔了。@yingdracula一直在忙着找各处记过来寄售的同人本。说起来很复杂，我们的展位是三波人一起卖东西的，都是@raya0000在百度贴吧的朋友吧<del> 我也不太清楚，只知道去年这些人也都见过</del> 【100一个展位，你们究竟在省什么钱</p>
 
-<p>我和@rubyQ纯属打酱油的，我还在某牌子上撑了一下（牌子是纸质的）然后摔了一跤 = = 出师不利啊。。。</p></blockquote>
+<p>我和@rubyQ纯属打酱油的，我还在某牌子上撑了一下（牌子是纸质的）然后摔了一跤 = = 出师不利啊。。。</p>
 
-<pre><code>    后来哉和@killchan童鞋也进来会场了…… 一个是茄子状，一个是大哥 = =
-</code></pre>
+<p>后来哉和@killchan童鞋也进来会场了…… 一个是茄子状，一个是大哥 = =</p>
 
-<blockquote><p>展会从9点开始放人进来了…… 然后和去年一样，可怕的事情就在接下来的两个小时发生了…………不停的有人报告收到假币和东西被偷，保安不停的提醒我们不要把贵重品放在桌上。可怜的Arthur同学，遇到收钱验钞防假币手忙脚乱的时候，手机随手一放，结果瞬间就被偷掉了 = = 也因为手机被偷了，很多珍贵的照片都没了，出了几张马上传到人间的还存活着…………</p>
+<p>展会从9点开始放人进来了…… 然后和去年一样，可怕的事情就在接下来的两个小时发生了…………不停的有人报告收到假币和东西被偷，保安不停的提醒我们不要把贵重品放在桌上。可怜的Arthur同学，遇到收钱验钞防假币手忙脚乱的时候，手机随手一放，结果瞬间就被偷掉了 = = 也因为手机被偷了，很多珍贵的照片都没了，出了几张马上传到人间的还存活着…………</p>
 
-<p>假.币其实我们防的很好，因为去年也是一样的情况。在我手机被偷之后我就投入了与恶势力抗争的事业中。</p></blockquote>
+<p>假.币其实我们防的很好，因为去年也是一样的情况。在我手机被偷之后我就投入了与恶势力抗争的事业中。</p>
 
-<pre><code>    话说在我发现手机丢了后不久，一个中年妇女状生物拿着一个黑皮包，穿着黑马甲白衬衫，格格不入的走到了我们摊位前，一眼相中了"最便宜"的书签。15RMB一套，她拿了一张百元大钞。@rubyQ一摸觉得不对，然后递到我手上，我一摸毛爷爷的领子，平平的，一点都没手感。于是我客气的和那个生物说："你换一张吧"。此女顿时涨红脸（新手-。-），开始翻包，然后问了一句"10块卖不卖" 脑子都不想我们就说不卖，她转身就走…………
-</code></pre>
+<p>话说在我发现手机丢了后不久，一个中年妇女状生物拿着一个黑皮包，穿着黑马甲白衬衫，格格不入的走到了我们摊位前，一眼相中了&#8221;最便宜&#8221;的书签。15RMB一套，她拿了一张百元大钞。@rubyQ一摸觉得不对，然后递到我手上，我一摸毛爷爷的领子，平平的，一点都没手感。于是我客气的和那个生物说：&#8221;你换一张吧&#8221;。此女顿时涨红脸（新手-。-），开始翻包，然后问了一句&#8221;10块卖不卖&#8221; 脑子都不想我们就说不卖，她转身就走…………</p>
 
-<blockquote><p>然后正在因为手机郁闷的Arthur同学就勇敢的【喂！】站了起来，跟住了她，她只顾走远，在人群里闪来闪去，没有注意到我跟着她。跟了一段之后，一个保安出现在我旁边，我就拖着保安只给他看，然后保安就接着跟上去了。后来@yingdracula说保安也蛋疼，应该找NPC，比较疯狂 - - 杯具</p>
+<p>然后正在因为手机郁闷的Arthur同学就勇敢的【喂！】站了起来，跟住了她，她只顾走远，在人群里闪来闪去，没有注意到我跟着她。跟了一段之后，一个保安出现在我旁边，我就拖着保安只给他看，然后保安就接着跟上去了。后来@yingdracula说保安也蛋疼，应该找NPC，比较疯狂 - - 杯具</p>
 
 <p>展会的NPC很负责，和恶势力斗争的那股精气神真是太牛了！之前因为我们展位少一张桌子，那个NPC还在我们展位上站了很久，等@yingdracula回来交代一下桌布和凳子的事情~ 很负责。虽然后来凳子还是没有给我们送来 = =</p>
 
@@ -453,24 +460,19 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>我在最后的时候去展会晃了一圈，没什么想买的东西，也没啥心情，就也很快回来了。说起来刚到会场的时候买了一条dollars的tee，要说今年最吸引我的周边就是dollars的了。只是我很奇怪，那些腐女为什么看这样的片子也能找出CP来，比如我们对面就是静雄X临也的本子 = =</p>
 
-<p>我们展位上有一本本子是高杉X桂的，于是有个腐女看见银魂的就吸引过来了，一看是高桂，她来了一句：&#8221;有没有土银的&#8221;</p></blockquote>
+<p>我们展位上有一本本子是高杉X桂的，于是有个腐女看见银魂的就吸引过来了，一看是高桂，她来了一句：&#8221;有没有土银的&#8221;</p>
 
-<pre><code>    不知谁在我身边问了一句"什么" 我就复述了一边，她要土银的本子。然后腐女就来劲了，问我："难道你是传说中的腐男？为什么对CP这么了解" 【所谓常在河边走哪有不湿鞋】不过我义正言辞的告诉他"我不是腐男啊~~~~"
-</code></pre>
+<p>不知谁在我身边问了一句&#8221;什么&#8221; 我就复述了一边，她要土银的本子。然后腐女就来劲了，问我：&#8221;难道你是传说中的腐男？为什么对CP这么了解&#8221; 【所谓常在河边走哪有不湿鞋】不过我义正言辞的告诉他&#8221;我不是腐男啊~~~~&#8221;</p>
 
-<blockquote><p>话说快收摊的时候也有一个带着工作人员牌子的童鞋来我们展位翻那本高桂本。然后我和@yingdracula和她聊起来了。她说你们高桂的好不好卖，她那里有本土银的，经常碰到有人来问高桂的。我说我们也遇到了（鉴于之前提到的事情 - -）</p></blockquote>
+<p>话说快收摊的时候也有一个带着工作人员牌子的童鞋来我们展位翻那本高桂本。然后我和@yingdracula和她聊起来了。她说你们高桂的好不好卖，她那里有本土银的，经常碰到有人来问高桂的。我说我们也遇到了（鉴于之前提到的事情 - -）</p>
 
-<pre><code>    然后她就开始吐槽了，说什么我和多拉两个男生在这里卖高桂的本子很奇怪啦，什么我们非宅即腐啦云云 - - 囧rz
-</code></pre>
+<p>然后她就开始吐槽了，说什么我和多拉两个男生在这里卖高桂的本子很奇怪啦，什么我们非宅即腐啦云云 - - 囧rz</p>
 
-<blockquote><p>貌似没啥好写的了…… 大概就是这样吧</p></blockquote>
+<p>貌似没啥好写的了…… 大概就是这样吧</p>
 
-<pre><code>    CP6真的是我觉得最好的展会了，杭州的国际动漫展其实都是一些商人，不过同人展就不一样了，来买的和来卖的其实都是有爱的童鞋，气氛真的很好~  
+<p>CP6真的是我觉得最好的展会了，杭州的国际动漫展其实都是一些商人，不过同人展就不一样了，来买的和来卖的其实都是有爱的童鞋，气氛真的很好~</p>
 
-    只是来用假.币和偷东西的人太贱了。小偷骗子什么的最讨厌了 = =
-</code></pre>
-
-<blockquote></blockquote>
+<p>只是来用假.币和偷东西的人太贱了。小偷骗子什么的最讨厌了 = =</p></blockquote>
 
 <p>以上……</p>
 
@@ -518,31 +520,56 @@ HALO reach 以上是杀手级大作的阵容~ 下面是Natal &hellip;">
 
 <p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
 
-<pre><code>&lt;?php
-$msg=$_REQUEST['msg'];
-$step=$_REQUEST['step'];
-if($step &gt; 3){
-    switch($msg){
-        case "hi":
-        case "hello":
-        echo "Hello there, I'm Arthurobot from Arthraim.cn";
-        break;
-    }
-} else {
-    switch ($step) {
-    case 1:
-    echo "Hello there, I'm Arthurobot from Arthraim.cn, so what's your name?";
-    break;
-    case 2:
-    echo "Hi " . $_REQUEST['value1'] . ", where do you live?";
-    break;
-    case 3:
-    echo "Well, welcome to this bot, " . $_REQUEST['value1'] . "&lt;br&gt;from " . $_REQUEST['value2'] . ".";
-    break;
-    }
-}
-?&gt;
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$msg</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$step</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$step</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">switch</span><span class="p">(</span><span class="nv">$msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hi&quot;</span><span class="o">:</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hello&quot;</span><span class="o">:</span>
+</span><span class='line'>      <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="nv">$step</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn, so what&#39;s your name?&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hi &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;, where do you live?&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Well, welcome to this bot, &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;from &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value2&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;.&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
 
@@ -594,58 +621,104 @@ if($step &gt; 3){
 
 <p>这些异步方法是个什么情况呢，<a href="http://blogs.msdn.com/maestroteam/archive/2009/05/23/yielding-with-asynchronous-methods.aspx">官方博客</a>上有个例子很好的说明了这个问题，我拿来用一下。这是一个简单的Axum程序。</p>
 
-<pre><code>agent MainAgent : channel Microsoft.Axum.Application
-{
-    public MainAgent()
-    {
-        var pt = new OrderedInteractionPoint&lt;int&gt;();
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">agent</span> <span class="n">MainAgent</span> <span class="p">:</span> <span class="n">channel</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Axum</span><span class="p">.</span><span class="n">Application</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">MainAgent</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">pt</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderedInteractionPoint</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Set up a dataflow network</span>
+</span><span class='line'>        <span class="n">pt</span> <span class="p">==&gt;</span> <span class="n">MultiplyByTwo</span> <span class="p">==&gt;</span> <span class="n">Print</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Send some numbers to the network</span>
+</span><span class='line'>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">MultiplyByTwo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">n</span><span class="p">*</span><span class="m">2</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">Print</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-        // Set up a dataflow network
-        pt ==&gt; MultiplyByTwo ==&gt; Print;
-
-        // Send some numbers to the network
-        for(int i=0; i&lt;5; i++) pt &lt;-- i;
-
-        PrimaryChannel::Done &lt;-- Signal.Value;
-    }
-
-    int MultiplyByTwo(int n)
-    {
-        return n*2;
-    }
-
-    void Print(int n)
-    {
-        Console.WriteLine(n);
-    }
-}
-</code></pre>
 
 <p>按照这个代码执行的结果应该是怎么样的呢？好吧，其实什么都不会输出。不难理解，整个pipeline是去其他线程跑的，主线程呢？直接来了个Done，于是其它东西还没出结果，Done信号已经来了，程序被结束了。解决方法呢？那加个Readline好不好？</p>
 
-<pre><code>// Send some numbers to the network
-for(int i=0; i&lt;5; i++) pt &lt;-- i;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
+</span><span class='line'><span class="c1">// return before continuing</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-// Not so fast! Wait until the user hits
-// return before continuing
-Console.WriteLine("Press Enter to continue...");
-Console.ReadLine();
-
-PrimaryChannel::Done &lt;-- Signal.Value;
-</code></pre>
 
 <p>绝对脑残啊！我相信按道理很多人会想到这么写，不过在把代码敲出来之前肯定就想到了问题。我的Console IO被阻塞了说，还怎么去Writeline啊。好吧，Axum 2.0里的一个很重要的更新就是给了一个异步的Console：</p>
 
-<pre><code>// Send some numbers to the network
-for(int i=0; i&lt;5; i++) pt &lt;-- i;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
+</span><span class='line'><span class="c1">// return before continuing</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">AsyncConsole</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-// Not so fast! Wait until the user hits
-// return before continuing
-Console.WriteLine("Press Enter to continue...");
-AsyncConsole.ReadLine();
-
-PrimaryChannel::Done &lt;-- Signal.Value;
-</code></pre>
 
 <p>这真是个好东西啊！具体Axum0.2还更新了什么，看看下面的。其实0.3也有了，只是我只是想知道一些0.1到现在的变化，所以先写这个吧~ 另外0.2的时候还发了一个独立的Axum编译器，不依赖Visual Studio，有兴趣的童鞋们可以更加轻松愉快的玩一玩了~</p>
 
@@ -713,16 +786,26 @@ PrimaryChannel::Done &lt;-- Signal.Value;
 
 <p>贴个代码：</p>
 
-<pre><code>protected void Page_Load(object sender, EventArgs e)
-{
-    User loginUser = Session["user"] as User;
-    this.TextboxID.Text = loginUser.ID;
-    if (!Page.IsPostBack)
-    {
-        this.TextboxName.Text = loginUser.Name;
-    }
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">protected</span> <span class="k">void</span> <span class="nf">Page_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">User</span> <span class="n">loginUser</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span> <span class="k">as</span> <span class="n">User</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">TextboxID</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">loginUser</span><span class="p">.</span><span class="n">ID</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">Page</span><span class="p">.</span><span class="n">IsPostBack</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">TextboxName</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">loginUser</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这样写page_load，那如果页面上有一个按钮提交Textbox里修改好的内容，那id是不会被提交的，name则会。</p>
 
@@ -772,12 +855,9 @@ PrimaryChannel::Done &lt;-- Signal.Value;
 
 <p>具体发生在我编译了dll1，然后去编译dll2，因为dll2依赖dll1。编译dll1的时候还算顺利，少了一个.lib，给它在相应位置放着，就万事大吉了。结果编译dll2的时候错误来了：</p>
 
-<blockquote><p>nafxcwd.lib(afxmem.obj) : error LNK2005: &#8220;void * __cdecl operator new(unsigned int)&#8221; (??2@YAPAXI@Z) bereits in (already on) LIBCMTD.lib(new.obj) definiert (defined)</p></blockquote>
+<blockquote><p>nafxcwd.lib(afxmem.obj) : error LNK2005: &#8220;void * __cdecl operator new(unsigned int)&#8221; (??2@YAPAXI@Z) bereits in (already on) LIBCMTD.lib(new.obj) definiert (defined)</p>
 
-<pre><code>    nafxcwd.lib(afxmem.obj) : error LNK2005: "void __cdecl operator delete(void *)" (??3@YAXPAX@Z) bereits in (already on) libcpmtd.lib(delop.obj) definiert (defined)
-</code></pre>
-
-<blockquote></blockquote>
+<p>nafxcwd.lib(afxmem.obj) : error LNK2005: &#8220;void __cdecl operator delete(void *)&#8221; (??3@YAXPAX@Z) bereits in (already on) libcpmtd.lib(delop.obj) definiert (defined)</p></blockquote>
 
 <p>这不明所以的东西是啥，紧接着error下面还有个warning，说的也是这个东西。我就奇怪了…… Google了一会儿，在<a href="http://www.codeguru.com/forum/archive/index.php/t-102337.html">这里</a>发现是CRT和MFC中都有定义new和delete，编译器显然不知道要去找哪个new哪个delete了。</p>
 

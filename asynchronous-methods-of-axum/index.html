@@ -76,58 +76,104 @@
 
 <p>这些异步方法是个什么情况呢，<a href="http://blogs.msdn.com/maestroteam/archive/2009/05/23/yielding-with-asynchronous-methods.aspx">官方博客</a>上有个例子很好的说明了这个问题，我拿来用一下。这是一个简单的Axum程序。</p>
 
-<pre><code>agent MainAgent : channel Microsoft.Axum.Application
-{
-    public MainAgent()
-    {
-        var pt = new OrderedInteractionPoint&lt;int&gt;();
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">agent</span> <span class="n">MainAgent</span> <span class="p">:</span> <span class="n">channel</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Axum</span><span class="p">.</span><span class="n">Application</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">MainAgent</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">pt</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderedInteractionPoint</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Set up a dataflow network</span>
+</span><span class='line'>        <span class="n">pt</span> <span class="p">==&gt;</span> <span class="n">MultiplyByTwo</span> <span class="p">==&gt;</span> <span class="n">Print</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Send some numbers to the network</span>
+</span><span class='line'>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">MultiplyByTwo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">n</span><span class="p">*</span><span class="m">2</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">Print</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-        // Set up a dataflow network
-        pt ==&gt; MultiplyByTwo ==&gt; Print;
-
-        // Send some numbers to the network
-        for(int i=0; i&lt;5; i++) pt &lt;-- i;
-
-        PrimaryChannel::Done &lt;-- Signal.Value;
-    }
-
-    int MultiplyByTwo(int n)
-    {
-        return n*2;
-    }
-
-    void Print(int n)
-    {
-        Console.WriteLine(n);
-    }
-}
-</code></pre>
 
 <p>按照这个代码执行的结果应该是怎么样的呢？好吧，其实什么都不会输出。不难理解，整个pipeline是去其他线程跑的，主线程呢？直接来了个Done，于是其它东西还没出结果，Done信号已经来了，程序被结束了。解决方法呢？那加个Readline好不好？</p>
 
-<pre><code>// Send some numbers to the network
-for(int i=0; i&lt;5; i++) pt &lt;-- i;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
+</span><span class='line'><span class="c1">// return before continuing</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-// Not so fast! Wait until the user hits
-// return before continuing
-Console.WriteLine("Press Enter to continue...");
-Console.ReadLine();
-
-PrimaryChannel::Done &lt;-- Signal.Value;
-</code></pre>
 
 <p>绝对脑残啊！我相信按道理很多人会想到这么写，不过在把代码敲出来之前肯定就想到了问题。我的Console IO被阻塞了说，还怎么去Writeline啊。好吧，Axum 2.0里的一个很重要的更新就是给了一个异步的Console：</p>
 
-<pre><code>// Send some numbers to the network
-for(int i=0; i&lt;5; i++) pt &lt;-- i;
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
+</span><span class='line'><span class="c1">// return before continuing</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">AsyncConsole</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-// Not so fast! Wait until the user hits
-// return before continuing
-Console.WriteLine("Press Enter to continue...");
-AsyncConsole.ReadLine();
-
-PrimaryChannel::Done &lt;-- Signal.Value;
-</code></pre>
 
 <p>这真是个好东西啊！具体Axum0.2还更新了什么，看看下面的。其实0.3也有了，只是我只是想知道一些0.1到现在的变化，所以先写这个吧~ 另外0.2的时候还发了一个独立的Axum编译器，不依赖Visual Studio，有兴趣的童鞋们可以更加轻松愉快的玩一玩了~</p>
 
