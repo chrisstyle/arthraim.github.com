@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="从WindowsXP切换到Ubuntu910，一切又陌生又熟悉，装过无数Linux的版本，可是真正深入的用过几个倒是没有，大多数都是玩一下，除了玩mono的时候好好的体验了一把openSUSE。话说这次把所有的工作都切换到Linux上来，的确是遇到了很多问题，不过拿出对付Linux的精神， &hellip;">
+	<meta name="description" content="装64位操作系统是一件很折腾人的事情，因为一些支持不好的软件往往只是考虑32位，比如flex for Linux alpha。我只是想尝试着在Linux环境搭建以下Flex Builder，没想到遇到很多问题…… 好吧，本文正题是安装32位JRE。Google到这篇文章，介绍了一个比较智能的办法 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,107 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/install-32bit-jre-on-64bit-ubuntu/">
+		
+			64位Ubuntu上安装32位JRE</a>
+	</h2>
+	<div class="entry-content">
+		<p>装64位操作系统是一件很折腾人的事情，因为一些支持不好的软件往往只是考虑32位，比如flex for Linux alpha。我只是想尝试着在Linux环境搭建以下Flex Builder，没想到遇到很多问题…… 好吧，本文正题是安装32位JRE。Google到<a href="http://www.albertsong.com/read-167.html">这篇文章</a>，介绍了一个比较智能的办法～</p>
+
+<ul>
+<li><p>去Sun的官方网站下载一个32位的JRE包。比如，jre-6u18-linux-i586.bin。</p></li>
+<li><p>安装java-package</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo apt-get install java-package
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用java-package将32位的jre做成一个.deb包</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">DEB_BUILD_GNU_TYPE</span><span class="o">=</span>i486-linux-gnu <span class="nv">DEB_BUILD_ARCH</span><span class="o">=</span>i386 fakeroot make-jpkg jre-6u18-linux-i586.bin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>安装.deb包（无视deb包的名字里的amd64字样）</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo dpkg -i sun-j2re1.6_1.6.0+update18_amd64.deb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>32位的JRE到这里已安装完成，位置在<code>/usr/lib/j2re1.6-sun</code>。</p>
+
+<p>可以使用以下命令切换JRE了～（可以运行flexbuilder_linux_install_a5_112409.bin了）</p></li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>sudo update-alternatives --config java
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>小记一下～</p>
+
+<p>其实还有个我原创的比较弱智的办法</p>
+
+<ol>
+<li><p>直接运行jre-6u18-linux-i586.bin，会自解压</p></li>
+<li><p>之后cd到jre-6u18-linux-i586/bin这个目录里的话可以发现可以运行的二进制文件java。</p></li>
+<li><p>那么就改一下.bashrc文件，加上一行：</p></li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">alias </span><span class="nv">java</span><span class="o">=</span><span class="s1">&#39;你的路径/jre-6u18-linux-i586/bin/java&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上……</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-01-27T01:07:32+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/o-s-/'>O.S.</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -549,58 +650,6 @@
 
 
 	<a class='category' href='/blog/categories/i-t-/'>I.T.</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/psp-c-programing-tutorial/">
-		
-			PSP的C语言编程教程</a>
-	</h2>
-	<div class="entry-content">
-		<p>话说dark_alex同学真的是隐退了…… 凭借着GEN系列的CFW，我们也终于能被动的玩上tekken6, GvG这样的新作了，对于玩家来说似乎是没有什么问题，对于破解来说真是一大损失。alek当然也没有闲着，在他&#8221;隐退&#8221; PSP scene的时候，依然做着很多工作，比如之前在博客里连载的<a href="http://arthraim.cn/post/2009/09/106.html">PSP Code Clips 系列文章</a>。之后，还开设了一个叫做sForum的临时论坛，主要是讨论一下怎么样在关闭以前的Dark-AleX论坛之后重新弄一个范围更广的论坛。最近，这个着眼于编程主题的论坛也已经开张了，可以访问<a href="http://sceners.org/forum/">这里</a>。</p>
-
-<p>正如上面所说，alek其实做了很多PSP的教学工作，应该说把很多自己的成果都和大家分享出来了。但是这不免让我有点担心，在MaxConsole论坛的那帮&#8221;老资格&#8221;们是不是又要不待见他了，毕竟开放一些已有的破解成果，不但是给想要继续他的工作的人铺了一条明路，也给SCE的那帮技术人员的补丁工作打下了坚实的基础（不过事实上SCE的补丁已经打得足够好了，估计DA掌握的这些资料已经没有什么具体的参考价值了）。破解界不比得open source，这些代码是在破解小组破解高手之间都不能互相分享的，更何况这样堂而皇之的公布在网上呢~ so，希望老人们不要太生气。</p>
-
-<p>这次的主题是源于这个论坛的一个帖子，我觉得很好，于是就贴过来吧，主题如本文题目，内容如下…………</p>
-
-<hr />
-
-<p>希望仍然对PSP有兴趣的同学们（不一定是破解啊，哪怕homebrew呢~）好好学习一下吧~ 过一段时间，我会把一个叫做Dark-AleX.org Forum Legacy的帖子也尽数转过来~ 这里有大量的关于PSP底层的内容，比如IPL等等~</p>
-
-<p>你可以在这里下载到这个文件：<a href="http://sceners.org/CprogrammingPSP_Sceners.org_.7z">http://sceners.org/CprogrammingPSP_Sceners.org_.7z</a></p>
-
-<p>以上……</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-12-25T06:48:12+08:00" pubdate data-updated="true">Dec 25<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

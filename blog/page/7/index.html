@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="某个VC6.0时代的组件，因为不想翻新它所以拿出原来的代码进行编译。三个项目在一个dsw中，dll1,dll2和一个应用（app1），我要用到的是dll2。当时学长留下这个组件的时候告诉我：&#8221;千万不要clean，不然就要碰运气了&#8221;。在整整一年的开发里， &hellip;">
+	<meta name="description" content="为啥碰到好多人问，然后这两天调某个网站的代码的时候我又碰到了这个问题，其实说出来很简单，不过你说你发现个bug，要想到是因为这个原因还真是恼人而且一下子想不到。Arthur同学每次遇到某些症状，比如页面元素无法提交修改，我都要去Google一下，最后都会发现就是这个原因啊…… &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,79 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/pageload_an_is_post_back/">
+		
+			ASP.NET的page_load和IsPostBack</a>
+	</h2>
+	<div class="entry-content">
+		<p>为啥碰到好多人问，然后这两天调某个网站的代码的时候我又碰到了这个问题，其实说出来很简单，不过你说你发现个bug，要想到是因为这个原因还真是恼人而且一下子想不到。Arthur同学每次遇到某些症状，比如页面元素无法提交修改，我都要去Google一下，最后都会发现就是这个原因啊…… 其实针对page_load事件，MSDN上解释的很清楚：</p>
+
+<blockquote><p>To prevent data and mouse click events from being overwritten, any binding code in the Page_Load event handler is placed within a Not IsPostBack conditional block, which prevents the binding code from being called during postbacks.</p></blockquote>
+
+<p>虽然我难以理解设计师们的考量，但是在我看来从逻辑上说page_load这个事件总是会让人理解为只在load页面的时候发生。我总是忘了ispostback，所以总是碰到无法提交修改的问题。主要是我还真是好久没有写ASP.NET，昨天真是费解了一把，然后突然想起来很久以前貌似也被这个问题困惑过不止一次。</p>
+
+<p>贴个代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">protected</span> <span class="k">void</span> <span class="nf">Page_Load</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">User</span> <span class="n">loginUser</span> <span class="p">=</span> <span class="n">Session</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span> <span class="k">as</span> <span class="n">User</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="n">TextboxID</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">loginUser</span><span class="p">.</span><span class="n">ID</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(!</span><span class="n">Page</span><span class="p">.</span><span class="n">IsPostBack</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="n">TextboxName</span><span class="p">.</span><span class="n">Text</span> <span class="p">=</span> <span class="n">loginUser</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样写page_load，那如果页面上有一个按钮提交Textbox里修改好的内容，那id是不会被提交的，name则会。</p>
+
+<p>写个文章加深印象，不要再忘记了啊 T T</p>
+
+<p>以上……</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-09T22:46:14+08:00" pubdate data-updated="true">May 9<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -799,50 +872,6 @@
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/new-search-engine-appears-in-china/">
-		
-			国内惊现新中文搜索引擎，实力足以挑战百度！</a>
-	</h2>
-	<div class="entry-content">
-		<p>就在刚才，访问人间的时候突然发现人间的主页发生了巨大的变化！提供了一个类似Google和百度的搜索页面，Arthur输入arthraim之后瞬间就傻了！就这个实力绝对可以挑战百度啊！！有图为证！</p>
-
-<p><img src="/images/uploads/zb/2010-04-01_002203.png" alt="" /></p>
-
-<p>以上~</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-01T08:22:15+08:00" pubdate data-updated="true">Apr 1<span>st</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/internet/'>internet</a>
 
 
 </div>

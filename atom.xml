@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2012-12-11T23:26:01+08:00</updated>
+  <updated>2012-12-12T00:45:13+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode优化过的PNG]]></title>
+    <link href="http://artori.us/optimized-png-in-xcode/"/>
+    <updated>2012-12-12T00:07:00+08:00</updated>
+    <id>http://artori.us/optimized-png-in-xcode</id>
+    <content type="html"><![CDATA[<p>开始做iOS应用就有一个“公理”，<strong>图片素材要使用png格式</strong>，至于公理是怎么形成的完全不知道，只是听说在官方文档里提到过一句：苹果会对png进行优化。</p>
+
+<p>为什么优化？谁优化的？什么时候优化的？怎么优化的？</p>
+
+<p>和所有的魔术一样，说穿了就不好玩了。一切的根源是iPhone的显存。iPhone的vRAM在存放单个像素的颜色的时候，并不是按照传统的“红-绿-蓝”这样的顺序排列的，而是“蓝-绿-红”，即我们常说的RGB，在iPhone的显存里是BGR。并且，没有alpha通道。</p>
+
+<p>另一边，png格式按照“红-绿-蓝”的顺序描述颜色，并且支持alpha通道的半透明，RGBA四个通道各占1个字节。</p>
+
+<ul>
+<li>为什么优化？
+因为一边RGB一边BGR，一边有alpha一边没有alpha。</li>
+<li>谁优化的？
+文章标题已经剧透了，Xcode优化的。</li>
+<li>什么时候优化的？
+Xcode在编译时，会对png资源进行优化。</li>
+<li>怎么优化的？
+优化做了两件事：
+
+<ol>
+<li>把png里所有的RGB颜色转成BGR顺序</li>
+<li>把png里所有的alpha通道先和RGB三通道先乘好（比如R:1 G:1 B:1 A:0.5的颜色直接转成 R:0.5 G:0.5 B:0.5）</li>
+</ol>
+</li>
+</ul>
+
+
+<p>这样最终设备在运行时渲染这些颜色的时候，不需要任何处理，一个汇编语句就把数据丢尽显存里了。</p>
+
+<p>via: <a href="http://iphonedevelopment.blogspot.jp/2008/10/iphone-optimized-pngs.html">http://iphonedevelopment.blogspot.jp/2008/10/iphone-optimized-pngs.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[从wordpress搬到octopress]]></title>
@@ -775,49 +812,6 @@
 <p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问&#8230;)</p>
 
 <p><a href="http://artori.us/arthur-s-2010-summary/2011-01-17-030351_640x630_scrot/"><img src="http://artori.us/images/uploads/wp/2011-01-17-030351_640x630_scrot-500x492.png" alt="" /></a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Arthur电影补完计划第8次中间报告(2010-12)]]></title>
-    <link href="http://artori.us/arthur_movie_report_2010_12/"/>
-    <updated>2011-01-13T16:00:57+08:00</updated>
-    <id>http://artori.us/arthur_movie_report_2010_12</id>
-    <content type="html"><![CDATA[<p>在博客停掉的时候没啥动力码字，每次打几个字就没有动力写下去了。现在它复活了我很高兴，虽然不是原地满血复活，不过我的动力倒是最大限度的复活了。补上12月份的电影报告，hoho~ 因为12月份是一个挺忙的月，人间网第二个产品<a href="http://www.aizheke.com">爱折客</a>是整个在这个月里rush出来的，所以博客几乎没有更新，电影也看的不多。</p>
-
-<p><img src="http://img3.douban.com/spic/s4404427.jpg" alt="" /><img src="http://img3.douban.com/spic/s4436998.jpg" alt="" /><img src="http://img3.douban.com/spic/s4511721.jpg" alt="" /><img src="http://img3.douban.com/spic/s4433349.jpg" alt="" /><img src="http://img3.douban.com/spic/s4063848.jpg" alt="" /><img src="http://img3.douban.com/spic/s4357597.jpg" alt="" /><img src="http://img3.douban.com/spic/s4100333.jpg" alt="" /><img src="http://img3.douban.com/spic/s4451119.jpg" alt="" /><img src="http://img5.douban.com/spic/s4387115.jpg" alt="" /><img src="http://img3.douban.com/spic/s4440289.jpg" alt="" /></p>
-
-<p>豆列的传送门<a href="http://movie.douban.com/doulist/943509/">在此</a>。本月10部，这数字挺好，3天一部比较健康。而且没有太多猎奇，所以这个月看到了很多佳作。豆瓣第一时间的留言如下。</p>
-
-<ol>
-<li><p><strong>城中大盗 / The Town</strong>：本阿弗莱克导演的第二个作品，非常棒！</p></li>
-<li><p><strong>社交网络 / The Social Network</strong>：创造帝国的过程中免不了明争暗斗弱肉强食. 多米诺骨牌的比喻我很喜欢&#8230;</p></li>
-<li><p><strong>天际浩劫 / Skyline</strong>：特技还不错&#8230; 剧情演员逻辑其他什么都是狗屎..</p></li>
-<li><p><strong>凉宫春日的消失 / 涼宮ハルヒの消失</strong>：神作啊!!!!!!!!!!!!!!!!!!!!!!!! 凉宫春日!! 没有你的日子萨必西乃!!</p></li>
-<li><p><strong>卑鄙的我 / Despicable Me</strong>：剧情比较老套，那个很萌的黄色药丸一样的人的行为也比较像疯兔。不过不得不说借鉴了其他很多作品的同时做了很多颇有意义的创新，很多细节也处理的很萌，比如一只飘在天上那只和缩小的那只。。。</p></li>
-<li><p><strong>特工绍特 / Salt</strong>：非常牛X的节奏！一直很紧凑但是情节也有起伏，穿插的回忆一来慢慢的交代了故事的前因，二来交代了salt的心理变化和做这些事情…… 值得品味的好片~~</p></li>
-<li><p><strong>三个傻瓜 / 3 Idiots</strong>：好片子，剧情寓意都不错，不过我还是不太能接受印度电影里歌舞的那些桥段 orz</p></li>
-<li><p><strong>狂野目标 / Wild Target</strong>：英国人的搞笑方式还真不太一样，女主角很漂亮。。。</p></li>
-<li><p><strong>怪兽 / Monsters</strong>：看到结尾来救他们的士兵，然后拉回开头一看，发现原来之前都没有注意到的战斗场景里其实就有男女主角，男主角在叫help，女主角似乎死在了他的怀中………… I don&#8217;t wanna go home&#8230;..似乎她如愿了</p></li>
-<li><p><strong>绯闻计划 / Easy A</strong>：这就是青春啊~ 可以抱着轻松愉快的心情看完的电影，非常不错</p></li>
-</ol>
-
-
-<h2>力荐</h2>
-
-<p>强力推荐的是<strong>三个傻瓜</strong>、<strong>特工邵特</strong>、<strong>凉宫春日的消失</strong>、<strong>社交网络</strong>、<strong>城中大盗</strong>。是不是有点多啊，因为都是超强的片子。鉴于<strong>三个傻瓜</strong>已经美名传天下我就不说了，不过宝莱坞的电影的确有其魅力所在。<strong>特工绍特</strong>是商业动作片，不过片子的剪切非常牛B，非常棒的电影，如果国内可以上映一定再去看一看。<strong>凉宫春日的消失</strong>是动画，在去年MACROSS、高达OO、Fate、柯南剧场都不给力的大环境下，凉宫春日的消失可谓是一枝独秀，宇宙人、未来人、超能力者和神一样的春日的集体消失，世界会变得多寂寞啊，看过才懂。<strong>社交网络</strong>也很给力，跟不上台词。虽然facebook的发迹史的确是扣人心弦，不过我对Zack其人倒是持保留态度，究竟是技术出生的幸运儿，还是权力斗争胜利的闷骚男呢？<strong>城中大盗</strong>是本阿弗莱克这个才子的最新作，充满了浪漫主义的大盗们，出彩！剧情演技导演都没的说，给力。</p>
-
-<h2>好片</h2>
-
-<p><strong>绯闻计划A</strong>和<strong>怪兽</strong>绝对也是强片！放在第二档有些许委屈了。前者是青春校园喜剧，我还是很感冒的。后者就是典型的小成本小视角的大SI-FI，绝对好看，影射了战争的很多古老的话题比如正义比如人性。<strong>卑鄙的我</strong>属于黑马作品，在好莱坞，不是只有皮克斯出得了好动画片哦！</p>
-
-<h2>烂片</h2>
-
-<p><strong>野性目标</strong>虽然稍微有点委屈不算是烂片，不过的确不对我们的胃口啊，英式的幽默实在是。。。 <strong>Skyline</strong>属于大成本大科幻，不过看见男主角的时候我就预感到是烂片，没想到这么么烂，千万别看，终生后悔！</p>
-
-<p>好吧，这就是上个月了，前两档的电影其实都可以看看的，都是好片，野性目标可以尝试下看看对不对你胃口，最后那部，千万别。</p>
-
-<p>以上。。。</p>
 ]]></content>
   </entry>
   

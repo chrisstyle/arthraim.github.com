@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="断断续续把wordpress转换到octopress上了。这是z-blog转到wordpress之后第二次更换博客系统了，octopress很酷，markdown的数据复用、搬家、存档都比lamp的wordpress轻便的多。 从导出wordpress数据库，转换为markdown， &hellip;">
+	<meta name="description" content="开始做iOS应用就有一个“公理”，图片素材要使用png格式，至于公理是怎么形成的完全不知道，只是听说在官方文档里提到过一句：苹果会对png进行优化。 为什么优化？谁优化的？什么时候优化的？怎么优化的？ 和所有的魔术一样，说穿了就不好玩了。一切的根源是iPhone的显存。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,74 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/optimized-png-in-xcode/">
+		
+			Xcode优化过的PNG</a>
+	</h2>
+	<div class="entry-content">
+		<p>开始做iOS应用就有一个“公理”，<strong>图片素材要使用png格式</strong>，至于公理是怎么形成的完全不知道，只是听说在官方文档里提到过一句：苹果会对png进行优化。</p>
+
+<p>为什么优化？谁优化的？什么时候优化的？怎么优化的？</p>
+
+<p>和所有的魔术一样，说穿了就不好玩了。一切的根源是iPhone的显存。iPhone的vRAM在存放单个像素的颜色的时候，并不是按照传统的“红-绿-蓝”这样的顺序排列的，而是“蓝-绿-红”，即我们常说的RGB，在iPhone的显存里是BGR。并且，没有alpha通道。</p>
+
+<p>另一边，png格式按照“红-绿-蓝”的顺序描述颜色，并且支持alpha通道的半透明，RGBA四个通道各占1个字节。</p>
+
+<ul>
+<li>为什么优化？
+因为一边RGB一边BGR，一边有alpha一边没有alpha。</li>
+<li>谁优化的？
+文章标题已经剧透了，Xcode优化的。</li>
+<li>什么时候优化的？
+Xcode在编译时，会对png资源进行优化。</li>
+<li>怎么优化的？
+优化做了两件事：
+
+<ol>
+<li>把png里所有的RGB颜色转成BGR顺序</li>
+<li>把png里所有的alpha通道先和RGB三通道先乘好（比如R:1 G:1 B:1 A:0.5的颜色直接转成 R:0.5 G:0.5 B:0.5）</li>
+</ol>
+</li>
+</ul>
+
+
+<p>这样最终设备在运行时渲染这些颜色的时候，不需要任何处理，一个汇编语句就把数据丢尽显存里了。</p>
+
+<p>via: <a href="http://iphonedevelopment.blogspot.jp/2008/10/iphone-optimized-pngs.html">http://iphonedevelopment.blogspot.jp/2008/10/iphone-optimized-pngs.html</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-12T00:07:00+08:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -600,66 +668,6 @@
 
 
 <time datetime="2011-07-21T05:11:17+08:00" pubdate data-updated="true">Jul 21<span>st</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/the-update-of-rubygems-causes-yaml-parsing-problem/">
-		
-			RubyGems升级造成yaml Parse错误</a>
-	</h2>
-	<div class="entry-content">
-		<p>遇到个很蛋疼的问题，mongoid的配置文件（一个YAML）文件引发了下面这个错误：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db_name must be a string or symbol
-</span><span class='line'>...MONGOID_PATH/lib/mongo/util/support.rb:50:in `validate_db_name'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Google到<a href="http://cstrahan.com/2011/05/14/mongoid-yaml-rails-conflict.html">这里</a>，知道原因是RubyGem v1.5.0开始把默认的yaml parser从syck改成了psych。</p>
-
-<p>解决方法一当然是改你的yaml让它可以被parse，如果需要使用之前的parser，那要在config/environment.rb中加上以下两行</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'yaml'
-</span><span class='line'>YAML::ENGINE.yamler= 'syck'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>话说这好像是第一次写ruby/rails的文章，刚刚玩了两三个星期~</p>
-
-<p>以上</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-06-29T11:10:44+08:00" pubdate data-updated="true">Jun 29<span>th</span>, 2011</time></div>
 	<div class="tags">
 
 
