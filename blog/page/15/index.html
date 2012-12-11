@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="安装好环境、建立了XNA工程、添加了要用到的模型以及贴图，那么接下来要做的就是实际的代码了，而一上来就和2D大为不同的是，我们要直接创建我们的&#8221;宇宙环境&#8221;。要知道，在2D游戏中，我们游戏的&#8221;世界&#8221;是整个一张图，就是背景，简单的2D游戏就是这样。 &hellip;">
+	<meta name="description" content="从2D的意识转换到3D游戏的意识之后（也许还有直接接触3D的），之后的工作就和2D一样简单了，想想教程的例子要有什么——加农炮、UFO、炮弹，就是全部了。我们要一个一个的添加到游戏中，但是和2D一样，我们一定会有大量重复的工作，所以我们需要把这些代码封装， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,219 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/xna-tutorial-3d-ch5-render-gameobject/">
+		
+			XNA教程-3D游戏-05-绘制GameObject</a>
+	</h2>
+	<div class="entry-content">
+		<p>从2D的意识转换到3D游戏的意识之后（也许还有直接接触3D的），之后的工作就和2D一样简单了，想想教程的例子要有什么——加农炮、UFO、炮弹，就是全部了。我们要一个一个的添加到游戏中，但是和2D一样，我们一定会有大量重复的工作，所以我们需要把这些代码封装，所以我们将创建一个具有一般性的类GameObject，来代替所有的加农炮、UFO等等物件的凌乱的代码。</p>
+
+<p><strong>第一步、创建GameObject类</strong></p>
+
+<p>GameObject类究竟有什么好处，烦请大家看下<a href="http://arthraim.cn/view.asp?id=65">这里</a>的末尾《为什么要创建自己的类》这一部分，当然，有过任何OO语言基础的人也知道为什么要封装一个类。</p>
+
+<p>写这个类和2D的如出一辙，一样的我们需要有他的模型Model（sprite）、位置Position、旋转rotation。再加上一个scale属性。至于scale是哪一种，我们这里只是用来缩放模型大小的最最简单的。</p>
+
+<blockquote><p>右键单击工程 -> Add -> New Class -> 命名为GameObject.cs</p></blockquote>
+
+<p>然后修改类为如下代码：</p>
+
+<pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.Storage;
+namespace YourNamespace // 注意修改
+{
+    class GameObject
+    {
+        public Model model = null;
+        public Vector3 position = Vector3.Zero;
+        public Vector3 rotation = Vector3.Zero;
+        public float scale = 1.0f;
+    }
+}
+</code></pre>
+
+<p>这样一个通用的GameObject类就简简单单写完了。</p>
+
+<ul>
+<li><p>Model为null，防止没有被实例化的情况。</p></li>
+<li><p>两个Vector3都为Zero，位置在原点，没有方向。</p></li>
+<li><p>scale为1.0f，表示1.0倍的大小。</p></li>
+</ul>
+
+
+<hr />
+
+<p><strong>第二步、应用GameObject到terrain</strong></p>
+
+<p>既然有了GameObject类，我们就应该把它应用到所有的要加入我们的3D世界的模型中，那么terrain也不例外。所以这一步我们稍稍花点时间，把之前写的terrain的代码修改一下，应用GameObject类。之前有3处地方要写，那么现在就有3处地方要改，声明、初始化、绘制。因为绘制还要做其他的修改，所以我们这里先修改声明和初始化部分。</p>
+
+<p>（注释为原先的代码，其他为新编写的代码）</p>
+
+<p><strong>1、声明。</strong>Game1类刚刚开始的地方，声明很多变量的地方。</p>
+
+<pre><code>//Model terrainModel;
+//Vector3 terrainPosition = Vector3.Zero;
+GameObject terrain = new GameObject();
+</code></pre>
+
+<p><strong>2、初始化 。</strong>找到LoadContent()中和terrain有关的部分。</p>
+
+<pre><code>//terrainModel = Content.Load&lt;Model&gt;(@"Modelsterrain");
+terrain.model = Content.Load&lt;Model&gt;(@"Modelsterrain");
+</code></pre>
+
+<p>这样，terrain就成为了第一个GameObject的应用。接下去。</p>
+
+<hr />
+
+<p><strong>第三步、创建新GameObject，MissleLauncherBase</strong></p>
+
+<p>MissleLauncherBase就是指加农炮的基座，基座是不动的，放在一个固定的位置，我们还是要使用GameObject类来创建他，和terrain是一样的。</p>
+
+<p><strong>1、声明</strong>。Game1类刚刚开始的地方，声明很多变量的地方。</p>
+
+<pre><code>GameObject missleLauncherBase = new GameObject();
+</code></pre>
+
+<p><strong>2、初始化 。</strong>找到LoadContent()中和terrain有关的部分。</p>
+
+<pre><code>missleLauncherBase.model = Content.Load&lt;Model&gt;(@"Modelslauncher_base");
+missileLauncherBase.scale = 0.2f;
+</code></pre>
+
+<p>加上scale的属性，确定缩放。一样把绘制部分交给最后一步统一完成。</p>
+
+<hr />
+
+<p><strong>第四步、绘制GameObject</strong></p>
+
+<p>之前我们绘制过terrain，但是我们使用的是terrainModel这个Model类，和terrainPosition这个Vector3类。现在我们已经将GameObject引入了我们的游戏中，所以我们要重新修改DrawModel方法，我们不需要一个模型一个模型的画，只需要把GameObject这样一个通用的对象，采用一种通用的方法画就可以了。</p>
+
+<p>所以找到DrawModel方法，我们重新写一个DrawGameObject方法（DrawModel方法当然一定用不着了，删掉也行），入参为GameObject。很好，代码如下。</p>
+
+<pre><code>void DrawGameObject(GameObject gameobject)
+{
+    foreach (ModelMesh mesh in gameobject.model.Meshes)
+    {
+         foreach (BasicEffect effect in mesh.Effects)
+         {
+             effect.EnableDefaultLighting();
+             effect.PreferPerPixelLighting = true;
+             effect.World =
+                 Matrix.CreateFromYawPitchRoll(
+                     gameobject.rotation.Y,
+                     gameobject.rotation.X,
+                     gameobject.rotation.Z) *
+                 Matrix.CreateScale(gameobject.scale) *
+                 Matrix.CreateTranslation(gameobject.position);
+             effect.Projection = cameraProjectionMatrix;
+             effect.View = cameraViewMatrix;
+         }
+         mesh.Draw();
+    }
+}
+</code></pre>
+
+<p>不难发现我们对effect.World的初始化发生了一些变化，原本我们只是使用了Matrix.CreateTranslation方法，而现在还添加了两个方法，并且取了三个方法的乘积。这其实就像我<a href="http://arthraim.cn/post/2009/07/74.html">上一章</a>提到过的所有的变化都可以转换为多个变换矩阵的乘积。于是在代码里我们把表示旋转、缩放、位移的三个矩阵相乘，来完成所有这样三个的变化（下面资料中将详细讲解，这三个矩阵被翻译成旋转、比例、转换，其实旋转、缩放、位移更加易于理解）。另外，下一章中，加入加农炮的发射塔，这些参数将变得可控（虽然当前的terrain和missleLauncherBase都是不变的），所以这里依然使用了这样的方式，为了这个方法的通用性。（之后关于此内容还将有官方说明内容）</p>
+
+<p>完成对这个方法的修改，只需要修改Draw方法中的代码就可以了。</p>
+
+<pre><code>DrawGameObject(terrain);
+DrawGameObject(missileLauncherBase);
+</code></pre>
+
+<p>就这样取代之前的DrawModel的调用，加上两行，每一个GameObject只需要一行的调用。这样绘制工作就算完成了。</p>
+
+<p>运行一下，看看实际效果吧！</p>
+
+<p><a href="/images/uploads/zb/2009-07-05_Runtime.jpg"><img src="/images/uploads/zb/2009-07-05_Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=160"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+<hr />
+
+<p><strong>特别说明</strong>：这段翻译，其实讲的就是世界变换的3个矩阵的情况，因为rotation scale translation这三个词中文的叫法是什么我不太清楚，所以这里权且翻译成旋转、比例、转换这样子，尤其是转换这个词不太好，不过因为translation真正完成的工作其实就是平移矩阵，相当于坐标轴的转换，所以只取了转换两个字，希望不会对大家理解上产生困扰。</p>
+
+<p>（以下文字翻译自这里，未经允许禁止转载。由于本人水平有限，所以有任何错误希望高手更正。）</p>
+
+<p><strong>翻译：构造世界的变换</strong></p>
+
+<blockquote><p>3D模型由3D建模软件创建。在这些软件包中，美工们创建了3D世界中的模型。这个世界有一个中心，叫做原点，并且模型根据它来创建。位置、旋转和比例都和相对原点相关联，并且当游戏载入一个模型，会保留他的位置、旋转和比例关系。这样，这个模型被称作在“对象空间”或“模型空间”中。</p>
+
+<p>当一个游戏绘制一个模型时，它连接了模型空间中的原点和游戏世界中的原点。如果这个模型在3D建模软件中存储的中心位置正好是模型空间的原点，那在游戏中绘制的时候他就会出现在游戏世界的原点。</p>
+
+<p>当在你的游戏中绘制一个3D模型，你需要把3个变换应用到你的3D模型上。三者中的第一个，“世界转换”，定义如何转换你的模型的初始位置、方向和比例（对象空间）到游戏世界中的某个位置、方向和比例。</p>
+
+<p>一个标准的世界转换分别由三个矩阵组成（旋转、比例和转换），所有的都将被整合成一个世界变换矩阵。</p>
+
+<p>  *</p>
+
+<p>&#8211; “旋转”（rotatiton）变化模型角度的方向——你可以把它想象成在空间中根据一点朝不同的方向旋转模型。有很多计算和存储旋转数值的方法，一种最常用的就是欧拉角，围绕三个轴旋转一个对象，X轴、Y轴和Z轴。（下一节会解释和说明欧拉角）。创建一个旋转矩阵，你可以使用Matrix.CreateFromYawPitchRoll方法，传入围绕各个轴的旋转角度。要存储游戏对象的这些角度，Vector3类是一个很好的选择。</p>
+
+<p>  *</p>
+
+<p>&#8211; “比例”（scale）变化模型的尺寸，使它能更大或更小。因为它可以让模型沿着任意轴拉伸，它更多的被应用到统一的比例，使得整个模型缩小或放大。要创建一个比例矩阵，使用Matrix.CreateScale方法，传入你要缩小或放大模型的因数。你可以存储游戏对象的比例因数为一个简单的float类型。</p>
+
+<p>  *</p>
+
+<p>&#8211; “转换”（translatiton）沿着3D世界的3个轴移动整个模型。想象成到处平移模型：左右移动（X轴），上下移动（Y轴），前后移动（Z轴）。创建一个转换矩阵，使用Matrix.CreateTranslation方法，传入你要沿着各个轴移动的数据。存储转换的数值可以使用Vector3。</p>
+
+<p>一旦你创建了这些矩阵，你必须把它们组合成为一个单独的世界变换矩阵。这个工作被称为级联（concatenation）。在XNA Game Studio中，级联一个矩阵和另一个矩阵，使用乘法符号（*）。你必须使用正确的顺序级联这些矩阵。</p>
+
+<p><em>世界变换 = 旋转 × 比例 × 转换。</em></p></blockquote>
+
+<pre><code>    _World Transformation = Rotation * Scale * Translation_
+</code></pre>
+
+<blockquote><p>级联的顺序十分重要。因为矩阵惩罚是没有交换律的，所以用错误的顺序相乘会产生预期之外的结果——比如意外的在旋转之前转换坐标系，相对世界原点旋转了坐标系转换后的模型，使模型到了比起简单的正常旋转后的世界空间中的位置非常非常遥远的其他位置，</p>
+
+<p>修改几次每个独立的变换矩阵传入的数值，你可以是物体在世界中穿过（转换），在空间中旋转（旋转），平滑的缩小或放大，或者三个的组合效果。</p></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-05T19:48:03+08:00" pubdate data-updated="true">Jul 5<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1400,296 +1613,6 @@ previousKeyboardState = keyboardState;
 
 
 <time datetime="2009-06-15T19:23:44+08:00" pubdate data-updated="true">Jun 15<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/xna-tutorial-2d-ch5-create-a-cannon/">
-		
-			XNA教程-2D游戏-05-添加一门加农炮</a>
-	</h2>
-	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 05 &#8211; 添加一门加农炮</strong></p>
-
-<p>来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&#8212;- 一个用户控制的加农炮，使用Xbox360手柄或者是PC键盘作为输入。完成了这一次的事情，整个程序就有交互了，就更加接近一个游戏了，其实游戏说穿了不就是一个有交互的幻灯片吗。</p>
-
-<p>之前我们做过的东西都是一样的，所以这里就直接开始说真正的步骤了。直接看到此文的同学，相关文章里面应该可以找到之前的那些文章，从第一篇开始看吧，我想等我写完之后，会整理一个目录出来的。</p>
-
-<p>在做所有的工作之前，我们要了解一个概念，就是屏幕的向量。一般做其他游戏的时候，包括direct3D也一样，屏幕的坐标是左上角的点为原点的。X轴正方向在朝右边，而Y轴正方向朝向下边。但是在XNA中也是这样。另外，角度却不是这个坐标系，而是右边是X轴正方向，上边才是Y轴正方向，原点因为是角度当然就无所谓了。这是说明，请大家不要被positon和rotation采取不一样的坐标系而搞混了。</p>
-
-<p><strong>第一步 &#8212;- 建立我们的GameObject，在Game中添加这个GameObject</strong></p>
-
-<p>GameObject是什么，究竟为什么要添加这么一个GameObject在说完具体的代码方法之后我会说，先讲直接上手的东西，因为可能有人对于概念不太感冒。我们要做的工作的前提是，你已经成功的画上了背景，那么接下去我们要加上的加农炮，让我们先添加一个GameObject吧</p>
-
-<p><strong>1、添加GameObject</strong></p>
-
-<p>首先就是要新建一个类，作为GameObject，具体的步骤如下。</p>
-
-<p><strong>1.1、新建一个类。</strong>（中文版不好意思啦）</p>
-
-<ul>
-<li><p>右键单击你的Project选择Add中的New Item。（这里也可以直接选择Add，New Class）</p></li>
-<li><p>选中class，然后输入类的名称，方便讲解所以和视频一样，取名为GameObject.cs，确认。</p></li>
-</ul>
-
-
-<p>（如下图，点击放大）</p>
-
-<p><a href="/images/uploads/zb/2009-06-14_AddGameObject.jpg"><img src="/images/uploads/zb/2009-06-14_AddGameObject.jpg" alt="" /></a></p>
-
-<p><strong>1.2、添加引用。</strong></p>
-
-<ul>
-<li>复制所有Game1.cs（如果你没改名字的话）的上面的using到新建的GameObject.cs文件的头部，OK</li>
-</ul>
-
-
-<p><strong>1.3、添加属性。</strong></p>
-
-<p>虽然个人认为还是添加为属性比较好，不过这里全都是用了Public的成员变量，那么权且这么用着，不讨论工程范畴的事情了。代码如下。</p>
-
-<pre><code>public Texture2D sprite;
-public Vector2 position;
-public float rotation;
-public Vector2 center;
-</code></pre>
-
-<p>分别是一个Texture2D，我们全部要画的图像信息；Vector2，物体的具体位置；float，旋转的角度；Vector2，旋转中心的位置。有了这些信息，基本上一个2D游戏里能用到的物件的所有信息都在了，起码一个加农炮都在了。</p>
-
-<p><strong>1.4、添加方法。</strong></p>
-
-<p>这里我们只需要添加一个构造方法。代码如下：</p>
-
-<pre><code>public GameObject(Texture2D loadedTexture)
-{
-    rotation = 0.0f;
-    position = Vector2.Zero;
-    sprite = loadedTexture;
-    center = new Vector2(sprite.Width / 2, sprite.Height / 2);
-}
-</code></pre>
-
-<p>传入一个Texture2D作为GameObject中的Texture2D sprite，并且初始化角度为0，位置为0，旋转中心为sprite的中心点。中心点可不是一定的，看下图，我们的中心点刚好是Sprite的二分之一高度二分之一宽度的地方，如果不是，那么要根据具体情况重新决定。</p>
-
-<p><a href="/images/uploads/zb/2009-06-14_OriginalCannon.jpg"><img src="/images/uploads/zb/2009-06-14_OriginalCannon.jpg" alt="" /></a></p>
-
-<p><strong>2、在Game1中载入加农炮。</strong></p>
-
-<p>之后要在Game1中用到刚才的GameObject，并且把它初始化成加农炮。那么我们来吧，具体步骤如下。</p>
-
-<p><strong>2.1、声明一个GameObject。</strong></p>
-
-<p>在Game1.cs中，你声明了backgroundTexture的位置的附近加上新的声明代码，声明一个GameObject并且命名为cannon，这就是我们的加农炮了，具体代码如下。</p>
-
-<pre><code>GameObject cannon;
-</code></pre>
-
-<p><strong>2.2、加载Content资源，并初始化位置。</strong></p>
-
-<p>和背景的方法一样，让它读取我们的cannon.tga就好了，在Content Pipline中被自动命名为cannon（去掉后缀）的就是了。同样在你添加背景的LoadContent()方法，加入以下两行代码，载入资源，并把加农炮的初始位置放在距离屏幕右侧120像素，距离屏幕底端80像素的位置。</p>
-
-<pre><code>cannon = new GameObject(Content.Load&lt;Texture2D&gt;(
-    @"Spritescannon"));
-cannon.position = new Vector2(
-    120, graphics.GraphicsDevice.Viewport.Height - 80);
-</code></pre>
-
-<p>至此，第一步就做完了，我们已经实现并且实例化了一个GameObject，并且把实例化的GameObject整成了cannon加农炮放到了需要的位置上，接下去就可以加入相应对它的操作了。</p>
-
-<hr />
-
-<p><strong>第二步、添加玩家的控制，是加农炮可以旋转</strong></p>
-
-<p>我们会使用Gamepad类和Keyboard类分别来接受Xbox360的手柄和PC键盘的控制。另外，我们用到一个MaxHelper类来实现简单的工作，而避免添加过多繁杂的代码。要做的依然很简单，所有的代码都在Update这个方法中完成，所以你只要找到Update方法，并且把代码加入到// TODO: Add your update logic here附近base.Update(gameTime);之前就好了。</p>
-
-<p><strong>1、添加Xbox360手柄的控制。</strong></p>
-
-<p>这个步骤相当的简单，我们可以看到在Update前部已经加上了一个类似的控制，就是为了使得游戏可以在Xbox360中退出的，可以关注一下它的实现，至于我们这里怎么做还要稍微讲一讲。</p>
-
-<pre><code>GamePadState gamePadState = GamePad.GetState(PlayerIndex.One);
-cannon.rotation += gamePadState.ThumbSticks.Left.X * 0.1f;
-</code></pre>
-
-<p>如果你无视360，那么请直接看2好了，不过这里要稍微对这个代码解释一下。</p>
-
-<p>GetState(PlayerIndex.One)是获取的操作是第一个玩家。因为采用无线手柄，所以X360会对玩家的手柄进行排序，最多四个玩家，也就是最多接4个手柄，分别为PlayIndex这个枚举类型下的One Two Three Four。这里也就是说默认的操作全部来自于One，就是所谓的1P，第一个玩家。</p>
-
-<p>ThumbStick.Left就是XBOX左侧的类比遥感，这个东西不是简单的上下左右就好了，它是矢量的，就是说你打左的程度也会成为控制的一个信息，而不是简单的boolean。那么在这里的代码是怎么回事呢？首先，你要知道，ThumbSticks.Left.X这是一个Vector2（也重载了其他情况比如Vector3），也就是一个向量，相当于把摇杆所在的范围看作一个坐标系。这样一来这行代码的意思就非常的明显了，往左的程度越多×0.1f，加到角度（旋转角度也是一个向量）上，那么越往左就是越往逆时针旋转。这样理解下来的话，这句话的意思也可以写成：</p>
-
-<pre><code>cannon.rotation -= gamePadState.ThumbSticks.Right.X * 0.1f;
-</code></pre>
-
-<p>这样其实我们控制的效果和键盘是不一样的，也就是说扳动类比遥感的角度越大，旋转速度就会越大。</p>
-
-<p><strong>2、添加PC键盘的控制。</strong></p>
-
-<p>相对于XBOX，这里的代码量要稍微多一点，不过反而好理解一点。只要读取左右按键是否按下，按下就相应的产生操作就好了。因为update是每一帧都会来读取的内容，所以虽然一次只读键盘一次，但是其实一直按住的连续操作也是会被接受的，不理解的朋友可以留言，因为初学者可能不知道update和draw两个方法在游戏主循环里会不停的调用的。代码如下：</p>
-
-<pre><code>#if !XBOX
-KeyboardState keyboardState = Keyboard.GetState();
-if(keyboardState.IsKeyDown(Keys.Left))
-{
-    cannon.rotation -= 0.1f;
-}
-if(keyboardState.IsKeyDown(Keys.Right))
-{
-    cannon.rotation += 0.1f;
-}
-#endif
-</code></pre>
-
-<p>注意一下#if和#endif之前的代码，!XBOX的意思就是如果不是XBOX360的话，就会在编译的时候编译这一段代码，否则就不编译了，因为360是没有键盘的哦。</p>
-
-<p>代码没有什么特别值得解释的东西。如果按键被按下，是左边就减去向量角度，是右边就加上向量角度。</p>
-
-<p><strong>3、限制加农炮旋转角度。</strong></p>
-
-<p>已经对加农炮的旋转进行了操作，可是还存在什么问题么？是的，现在我们的加农炮是可以360度回旋的，转啊转啊大风车一样，可是我们只能让他转在朝着屏幕右上角的90度里面怎么办？很简单，利用XNA提供的一个MathHelper类。名字取得很好听，&#8221;数学助手&#8221;，如果数学不过关那么就用它吧。不过这里我们只是限定一个范围，那么其实用if也完全可以完成，MathHelper帮我们减少了代码量，功德无量啊。代码也很简单，一行：</p>
-
-<pre><code>cannon.rotation = MathHelper.Clamp(
-cannon.rotation, -MathHelper.PiOver2, 0);
-</code></pre>
-
-<p>加农炮的旋转角度来接收返回值。返回值一定不是最大值就是最小值了吧。</p>
-
-<p>看看MathHelper.Clamp传入了什么？</p>
-
-<ul>
-<li><p><strong>第一个参数</strong>：需要被限定的变量，那么我们要限定的就是加农炮的旋转角度 &#8212;- cannon.rotation。</p></li>
-<li><p><strong>第二个参数</strong>：最小值，我们旋转角度的最小值。显然，我们传入的最小的是-MathHelper.PiOver2，这有点像个宏，其实是MathHelper的另一个重要功能，帮我们记录一些常数。PiOver就是90度，Pi/2，这个学过向量应该知道，不知道的就可以补习数学去了。（下文会对这个东西详细的讲解）</p></li>
-<li><p><strong>第三个参数</strong>：最大值，就是0，就是说它最大的旋转角度在0，也就是水平线往右，X正方向，这个角度就可以了。</p></li>
-</ul>
-
-
-<p>至此，我们第二步的工作就宣告完成了～ 接下去就是最令人兴奋的部分了，把我们已经加载的，并且可以操作的加农炮显示到屏幕上，把它画出来！其实我们它已经存在了，只是我们还看不见，所以，第三步就是让我们看见他！</p>
-
-<hr />
-
-<p><strong>第三步、绘制加农炮</strong></p>
-
-<p>无聊了，看了这么久写了这么久为什么运行的时候都不变？当然，因为没有画出来啊，接下来就是要在Draw方法里画了，方法也异常简单。</p>
-
-<p>找到上次画了背景的那个地方， 也就是Draw方法，在画背景的那一行的下面加入如下代码。</p>
-
-<pre><code>spriteBatch.Draw(
-    cannon.sprite,
-    cannon.position,
-    null,
-    Color.White,
-    cannon.rotation,
-    cannon.center,
-    1.0f,
-    SpriteEffects.None,
-    0);
-</code></pre>
-
-<p>没错，其实和画背景一样，我们只是调用了SpriteBatch类的Draw方法，只是这一次我们使用了另外一个重载而已。只是这一次使用了参数比较多的那一个，一个一个的讲解过来吧。</p>
-
-<ul>
-<li><p><strong>第一个参数</strong>：Texture2D，也就是要画的纹理，这样我们全部要画的就是这个cannon.sprite这个Texture2D了。没错～</p></li>
-<li><p><strong>第二个参数</strong>：Vector2D，向量，也就是我们放的位置。我们传入了cannon.position，还记得吗？当时设定的是(120,高度-80)这个向量。</p></li>
-<li><p><strong>第三个参数</strong>：Rectangle，矩形，是指在我们的Texture2D上面的裁剪，有经验的一定知道，很多的动画都是通过这样的方式实现的，每一帧画在一张texture上，一次载入之后，以后每一次都只要变化这个参数来读取不一样的位置就好了。这里我们传入了null，意思就是默认为不进行任何的裁剪。可以尝试把第三个参数改成new Rectangle(0, cannon.sprite.Height / 2, cannon.sprite.Width, cannon.sprite.Height)绘制一半。</p></li>
-<li><p><strong>第四个参数</strong>：Color，传入颜色，和之前画背景一样，就是我们的色彩过滤。White代表不进行任何过滤。</p></li>
-<li><p><strong>第五个参数</strong>：float，传入的是旋转的值，它指的是向量的角度，就是屏幕的坐标系上的角度。我们传入的是0，那么就是X正方向，也就是不进行任何旋转，加农炮朝着屏幕左边。</p></li>
-<li><p><strong>第六个参数</strong>：Vector2，是图像的中心点的位置，这里要注意一下，这个中心会根据你绘制的图形重新定义，如果你画的东西不是整个的，那就会发生变化了。这里我们绘制了全部的内容，所以没问题。如果之前一样你只绘制一半，就惨了。也就是说在这个方法内部，是先切割，决定画的部分，再决定中心点，而不是先根据你传入的Texture2D决定中心点，再切割的。</p></li>
-<li><p><strong>第七个参数</strong>：float，这个是指图形缩放的倍数，如果要实现平滑的缩放，那么简单的Update里调整这个数值就可以了。我们这里的1.0f就是1倍，1 / 1，不缩放的意思。</p></li>
-<li><p><strong>第八个参数</strong>：SpriteEffects枚举，这个枚举也只有三个成员，FlipHorizontally，FlipVertically和None。也是2D游戏的除旋转、缩放意外非常重要的特效&#8212;-翻转。一个是纵向的一个是横向的翻转。应该很好理解。我们传入None，就是不翻转。</p></li>
-<li><p><strong>第九个参数</strong>：Int32，也就是int了，这是指深度，0和1之间。2D游戏经常会有深度这个概念，Depth，往往，Sprite会自动对这些深度排序，这样可以实现一些角色挡住丛林，或者丛林挡住角色的变化。这是2D游戏很重要的一个参数。当然如果要让这个参数有效，你必须先设置SpriteSortMode，在这里就不多加讨论了，总之我们这里传入了0。</p></li>
-</ul>
-
-
-<p>这样我们就画好了加农炮。运行一下吧，你已经在游戏上面做了一个可以转动的加农炮了。然后修改一下之前的一些代码看看有什么不同的变化～比如旋转的角度限定注释掉，炮会很可爱的。</p>
-
-<p><a href="/images/uploads/zb/2009-06-14_RunTime.jpg"><img src="/images/uploads/zb/2009-06-14_RunTime.jpg" alt="" /></a></p>
-
-<p>【官方源代码下载】</p>
-
-<p><a href="http://creators.xna.com/downloads/?id=152"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
-
-<hr />
-
-<p>之前也说到了，一些问题会在最后讨论一下，其实这就是两段在官网上也特别罗列出来要讲的东西，于是放上这两段的翻译。</p>
-
-<p><strong>一、为什么要创建自己的类？</strong></p>
-
-<p>我们在代码过程中，创建了一个GameObject，并且实例化为Cannon，可是为什么要自己创建一个GameObject呢？不是简单的把四个变量放到Game1里面就可以了吗？来看看下面这段翻译。（下文由本人翻译自<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/details/5_1">这里</a>，转载请注明翻译作者Arthraim，并表明出处，尊重我的劳动成功）</p>
-
-<blockquote><p><a href="/images/uploads/zb/BG_3.5.1.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.1.1pd_a.png" alt="" /></a></p>
-
-<p>目前为止，你已经使用过了一段时间XNA Framework中的一些实现定义好的类（代码层面的对象，包含了数据和针对数据的操作的方法）了。</p>
-
-<p>你已经修改了一些包含在Game1这个类中的一些方法，添加了一些新的类的声明，诸如SpriteBatch和Texture2D，并且在类中使用了他们。</p>
-
-<p>然而，创建GameObject类完全是一种新的操作：创建一个你自己的包含了数据和方法的类的过程叫做定义一个类。乍一看，创建一个新的类文件，并且定义一些能像在Game1里面定义了一样，能够被简单的使用的数据和变量，也许需要非常多的工作。</p>
-
-<p>例如，在GameObject中，一个被叫做position的数据成员Vector2。你可以简单的在Game1中定义一个包含位置数据的Vector2，因为一个就可以记录想让你追踪位置的对象了。但是还有旋转，速率，和其他活动的变量。当你考虑可以添加更多对象到屏幕上，而需要的都是一样的数据的时候，加入Game1的变量的数目就会开始向着无法工作的庞大的数据增长。</p>
-
-<p>另外，如果你需要对这些数据进行一些运算操作，你就必须对每个变量采取相同的计算操作，一个接着一个。最终你的代码量将会非常的庞大并且没有效率。</p>
-
-<p>类的目标是重用。综合一类你可能要用到多次的数据和方法到一个单独的&#8221;代码对象&#8221;，这样一个小单元，比一些独立的数据对象更加容易操作。</p>
-
-<p>就像你可以在图中看到的一样，使用一个类，显著的减少了你需要在Game1.cs里要添加的声明，并且保持数据有序。当你要开始使用数列（相似并且可以按序操作的数据集合）声明一些对象，即游戏中对象变得更多的时候，这个概念会显得更加重要，没有类，数据会变得难以追踪。</p></blockquote>
-
-<p>其实这只是一个简单的面向对象的概念，不应该放到游戏编程这里来说，就像视频里其实没必要讲一些VS的用法，因为虽然讲了，但是根本对不会用VS的人没有帮助。一样的，对不懂OO的人来说，讲这么一段东西对于他们的思维来说也不能产生什么变化。所以说，无论是VS的用法，还是C#的语法，或是这里提到的OO思想，都是需要慢慢积累，或是在别的地方补课的，而不是通过这个简单的教程。</p>
-
-<p><strong>二、Game Studio中的角</strong></p>
-
-<p>（下文由本人翻译自<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/details/5_2">这里</a>，转载请注明翻译作者Arthraim，并表明出处，尊重我的劳动成功）</p>
-
-<blockquote><p>开发游戏中经常会需要你传递一个表示一个角的数值。2D对象的旋转只是你使用角的开始，还会有很多角的使用，比如在3D对象中，不同对象间反射的角，还有更多其他的。</p>
-
-<p>有很多不同的方式去传递角。一个标准的方法就是用角度。意思是，把一个圆圈分为360个部分，每一个被称为一度。90度是四分之一个圆，180度是半个圆，等等。</p>
-
-<p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &#8212;- 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
-
-<p><a href="/images/uploads/zb/BG_3.5.2.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.2.1pd_a.png" alt="" /></a></p>
-
-<p>当使用SpriteBatch.Draw画一个Sprite，或者当你创建一些用来旋转的矩阵的时候，你需要弧度来传入旋转的值。但是如果你觉得角度更加方便的话，你可以在游戏中继续使用它，只要你在调用一些XNA Framework中需要传入弧度的方法的时候把它们转换成弧度就可以了。你可以使用MathHelper.ToRadians来完成这个工作，只要传入你要转换的角度即可。</p></blockquote>
-
-<p>这也是之前说到的会详细说的内容。最后我再补上一张图，方便大家学习吧。</p>
-
-<p><a href="/images/uploads/zb/2009-06-14_CordinateSystem.jpg"><img src="/images/uploads/zb/2009-06-14_CordinateSystem.jpg" alt="" /></a></p>
-
-<p>画是画的难看一点。</p>
-
-<ul>
-<li><p>我们在设置position的时候，使用的是最外面黄色箭头表示的这个坐标系的，就是X正方向朝左，Y正方向朝下。</p></li>
-<li><p>在设置center的时候，这个向量也是使用一样的方向的，只是坐标原点换成了Sprite的左上角，就比如我图例那个粉红色的框框的左上角（好像有些圆了 ;)）。</p></li>
-<li><p>而在设置初始旋转的时候，我们设置了0，那么就是像图例的弧度这张图一样，是摆正的。就是Y轴方向是和屏幕坐标系相反的。（但是弧度这个概念可是不受限于坐标系的，只是rotation这个参数默认的0度是在这样的一个坐标系里面的。）</p></li>
-</ul>
-
-
-<p>好了我觉得该说的都说过了，那么就是这样。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-15T03:56:33+08:00" pubdate data-updated="true">Jun 15<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ： &#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and &hellip;">
+	<meta name="description" content="写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。 还是围绕核心的这句话。 &#8220;A .NET language for safe, scalable and productive &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,174 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/more-axum-what-is-agent-and-pipeline/">
+		
+			继续研究Axum —— 初解agent和pipeline</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。</strong></p>
+
+<p>还是围绕核心的这句话。</p>
+
+<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+
+<p>在<a href="http://arthraim.cn/post/2009/05/32.html">上一篇文章</a>也在讲这句话，但是说穿了讲的应该是：</p>
+
+<blockquote><p>&#8220;A .NET language for parallel programming through message-passing.&#8221;</p></blockquote>
+
+<p>我们只是从一个channel中派生了一个agent，做了数据传递而已，真正意义上的actor在哪里没有讲到（虽然有用到）。那么这次讲一讲。因为刚好看到<a href="http://www.cnblogs.com/JeffreyZhao/archive/2009/05/11/a-simple-actor-model-implementation.html">老赵的博客上</a>好好的分析了actor模型一把，要好好向他学习啊。</p>
+
+<p>Axum是为并行而生的.net语言，那么他提供了非常完整的Actor模型，使得每个actor可以安全的并发。那么不用说，coding的时候就肯定用到过了actor模型，究竟他在哪里呢？其实就是agent。还记得写Axum的<a href="http://arthraim.cn/post/2009/05/31.html">第二篇文章</a>，看到VS2008 generate出来的代码之后，看到agent的时候非常疑惑，那么现在就可以解惑了。</p>
+
+<p><strong>agent就是在axum中的actor模型。</strong></p>
+
+<p>讲到这里就很明显了，只是从channel派生出来的actor模型本身还肩负着其他功能。我想跟着Guide走，那么下一次也许还有机会讲到agent。</p>
+
+<hr />
+
+<p><strong> 然后讲讲pipeline。先从一个程序出发：斐普纳吉数列的实现。</strong></p>
+
+<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &#8212;- MainAgent。</p>
+
+<pre><code>using System;
+using Microsoft.Axum;
+using System.Concurrency.Messaging;
+agent MainAgent : channel Microsoft.Axum.Application
+{
+    // ...
+    public MainAgent()
+    {
+        // ...
+    }
+}
+</code></pre>
+
+<p><strong>agent从channel中派生是种什么特殊情况呢？</strong>在Guide上是这么描述的：</p>
+
+<blockquote><p>Implementing a channel is different - syntactically and semantically - from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
+
+<pre><code>    However, when an agent implements a channel (notice the channel keyword after the colon in the agent declaration), it "attaches" itself to the implementing end of that channel and becomes the "server" of messages on that channel. The other end of the channel - known as the using end - is only visible to the "client", or the component (typically another agent) on the other end of the channel.
+</code></pre>
+
+<blockquote></blockquote>
+
+<p>大概翻译一下：（哪怕只当Guide翻译集锦看也好）</p>
+
+<blockquote><p>从一个channel派生和从一个接触agent中派生是不一样的，有字面上的和语义上的两种理解。一个agent从另一个agent从派生的话，只不过是通过覆盖重写它的方法或可能为自己增加更多的一种扩展。</p>
+
+<p>然而当一个agent从一个channel派生的话，它是把自己&#8221;贴&#8221;到channel的派生端（implementing end），从而成为channel上的信息的&#8221;服务端&#8221;。而Channel的另一端（被称作应用端（using end））是指对&#8221;客户端&#8221;或在channel另一端的某个组件（代表性的就是另一个agent）。</p></blockquote>
+
+<p>channel负责传递信息，但是它不会对信息做任何处理。（处理的当然是agent啦）</p>
+
+<p><img src="/images/uploads/zb/2009-05-14_TwoEndsChannel.png" alt="" /></p>
+
+<p><strong>那从Microsoft.Axum.Application这个channel派生的主程序是如何处理信息的呢？</strong></p>
+
+<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&#8217;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
+
+<p>从Microsoft.Axum.Applicationruntime这个Channel派生过来的agent的runtime实例，发送命令行参数到channel的命令行端口（CommandLine port），然后等待退出代码端口（prot ExitCode）的信息。当收到信息后，应用程序就关闭。</p></blockquote>
+
+<p>这样一个ax程序的运行机理也就知道了，如果说C是从main函数中得到参数，执行完毕后跳出。那ax程序就是从这个main channel出发，得到退出代码的信息后退出。</p>
+
+<p>继续补充代码，然后来看看信息的异步编程。先写一个斐普纳吉的递归算法。</p>
+
+<pre><code>function int Fibonacci(int n)
+{
+    if( n&lt;=1 ) return n;
+    return Fibonacci(n-1) + Fibonacci(n-2);
+}
+</code></pre>
+
+<p>然后是界面的代码。</p>
+
+<pre><code>int numCount = 10;
+void ProcessResult(int n)
+{
+    Console.WriteLine(n);
+    if( --numCount == 0 )
+    {
+        Console.ReadLine();
+        PrimaryChannel::ExitCode &lt;-- 0;
+    }
+}
+</code></pre>
+
+<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&#8211; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
+
+<p>之后就是最精彩的创建OrderedInteractionPoint和pipeline的代码了。</p>
+
+<pre><code>public MainAgent()
+{
+    var numbers = new OrderedInteractionPoint&lt;int&gt;();
+    // Create pipeline:
+    numbers ==&gt; Fibonacci ==&gt; ProcessResult;
+    // Send messages to numbers:
+    for( int i=0; i&lt;numCount; i++ )
+        numbers &lt;-- 42-i;
+}
+</code></pre>
+
+<p>从格式上看，微软工程师们还是很有创意的，这段代码看上去很有美感。值得说的东西也是非常的多。</p>
+
+<p>Axum提供了两种orchestration（这单词怎么翻译？编排？）方式，基于控制流（control-flow-based）和基于数据流（data-flow-based）。</p>
+
+<blockquote><p>In Axum, the messages are sent to and received from the interaction points. An interaction point from which a message originates is called the source, and the destination is called the target. An interaction point can be both a source and a target, meaning that it can both send and receive messages. This allows composition of multiple interaction points into dataflow networks.</p>
+
+<p>在Axum中，信息传递和接受是通过interaction points（互动点？）的。信息源的interaction point叫做source，目的地的叫做target。同一个interaction point能同时既作为source，又作为target，意味着它能同时发送和接受信息。这样就允许很多的Interaction point组成一个数据流网络。</p></blockquote>
+
+<p>翻译过来之后，意思应该已经比较清晰了，数据流和原始的控制流程序不一样，以前类似上面代码的过程，我们写完两个方法之后需要把一个先初始化两个数据，其中一个传入斐普纳吉计算然后一个去接受结果（不是唯一解决方法），然后再将结果去交给界面方法打印。而现在我们调用的过程就整个缩减为一个管道：</p>
+
+<blockquote><p>numbers ==> Fibonacci ==> ProcessResult;</p></blockquote>
+
+<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&#8211; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
+
+<p>有了pipeline，我们就要使用它，因为axum在编译的时候对它是进行特殊处理的。比如斐普纳吉计算过程是a side-effect-free function，一个没有副作用的函数，那么axum就会根据它认为最有效的方式的方式编译出多个线程来处理，并行的优势就体现在这里。</p>
+
+<p>之前说到Ordered，虽然这个数据流是可以并行执行的，但是它的顺序是不会发生变化的，哪怕多个实例在一个结点上，想进入下一个结点你也是必须执行完现在的节点的。就比如说上面的程序中，UI打印模块在你完成斐普纳吉计算前绝对不能新建线程。</p>
+
+<p><strong>程序代码和执行效果：</strong></p>
+
+<p><img src="/images/uploads/zb/2009-05-14_run.png" alt="" /></p>
+
+<hr />
+
+<p>说到这里就把Axum的agent和pipeline都说完了。简单的总结起来，agent就是actor模型的实现，而pipeline就是基于数据流的程序驱动方式。</p>
+
+<p>关于Axum的其他新特性，再慢慢研究咯～</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-15T06:23:57+08:00" pubdate data-updated="true">May 15<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -802,106 +970,6 @@ filter:Gray;
 
 
 <time datetime="2009-05-07T17:42:28+08:00" pubdate data-updated="true">May 7<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/psp3000-hacking-forwarding-chickhen-released/">
-		
-			PSP3000破解进一步 ChickHEN发布</a>
-	</h2>
-	<div class="entry-content">
-		<p>PSP3000的破解比想象的慢了很多很多，甚至让我也觉得希望渺茫，另外，因为体验到了PSN（Playstation@Network的简称），让我觉得能作为正版用户也是非常不错的。不过因为怂恿了家人买3000，并且当时认为一定能被破解，所以也一直关注破解的进程。</p>
-
-<p>虽然之前的各种溢出漏洞都没有真正能被利用，Gridshift的漏洞也只是简单的运行一些小程序段步伐进入kernel mode而已，不过在出现TIFF漏洞之后似乎看到了曙光。当年PSP1000破解工作就是在2.70时代的TIFF漏洞中找到了契机，而最终演变成了如今这繁荣昌盛的D版市场。</p>
-
-<p>经过几次的延期，第一个HEN系统ChickHEN Homebrew Enabler终于还是出现了。能提供一个可以运行Homebrew的环境。Alek也在<a href="http://www.sceners.org/">Sceners.org</a>上写了相关的文章《<a href="http://sceners.org/index.php?id=25">ChickHEN Eggsploited!</a>》</p>
-
-<p>下载请至：<a href="http://davee.x-fusion.co.uk/">Davee&#8217;s DevSite</a></p>
-
-<p><a href="http://davee.x-fusion.co.uk/"><img src="/images/uploads/zb/davee.png" alt="" /></a></p>
-
-<blockquote><p>5.03 ChickHEN Homebrew Enabler - Team Typhoon (Article by Granite) So comes the release of the highly anticipated ChickHEN homebrew enabler by Team Typhoon. After 1800 Lines of code, 4 weeks of stressful developing and countless amounts of tests the dawn of a new homebrew era for all the 3000, 2000 and 1000 users is on the horizon. What was said to be impossible by many is now a reality, all styles homebrew are now running on the &#8220;unhackable&#8221; T88v3 and TA-090 motherboards rolled out by Sony.</p></blockquote>
-
-<p>What does the ChickHEN do?</p>
-
-<p>ChickHEN as a Homebrew Enabler that allows the execution of homebrew via the PSP XMB. Running via a vulnerability in the lib TIFF the launcher takes advantage of the system by performing a kernel exploit and rebooting into a homebrew enabled enviroment. The ChickHEN remains active until the PSP is fully reset in which case official firmware loads from the flash. ChickHEN unlike other HEN&#8217;s doesn&#8217;t touch the flash0 and resides completely in memory. The h.bin supplied in this download consists of a loader and systemex, which is a inversed order of systemctrl and rebootex</p>
-
-<p>What ChickHEN does NOT do?</p>
-
-<p>-Run ISO, CSO or any other form of UMD backup.</p>
-
-<p>-Run PSX Games</p>
-
-<p>-Touch The Flash of your beloved PSP</p>
-
-<p>-Magically allow the use of Custom Firmware</p>
-
-<p>-Load plugins</p>
-
-<p>How do i get the HEN to run on my PSP?</p>
-
-<ol>
-<li><p>First off use the supplied TIFF image and place it in the PSP>PHOTO Directory.</p></li>
-<li><p>Copy h.bin over to the MS ROOT and safely remove device.</p></li>
-<li><p>Scroll over to the PHOTO icon on the XMB and click the ChickHEN folder and wait. (This will not work the first time, you may have to just use a method of loading that works for you but this is what we have found most efficient)</p></li>
-<li><p>If all goes well the screen should blank out and flash green showing that the HEN is loaded and all is well.</p></li>
-<li><p>Wait for your PSP to reboot and check your PSP&#8217;s system software. It should now display: &#8220;5.03 ChickHEN&#8221;.</p></li>
-<li><p>Scroll on over to GAME and enjoy some Homebrew!</p></li>
-</ol>
-
-
-<p>Disclaimer:</p>
-
-<p>This software should not be used in conjunction with software which can enable the usage or disable the protections of copyrighted content. We will not be held responsible for any damage to your PSP system. This software comes with no warrenty.</p>
-
-<p>Credits:</p>
-
-<p>Team Typhoon: ChickHEN</p>
-
-<p>MaTiAz: TIFF Eggsploit ;)</p>
-
-<p>Lawrence Jackson (LCJ14) - PSP 3000</p>
-
-<p>MforMature staff: For everything</p>
-
-<p>Everyone else who gave help during the development</p>
-
-<p>SHA-1 of h.bin: 39339DF6D67DA88BDFF78261222AAADAEBCD9203</p>
-
-<p>http://davee.x-fusion.co.uk</p>
-
-<blockquote></blockquote>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-07T01:47:32+08:00" pubdate data-updated="true">May 7<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

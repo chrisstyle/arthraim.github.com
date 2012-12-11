@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2012-12-11T23:06:01+08:00</updated>
+  <updated>2012-12-11T23:26:01+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[从wordpress搬到octopress]]></title>
+    <link href="http://artori.us/migrated-from-wordpress-to-octopress/"/>
+    <updated>2012-12-11T23:12:00+08:00</updated>
+    <id>http://artori.us/migrated-from-wordpress-to-octopress</id>
+    <content type="html"><![CDATA[<p>断断续续把wordpress转换到octopress上了。这是z-blog转到wordpress之后第二次更换博客系统了，octopress很酷，markdown的数据复用、搬家、存档都比lamp的wordpress轻便的多。</p>
+
+<p>从导出wordpress数据库，转换为markdown，部署到github，搬图片文件，转换评论，磨磨蹭蹭的前前后后大约拖延了有两周，到今天终于把域名解析给换到这里来了。</p>
+
+<p>最头疼的是转换文章的脚本不见得可靠，老文章的格式乱七八糟需要一篇一篇手动去修正，我现在做了一半，至少保证最新的大约3/5的文章是修改过的友好的格式。</p>
+
+<p>很久没有更新博客，evernote的博客素材已经攒了一大堆，有空一篇一篇写出来吧。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[2012欧洲杯Google,iCal,Outlook日历]]></title>
@@ -803,30 +818,6 @@
 <p>好吧，这就是上个月了，前两档的电影其实都可以看看的，都是好片，野性目标可以尝试下看看对不对你胃口，最后那部，千万别。</p>
 
 <p>以上。。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[I'm back!]]></title>
-    <link href="http://artori.us/im-back/"/>
-    <updated>2011-01-12T20:53:24+08:00</updated>
-    <id>http://artori.us/im-back</id>
-    <content type="html"><![CDATA[<p>终于联系上了域名代理, 我的arthraim.cn也续费成功了, 不会被劫持到广告页了, 然后我做了以下几件事.</p>
-
-<ol>
-<li><p>之前当然先做了artori.us这个镜像, 和之前的一模一样</p></li>
-<li><p>修改之前arthraim.cn上的.htaccess文件, 重定向所有对arthraim.cn的请求到artori.us.</p></li>
-<li><p>到Google Webmaster Tools验证了新的artori.us; 并且设置arthraim.cn的站点迁移, 让Google知道我换域名了.</p></li>
-</ol>
-
-
-<p>在这几天Google已经删掉了很多我的收录, 不过好歹有所挽回.</p>
-
-<p>以上&#8230;</p>
-
-<p><strong>Update</strong>：</p>
-
-<p>我的RSS源订阅的童鞋们，如果方便的话把feed的域名帮忙换成artori.us，当然之前的源不变问题也是不大的，会自动重定向的。（只是换域名似乎对GREADER插件PR的影响很大）</p>
 ]]></content>
   </entry>
   
