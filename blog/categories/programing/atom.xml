@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Programing | Artoirus]]></title>
-  <link href="http://Arthraim.github.com/blog/categories/programing/atom.xml" rel="self"/>
-  <link href="http://Arthraim.github.com/"/>
-  <updated>2012-12-11T17:53:48+08:00</updated>
-  <id>http://Arthraim.github.com/</id>
+  <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
+  <link href="http://artori.us/"/>
+  <updated>2012-12-11T20:07:41+08:00</updated>
+  <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[git修剪分支]]></title>
-    <link href="http://Arthraim.github.com/git-prune-branch/"/>
+    <link href="http://artori.us/git-prune-branch/"/>
     <updated>2012-03-02T08:07:32+08:00</updated>
-    <id>http://Arthraim.github.com/git-prune-branch</id>
+    <id>http://artori.us/git-prune-branch</id>
     <content type="html"><![CDATA[<p>项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。</p>
 
 <ul>
@@ -39,9 +39,9 @@
   
   <entry>
     <title type="html"><![CDATA[Mac OS 10.7.3用xcode提交二进制文件验证失败]]></title>
-    <link href="http://Arthraim.github.com/mac-os-10-7-3-breaks-xcode-binary-validation/"/>
+    <link href="http://artori.us/mac-os-10-7-3-breaks-xcode-binary-validation/"/>
     <updated>2012-02-13T04:27:59+08:00</updated>
-    <id>http://Arthraim.github.com/mac-os-10-7-3-breaks-xcode-binary-validation</id>
+    <id>http://artori.us/mac-os-10-7-3-breaks-xcode-binary-validation</id>
     <content type="html"><![CDATA[<p>近日在提交一个app的时候发生了奇怪的错误。错误如下：</p>
 
 <p><a href="/mac-os-10-7-3-breaks-xcode-binary-validation/icon-dimensions-dont-meet-the-size-requirements/"><img src="/images/uploads/wp/icon-dimensions-dont-meet-the-size-requirements.png" alt="" /></a></p>
@@ -66,9 +66,9 @@
   
   <entry>
     <title type="html"><![CDATA[Windows Phone版微博通]]></title>
-    <link href="http://Arthraim.github.com/windows-phone-wbt/"/>
+    <link href="http://artori.us/windows-phone-wbt/"/>
     <updated>2011-12-12T00:53:41+08:00</updated>
-    <id>http://Arthraim.github.com/windows-phone-wbt</id>
+    <id>http://artori.us/windows-phone-wbt</id>
     <content type="html"><![CDATA[<p>很久没有写博客了，已经有友联的童鞋抱怨了，最近这段时间很忙，几乎下班就没心情做自己的事情了。话说最近入手了一台WP7，三星focus，白菜价，手机丢了所以来不及等Nokia Lumia 800了，很急就入手了。话说这不是重点，我手痒然后卸掉了WP7sdk的beta2，装上了新的7.1，小玩了一下。</p>
 
 <p>话说其实给WP7写应用还真的蛮好玩的，事实上marketplace实际上也比我想象的要热闹一点，所以还蛮有动力写点东西的，最近在公司写iOS的app，每天都是objective-c，捡起了以前的C#真是一下子觉得好厉害，一个天一个地啊，终于不用自己retain, release了。</p>
@@ -85,9 +85,9 @@
   
   <entry>
     <title type="html"><![CDATA[ruby好可怕]]></title>
-    <link href="http://Arthraim.github.com/ruby-is-horribl/"/>
+    <link href="http://artori.us/ruby-is-horribl/"/>
     <updated>2011-09-11T20:40:56+08:00</updated>
-    <id>http://Arthraim.github.com/ruby-is-horribl</id>
+    <id>http://artori.us/ruby-is-horribl</id>
     <content type="html"><![CDATA[<p>接触ruby时间不长，用的机会就更少了，所以偶尔用一下的时候难免还要去翻翻文档什么的。维护某个后台的时候，有个随机输出的需求，所以我写了下面这样一段代码。</p>
 
 <p>```ruby</p>
@@ -164,9 +164,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[NoMethodError: undefined method `specifications' ...]]></title>
-    <link href="http://Arthraim.github.com/nomethoderror-undefined-method-specifications/"/>
+    <link href="http://artori.us/nomethoderror-undefined-method-specifications/"/>
     <updated>2011-07-21T05:11:17+08:00</updated>
-    <id>http://Arthraim.github.com/nomethoderror-undefined-method-specifications</id>
+    <id>http://artori.us/nomethoderror-undefined-method-specifications</id>
     <content type="html"><![CDATA[<p>今天在和同事说，我最喜欢写这样的文章了，很多人会碰到的异常，而且没有什么中文资料，可以给搜索引擎个好排名（喂你心机好重。好吧其实我的想法很伟大的哦，我是给以后会遇到一样问题的你造福哦~</p>
 
 <p>重新搭新环境，先装了rvm，然后装上gem，用gem装了rails。之后呢问题就出来，尝试用bundle exec rake db:seeds的时候会出错，加上--track参数一看大概是这样子。</p>

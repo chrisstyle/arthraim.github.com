@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Life | Artoirus]]></title>
-  <link href="http://Arthraim.github.com/blog/categories/life/atom.xml" rel="self"/>
-  <link href="http://Arthraim.github.com/"/>
-  <updated>2012-12-11T17:53:48+08:00</updated>
-  <id>http://Arthraim.github.com/</id>
+  <link href="http://artori.us/blog/categories/life/atom.xml" rel="self"/>
+  <link href="http://artori.us/"/>
+  <updated>2012-12-11T20:07:41+08:00</updated>
+  <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[2012欧洲杯Google,iCal,Outlook日历]]></title>
-    <link href="http://Arthraim.github.com/euro-2012-google-calendar-or-outlook-calendar/"/>
+    <link href="http://artori.us/euro-2012-google-calendar-or-outlook-calendar/"/>
     <updated>2012-06-08T23:10:57+08:00</updated>
-    <id>http://Arthraim.github.com/euro-2012-google-calendar-or-outlook-calendar</id>
+    <id>http://artori.us/euro-2012-google-calendar-or-outlook-calendar</id>
     <content type="html"><![CDATA[<p>今晚欧洲杯就开打了。在Live Calendar里导入了这个日历之后，同步到Windows Phone上很爽。</p>
 
 <ol>
@@ -35,9 +35,9 @@
   
   <entry>
     <title type="html"><![CDATA[停用arthraim.cn域名]]></title>
-    <link href="http://Arthraim.github.com/abandon-arthraim-cn/"/>
+    <link href="http://artori.us/abandon-arthraim-cn/"/>
     <updated>2012-01-06T22:52:15+08:00</updated>
-    <id>http://Arthraim.github.com/abandon-arthraim-cn</id>
+    <id>http://artori.us/abandon-arthraim-cn</id>
     <content type="html"><![CDATA[<p>arthraim.cn的域名又到期了，因为之前的代理被卖到别的地方了所以很烦躁这个域名不要了.cn域名也实在是操蛋的可以。</p>
 
 <p>之前留着也只是为了做一个重定向，现在重定向了一年了搜索引擎什么的也应该反应过来了，所以就不要了吧。</p>
@@ -48,9 +48,9 @@
   
   <entry>
     <title type="html"><![CDATA[Arthur的2011年总结]]></title>
-    <link href="http://Arthraim.github.com/arthur-s-2011-summary/"/>
+    <link href="http://artori.us/arthur-s-2011-summary/"/>
     <updated>2012-01-01T07:07:29+08:00</updated>
-    <id>http://Arthraim.github.com/arthur-s-2011-summary</id>
+    <id>http://artori.us/arthur-s-2011-summary</id>
     <content type="html"><![CDATA[<p>还有一个小时2011年就过完了，末日年就在眼前。今年博客更新的非常少，当然我没有偷懒，公司从年底上马了新的产品之后我就全身心的投入到了新的工作里去了。</p>
 
 <p>爱折客从去年年底开始慢慢开发到现在整一年，发展迅速，今天年终总结的时候说实话我也觉得很振奋，虽然始终我的兴趣点在social上而爱折客虽然有点像solomo，但是其实是没有social的成分的，所以我承认我并不是那么"爱"它。但是到了这个时候看着这个产品我觉得很自豪，我们是一群踏踏实实的童鞋们，没有开复老师呼风唤雨的本事，勤勤恳恳的做业绩，可能并不是很多人看到我们的成绩，但是我们很棒。</p>
@@ -65,9 +65,9 @@
   
   <entry>
     <title type="html"><![CDATA[Arthur的2010年总结]]></title>
-    <link href="http://Arthraim.github.com/arthur-s-2010-summary/"/>
+    <link href="http://artori.us/arthur-s-2010-summary/"/>
     <updated>2011-01-17T10:58:50+08:00</updated>
-    <id>http://Arthraim.github.com/arthur-s-2010-summary</id>
+    <id>http://artori.us/arthur-s-2010-summary</id>
     <content type="html"><![CDATA[<p>2010年过完了, 博客完整存在的第一年. 无论对我自己还是这个博客都有很多值得总结的地方. 很抱歉这篇文章迟到了, 因为域名和主机等等出现的问题, 从去年年底到这个星期早些时候, 博客都没有正常服务, 知道这周才更换主机和域名后起死回生.</p>
 
 <p>和去年一样, 还是先罗列数据一些数据吧~</p>
@@ -138,9 +138,9 @@
   
   <entry>
     <title type="html"><![CDATA[I'm back!]]></title>
-    <link href="http://Arthraim.github.com/im-back/"/>
+    <link href="http://artori.us/im-back/"/>
     <updated>2011-01-12T20:53:24+08:00</updated>
-    <id>http://Arthraim.github.com/im-back</id>
+    <id>http://artori.us/im-back</id>
     <content type="html"><![CDATA[<p>终于联系上了域名代理, 我的arthraim.cn也续费成功了, 不会被劫持到广告页了, 然后我做了以下几件事.</p>
 
 <ol>

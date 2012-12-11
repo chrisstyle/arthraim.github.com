@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: internet | Artoirus]]></title>
-  <link href="http://Arthraim.github.com/blog/categories/internet/atom.xml" rel="self"/>
-  <link href="http://Arthraim.github.com/"/>
-  <updated>2012-12-11T17:53:48+08:00</updated>
-  <id>http://Arthraim.github.com/</id>
+  <link href="http://artori.us/blog/categories/internet/atom.xml" rel="self"/>
+  <link href="http://artori.us/"/>
+  <updated>2012-12-11T20:07:41+08:00</updated>
+  <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Niconico弹幕评论之我见]]></title>
-    <link href="http://Arthraim.github.com/about-niconico-timeline-comment/"/>
+    <link href="http://artori.us/about-niconico-timeline-comment/"/>
     <updated>2010-07-03T08:25:37+08:00</updated>
-    <id>http://Arthraim.github.com/about-niconico-timeline-comment</id>
+    <id>http://artori.us/about-niconico-timeline-comment</id>
     <content type="html"><![CDATA[<p>Niconico是日本的一个视频网站，但说对他的了解程度我不自信有身边那些腐女朋友来的深入。我今天想说的是有关Niconico上的一个特性，弹幕评论。不过我的思路是，先不说它，从别的说起。</p>
 
 <p>首先来说豆瓣，豆瓣的电影是一个很重要的模块，观影之后豆瓣提供了一个记录的地方，我每年每月看了什么电影，每次去"看过"一下，记录了很多。另外看完之后可以写个小点评，不用多，一句话，足以对别人产生足够的影响。另外还可以打分，这个打分只要数据量大，那最终的平均分是非常客观的（当然得分最高的往往有一些小众电影夹入其中）。好吧，究竟豆瓣电影满足了多少需求，不是我重点要说的。无论是豆瓣，还是时光网，所谓的影评或一句话，都是在电影观看之后的感想，用户对电影的交流，是一种大家聚在一起谈论电影的感觉。</p>
@@ -69,9 +69,9 @@ C:-----1=4==6=-------------
   
   <entry>
     <title type="html"><![CDATA[Wordpress开始推送3.0]]></title>
-    <link href="http://Arthraim.github.com/wordpress-3-is-available/"/>
+    <link href="http://artori.us/wordpress-3-is-available/"/>
     <updated>2010-06-18T20:37:44+08:00</updated>
-    <id>http://Arthraim.github.com/wordpress-3-is-available</id>
+    <id>http://artori.us/wordpress-3-is-available</id>
     <content type="html"><![CDATA[<p>今天登陆后台，就看到说wordpress 3.0 is available! 正式版终于可以升级了啊，改动挺大的，我正在犹豫要不要升级，要不还是过两天在升级吧，升级之后我也要考虑下是不是换个模板了，因为很多new features都只有新的Default主题能用。当然我用的是英文版的Wordpress，中文版貌似还没有升级到3.0。总之升级还真的是一件麻烦的事情【顾虑太多了吧你】</p>
 
 <p><a href="/images/uploads/wp/wordpress_org.png"><img src="/images/uploads/wp/wordpress_org.png" alt="" /></a></p>
@@ -84,9 +84,9 @@ C:-----1=4==6=-------------
   
   <entry>
     <title type="html"><![CDATA[Google App Engine的Unapplied Writes]]></title>
-    <link href="http://Arthraim.github.com/google-app-engine-unapplied-writes/"/>
+    <link href="http://artori.us/google-app-engine-unapplied-writes/"/>
     <updated>2010-06-11T10:46:03+08:00</updated>
-    <id>http://Arthraim.github.com/google-app-engine-unapplied-writes</id>
+    <id>http://artori.us/google-app-engine-unapplied-writes</id>
     <content type="html"><![CDATA[<p>话说刚才收到一封来自Google App Engine的邮件，大致内容是说在2010-5-25日的时候服务有我的某个程序的服务器发生了大约长达50分钟的停机，于是因此在这段时间里我的应用依然产生了数据库的写入操作，这时候产生的数据被记录到了别的服务器上，并且被称为Unapplied Writes。主要在告诉我如何挽救这些数据的同时，还为给我带来的不便说了抱歉。下面是Email的全文~</p>
 
 <p><a href="/images/uploads/wp/2010-06-11_GAE_uapplied_writes.jpg"><img src="/images/uploads/wp/2010-06-11_GAE_uapplied_writes.jpg" alt="" /></a></p>
@@ -114,9 +114,9 @@ C:-----1=4==6=-------------
   
   <entry>
     <title type="html"><![CDATA[免费的IM机器人服务—imified]]></title>
-    <link href="http://Arthraim.github.com/imified-a-free-im-bot-servic/"/>
+    <link href="http://artori.us/imified-a-free-im-bot-servic/"/>
     <updated>2010-05-20T19:04:05+08:00</updated>
-    <id>http://Arthraim.github.com/imified-a-free-im-bot-servic</id>
+    <id>http://artori.us/imified-a-free-im-bot-servic</id>
     <content type="html"><![CDATA[<p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
 
 <p><a href="/images/uploads/wp/logo_shine.png"><img src="/images/uploads/wp/logo_shine.png" alt="" /></a></p>
@@ -161,9 +161,9 @@ if($step &gt; 3){
   
   <entry>
     <title type="html"><![CDATA[Farewell, Levelup.cn]]></title>
-    <link href="http://Arthraim.github.com/farewell-levelup-cn/"/>
+    <link href="http://artori.us/farewell-levelup-cn/"/>
     <updated>2010-04-29T09:18:10+08:00</updated>
-    <id>http://Arthraim.github.com/farewell-levelup-cn</id>
+    <id>http://artori.us/farewell-levelup-cn</id>
     <content type="html"><![CDATA[<p><a href="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg"><img src="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg" alt="" /></a>这是今年第二次为一个.cn网站说farewell了，是的，经历了到处都是小道消息的一个多月之后，我确定了，我们都确定了 ---- 游戏城寨(levelup.cn)真的离开大家了。</p>
 
 <p><strong>一个月前（3月20日左右）</strong>，突然发现游戏门户网站（依托国内第一电视游戏杂志《游戏机实用技术》的游戏咨询门户网站，以及一个同样内容的BBS社区）不能上去了，bbs.levelup.cn的访问量大，服务器压力大，故障时有发生，在levelup混的朋友都戏称这种现象为"月经"，每个月要经历一次，所以那天我也不以为然，但是的确，bbs挂掉的时候很多，主站挂掉是很难得的事情。</p>

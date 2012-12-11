@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: O.S. | Artoirus]]></title>
-  <link href="http://Arthraim.github.com/blog/categories/o-s-/atom.xml" rel="self"/>
-  <link href="http://Arthraim.github.com/"/>
-  <updated>2012-12-11T17:53:48+08:00</updated>
-  <id>http://Arthraim.github.com/</id>
+  <link href="http://artori.us/blog/categories/o-s-/atom.xml" rel="self"/>
+  <link href="http://artori.us/"/>
+  <updated>2012-12-11T20:07:41+08:00</updated>
+  <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[让eclipse在ubuntu下面好看一点]]></title>
-    <link href="http://Arthraim.github.com/make-eclipse-look-better-on-ubuntu/"/>
+    <link href="http://artori.us/make-eclipse-look-better-on-ubuntu/"/>
     <updated>2010-11-25T03:44:42+08:00</updated>
-    <id>http://Arthraim.github.com/make-eclipse-look-better-on-ubuntu</id>
+    <id>http://artori.us/make-eclipse-look-better-on-ubuntu</id>
     <content type="html"><![CDATA[<p>谨以此文献给所有小气鬼.</p>
 
 <p>话说ubuntu下面(其他gnome的估计差不多, 不知道kde是什么光景) 的eclipse真是难看的爆掉, 工具栏高的可以占掉全世界了, 弄得这么高干吗啊, 还有各种标签各种XX各种OO. 本本的分辨率是1280<em>800, 这样的margin真叫人难以忍受. 虽然19寸的1680</em>1050多少应该空间宽裕一点, 但是小气鬼还是觉得非常的不给力, 受不了它的高度宽度温度湿度经度纬度!</p>
@@ -81,9 +81,9 @@ class "GtkPaned" style "gtkcompactextra"
   
   <entry>
     <title type="html"><![CDATA[Ubuntu 10.10的Alt+Print Screen截图无效]]></title>
-    <link href="http://Arthraim.github.com/ubuntu-10-10-alt-print-screen-is-not-working/"/>
+    <link href="http://artori.us/ubuntu-10-10-alt-print-screen-is-not-working/"/>
     <updated>2010-11-05T22:21:05+08:00</updated>
-    <id>http://Arthraim.github.com/ubuntu-10-10-alt-print-screen-is-not-working</id>
+    <id>http://artori.us/ubuntu-10-10-alt-print-screen-is-not-working</id>
     <content type="html"><![CDATA[<p>升级到10.10之后Alt + Print Screen就失效了, 今天Google了下发现原来不单单是我的问题, 这里有个解决办法. 在terminal输入以下命令:</p>
 
 <p>```sh</p>
@@ -109,9 +109,9 @@ class "GtkPaned" style "gtkcompactextra"
   
   <entry>
     <title type="html"><![CDATA[64位Ubuntu上安装32位JRE]]></title>
-    <link href="http://Arthraim.github.com/install-32bit-jre-on-64bit-ubuntu/"/>
+    <link href="http://artori.us/install-32bit-jre-on-64bit-ubuntu/"/>
     <updated>2010-01-27T01:07:32+08:00</updated>
-    <id>http://Arthraim.github.com/install-32bit-jre-on-64bit-ubuntu</id>
+    <id>http://artori.us/install-32bit-jre-on-64bit-ubuntu</id>
     <content type="html"><![CDATA[<p>装64位操作系统是一件很折腾人的事情，因为一些支持不好的软件往往只是考虑32位，比如flex for Linux alpha。我只是想尝试着在Linux环境搭建以下Flex Builder，没想到遇到很多问题…… 好吧，本文正题是安装32位JRE。Google到<a href="http://www.albertsong.com/read-167.html">这篇文章</a>，介绍了一个比较智能的办法～</p>
 
 <ol>
@@ -169,9 +169,9 @@ class "GtkPaned" style "gtkcompactextra"
   
   <entry>
     <title type="html"><![CDATA[First Glance of Ubuntu 9.04 —— 乌班图的第一瞥]]></title>
-    <link href="http://Arthraim.github.com/first-glance-of-ubuntu-9-04/"/>
+    <link href="http://artori.us/first-glance-of-ubuntu-9-04/"/>
     <updated>2009-04-25T02:20:55+08:00</updated>
-    <id>http://Arthraim.github.com/first-glance-of-ubuntu-9-04</id>
+    <id>http://artori.us/first-glance-of-ubuntu-9-04</id>
     <content type="html"><![CDATA[<p><img src="/images/uploads/zb/75C14EDC194AA34DDF56AAAD5D470D31.png" alt="" /></p>
 
 <p><strong>以下的英文为最初版本，中文为更新时的翻译，跳过英文吧，只是因为一开始在ubuntu下没有安装中文输入法。</strong></p>
