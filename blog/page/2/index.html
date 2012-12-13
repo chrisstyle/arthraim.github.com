@@ -7,10 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="遇到个很蛋疼的问题，mongoid的配置文件（一个YAML）文件引发了下面这个错误： 1
-2
-db_name must be a string or symbol
-...MONGOID_PATH/lib/mongo/util/support.rb:50:in `validate_db_name &hellip;">
+	<meta name="description" content="今天在和同事说，我最喜欢写这样的文章了，很多人会碰到的异常，而且没有什么中文资料，可以给搜索引擎个好排名（喂你心机好重。好吧其实我的想法很伟大的哦，我是给以后会遇到一样问题的你造福哦~ 重新搭新环境，先装了rvm，然后装上gem，用gem装了rails。之后呢问题就出来，尝试用bundle &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,6 +71,60 @@ db_name must be a string or symbol
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/nomethoderror-undefined-method-specifications/">
+		
+			NoMethodError: Undefined Method `specifications&#8217; &#8230;</a>
+	</h2>
+	<div class="entry-content">
+		<p>今天在和同事说，我最喜欢写这样的文章了，很多人会碰到的异常，而且没有什么中文资料，可以给搜索引擎个好排名（喂你心机好重。好吧其实我的想法很伟大的哦，我是给以后会遇到一样问题的你造福哦~</p>
+
+<p>重新搭新环境，先装了rvm，然后装上gem，用gem装了rails。之后呢问题就出来，尝试用bundle exec rake db:seeds的时候会出错，加上&#8211;track参数一看大概是这样子。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>undefined method `specifications' for "/Users/arthraim/.rvm/gems/ruby-1.9.2-p290":String</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好像后面也不是特别重要了，只是这个问题比较费解，之前同事好像也遇到过。去Google了一下，居然是gem版本太高的关系，要把gem降级到早一些的版本。不想深究下去了，就说一下解决的办法好了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem update --system 1.7.2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之前我的版本是1.8.5，虽然不知道具体什么情况，不过1.7.2就可以了。话说gem update到老版本的方法好神奇 -。-</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-21T05:11:17+08:00" pubdate data-updated="true">Jul 21<span>st</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -781,110 +832,6 @@ db_name must be a string or symbol
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/arthur-s-2010-summary/">
-		
-			Arthur的2010年总结</a>
-	</h2>
-	<div class="entry-content">
-		<p>2010年过完了, 博客完整存在的第一年. 无论对我自己还是这个博客都有很多值得总结的地方. 很抱歉这篇文章迟到了, 因为域名和主机等等出现的问题, 从去年年底到这个星期早些时候, 博客都没有正常服务, 知道这周才更换主机和域名后起死回生.</p>
-
-<p>和去年一样, 还是先罗列数据一些数据吧~</p>
-
-<h2>文章的统计数据</h2>
-
-<ul>
-<li>January: 12</li>
-<li>February: 2</li>
-<li>March: 3</li>
-<li>April: 8</li>
-<li>May: 7</li>
-<li>June: 11</li>
-<li>July: 3</li>
-<li>August: 5</li>
-<li>September: 3</li>
-<li>October: 3</li>
-<li>November: 7</li>
-<li>December: 1</li>
-</ul>
-
-
-<p>这样的更新数量好像挺健康的~ 去年一个月将近30篇也太猛了&#8230;</p>
-
-<ul>
-<li>Programing: 18</li>
-<li>Video Game: 10</li>
-<li>Life: 12</li>
-<li>internet: 13</li>
-<li>Movie: 9</li>
-<li>O.S.: 3</li>
-<li>I.T.: 2</li>
-<li>Book: 0</li>
-<li>Music: 0</li>
-</ul>
-
-
-<p>数据和上面的总和有出入, 因为没有细细统计, 看个大概的分类排名就好了. 显然编程还是本博客的主题, 之后生活排在第三位. 读书音乐这两个分类, 实在是觉得不用写在博客上了..</p>
-
-<h2>本人生活相关:</h2>
-
-<ul>
-<li>人间网发言: 15815  (截止1月17日2时13分, 没有剥离往年的数据)</li>
-<li>新浪微博发言: 1791  (同上)</li>
-<li>看书: 2  (记录在豆瓣&#8221;读过&#8221;, &#8220;在读&#8221;中有7本)</li>
-<li>电影: 145  (通过豆瓣中&#8221;看过&#8221;计算出来的数据, 误差在10)</li>
-<li>美日剧: 190+  (估算, 误差在+-20之内)</li>
-<li>动画: 120+  (估算, 看完整了6部新番, 还有其他短小的OVA等)</li>
-<li>游戏: (尚未统计, 之后更新&#8230;)</li>
-</ul>
-
-
-<p>2010年, 完成了从学生到社会人的角色转换, 当然心理上到底算不算转换成功了尚且不得而知. 显然看书看得不多, 很多都没有读完. 看了好多好多电影, 在后面9个月都有些中间报告系列, 所以看过的所有电影都记录在案了. 因为工作了所有PS3游戏可以多买几个了, 不过因为飘在上海, 只有周末的时候回到嘉兴的家里玩, 所以其实玩的时候并不多.</p>
-
-<p>应该说这一年技术上的进步是很大的, 因为人间网@niedhui @<a href="http://luosky.com">luosky</a> @caoxg @asfman @oh4mm(按照座位顺序)的帮助以及我自己的学习, 学到的真的很多. 另外还有&#8221;人本设计沙龙&#8221; &#8220;nBazzar(.net)技术沙龙&#8221; 等我参加过的技术社区活动.</p>
-
-<p>博客本身也经历了很多, 从z-blog搬迁到wordpress, 从垃圾虚拟主机到@caoxg的个人服务器(redsaga那台:D)直到今年(2011)搬到了dreamhost. 搬来搬去丢了好多读者好多流量, 不过我还会坚持host它的.</p>
-
-<p>最后要感谢: 除了之前提到的几位, 还要感谢爸妈对我工作的精神支持以及&#8221;月光&#8221;的时候的物质支持, 并且在毕业的时候他们为我提供了很多就业的方向, 不过很抱歉同时也很高兴我朝着自己喜欢的方向前进了. 感谢我的女友@rubyQ童鞋很很多关怀和理解以及对我工作在外的支持, 2010年是我们在一起的第三个年头了. 感谢导师祁亨年帮助我顺利的完成了毕业设计, 感谢动漫社的兄弟姐妹们, 感谢实验室的大牛们, 并感谢所有大学的老师同学们, 没有你们我不能顺利大学毕业啊. 感谢人间团队(爱折客团队)的所有人, 在人间网工作真的很愉快, 见识到了很多, 学到了很多! 感谢博客或微博上关注我, 认识我, 帮助我的网友们, 我和这个博客都离不开你们. 最后感谢所有应该却没有提到的人们~ 感谢你们, 我爱你们<del>~ 感谢祖国, 无论如何我顺利就业了, 祝愿祖国和平繁荣昌盛和谐强大</del></p>
-
-<p>2011继续加油!</p>
-
-<p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问&#8230;)</p>
-
-<p><a href="/arthur-s-2010-summary/2011-01-17-030351_640x630_scrot/"><img src="/images/uploads/wp/2011-01-17-030351_640x630_scrot-500x492.png" alt="" /></a></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-01-17T10:58:50+08:00" pubdate data-updated="true">Jan 17<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>

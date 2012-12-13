@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content=" 就在刚才，访问人间的时候突然发现人间的主页发生了巨大的变化！提供了一个类似Google和百度的搜索页面，Arthur输入arthraim之后瞬间就傻了！就这个实力绝对可以挑战百度啊！！有图为证！ 以上~ Apr 1st, 2010 internet ">
+	<meta name="description" content="开始好好整理毕业设计的代码，在硬盘里找出很多以前写的C#代码，很多自己写的小应用都蛮有趣的，比如自动关机啊，修改系统变量啊，计算周年纪念日啊之类的无聊的小东西~ 想着最近博客也没有什么值得更新的内容，要不就贴一些以前的这些程序的傻傻的代码吧~ 所以这个blunt C-sharp（钝的C锋利LOL &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,155 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blunt-c-sharp-1-auto-shutdown/">
+		
+			Blunt C# (1): 自动关机</a>
+	</h2>
+	<div class="entry-content">
+		<p>开始好好整理毕业设计的代码，在硬盘里找出很多以前写的C#代码，很多自己写的小应用都蛮有趣的，比如自动关机啊，修改系统变量啊，计算周年纪念日啊之类的无聊的小东西~ 想着最近博客也没有什么值得更新的内容，要不就贴一些以前的这些程序的傻傻的代码吧~ 所以这个blunt C-sharp（钝的C锋利LOL）系列的文章就是贴这些代码的，欢迎大家讨论代码的好坏~ 骂我的时候Arthur会加上&#8221;被骂的是过去的我&#8221;这个前提的~ hoho~</p>
+
+<p>今天是自动关机的那个程序~</p>
+
+<p>还是2009-1-18的时候在学长的电脑上用SharpDevelop写的。当时和他一起租房子住在外面，后来有段时间他快毕业了，出去找工作了，于是我每天一个人看动画看到睡着，因为租房子要省电费，所以电脑开通宵很心疼，所以就自己写了一个自动关机的程序，其他东西都不是关键，关键还是代码。当时是不知道哪里找来了一段关机的代码，是用C#调用winapi的其实~  截图和代码都放在下面吧~</p>
+
+<p><img src="/images/uploads/zb/2010-04-03_bluntcsharp_autoshutdown.png" alt="" /></p>
+
+<p>话说这个程序现在看起来体验很好，因为时间匹配的时候不会直接把电脑关了，而会出来一个提示框，提示框上倒数30秒（足够我从被窝里爬出来去点取消），如果没点取消就关机~ 哈哈。当时不知道怎么想的，这么一个需求还要自己写个程序~ 果然有热情！</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// 这个结构体将会传递给API。使用StructLayout(...特性，确保其中的成员是按顺序排列的，C#编译器不会对其进行调整。</span>
+</span><span class='line'><span class="na">[StructLayout(LayoutKind.Sequential, Pack = 1)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">struct</span> <span class="nc">TokPriv1Luid</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">long</span> <span class="n">Luid</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Attr</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 以下使用DllImport特性导入了所需的Windows API。</span>
+</span><span class='line'><span class="c1">// 导入的方法必须是static extern的，并且没有方法体。调用这些方法就相当于调用Windows API。</span>
+</span><span class='line'><span class="na">[DllImport(&quot;kernel32.dll&quot;, ExactSpelling = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="n">IntPtr</span> <span class="nf">GetCurrentProcess</span><span class="p">();</span>
+</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">OpenProcessToken</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">h</span><span class="p">,</span> <span class="kt">int</span> <span class="n">acc</span><span class="p">,</span> <span class="k">ref</span> <span class="n">IntPtr</span> <span class="n">phtok</span><span class="p">);</span>
+</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">LookupPrivilegeValue</span><span class="p">(</span><span class="kt">string</span> <span class="n">host</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">long</span> <span class="n">pluid</span><span class="p">);</span>
+</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">AdjustTokenPrivileges</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">htok</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">disall</span><span class="p">,</span>
+</span><span class='line'><span class="k">ref</span> <span class="n">TokPriv1Luid</span> <span class="n">newst</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">prev</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">relen</span><span class="p">);</span>
+</span><span class='line'><span class="na">[DllImport(&quot;user32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">ExitWindowsEx</span><span class="p">(</span><span class="kt">int</span> <span class="n">flg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rea</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// 以下定义了在调用WinAPI时需要的常数。这些常数通常可以从Platform SDK的包含文件（头文件）中找到</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">SE_PRIVILEGE_ENABLED</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000002</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">TOKEN_QUERY</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000008</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">TOKEN_ADJUST_PRIVILEGES</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000020</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">SE_SHUTDOWN_NAME</span> <span class="p">=</span> <span class="s">&quot;SeShutdownPrivilege&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_LOGOFF</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000000</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_SHUTDOWN</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000001</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_REBOOT</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000002</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_FORCE</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000004</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_POWEROFF</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000008</span><span class="p">;</span>
+</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_FORCEIFHUNG</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000010</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 通过调用WinAPI实现关机，主要代码再最后一行ExitWindowsEx，这调用了同名的WinAPI，正好是关机用的。</span>
+</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">DoExitWin</span><span class="p">(</span><span class="kt">int</span> <span class="n">flg</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">bool</span> <span class="n">ok</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">TokPriv1Luid</span> <span class="n">tp</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">IntPtr</span> <span class="n">hproc</span> <span class="p">=</span> <span class="n">GetCurrentProcess</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">IntPtr</span> <span class="n">htok</span> <span class="p">=</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">OpenProcessToken</span><span class="p">(</span><span class="n">hproc</span><span class="p">,</span> <span class="n">TOKEN_ADJUST_PRIVILEGES</span> <span class="p">|</span> <span class="n">TOKEN_QUERY</span><span class="p">,</span> <span class="k">ref</span> <span class="n">htok</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Luid</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Attr</span> <span class="p">=</span> <span class="n">SE_PRIVILEGE_ENABLED</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">LookupPrivilegeValue</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">SE_SHUTDOWN_NAME</span><span class="p">,</span> <span class="k">ref</span> <span class="n">tp</span><span class="p">.</span><span class="n">Luid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">AdjustTokenPrivileges</span><span class="p">(</span><span class="n">htok</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">ref</span> <span class="n">tp</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">ExitWindowsEx</span><span class="p">(</span><span class="n">flg</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>坦率的说我也不知道是哪里找来的这个代码，如果您看了，知道这个代码的原作者，也请告诉我，并不是我不尊重他，是我年少无知 =  =</p>
+
+<p>以上~</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-04-04T07:24:13+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -659,60 +808,6 @@
 
 
 <time datetime="2010-01-29T05:46:14+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/ps3-is-hacking-exploit-code-released/">
-		
-			PS3破解渐入佳境，公布漏洞代码</a>
-	</h2>
-	<div class="entry-content">
-		<p>George Hotz同学在<a href="http://geohotps3.blogspot.com/">其blog</a>（<a href="http://geohotps3.blogspot.com/feeds/posts/default">ATOM</a>）上发布了对PS3的破解进展，不但声称发现了漏洞，昨天甚至还放出了漏洞相关的代码，看起来PS3的破解重燃希望，虽然考虑到蓝光成本、蓝光破解、游戏的超大容量等等因素，盗版游戏要泛滥依然是比较困难的，不过起码对于有兴趣玩玩homebrew的开发者来说PS3的破解还是非常有意思的。</p>
-
-<p><a href="/images/uploads/zb/2010-01-27_On_the_PlayStation_3.png"><img src="/images/uploads/zb/2010-01-27_On_the_PlayStation_3.png" alt="" /></a></p>
-
-<p>原文如下～：</p>
-
-<blockquote><p>In the interest of openness, I&#8217;ve decided to release the exploit. Hopefully, this will ignite the PS3 scene, and you will organize and figure out how to use this to do practical things, like the iPhone when jailbreaks were first released. I have a life to get back to and can&#8217;t keep working on this all day and night.</p>
-
-<p>Please document your findings on the <a href="http://wiki.ps2dev.org/">psDevWiki</a>. They have been a great resource so far, and with the power this exploit gives, opens tons of new stuff to document. I&#8217;d like to see the missing HV calls filled in, nice memory maps, the boot chain better documented, and progress on a 3D GPU driver. And of course, the search for a software exploit.</p>
-
-<p><a href="http://geohot.com/ps3_exploit.zip">This</a> is the coveted PS3 exploit, gives full memory access and therefore ring 0 access from OtherOS. Enjoy your hypervisor dumps. This is known to work with version 2.4.2 only, but I imagine it works on all current versions. Maybe later I&#8217;ll write up <a href="http://pastie.org/795944">how it works</a> :)</p></blockquote>
-
-<p>利用饭后10分钟，来更新下blog～ 有空值得研究下～可惜我没有2.4.2的PS3……</p>
-
-<p>以上～</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-27T21:15:18+08:00" pubdate data-updated="true">Jan 27<span>th</span>, 2010</time></div>
 	<div class="tags">
 
 

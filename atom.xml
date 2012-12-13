@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2012-12-12T09:17:24+08:00</updated>
+  <updated>2012-12-13T13:39:37+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,137 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[异或]]></title>
+    <link href="http://artori.us/exclusive-or/"/>
+    <updated>2012-12-13T12:36:00+08:00</updated>
+    <id>http://artori.us/exclusive-or</id>
+    <content type="html"><![CDATA[<p>不介绍什么是异或了，有人叫半加、数学系的叫按位模2加</p>
+
+<p>下文用得到的一些简单的性质</p>
+
+<ul>
+<li><p><code>x^0 = x</code> 且 <code>x^x = 0</code></p></li>
+<li><p>交换律：<code>x^y = y^x</code></p></li>
+<li><p>结合律：<code>(x^y)^z = x^(y^z)</code></p></li>
+<li><p>自反性：<code>x^y^y = x</code></p></li>
+</ul>
+
+
+<p>下面是几个小题目，可以用异或解决，挺有技巧性</p>
+
+<h2>交换两个数ab</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span>
+</span><span class='line'><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有意思的是搜索其他异或例子的时候，发现了<a href="http://blog.chinaunix.net/uid-1844931-id-3034714.html">这篇</a>文章，文章里实现了一个异或交换的算法，和本文主题无关，不过很有意思，函数更多的时候应该只操作值而不是变量。</p>
+
+<h2>A集合里拿掉数x得到B集合，求x</h2>
+
+<p>令<code>XOR(X)</code>表示将X集合内所有的数做异或</p>
+
+<p><code>XOR(B)^XOR(A) = XOR(B)^XOR(B)^x = 0^x = x</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
+</span><span class='line'><span class="n">B</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="o">[</span><span class="mi">1234</span><span class="o">]</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:^</span><span class="p">)</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">x</span> <span class="c1">#1234</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>via: <a href="http://www.javaeye.com/topic/420487">http://www.javaeye.com/topic/420487</a></p>
+
+<h2>A集合里拿掉数x、y得到B集合，求x和y</h2>
+
+<p>首先按上一个的办法可以推导出<code>xor(A)^xor(B) = xor(B)^xor(B)^x^y = 0^x^y = x^y</code></p>
+
+<p><code>x^y</code>的二进制结果，第n位为1，说明x和y的第n位不相同</p>
+
+<p>根据第n位是否为0把A里所有的数分成A1和A0两个数组（A1里的数的二进制第n位都是1，A0都是0）</p>
+
+<p>A1和A0应该各包含了a或者b（这样第n位才能异或出1）</p>
+
+<p>同理可以把B分成B1和B0两个数组</p>
+
+<p>可以得到第一个数 <code>x = A1^B1</code></p>
+
+<p>第二个数可以<code>y = A0^B0</code>，当然也可以用<code>x^y^x</code>求得</p>
+
+<p>另外如果<code>x^y</code>为0，即<code>x == y</code>，令<code>SUM(X)</code>为X集合内所有数求和</p>
+
+<p><code>(SUM(A) - SUM(B)) / 2 = x</code></p>
+
+<p>via: <a href="http://blog.chinaunix.net/uid-12453618-id-2935334.html">http://blog.chinaunix.net/uid-12453618-id-2935334.html</a></p>
+
+<h2>集合A里只有数x出现1次，其余数全都重复出现2次，求x</h2>
+
+<p><code>xor(A) = x^y^y^…^z^z = x^(y^y^…^z^z) = x^0 = x</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:^</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>集合A里只有数x出现1次，其余数全都重复出现3次，求x</h2>
+
+<p>xor的本质相当于“按位模2加”（adding modulo 2），令p1,p2…pn为布尔值，true为1、false为0，(+)表示异或操作。</p>
+
+<p><code>p1 (+) p2 (+) ... (+) pn == ( p1 + p2 + ... + pn ) % 2</code></p>
+
+<p>所以只需要实现按位模3加</p>
+
+<p><code>( p1 + p2 + ... + pn ) % 3</code></p>
+
+<p>将集合中所有数二进制表示的同一位的0或1相加，最终的和对3去摸，得到的数即是x</p>
+
+<p>如 <code>A = {5, 7, 7, 7}</code>，二进制表示两个数</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="mi">101</span>
+</span><span class='line'>  <span class="mi">111</span>
+</span><span class='line'>  <span class="mi">111</span>
+</span><span class='line'><span class="o">+</span> <span class="mi">111</span>
+</span><span class='line'><span class="o">------</span>
+</span><span class='line'>  <span class="mi">434</span>
+</span><span class='line'><span class="sx">%  </span> <span class="mi">3</span>
+</span><span class='line'><span class="o">------</span>
+</span><span class='line'>  <span class="mi">101</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但愿这坨东西能让人看懂</p>
+
+<p>via: <a href="http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html">http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html</a></p>
+
+<h2>没有<code>^</code>操作时候实现异或，只用<code>&amp;</code>与 <code>|</code>或 <code>~</code>非</h2>
+
+<p>这里的转换有很多，比如下面这个</p>
+
+<p><code>x ^ y == (~x &amp; y) | (x &amp; ~y)</code></p>
+
+<p>具体查看<a href="http://en.wikipedia.org/wiki/Exclusive_or">维基百科</a> 《Equivalencies, elimination, and introduction》部分，各种公式</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode优化过的PNG]]></title>
@@ -741,79 +872,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 
 
 <p>挺好玩的. 最重要的是它支持sessions, 支持User authentication, 还可以使用gridfs做文件存储, 具体可以在<a href="http://mongoengine.org/docs/v0.4/django.html">这里</a>查到.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Arthur的2010年总结]]></title>
-    <link href="http://artori.us/arthur-s-2010-summary/"/>
-    <updated>2011-01-17T10:58:50+08:00</updated>
-    <id>http://artori.us/arthur-s-2010-summary</id>
-    <content type="html"><![CDATA[<p>2010年过完了, 博客完整存在的第一年. 无论对我自己还是这个博客都有很多值得总结的地方. 很抱歉这篇文章迟到了, 因为域名和主机等等出现的问题, 从去年年底到这个星期早些时候, 博客都没有正常服务, 知道这周才更换主机和域名后起死回生.</p>
-
-<p>和去年一样, 还是先罗列数据一些数据吧~</p>
-
-<h2>文章的统计数据</h2>
-
-<ul>
-<li>January: 12</li>
-<li>February: 2</li>
-<li>March: 3</li>
-<li>April: 8</li>
-<li>May: 7</li>
-<li>June: 11</li>
-<li>July: 3</li>
-<li>August: 5</li>
-<li>September: 3</li>
-<li>October: 3</li>
-<li>November: 7</li>
-<li>December: 1</li>
-</ul>
-
-
-<p>这样的更新数量好像挺健康的~ 去年一个月将近30篇也太猛了&#8230;</p>
-
-<ul>
-<li>Programing: 18</li>
-<li>Video Game: 10</li>
-<li>Life: 12</li>
-<li>internet: 13</li>
-<li>Movie: 9</li>
-<li>O.S.: 3</li>
-<li>I.T.: 2</li>
-<li>Book: 0</li>
-<li>Music: 0</li>
-</ul>
-
-
-<p>数据和上面的总和有出入, 因为没有细细统计, 看个大概的分类排名就好了. 显然编程还是本博客的主题, 之后生活排在第三位. 读书音乐这两个分类, 实在是觉得不用写在博客上了..</p>
-
-<h2>本人生活相关:</h2>
-
-<ul>
-<li>人间网发言: 15815  (截止1月17日2时13分, 没有剥离往年的数据)</li>
-<li>新浪微博发言: 1791  (同上)</li>
-<li>看书: 2  (记录在豆瓣&#8221;读过&#8221;, &#8220;在读&#8221;中有7本)</li>
-<li>电影: 145  (通过豆瓣中&#8221;看过&#8221;计算出来的数据, 误差在10)</li>
-<li>美日剧: 190+  (估算, 误差在+-20之内)</li>
-<li>动画: 120+  (估算, 看完整了6部新番, 还有其他短小的OVA等)</li>
-<li>游戏: (尚未统计, 之后更新&#8230;)</li>
-</ul>
-
-
-<p>2010年, 完成了从学生到社会人的角色转换, 当然心理上到底算不算转换成功了尚且不得而知. 显然看书看得不多, 很多都没有读完. 看了好多好多电影, 在后面9个月都有些中间报告系列, 所以看过的所有电影都记录在案了. 因为工作了所有PS3游戏可以多买几个了, 不过因为飘在上海, 只有周末的时候回到嘉兴的家里玩, 所以其实玩的时候并不多.</p>
-
-<p>应该说这一年技术上的进步是很大的, 因为人间网@niedhui @<a href="http://luosky.com">luosky</a> @caoxg @asfman @oh4mm(按照座位顺序)的帮助以及我自己的学习, 学到的真的很多. 另外还有&#8221;人本设计沙龙&#8221; &#8220;nBazzar(.net)技术沙龙&#8221; 等我参加过的技术社区活动.</p>
-
-<p>博客本身也经历了很多, 从z-blog搬迁到wordpress, 从垃圾虚拟主机到@caoxg的个人服务器(redsaga那台:D)直到今年(2011)搬到了dreamhost. 搬来搬去丢了好多读者好多流量, 不过我还会坚持host它的.</p>
-
-<p>最后要感谢: 除了之前提到的几位, 还要感谢爸妈对我工作的精神支持以及&#8221;月光&#8221;的时候的物质支持, 并且在毕业的时候他们为我提供了很多就业的方向, 不过很抱歉同时也很高兴我朝着自己喜欢的方向前进了. 感谢我的女友@rubyQ童鞋很很多关怀和理解以及对我工作在外的支持, 2010年是我们在一起的第三个年头了. 感谢导师祁亨年帮助我顺利的完成了毕业设计, 感谢动漫社的兄弟姐妹们, 感谢实验室的大牛们, 并感谢所有大学的老师同学们, 没有你们我不能顺利大学毕业啊. 感谢人间团队(爱折客团队)的所有人, 在人间网工作真的很愉快, 见识到了很多, 学到了很多! 感谢博客或微博上关注我, 认识我, 帮助我的网友们, 我和这个博客都离不开你们. 最后感谢所有应该却没有提到的人们~ 感谢你们, 我爱你们<del>~ 感谢祖国, 无论如何我顺利就业了, 祝愿祖国和平繁荣昌盛和谐强大</del></p>
-
-<p>2011继续加油!</p>
-
-<p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问&#8230;)</p>
-
-<p><a href="http://artori.us/arthur-s-2010-summary/2011-01-17-030351_640x630_scrot/"><img src="http://artori.us/images/uploads/wp/2011-01-17-030351_640x630_scrot-500x492.png" alt="" /></a></p>
 ]]></content>
   </entry>
   

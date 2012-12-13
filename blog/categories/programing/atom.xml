@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programing | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2012-12-12T09:17:24+08:00</updated>
+  <updated>2012-12-13T13:39:37+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,121 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[异或]]></title>
+    <link href="http://artori.us/exclusive-or/"/>
+    <updated>2012-12-13T12:36:00+08:00</updated>
+    <id>http://artori.us/exclusive-or</id>
+    <content type="html"><![CDATA[<p>不介绍什么是异或了，有人叫半加、数学系的叫按位模2加</p>
+
+<p>下文用得到的一些简单的性质</p>
+
+<ul>
+<li><p><code>x^0 = x</code> 且 <code>x^x = 0</code></p></li>
+<li><p>交换律：<code>x^y = y^x</code></p></li>
+<li><p>结合律：<code>(x^y)^z = x^(y^z)</code></p></li>
+<li><p>自反性：<code>x^y^y = x</code></p></li>
+</ul>
+
+
+<p>下面是几个小题目，可以用异或解决，挺有技巧性</p>
+
+<h2>交换两个数ab</h2>
+
+<p><code>ruby
+a = a^b
+b = a^b
+a = a^b
+</code></p>
+
+<p>有意思的是搜索其他异或例子的时候，发现了<a href="http://blog.chinaunix.net/uid-1844931-id-3034714.html">这篇</a>文章，文章里实现了一个异或交换的算法，和本文主题无关，不过很有意思，函数更多的时候应该只操作值而不是变量。</p>
+
+<h2>A集合里拿掉数x得到B集合，求x</h2>
+
+<p>令<code>XOR(X)</code>表示将X集合内所有的数做异或</p>
+
+<p><code>XOR(B)^XOR(A) = XOR(B)^XOR(B)^x = 0^x = x</code></p>
+
+<p><code>ruby
+A = (1..10000).to_a
+B = A - [1234]
+x = (A + B).reduce(&amp;:^)
+puts x #1234
+</code></p>
+
+<p>via: <a href="http://www.javaeye.com/topic/420487">http://www.javaeye.com/topic/420487</a></p>
+
+<h2>A集合里拿掉数x、y得到B集合，求x和y</h2>
+
+<p>首先按上一个的办法可以推导出<code>xor(A)^xor(B) = xor(B)^xor(B)^x^y = 0^x^y = x^y</code></p>
+
+<p><code>x^y</code>的二进制结果，第n位为1，说明x和y的第n位不相同</p>
+
+<p>根据第n位是否为0把A里所有的数分成A1和A0两个数组（A1里的数的二进制第n位都是1，A0都是0）</p>
+
+<p>A1和A0应该各包含了a或者b（这样第n位才能异或出1）</p>
+
+<p>同理可以把B分成B1和B0两个数组</p>
+
+<p>可以得到第一个数 <code>x = A1^B1</code></p>
+
+<p>第二个数可以<code>y = A0^B0</code>，当然也可以用<code>x^y^x</code>求得</p>
+
+<p>另外如果<code>x^y</code>为0，即<code>x == y</code>，令<code>SUM(X)</code>为X集合内所有数求和</p>
+
+<p><code>(SUM(A) - SUM(B)) / 2 = x</code></p>
+
+<p>via: <a href="http://blog.chinaunix.net/uid-12453618-id-2935334.html">http://blog.chinaunix.net/uid-12453618-id-2935334.html</a></p>
+
+<h2>集合A里只有数x出现1次，其余数全都重复出现2次，求x</h2>
+
+<p><code>xor(A) = x^y^y^…^z^z = x^(y^y^…^z^z) = x^0 = x</code></p>
+
+<p><code>ruby
+x = A.reduce(&amp;:^)
+</code></p>
+
+<h2>集合A里只有数x出现1次，其余数全都重复出现3次，求x</h2>
+
+<p>xor的本质相当于“按位模2加”（adding modulo 2），令p1,p2…pn为布尔值，true为1、false为0，(+)表示异或操作。</p>
+
+<p><code>p1 (+) p2 (+) ... (+) pn == ( p1 + p2 + ... + pn ) % 2</code></p>
+
+<p>所以只需要实现按位模3加</p>
+
+<p><code>( p1 + p2 + ... + pn ) % 3</code></p>
+
+<p>将集合中所有数二进制表示的同一位的0或1相加，最终的和对3去摸，得到的数即是x</p>
+
+<p>如 <code>A = {5, 7, 7, 7}</code>，二进制表示两个数</p>
+
+<p>```ruby
+  101
+  111
+  111</p>
+
+<h2>+ 111</h2>
+
+<p>  434</p>
+
+<h2>%   3</h2>
+
+<p>  101
+```
+但愿这坨东西能让人看懂</p>
+
+<p>via: <a href="http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html">http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html</a></p>
+
+<h2>没有<code>^</code>操作时候实现异或，只用<code>&amp;</code>与 <code>|</code>或 <code>~</code>非</h2>
+
+<p>这里的转换有很多，比如下面这个</p>
+
+<p><code>x ^ y == (~x &amp; y) | (x &amp; ~y)</code></p>
+
+<p>具体查看<a href="http://en.wikipedia.org/wiki/Exclusive_or">维基百科</a> 《Equivalencies, elimination, and introduction》部分，各种公式</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcode优化过的PNG]]></title>
@@ -119,85 +234,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 <p>那写到这里就写完了。感叹一下，visual studio真的不错，现在.net的包管理也很方便！现在dotnet我已经算是局外人了，所以不嘴贫了 -。-</p>
 
 <p>以上</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ruby好可怕]]></title>
-    <link href="http://artori.us/ruby-is-horribl/"/>
-    <updated>2011-09-11T20:40:56+08:00</updated>
-    <id>http://artori.us/ruby-is-horribl</id>
-    <content type="html"><![CDATA[<p>接触ruby时间不长，用的机会就更少了，所以偶尔用一下的时候难免还要去翻翻文档什么的。维护某个后台的时候，有个随机输出的需求，所以我写了下面这样一段代码。</p>
-
-<p>```ruby</p>
-
-<pre><code>def index
-  ver = params[:version] == nil ? 'i' : params[:version]
-
-  @preview_items = MyItem.where({:version =&gt; ver, :order.gt =&gt; 0}).order_by([:order, :desc])
-
-  map = {}
-  @preview_items.each do |item|
-    order = item['order']
-    map[order] = [] if map[order] == nil
-    map[order].push(item)
-  end
-
-  @json_items = []
-  map.keys.each do |key|
-    arr = map[key]
-    if arr.count == 1
-      @json_items.push(arr[0])
-    else
-      @json_items.push(arr[rand(arr.count)])
-    end
-  end
-  render json: @json_items, callback: params[:callback]
-end
-</code></pre>
-
-<p>```</p>
-
-<p>rails某个模型的index页面，具体做了什么呢？大概是四件事情：</p>
-
-<ol>
-<li><p>取参数version</p></li>
-<li><p>在数据库查询该version并且order字段大于0的数据，根据order字段倒叙排列（数据库是mongodb，driver用mongoid）</p></li>
-<li><p>遍历查询的结果建立一张以order为key，相应order的实体数组为value的表</p></li>
-<li><p>遍历3中的表，每个order的数组中随机抽取一个元素作为这个order的唯一值</p></li>
-</ol>
-
-
-<p>最后把获取的新数据render。</p>
-
-<p>看起来很满足什么的，就提交代码了。之后同事部署前，看了看这里的更新，然后最终把代码完全改掉了。只用了一行 =。=</p>
-
-<p>```ruby</p>
-
-<pre><code>def index
-  @json_items = MyItem.where({:version =&gt; params[:version] || 'i', :order.gt =&gt; 0}).order_by([:order, :desc])
-    .group_by(&amp;:order).map {|k,v| v.sample}
-  render json: @json_items, callback: params[:callback]
-end
-</code></pre>
-
-<p>```</p>
-
-<p>做的事情是完全一样的。</p>
-
-<ol>
-<li><p>他先看了取参数，不用三元，直接 || 一个默认值</p></li>
-<li><p>然后他把第4步中的取随机的部分改了，因为数组中随机取一个元素，ruby直接有sample方法</p></li>
-<li><p>然后他又觉得第四步可以更简单的调用hash的map方法，映射成另一个value = value.sample的map</p></li>
-<li><p>最后他吃了顿中饭回来灵光一闪，终于发现第三步做的就是一个group_by的事情，ruby可以做这个事情</p></li>
-</ol>
-
-
-<p>于是，除了查询不变，所有的逻辑全部调用了ruby现成的方法完成了！哥落伍了…… 越发觉得ruby好强大。</p>
-
-<p>BTW，帮我改代码的是@niedhui</p>
-
-<p>以上……</p>
 ]]></content>
   </entry>
   

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="为啥碰到好多人问，然后这两天调某个网站的代码的时候我又碰到了这个问题，其实说出来很简单，不过你说你发现个bug，要想到是因为这个原因还真是恼人而且一下子想不到。Arthur同学每次遇到某些症状，比如页面元素无法提交修改，我都要去Google一下，最后都会发现就是这个原因啊…… &hellip;">
+	<meta name="description" content="有的事情一拖就被我拖了一年，一年前我想把Axum的UserGuide讲讲完，后来就一直没有做了。今天突然翻了一下以前的文章，发现是去年5月1X号的时候在关注的东西。于是我回去看了一看Axum在这一年里做了些什么。在去年7月份，Axum就公布了0.2版本，修复了一些bug。其中最让我在意的， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,167 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/asynchronous-methods-of-axum/">
+		
+			Axum的异步方法</a>
+	</h2>
+	<div class="entry-content">
+		<p>有的事情一拖就被我拖了一年，一年前我想把Axum的UserGuide讲讲完，后来就一直没有做了。今天突然翻了一下以前的文章，发现是去年5月1X号的时候在关注的东西。于是我回去看了一看Axum在这一年里做了些什么。在去年7月份，Axum就公布了0.2版本，修复了一些bug。其中最让我在意的，就是异步方法。</p>
+
+<p>这些异步方法是个什么情况呢，<a href="http://blogs.msdn.com/maestroteam/archive/2009/05/23/yielding-with-asynchronous-methods.aspx">官方博客</a>上有个例子很好的说明了这个问题，我拿来用一下。这是一个简单的Axum程序。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">agent</span> <span class="n">MainAgent</span> <span class="p">:</span> <span class="n">channel</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Axum</span><span class="p">.</span><span class="n">Application</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">public</span> <span class="nf">MainAgent</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="kt">var</span> <span class="n">pt</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderedInteractionPoint</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Set up a dataflow network</span>
+</span><span class='line'>        <span class="n">pt</span> <span class="p">==&gt;</span> <span class="n">MultiplyByTwo</span> <span class="p">==&gt;</span> <span class="n">Print</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Send some numbers to the network</span>
+</span><span class='line'>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span> <span class="nf">MultiplyByTwo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">n</span><span class="p">*</span><span class="m">2</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">void</span> <span class="nf">Print</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>按照这个代码执行的结果应该是怎么样的呢？好吧，其实什么都不会输出。不难理解，整个pipeline是去其他线程跑的，主线程呢？直接来了个Done，于是其它东西还没出结果，Done信号已经来了，程序被结束了。解决方法呢？那加个Readline好不好？</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
+</span><span class='line'><span class="c1">// return before continuing</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>绝对脑残啊！我相信按道理很多人会想到这么写，不过在把代码敲出来之前肯定就想到了问题。我的Console IO被阻塞了说，还怎么去Writeline啊。好吧，Axum 2.0里的一个很重要的更新就是给了一个异步的Console：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
+</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
+</span><span class='line'><span class="c1">// return before continuing</span>
+</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">AsyncConsole</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这真是个好东西啊！具体Axum0.2还更新了什么，看看下面的。其实0.3也有了，只是我只是想知道一些0.1到现在的变化，所以先写这个吧~ 另外0.2的时候还发了一个独立的Axum编译器，不依赖Visual Studio，有兴趣的童鞋们可以更加轻松愉快的玩一玩了~</p>
+
+<p>0.2的主要更新。</p>
+
+<ul>
+<li><p>Added an installer for Visual Studio 2010 Beta1</p></li>
+<li><p>Enabled parallel execution of functional nodes in dataflow networks</p></li>
+<li><p>Made it possible to change fonts and colors of Axum language elements via Tools | Options | Fonts and Colors</p></li>
+<li><p>Moved samples to a zip file to make using them easier</p></li>
+<li><p>Introduced AxumLite.zip - an Axum command line compiler that doesn&#8217;t require Visual Studio</p></li>
+<li><p>Fixed the compiler error where the channel name was the same as the enclosing namespace name</p></li>
+<li><p>Made handling of immutable primitive types more rigorous; fixed some side-effect related bugs</p></li>
+<li><p>Added &#8216;using System.Concurrency.Messaging&#8217; to the VS-generated template to make classes like OrderedInteractionPoint visible by default</p></li>
+<li><p>Added the async method Microsoft.Axum.IO.Console.ReadLine</p></li>
+<li><p>Added a spiffy Auction sample (A big shout out to <a href="http://weblogs.asp.net/Podwysocki/">Matthew Podwysocki</a> for his help!)</p></li>
+</ul>
+
+
+<p>以上~</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-15T21:13:04+08:00" pubdate data-updated="true">May 15<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -723,155 +884,6 @@
 
 
 	<a class='category' href='/blog/categories/internet/'>internet</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blunt-c-sharp-1-auto-shutdown/">
-		
-			Blunt C# (1): 自动关机</a>
-	</h2>
-	<div class="entry-content">
-		<p>开始好好整理毕业设计的代码，在硬盘里找出很多以前写的C#代码，很多自己写的小应用都蛮有趣的，比如自动关机啊，修改系统变量啊，计算周年纪念日啊之类的无聊的小东西~ 想着最近博客也没有什么值得更新的内容，要不就贴一些以前的这些程序的傻傻的代码吧~ 所以这个blunt C-sharp（钝的C锋利LOL）系列的文章就是贴这些代码的，欢迎大家讨论代码的好坏~ 骂我的时候Arthur会加上&#8221;被骂的是过去的我&#8221;这个前提的~ hoho~</p>
-
-<p>今天是自动关机的那个程序~</p>
-
-<p>还是2009-1-18的时候在学长的电脑上用SharpDevelop写的。当时和他一起租房子住在外面，后来有段时间他快毕业了，出去找工作了，于是我每天一个人看动画看到睡着，因为租房子要省电费，所以电脑开通宵很心疼，所以就自己写了一个自动关机的程序，其他东西都不是关键，关键还是代码。当时是不知道哪里找来了一段关机的代码，是用C#调用winapi的其实~  截图和代码都放在下面吧~</p>
-
-<p><img src="/images/uploads/zb/2010-04-03_bluntcsharp_autoshutdown.png" alt="" /></p>
-
-<p>话说这个程序现在看起来体验很好，因为时间匹配的时候不会直接把电脑关了，而会出来一个提示框，提示框上倒数30秒（足够我从被窝里爬出来去点取消），如果没点取消就关机~ 哈哈。当时不知道怎么想的，这么一个需求还要自己写个程序~ 果然有热情！</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// 这个结构体将会传递给API。使用StructLayout(...特性，确保其中的成员是按顺序排列的，C#编译器不会对其进行调整。</span>
-</span><span class='line'><span class="na">[StructLayout(LayoutKind.Sequential, Pack = 1)]</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">struct</span> <span class="nc">TokPriv1Luid</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Count</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">long</span> <span class="n">Luid</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">public</span> <span class="kt">int</span> <span class="n">Attr</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="c1">// 以下使用DllImport特性导入了所需的Windows API。</span>
-</span><span class='line'><span class="c1">// 导入的方法必须是static extern的，并且没有方法体。调用这些方法就相当于调用Windows API。</span>
-</span><span class='line'><span class="na">[DllImport(&quot;kernel32.dll&quot;, ExactSpelling = true)]</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="n">IntPtr</span> <span class="nf">GetCurrentProcess</span><span class="p">();</span>
-</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">OpenProcessToken</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">h</span><span class="p">,</span> <span class="kt">int</span> <span class="n">acc</span><span class="p">,</span> <span class="k">ref</span> <span class="n">IntPtr</span> <span class="n">phtok</span><span class="p">);</span>
-</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, SetLastError = true)]</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">LookupPrivilegeValue</span><span class="p">(</span><span class="kt">string</span> <span class="n">host</span><span class="p">,</span> <span class="kt">string</span> <span class="n">name</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">long</span> <span class="n">pluid</span><span class="p">);</span>
-</span><span class='line'><span class="na">[DllImport(&quot;advapi32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">AdjustTokenPrivileges</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">htok</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">disall</span><span class="p">,</span>
-</span><span class='line'><span class="k">ref</span> <span class="n">TokPriv1Luid</span> <span class="n">newst</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">prev</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">relen</span><span class="p">);</span>
-</span><span class='line'><span class="na">[DllImport(&quot;user32.dll&quot;, ExactSpelling = true, SetLastError = true)]</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">bool</span> <span class="nf">ExitWindowsEx</span><span class="p">(</span><span class="kt">int</span> <span class="n">flg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">rea</span><span class="p">);</span>
-</span><span class='line'><span class="c1">// 以下定义了在调用WinAPI时需要的常数。这些常数通常可以从Platform SDK的包含文件（头文件）中找到</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">SE_PRIVILEGE_ENABLED</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000002</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">TOKEN_QUERY</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000008</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">TOKEN_ADJUST_PRIVILEGES</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000020</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">SE_SHUTDOWN_NAME</span> <span class="p">=</span> <span class="s">&quot;SeShutdownPrivilege&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_LOGOFF</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000000</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_SHUTDOWN</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000001</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_REBOOT</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000002</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_FORCE</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000004</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_POWEROFF</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000008</span><span class="p">;</span>
-</span><span class='line'><span class="k">internal</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">EWX_FORCEIFHUNG</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00000010</span><span class="p">;</span>
-</span><span class='line'><span class="c1">// 通过调用WinAPI实现关机，主要代码再最后一行ExitWindowsEx，这调用了同名的WinAPI，正好是关机用的。</span>
-</span><span class='line'><span class="k">private</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">DoExitWin</span><span class="p">(</span><span class="kt">int</span> <span class="n">flg</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">bool</span> <span class="n">ok</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">TokPriv1Luid</span> <span class="n">tp</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">IntPtr</span> <span class="n">hproc</span> <span class="p">=</span> <span class="n">GetCurrentProcess</span><span class="p">();</span>
-</span><span class='line'>    <span class="n">IntPtr</span> <span class="n">htok</span> <span class="p">=</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">OpenProcessToken</span><span class="p">(</span><span class="n">hproc</span><span class="p">,</span> <span class="n">TOKEN_ADJUST_PRIVILEGES</span> <span class="p">|</span> <span class="n">TOKEN_QUERY</span><span class="p">,</span> <span class="k">ref</span> <span class="n">htok</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Luid</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">tp</span><span class="p">.</span><span class="n">Attr</span> <span class="p">=</span> <span class="n">SE_PRIVILEGE_ENABLED</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">LookupPrivilegeValue</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="n">SE_SHUTDOWN_NAME</span><span class="p">,</span> <span class="k">ref</span> <span class="n">tp</span><span class="p">.</span><span class="n">Luid</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">AdjustTokenPrivileges</span><span class="p">(</span><span class="n">htok</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">ref</span> <span class="n">tp</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">ok</span> <span class="p">=</span> <span class="n">ExitWindowsEx</span><span class="p">(</span><span class="n">flg</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>坦率的说我也不知道是哪里找来的这个代码，如果您看了，知道这个代码的原作者，也请告诉我，并不是我不尊重他，是我年少无知 =  =</p>
-
-<p>以上~</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-04T07:24:13+08:00" pubdate data-updated="true">Apr 4<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

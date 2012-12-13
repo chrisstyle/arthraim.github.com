@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="之前完成了GameObject类的一些基础工作，也因此，我们可以使得terrain和missle launcher base利用GameObject绘制在了屏幕上。应该记得，我们添加发射塔的时候说明了，这只是一个基座（base），至于炮塔部分其实是没有被添加的，而这就是我们这次要完成的工作。 &hellip;">
+	<meta name="description" content="在3D的地表上添加了可以控制的炮塔，接下去要让他向整个3D空间里自由的发射导弹。这次我们真正的要接触到Update这个方法了，另外知道在游戏循环中处理一些按键的逻辑。和2D一样，发射出去的导弹也是GameObject，那么一样的我们还是要用到它，并且要用到它的集合，来管理多枚屏幕中的导弹。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,347 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/xna-tutorial-3d-ch7-create-missiles/">
+		
+			XNA教程-3D游戏-07-添加导弹</a>
+	</h2>
+	<div class="entry-content">
+		<p>在3D的地表上添加了可以控制的炮塔，接下去要让他向整个3D空间里自由的发射导弹。这次我们真正的要接触到Update这个方法了，另外知道在游戏循环中处理一些按键的逻辑。和2D一样，发射出去的导弹也是GameObject，那么一样的我们还是要用到它，并且要用到它的集合，来管理多枚屏幕中的导弹。</p>
+
+<p>这一部分官方把视频分为了6段之多，不过其实内容基本上和2D差不多，那么还是一步一步看下去，其实分的越细致，越容易理解的。</p>
+
+<p><strong>第一步、扩展GameObject</strong></p>
+
+<p>正如前面说到的，这一次要用GameObject来描述导弹，那么它就应该具有所有导弹需要的属性，和2D类似，需要的是一个Vector3记录初速度， 和一个bool记录模型是否存活。</p>
+
+<p>添加这样两行到GameObject类中～</p>
+
+<pre><code>public Vector3 velocity = Vector3.Zero;
+public bool alive = false;
+</code></pre>
+
+<ul>
+<li><p>velocity：Vector3，记录速度（速率和方向），初始化为0；</p></li>
+<li><p>alive：bool，记录是否存活，初始化为false。</p></li>
+</ul>
+
+
+<hr />
+
+<p><strong>第二步、添加missiles数组</strong></p>
+
+<p>拥有了为导弹扩展之后的GameObject类，现在就要添加一定数量的导弹了，所以我们用到了一个GameObject数组，来记录所有游戏中出现及没有出现的导弹。</p>
+
+<p><strong>1、声明：</strong>还是要先添加声明，一个const int记录数组大小，即最多的同屏导弹数。在Game1类的头部添加代码：</p>
+
+<pre><code>const int numMissiles = 20;
+GameObject[] missiles;
+</code></pre>
+
+<p><strong>2、初始化：</strong>在LoadContent中用循环来初始化数组中所有的GameObject。找到LoadContent()：</p>
+
+<pre><code>missiles = new GameObject[numMissiles];
+for (int i = 0; i &lt; numMissiles; i++)
+{
+    missiles[i] = new GameObject();
+    missiles[i].model = Content.Load&lt;Model&gt;(
+    @"Modelsmissile");
+    missiles[i].scale = 3.0f;
+}
+</code></pre>
+
+<p>实例化missiles数组为20个GameObject。</p>
+
+<p>循环使用for，遍历每一个，并实例化 ，载入模型为missile，缩放大小为3倍，因为模型比较小的缘故吧。</p>
+
+<hr />
+
+<p><strong>第三步、导弹发射输入</strong></p>
+
+<p>这一步要编写控制导弹发射的逻辑，和2D一模一样，除了命名不一样。一样从声明和Update代码两部分看。</p>
+
+<p><strong>1、声明：</strong></p>
+
+<pre><code>GamePadState previousState;
+#if !XBOX
+KeyboardState previousKeyboardState;
+#endif
+</code></pre>
+
+<h1>if和#endif在之前控制炮台转动的教程中已经出现过。</h1>
+
+<p>这里为什么用到这样两个变量，在文章最后为加上翻译的资料。</p>
+
+<p><strong>2、Update代码：</strong></p>
+
+<pre><code>missileLauncherHead.rotation.Y = MathHelper.Clamp(
+missileLauncherHead.rotation.Y,
+-MathHelper.PiOver4,
+MathHelper.PiOver4);
+missileLauncherHead.rotation.X = MathHelper.Clamp(
+    missileLauncherHead.rotation.X,
+    0,
+    MathHelper.PiOver4);
+if (gamePadState.Buttons.A == ButtonState.Pressed &amp;&amp;
+    previousState.Buttons.A == ButtonState.Released)
+{
+    FireMissile();
+}
+#if !XBOX
+if(keyboardState.IsKeyDown(Keys.Space) &amp;&amp;
+    previousKeyboardState.IsKeyUp(Keys.Space))
+{
+    FireMissile();
+}
+#endif
+previousState = gamePadState;
+#if !XBOX
+previousKeyboardState = keyboardState;
+#endif
+</code></pre>
+
+<p>这里的代码看上去挺多，但逻辑其实很清晰。都是在上一次按键放下的前提下，看下的话，就调用FireMissile方法。这样就不能按住案件连续发射了。</p>
+
+<p>FireMissile方法正是下一步要完成的内容。</p>
+
+<hr />
+
+<p><strong>第四步、发射导弹</strong></p>
+
+<p>在Update方法里的FireMissile就是更新导弹的一个重要步骤，我们应该在这里让导弹活过来，并且给予初速度。</p>
+
+<p>这里不向2D获取速度、位置那么简单，因为要知道我们是三维的，所以我们用了一些新的方法来得到我们想要的，看下去吧。</p>
+
+<p><strong>1、完成FireMissile方法。</strong></p>
+
+<pre><code>void FireMissile()
+{
+    foreach (GameObject missile in missiles)
+    {
+        if (!missile.alive)
+        {
+            missile.velocity = GetMissileMuzzleVelocity();
+            missile.position = GetMissileMuzzlePosition();
+            missile.rotation = missileLauncherHead.rotation;
+            missile.alive = true;
+            break;
+        }
+    }
+}
+</code></pre>
+
+<p>我就说微软工程师都是天才，先直接写了FireMissile方法，然后现在又无中生有了两个方法。不去管它，逻辑比较简单，foreach遍历所有的数组中的GameObject，如果不存活就让他活过来。</p>
+
+<p>要活过来的话，先要给速度，再给初始位置，再给初始旋转为炮塔转到的角度。然后设置alive为真，break跳出。跳出保证每次只发射一颗子弹。</p>
+
+<p><strong>2、声明两个新变量。</strong></p>
+
+<p>这里我们需要声明两个新的变量，在Game1头部加上两行代码：</p>
+
+<pre><code>const float launcherHeadMuzzleOffset = 20.0f;
+const float missilePower = 20.0f;
+</code></pre>
+
+<p>两个浮点的常量。命名有些奇怪，但其实意思很简单</p>
+
+<ul>
+<li><p>launcherHeadMuzzleOffset，发射器头部炮口偏移量，翻译过来就是这个意思，就是指炮管的长度，也就是导弹刚刚射出的时候距离模型中心的长度。这个值得问做模型的美工啦～</p></li>
+<li><p>missilePower，导弹的威力，就是指每一次更新导弹的位移，也就是速率。导弹的威力取决于速度？也许在这个游戏中是的吧。</p></li>
+</ul>
+
+
+<p>这是一个准备工作，为的是完成天才们预留的两个方法。</p>
+
+<p><strong>3、GetMissileMuzzleVelocity方法。</strong></p>
+
+<pre><code>Vector3 GetMissileMuzzleVelocity()
+{
+    Matrix rotationMatrix =
+         Matrix.CreateFromYawPitchRoll(
+             missileLauncherHead.rotation.Y,
+             missileLauncherHead.rotation.X,
+             0);
+    return Vector3.Normalize(
+        Vector3.Transform(Vector3.Forward,
+        rotationMatrix)) * missilePower;
+}
+</code></pre>
+
+<p>这里首先创建了一个rotationMatrix，用的就是CreateFromYawPitchRoll，之前也使用到过。从初始化的代码来看，得到的就是炮台的旋转情况，因为Z轴的旋转，也就是翻转（roll） 是不存在的，所以传给其0就可以了。</p>
+
+<p>之后的步骤有些复杂，拆开来看。</p>
+
+<ul>
+<li><p>首先是调用了Vector3.Transform()这个方法，这个方法是把一个旋转矩阵转换成一个向量。</p>
+
+<ul>
+<li><p>第一个参数为一个Vector3，也就是参考的方向向量。</p></li>
+<li><p>第二个参数是一个Matrix，也就是旋转矩阵。</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p>方法会得到相对于第一个参数的向量的，当前Matrix的旋转情况。</p>
+
+<ul>
+<li><p>其次是调用了Vector3.Normalize这个方法，这个方法是把一个向量转换成一个单位向量。唯一的参数就是一个Vector3。相当于只保留了向量对方向的表达性，而去掉了速率的表达性。这样为最后一个工作作了铺垫。</p></li>
+<li><p>最后把单位向量乘上missilePower，也就是位移量，这样给返回的Vector3加上了速率的信息。</p></li>
+</ul>
+
+
+<p>得到Velocity的过程就是这样，有了方向和速率，速度就这样完整了。</p>
+
+<p><strong>4、GetMissileMuzzlePosition方法。</strong></p>
+
+<p>得到了速度，这里要给他一个位置信息。因为是在FireMissile方法中被调用，那么其实就是起始位置，所以来看看代码。</p>
+
+<pre><code>Vector3 GetMissileMuzzlePosition()
+{
+    return missileLauncherHead.position +
+        (Vector3.Normalize(
+            GetMissileMuzzleVelocity()) *
+            launcherHeadMuzzleOffset);
+}
+</code></pre>
+
+<p>很简单的直接返回。一样是一句复杂的语句，拆开来看看。</p>
+
+<ul>
+<li><p>首先调用了GetMissileMuzzleVelocity()方法，得到上一个方法完成的速度Vector3。</p></li>
+<li><p>然后调用了Vector3.Normalize()方法，只取得它的方向信息，去除速率信息。</p></li>
+<li><p>最后乘上launcherHeadMuzzleOffset，使得导弹出现的第一个位置是炮管的顶端，而不是模型的中心。</p></li>
+</ul>
+
+
+<p>意思很明了，前两个调用相当于是得到炮塔在按键的一刹那的方向。换句话说，用GetMissileMuzzleVelocity方法里的逻辑也不难得到。</p>
+
+<hr />
+
+<p><strong>第五步、更新导弹</strong></p>
+
+<p>因为3D的缘故，第四步稍稍显得有些复杂了，有一些新的方法。</p>
+
+<p>当然在完成了这些工作后，现在就显得简单的多了，这一步，只要让导弹在每次更新是移动一定的距离，并且在移动到一定距离后就消失。</p>
+
+<p><strong>1、编写一个UpdateMissile方法。</strong></p>
+
+<p>首先要写一个UpdateMissile的方法来管理所有的Missile的移动。</p>
+
+<pre><code>void UpdateMissiles()
+{
+    foreach (GameObject missile in missiles)
+    {
+        if (missile.alive)
+        {
+            missile.position += missile.velocity;
+            if (missile.position.Z &lt; -6000.0f)
+            {
+                missile.alive = false;
+            }
+        }
+    }
+}
+</code></pre>
+
+<ul>
+<li><p>不需要返回值。</p></li>
+<li><p>遍历所有的导弹，如果它存活着就更新他的位置。</p></li>
+<li><p>原来的位置加上速度就是现在的位置。</p></li>
+<li><p>如果导弹的Z坐标小于-6000，即，深入屏幕6000，那么就让他死掉，准备再一次的发射。</p></li>
+</ul>
+
+
+<p>以上就是所有的逻辑。</p>
+
+<p><strong>2、调用UpdateMissile方法。</strong></p>
+
+<p>写完方法当然要调用（这次到不是先调用再写了）。在Update方法中，previousState = gamePadState;这一行之前插入一行代码。</p>
+
+<blockquote><p>UpdateMissiles();</p></blockquote>
+
+<p>就是这样。</p>
+
+<hr />
+
+<p><strong>第六步、绘制导弹</strong></p>
+
+<p>最后一步每次都是这样子，就是完成之前逻辑后，把它画出来，习惯了这系列的教程就非常明白了。</p>
+
+<p>相对于前面调用DrawGameObject来说，这一次只是要用一个foreach循环调用很多遍而已。</p>
+
+<pre><code>foreach (GameObject missile in missiles)
+{
+    if (missile.alive)
+    {
+        DrawGameObject(missile);
+    }
+}
+</code></pre>
+
+<p>最后，编译，运行～(点击放大，导弹太小，难以察觉，不如调整一下参数啊～)</p>
+
+<p><a href="/images/uploads/zb/2009-07-08_runtime.jpg"><img src="/images/uploads/zb/2009-07-08_runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=162"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+<hr />
+
+<p>之前说过，处理输入的那一步存在的一些疑问。（其实2D里也一样吧～）为什么要记录上一步的操作状态。究竟起到了什么作用，那么这一段解释非常非常的清楚。</p>
+
+<p>（以下文字翻译自XNA Create Club网站，未经允许禁止转载。由于本人水平有限，所以有任何错误希望高手更正。）</p>
+
+<p><strong>什么是上一步操作状态，为什么需要记录它？</strong></p>
+
+<blockquote><p>要理解对应游戏的输入，很有必要退一步看看更加普通的输入。控制器的输入信号一般只是简单的电流信号，它被一种称为驱动软件的低级软件系统分析解释。信号以一定的频率传入分析它们的软件。</p>
+
+<p>有些软件把输入的解析表现出来，反映出很多用户使用这个输入设备做出的动作，并且把这些动作存入缓冲记忆体中等待被读取或释放。这种类型的输入处理被称为&#8221;缓冲模式输入&#8221;(buffered-mode input)。</p>
+
+<p>另一种输入处理不使用缓冲。取而代之的，是提供索取信号是的当前状态。没有提供参数来标识一定时间内所做出的特定动作。取而代之的，是程序员可以在任何时间自由的访问控制器的当前状态，包括所有的轴的位置以及按键的情况。程序员可以自由存储和操作相关的信息。这种输入处理被称为&#8221;立即模式输入&#8221;( immediate-mode input)。</p>
+
+<p>XNA Framework使用立即模式输入，并且支持全部三种输入方式&#8212;-Xbox360控制器，键盘以及鼠标。这意味着，对于任意一种输入设备，你都可以在任何时间查询输入设备的当前状态信息。然而，你却不能查询任何过去的设备状态，除非你明确的把它存储在其他地方。</p>
+
+<p>为什么要查询过去的输入状态呢？举个强烈依赖玩家快速按键的游戏作为例子。在这样的游戏中，长按按键不会有什么效果，只有重复的连打才能奏效。</p>
+
+<p>由于立即模式输入处理的这一特性，每一次输入状态被查询，一个长按的按钮表现为&#8221;被按下&#8221;（Pressed）。不检查过去的状态是否是&#8221;被释放&#8221;（Released），就没有办法来区分按键是刚刚被按下还是长按了一段时间。</p>
+
+<p>存储上一次状态缓解了这个问题。每一次循环到达更新（Update），正常的处理输入，但是在循环的末尾，存储当前状态为一个变量。这个变量就成为上一次状态。要检查按键是否是被一次按下还不是长按着，检查当前按键状态为&#8221;已按下&#8221;(Pressed)，并且上一次按键状态为&#8221;已释放&#8221;（Released）。</p></blockquote>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-08T23:38:32+08:00" pubdate data-updated="true">Jul 8<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1313,224 +1654,6 @@ foreach(GameObject enemy in enemies)
 
 
 <time datetime="2009-06-19T06:13:16+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">
-		
-			XNA教程-2D游戏-07-添加敌人UFO</a>
-	</h2>
-	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 07 &#8211; 添加敌人UFO</strong></p>
-
-<p>这次要做的就是添加敌人 &#8212;- UFO。我们有了一个防空武器，在一个可恶的看上去非常阴沉的外星球，那我们必须要有人来入侵，这才是建造军用设施的真正目的对吧。所以，程序员真是堪比创世纪的众神了。</p>
-
-<p>加入UFO的方法其实和子弹差不多（记住这句话，因为我后面实在是懒得讲了），它需要它的初速度向量，需要被杀掉，最后需要画在屏幕上，如果稍微改一下，我们完全可以不看教程做到了。添加UFO还涉及到了一个新的概念，就是随机数，游戏中随机是非常重要的东西，几乎没有一个游戏不用到随机概念的，前段时间刚刚过了25岁生日的俄罗斯方块也是。随机，是游戏的灵魂，而我们将用到Random来产生随机数，再使用XNA提供的方法限定我们需要的范围。OK，开始吧。</p>
-
-<p><strong>第一步、创建UFO</strong></p>
-
-<p>我们要声明很多的变量，可能一时半会儿不会知道有什么用。一样的，找到你声明了其他东西的地方，加农炮啦，炮弹啦，手柄和键盘的状态啦之类的，Game类的首部，添加以下代码，代码如下：</p>
-
-<pre><code>const int maxEnemies = 3;
-const float maxEnemyHeight = 0.1f;
-const float minEnemyHeight = 0.5f;
-const float maxEnemyVelocity = 5.0f;
-const float minEnemyVelocity = 1.0f;
-Random random = new Random();
-GameObject[] enemies;
-</code></pre>
-
-<p>似乎有很多不明所以的东西，来看看他们都是些什么。</p>
-
-<ol>
-<li><p>最大的敌人数，3个，好吧，我一定改了你。</p></li>
-<li><p>最大敌人高度，0.1f，似乎可以想到。</p></li>
-<li><p>最小敌人高度，0.5f，对啊，正如之前说到的，坐标系的Y轴是越上方越小。</p></li>
-<li><p>最大敌人速率，5.0f，恩，敌人的速率是可变的，不错。</p></li>
-<li><p>最小敌人速率，1.0f，最小的速度。</p></li>
-<li><p>随机对象，一个Random对象，看来是创建随机数用的。</p></li>
-<li><p>敌人数组，一个敌人的数组，和子弹一样，只是名字不同而已吧。</p></li>
-</ol>
-
-
-<p>这就是我们第一步完成的事情，之前说过，微软工程师都是强大的存在，可以预见未来，他们可以在刚刚开始写代码的时候就声明好所有将来需要使用的变量。当然，这是个笑话。</p>
-
-<p>之后要初始化这些对象，载入enemy.tga资源。找到LoadContent的位置，在初始化cannonballs的循环下面添加一个for循环。记得之前怎么做的吗？如法炮制。</p>
-
-<pre><code>enemies = new GameObject[maxEnemies];
-for (int i = 0; i &lt; maxEnemies; i++)
-{
-    enemies[i] = new GameObject(
-    Content.Load&lt;Texture2D&gt;(@"Spriteenemy"));
-}
-</code></pre>
-
-<p>不麻烦吧，只是吧cannnonballs的名字换一下就是这里的代码了。继续。</p>
-
-<hr />
-
-<p><strong>第二步、更新UFO位置并杀掉屏幕以外的</strong></p>
-
-<p>第二步做的是更新他们的位置，因为也是GameObject类，所以方法和cannonball一模一样。在Update方法中找到UpdateCannonBalls();这一行，在下面加入：</p>
-
-<pre><code>UpdateEnemies();
-</code></pre>
-
-<p>说然后在类的其他任何地方加上我们的UpdateEnemies方法。</p>
-
-<pre><code>public void UpdateEnemies()
-{
-    foreach (GameObject enemy in enemies)
-    {
-        if (enemy.alive)
-        {
-            enemy.position += enemy.velocity;
-            if(!viewportRect.Contains(new Point(
-                (int)enemy.position.X,
-                (int)enemy.position.Y)))
-            {
-                enemy.alive = false;
-                continue;
-            }
-        }
-    }
-}
-</code></pre>
-
-<p>真的，和CannonBalls一模一样，改一下名称，采用一样的杀掉的方法，这就是UFO移动，位置更新的代码了，目前为止没什么新的东西。</p>
-
-<hr />
-
-<p><strong>第三步、新生UFO</strong></p>
-
-<p>和cannonballs不同，在做cannonballs的工作的时候，先让它射击出来，也就是在按键的一刻，之后在离开屏幕的一刻把它杀掉。而enemies在被处理的时候，是先在他离开屏幕的时候杀掉，可是它从没出现过。所以这一步，我们要让他出现。</p>
-
-<p>要新生一个enemy的GameObject我们要给他一些属性，包括alive要变成true，这是肯定的。然后要给他一个初始的position，一个velocity速度向量，velocity包括了方向，和速率。（所以我始终觉得speed更好）。</p>
-
-<p>然后就是决定，什么时候创建它。它在离开屏幕的时候会死去，那么我们就在它死去之后马上把它救活，所以我们找到上一步的UpdateEnemies方法，在if(enemy.alive){}的后面，加上enemy.alive == false的代码，让它死掉马上活过来，并出现在屏幕的右方。</p>
-
-<pre><code>if (enemy.alive)
-{
-    // ...其他代码
-}
-else
-{
-    enemy.alive = true;
-    enemy.position = new Vector2(
-    viewportRect.Right,
-    MathHelper.Lerp(
-        (float)viewportRect.Height * minEnemyHeight,
-        (float)viewportRect.Height * maxEnemyHeight,
-        (float)random.NextDouble()));
-    enemy.velocity = new Vector2(
-    MathHelper.Lerp(
-        -minEnemyVelocity,
-        -maxEnemyVelocity,
-        (float)random.NextDouble()),
-        0);
-}
-</code></pre>
-
-<p>看看我们做了什么。</p>
-
-<p>enemy.alive = true; 没错，这是出生证明，起码在某些程度上说明了它活过来了。</p>
-
-<p>enemy.position = new Vector2(); 这当然是给他位置向量，初始化向量要X坐标Y坐标，那X坐标就是屏幕右侧，X轴最大值，viewportRect记录了屏幕大小，调用viewportRect的Right属性，就是我们要的屏幕宽度，也就是X轴最大值。而Y坐标，我们要随机产生一个高度，这样才有游戏的味道。首先，我们用random.NextDouble随机生成一个0到1之间的double类型的随机数，这就是我们得到随机数的方法。但是，它不是我们要的数字，我们需要一个高度差之间的，而不是0到1的。于是这里要讲一下MathHelper.Lerp方法，它需要3个参数，随机数的最小值，随机数的最大值，和随机数。我们使用这个方法，把我们随机产生的那个书限定到我们给的新范围里。其实做法很简单，相信大家都可以写出来，(最大值-最小值)×随机值+最小值，这得到了我们的这个数，不过XNA帮你省去了这些代码（真是细致的过分了 = =），直接帮助得到我们的数。</p>
-
-<p>enemy.velocity = new Vector2()，一样的，也是产生一个新的向量。因为要他笔直的从右往左穿过屏幕，那Y方向没有速度，Y给个0就好了。X则是要随机在我们定下的范围里得到一个数字，方法和position的类似，只是要注意的是，因为我们逆X轴正方向飞行，所以X轴速度是负数。</p>
-
-<p>至此，完成了UFO的全部的Update工作。</p>
-
-<hr />
-
-<p><strong>第四步、绘制UFO</strong></p>
-
-<p>嘿嘿，一样，最后我要画UFO。找到Draw方法，加入一个新的SpriteBatch.draw就可以了。因为UFO不会和加农炮碰撞，所以无论放在背景以上的什么层面都好，只是我觉得起码应该遮掉子弹吧～于是添加代码，又是和cannnonballs一样。</p>
-
-<pre><code>foreach (GameObject enemy in enemies)
-{
-    if (enemy.alive)
-    {
-        spriteBatch.Draw(
-        enemy.sprite,
-        enemy.position,
-        Color.White);
-    }
-}
-</code></pre>
-
-<p>We&#8217;re done here. 运行一下看看效果。（我修改了同屏敌人数，因为我的子弹改成是10 = = 并且我发现我的子弹是可以打成一张网的，这游戏没意思了）</p>
-
-<p><a href="/images/uploads/zb/2009-06-16_Chapter7Runtime.jpg"><img src="/images/uploads/zb/2009-06-16_Chapter7Runtime.jpg" alt="" /></a></p>
-
-<p>画面不错。OK，下一次就是要真的用子弹杀掉敌人了～</p>
-
-<p>【官方源代码下载】</p>
-
-<p><a href="http://creators.xna.com/downloads/?id=154"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
-
-<hr />
-
-<p><strong>第三步的补充内容翻译。</strong></p>
-
-<p>这段文字详细讲解了Lerp方法的成因，作用，实现方式，用法，好处等等，可以说非常的详细。</p>
-
-<p>但我个人其实非常不理解，首先我非常不理解为什么（最大值-最小值）×随机值+最小值 这样一个计算就可以完成的事情一定要封装到framework里，虽然那个类的名字叫MaxHelper。另外不理解的地方就是为啥还要用这么多的文字来说明，看了就知道，它用了很多文字来说为什么0到1之间的数可以转化为一个范围内的数，还打了从一个数轴映射到另一个数轴的例子。</p>
-
-<p>只是觉得很有意思而已，美国人做事情有些德国人的味道。看文字吧。</p>
-
-<blockquote><p><strong>随机数和线性插入</strong></p>
-
-<p>在游戏中，随机事件会添加更多的曲折。从随机出现在随机位置的玩家或敌人，到一定几率出现的奖励道具，随机事件可以保持一个游戏的挑战性和乐趣。</p>
-
-<p>怎么才能让你使用一个随机数字来创建随机事件呢？</p>
-
-<p>Microsoft® Visual C# 2005 Express Edition和Visual Studio 2005的包含的标准库中提供了一个实用的类&#8212;-System.Random类。它可以被实例化，也可以生成特定最大范围内的随机整数，或随机生成0到1之间的双精度小数。</p>
-
-<p>乍看之下，产生一个随机证书似乎更管用。在某些情况下，它很管用。举个例子，随机访问你的数组索引，你需要一个整数。但是2D游戏中的数是浮点数，这意味着，他们拥有小数部分。我们需要一些不是严格的整数的数值。打个比方，5到10之间产生一个随机速率。如果我们只是用5到10之间的整数，只有6中可能的数值，这使得速率间的差异性看上去不是那么随机。</p>
-
-<p>一个双精度浮点数之给我们更多范围内数据的变化，使可以转化为更多各种各样的表现。这非常美妙，特别是当我们屏幕上有很多对象拥有不同的位置和速度的时候。</p>
-
-<p>然而，我们的Random类只返回0到1之间的双精度浮点值，或称为double类型的值，却对我们要随机获得5到10之间的数字不怎么实用。你当然可以做一些必要的乘法和加法来让0到1之间的数适应5到10之间这个范围，但是XNA Framework提供了更加简单的方法 &#8212;- MathHelper.Lerp。</p>
-
-<p>Lerp是linear interpolation（线性插入）的缩写，一个数学方法，提供它一些0到1之间的数值T，并提供给它最大值和最小值，它可以计算出一个最大值和最小值之间的输出T。</p>
-
-<p><img src="/images/uploads/zb/BG_3.7.3.1pd.png" alt="" /></p>
-
-<p>把它想象成是在一个最小值和最大值之间的数轴上决定位置，而T是从开始的0到1之间的一条数轴上的某个位置。如果T是0.75，它应该在数轴范围的3/4的位置，在5到10的数轴上就是8.75。照着这个方法，一个0到1之间的数值可以用来在两个浮点数之间找到一个对应的浮点数。</p>
-
-<p>Lerp方法可以用在游戏中需要以恒定速率增加或减少的任何东西。速率、动画、淡出效果或变换颜色 &#8212;- 简简单单传入一个0到1之间的数值T，一个最小值，一个最大值，Lerp会完成之后的所有事情。</p></blockquote>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-16T19:24:54+08:00" pubdate data-updated="true">Jun 16<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

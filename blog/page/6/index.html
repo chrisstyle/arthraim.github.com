@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="作为一个PS3, PSP玩家，我必须承认我最在意的展前发布会就是索尼的。如果说去年展前发布会的精彩程度要排名是索尼>微软>任天堂的话，那今年真的应该是倒个个儿，任天堂>微软>索尼了。索尼的重头戏是PS相关的产品，和PS3PSP本身关系并不大，游戏阵容也不是微软这样的铺天盖地， &hellip;">
+	<meta name="description" content="今天登陆后台，就看到说wordpress 3.0 is available! 正式版终于可以升级了啊，改动挺大的，我正在犹豫要不要升级，要不还是过两天在升级吧，升级之后我也要考虑下是不是换个模板了，因为很多new features都只有新的Default主题能用。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,52 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/wordpress-3-is-available/">
+		
+			Wordpress开始推送3.0</a>
+	</h2>
+	<div class="entry-content">
+		<p>今天登陆后台，就看到说wordpress 3.0 is available! 正式版终于可以升级了啊，改动挺大的，我正在犹豫要不要升级，要不还是过两天在升级吧，升级之后我也要考虑下是不是换个模板了，因为很多new features都只有新的Default主题能用。当然我用的是英文版的Wordpress，中文版貌似还没有升级到3.0。总之升级还真的是一件麻烦的事情【顾虑太多了吧你】</p>
+
+<p><a href="/images/uploads/wp/wordpress_org.png"><img src="/images/uploads/wp/wordpress_org.png" alt="" /></a></p>
+
+<p>可以后台自动升级，很方便的一办法，不过需要用到FTP或FTPS密码。不然就去<a href="http://wordpress.org/download/">这里</a>下载咯。</p>
+
+<p>今天又水了，以上……</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-18T20:37:44+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/internet/'>internet</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -764,167 +810,6 @@
 
 
 	<a class='category' href='/blog/categories/internet/'>internet</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/asynchronous-methods-of-axum/">
-		
-			Axum的异步方法</a>
-	</h2>
-	<div class="entry-content">
-		<p>有的事情一拖就被我拖了一年，一年前我想把Axum的UserGuide讲讲完，后来就一直没有做了。今天突然翻了一下以前的文章，发现是去年5月1X号的时候在关注的东西。于是我回去看了一看Axum在这一年里做了些什么。在去年7月份，Axum就公布了0.2版本，修复了一些bug。其中最让我在意的，就是异步方法。</p>
-
-<p>这些异步方法是个什么情况呢，<a href="http://blogs.msdn.com/maestroteam/archive/2009/05/23/yielding-with-asynchronous-methods.aspx">官方博客</a>上有个例子很好的说明了这个问题，我拿来用一下。这是一个简单的Axum程序。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="n">agent</span> <span class="n">MainAgent</span> <span class="p">:</span> <span class="n">channel</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Axum</span><span class="p">.</span><span class="n">Application</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">MainAgent</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="kt">var</span> <span class="n">pt</span> <span class="p">=</span> <span class="k">new</span> <span class="n">OrderedInteractionPoint</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// Set up a dataflow network</span>
-</span><span class='line'>        <span class="n">pt</span> <span class="p">==&gt;</span> <span class="n">MultiplyByTwo</span> <span class="p">==&gt;</span> <span class="n">Print</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="c1">// Send some numbers to the network</span>
-</span><span class='line'>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kt">int</span> <span class="nf">MultiplyByTwo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">n</span><span class="p">*</span><span class="m">2</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">void</span> <span class="nf">Print</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>按照这个代码执行的结果应该是怎么样的呢？好吧，其实什么都不会输出。不难理解，整个pipeline是去其他线程跑的，主线程呢？直接来了个Done，于是其它东西还没出结果，Done信号已经来了，程序被结束了。解决方法呢？那加个Readline好不好？</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
-</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
-</span><span class='line'><span class="c1">// return before continuing</span>
-</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>绝对脑残啊！我相信按道理很多人会想到这么写，不过在把代码敲出来之前肯定就想到了问题。我的Console IO被阻塞了说，还怎么去Writeline啊。好吧，Axum 2.0里的一个很重要的更新就是给了一个异步的Console：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="c1">// Send some numbers to the network</span>
-</span><span class='line'><span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="p">&lt;</span><span class="m">5</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="n">pt</span> <span class="p">&lt;--</span> <span class="n">i</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// Not so fast! Wait until the user hits</span>
-</span><span class='line'><span class="c1">// return before continuing</span>
-</span><span class='line'><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Press Enter to continue...&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="n">AsyncConsole</span><span class="p">.</span><span class="n">ReadLine</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">PrimaryChannel</span><span class="p">::</span><span class="n">Done</span> <span class="p">&lt;--</span> <span class="n">Signal</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这真是个好东西啊！具体Axum0.2还更新了什么，看看下面的。其实0.3也有了，只是我只是想知道一些0.1到现在的变化，所以先写这个吧~ 另外0.2的时候还发了一个独立的Axum编译器，不依赖Visual Studio，有兴趣的童鞋们可以更加轻松愉快的玩一玩了~</p>
-
-<p>0.2的主要更新。</p>
-
-<ul>
-<li><p>Added an installer for Visual Studio 2010 Beta1</p></li>
-<li><p>Enabled parallel execution of functional nodes in dataflow networks</p></li>
-<li><p>Made it possible to change fonts and colors of Axum language elements via Tools | Options | Fonts and Colors</p></li>
-<li><p>Moved samples to a zip file to make using them easier</p></li>
-<li><p>Introduced AxumLite.zip - an Axum command line compiler that doesn&#8217;t require Visual Studio</p></li>
-<li><p>Fixed the compiler error where the channel name was the same as the enclosing namespace name</p></li>
-<li><p>Made handling of immutable primitive types more rigorous; fixed some side-effect related bugs</p></li>
-<li><p>Added &#8216;using System.Concurrency.Messaging&#8217; to the VS-generated template to make classes like OrderedInteractionPoint visible by default</p></li>
-<li><p>Added the async method Microsoft.Axum.IO.Console.ReadLine</p></li>
-<li><p>Added a spiffy Auction sample (A big shout out to <a href="http://weblogs.asp.net/Podwysocki/">Matthew Podwysocki</a> for his help!)</p></li>
-</ul>
-
-
-<p>以上~</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-15T21:13:04+08:00" pubdate data-updated="true">May 15<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

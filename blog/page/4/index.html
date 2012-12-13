@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="又是月初才写上个月的内容，话说时间过得好快，以前每年都觉得上半年比较快，下半年比较慢，今年一下子已经到了10月份了，真是时光飞逝啊。有的时候我也会想这博客存在的意义是什么，因为好像每个月就指望这篇电影报告了。我的程序都不知道飞到哪里去了。大概一个是因为工作了，自己瞎摆弄别的东西的时间少了， &hellip;">
+	<meta name="description" content="话说程序员的博客总是用到SyntaxHighlighter之类的来在pre标签里贴一堆代码。于是因为装了CKEditor for Wordpress就一直觉得很讨厌，在HTML标签里写下一些代码，到了Visual里就被转义了。比如>和&lt;就变成了&gt;&lt;虾米虾米的。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,60 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/disable-ckeditor-html-entities-in-the-output/">
+		
+			CKEditor的转义什么的最讨厌了！</a>
+	</h2>
+	<div class="entry-content">
+		<p>话说程序员的博客总是用到SyntaxHighlighter之类的来在pre标签里贴一堆代码。于是因为装了CKEditor for Wordpress就一直觉得很讨厌，在HTML标签里写下一些代码，到了Visual里就被转义了。比如>和&lt;就变成了&gt;&lt;虾米虾米的。话说今天心血来潮去Google了一下，CKEditor的设置文档里还真的有相关的设置，请围观<a href="http://docs.cksource.com/ckeditor_api/symbols/CKEDITOR.config.html#.entities">这里</a>！</p>
+
+<p>配置ckeditor插件目录下的ckeditor.config.js文件，加入下面这行。</p>
+
+<pre><code>config.entities = false;
+</code></pre>
+
+<p>不过这样比较暴力，所有的内容都不转义了，有没人有担心。于是在<a href="http://chiefleo.me/archives/306">这里</a>查到还有另外一种办法（如下），用正则筛选要保护的代码。这样对数据来说是很不错，不过有个缺点，在ckeditor所见即所得模式里看不见被保护的内容，这个就看你自己的取舍了。</p>
+
+<pre><code>config.protectedSource.push(/&lt;pre[sS]*?pre&gt;/g);
+</code></pre>
+
+<p>貌似我还是倾向于用前者~ 在所见即所得标签里黏贴的内容还是都会转义的，只是HTML过来的内容都不转义了，貌似不错。独立博客真是要折腾啊 = =  怪辛苦的……</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-04T06:39:36+08:00" pubdate data-updated="true">Nov 4<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -729,367 +783,6 @@
 
 
 <time datetime="2010-08-20T08:38:24+08:00" pubdate data-updated="true">Aug 20<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/first-silverlight-game-demo/">
-		
-			第一次用Silverlight写游戏demo</a>
-	</h2>
-	<div class="entry-content">
-		<p>话说本文4个背景。上一篇说装了XNA4.0的环境，于是还水了一篇玩模拟器的文，总觉得XNA不给力，于是想试试看silverlight写游戏会怎么样，上星期花了两个晚上试了一试，以上是第一个背景。我对游戏总是念念不忘，算是自己的梦想吧。以前写的XNA教程里从来没有提过动画的事情。最后一个原因，就是我好久没有更新博客了。</p>
-
-<p>话说这个东东是按照cnblogs上注明的MVP<a href="http://www.cnblogs.com/alamiye010/">深蓝色右手</a>的教程写的，如果你要学习，那也许他的东西更好吧。我是很给力的想给自己的demo加上一点骚包的东西。看看实际的效果吧要不~</p>
-
-<p>要不demo还是不直接贴在文章里了，跳转一下看吧：<a href="http://arthraim.cn/page/sl1/">http://artorius.arthraim.com/page/sl1/</a></p>
-
-<p>特别留意林克的眨眼，给眨眼做了个特殊的序列来实现很多重复帧的动画。另外固定的是移动时间，所以移动起来很傻吧，看着玩玩好了，貌似还有bug我三更半夜的搞得有点头大，乱的一塌糊涂，有心的谁来帮我看看？然后那啥，贴下代码吧~</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">MainPage</span> <span class="p">:</span> <span class="n">UserControl</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">Storyboard</span> <span class="n">storyboard</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">Image</span> <span class="n">spirit</span><span class="p">;</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">Point</span> <span class="n">relativePos</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">(</span><span class="m">13</span><span class="p">,</span> <span class="m">23</span><span class="p">);</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">direction</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>    <span class="kt">bool</span> <span class="n">isWalking</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">public</span> <span class="nf">MainPage</span><span class="p">()</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">InitializeComponent</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">spirit</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Windows</span><span class="p">.</span><span class="n">Controls</span><span class="p">.</span><span class="n">Image</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">spirit</span><span class="p">.</span><span class="n">Stretch</span> <span class="p">=</span> <span class="n">Stretch</span><span class="p">.</span><span class="n">Uniform</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">spirit</span><span class="p">.</span><span class="n">Width</span> <span class="p">=</span> <span class="m">23</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">spirit</span><span class="p">.</span><span class="n">Height</span> <span class="p">=</span> <span class="m">23</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">Carrier</span><span class="p">.</span><span class="n">Children</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">spirit</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">Canvas</span><span class="p">.</span><span class="n">SetLeft</span><span class="p">(</span><span class="n">spirit</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">Canvas</span><span class="p">.</span><span class="n">SetTop</span><span class="p">(</span><span class="n">spirit</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">DispatcherTimer</span> <span class="n">dispatcherTimer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DispatcherTimer</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">dispatcherTimer</span><span class="p">.</span><span class="n">Tick</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">EventHandler</span><span class="p">(</span><span class="n">dispatcherTimer_Tick</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">dispatcherTimer</span><span class="p">.</span><span class="n">Interval</span> <span class="p">=</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromMilliseconds</span><span class="p">(</span><span class="m">100</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">dispatcherTimer</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">void</span> <span class="nf">dispatcherTimer_Tick</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">label1</span><span class="p">.</span><span class="n">Content</span> <span class="p">=</span> <span class="n">direction</span> <span class="p">+</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">count</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">string</span> <span class="n">directionStr</span> <span class="p">=</span> <span class="s">&quot;east&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">switch</span> <span class="p">(</span><span class="n">direction</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">case</span> <span class="m">0</span><span class="p">:</span> <span class="n">directionStr</span> <span class="p">=</span> <span class="s">&quot;north&quot;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">case</span> <span class="m">1</span><span class="p">:</span> <span class="n">directionStr</span> <span class="p">=</span> <span class="s">&quot;east&quot;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">case</span> <span class="m">2</span><span class="p">:</span> <span class="n">directionStr</span> <span class="p">=</span> <span class="s">&quot;south&quot;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">case</span> <span class="m">3</span><span class="p">:</span> <span class="n">directionStr</span> <span class="p">=</span> <span class="s">&quot;west&quot;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">default</span><span class="p">:</span> <span class="n">directionStr</span> <span class="p">=</span> <span class="s">&quot;east&quot;</span><span class="p">;</span> <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">storyboard</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">&amp;&amp;</span> <span class="n">storyboard</span><span class="p">.</span><span class="n">GetCurrentTime</span><span class="p">()</span> <span class="p">==</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1</span><span class="p">))</span><span class="c1">//(isWalking == false)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="kt">int</span><span class="p">[]</span> <span class="n">table</span> <span class="p">=</span> <span class="p">{</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">2</span> <span class="p">};</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">direction</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>                <span class="n">spirit</span><span class="p">.</span><span class="n">Source</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BitmapImage</span><span class="p">(</span>
-</span><span class='line'>                        <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">@&quot;Assets/LinkG_stand_&quot;</span> <span class="p">+</span> <span class="n">directionStr</span> <span class="p">+</span> <span class="s">&quot;00&quot;</span> <span class="p">+</span> <span class="n">table</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot;.png&quot;</span><span class="p">,</span> <span class="n">UriKind</span><span class="p">.</span><span class="n">Relative</span><span class="p">));</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="k">else</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">count</span> <span class="p">=</span> <span class="p">(</span><span class="n">count</span> <span class="p">&gt;</span> <span class="p">(</span><span class="n">table</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="m">1</span><span class="p">))</span> <span class="p">?</span> <span class="m">1</span> <span class="p">:</span> <span class="n">count</span><span class="p">;</span>
-</span><span class='line'>                <span class="n">spirit</span><span class="p">.</span><span class="n">Source</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BitmapImage</span><span class="p">(</span>
-</span><span class='line'>                        <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">@&quot;Assets/LinkG_stand_&quot;</span> <span class="p">+</span> <span class="n">directionStr</span> <span class="p">+</span> <span class="s">&quot;00&quot;</span> <span class="p">+</span> <span class="n">table</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="p">+</span> <span class="s">&quot;.png&quot;</span><span class="p">,</span> <span class="n">UriKind</span><span class="p">.</span><span class="n">Relative</span><span class="p">));</span>
-</span><span class='line'>                <span class="n">count</span><span class="p">++;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">else</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="p">&gt;</span> <span class="m">10</span> <span class="p">||</span> <span class="n">count</span> <span class="p">&lt;=</span> <span class="m">0</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">count</span> <span class="p">&gt;</span> <span class="m">0</span> <span class="p">&amp;&amp;</span> <span class="n">count</span> <span class="p">&lt;</span> <span class="m">10</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">spirit</span><span class="p">.</span><span class="n">Source</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BitmapImage</span><span class="p">(</span>
-</span><span class='line'>                    <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">@&quot;Assets/LinkG_walk_&quot;</span> <span class="p">+</span> <span class="n">directionStr</span> <span class="p">+</span> <span class="s">&quot;00&quot;</span> <span class="p">+</span> <span class="n">count</span> <span class="p">+</span> <span class="s">&quot;.png&quot;</span><span class="p">,</span> <span class="n">UriKind</span><span class="p">.</span><span class="n">Relative</span><span class="p">));</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">count</span> <span class="p">==</span> <span class="m">10</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">{</span>
-</span><span class='line'>                <span class="n">spirit</span><span class="p">.</span><span class="n">Source</span> <span class="p">=</span> <span class="k">new</span> <span class="n">BitmapImage</span><span class="p">(</span>
-</span><span class='line'>                    <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">@&quot;Assets/LinkG_walk_&quot;</span> <span class="p">+</span> <span class="n">directionStr</span> <span class="p">+</span> <span class="s">&quot;0&quot;</span> <span class="p">+</span> <span class="n">count</span> <span class="p">+</span> <span class="s">&quot;.png&quot;</span><span class="p">,</span> <span class="n">UriKind</span><span class="p">.</span><span class="n">Relative</span><span class="p">));</span>
-</span><span class='line'>                <span class="n">count</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>            <span class="n">count</span><span class="p">++;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">/// N - 0</span>
-</span><span class='line'>    <span class="c1">/// E - 1</span>
-</span><span class='line'>    <span class="c1">/// S - 2</span>
-</span><span class='line'>    <span class="c1">/// W - 3</span>
-</span><span class='line'>    <span class="k">private</span> <span class="kt">int</span> <span class="nf">CalculateDirection</span><span class="p">(</span><span class="n">Point</span> <span class="n">pTo</span><span class="p">,</span> <span class="n">Point</span> <span class="n">pFrom</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">pTo</span><span class="p">.</span><span class="n">X</span> <span class="p">-=</span> <span class="n">relativePos</span><span class="p">.</span><span class="n">X</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">pTo</span><span class="p">.</span><span class="n">Y</span> <span class="p">-=</span> <span class="n">relativePos</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span>
-</span><span class='line'>        <span class="kt">double</span> <span class="n">tan</span> <span class="p">=</span> <span class="p">(</span><span class="n">pTo</span><span class="p">.</span><span class="n">Y</span> <span class="p">-</span> <span class="n">pFrom</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span> <span class="p">/</span> <span class="p">(</span><span class="n">pTo</span><span class="p">.</span><span class="n">X</span> <span class="p">-</span> <span class="n">pFrom</span><span class="p">.</span><span class="n">X</span><span class="p">);</span>
-</span><span class='line'>        <span class="kt">double</span> <span class="n">delta</span> <span class="p">=</span> <span class="n">pTo</span><span class="p">.</span><span class="n">X</span> <span class="p">-</span> <span class="n">pFrom</span><span class="p">.</span><span class="n">X</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">delta</span> <span class="p">&gt;</span> <span class="m">0</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">tan</span> <span class="p">&lt;=</span> <span class="m">1</span> <span class="p">&amp;&amp;</span> <span class="n">tan</span> <span class="p">&gt;=</span> <span class="p">-</span><span class="m">1</span><span class="p">)</span>
-</span><span class='line'>                <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">tan</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
-</span><span class='line'>                <span class="k">return</span> <span class="m">2</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">else</span><span class="c1">// if (tan &lt; -1)</span>
-</span><span class='line'>                <span class="k">return</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">else</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span> <span class="p">(</span><span class="n">tan</span> <span class="p">&lt;=</span> <span class="m">1</span> <span class="p">&amp;&amp;</span> <span class="n">tan</span> <span class="p">&gt;=</span> <span class="p">-</span><span class="m">1</span><span class="p">)</span>
-</span><span class='line'>                <span class="k">return</span> <span class="m">3</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">tan</span> <span class="p">&gt;</span> <span class="m">1</span><span class="p">)</span>
-</span><span class='line'>                <span class="k">return</span> <span class="m">0</span><span class="p">;</span>
-</span><span class='line'>            <span class="k">else</span><span class="c1">// if (tan &lt; -1)</span>
-</span><span class='line'>                <span class="k">return</span> <span class="m">2</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Carrier_MouseLeftButtonDown</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">MouseButtonEventArgs</span> <span class="n">e</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">{</span>
-</span><span class='line'>        <span class="n">isWalking</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Point</span> <span class="n">pFrom</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Point</span><span class="p">(</span><span class="n">Canvas</span><span class="p">.</span><span class="n">GetLeft</span><span class="p">(</span><span class="n">spirit</span><span class="p">),</span> <span class="n">Canvas</span><span class="p">.</span><span class="n">GetTop</span><span class="p">(</span><span class="n">spirit</span><span class="p">));</span>
-</span><span class='line'>        <span class="n">Point</span> <span class="n">pTo</span> <span class="p">=</span> <span class="n">e</span><span class="p">.</span><span class="n">GetPosition</span><span class="p">(</span><span class="n">Carrier</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">direction</span> <span class="p">=</span> <span class="n">CalculateDirection</span><span class="p">(</span><span class="n">pTo</span><span class="p">,</span> <span class="n">pFrom</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">pTo</span><span class="p">.</span><span class="n">X</span> <span class="p">-=</span> <span class="n">relativePos</span><span class="p">.</span><span class="n">X</span><span class="p">;</span>
-</span><span class='line'>        <span class="n">pTo</span><span class="p">.</span><span class="n">Y</span> <span class="p">-=</span> <span class="n">relativePos</span><span class="p">.</span><span class="n">Y</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">storyboard</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Storyboard</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">DoubleAnimation</span> <span class="n">doubleAnimation</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DoubleAnimation</span><span class="p">()</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">From</span> <span class="p">=</span> <span class="n">pFrom</span><span class="p">.</span><span class="n">X</span><span class="p">,</span>
-</span><span class='line'>            <span class="n">To</span> <span class="p">=</span> <span class="n">pTo</span><span class="p">.</span><span class="n">X</span><span class="p">,</span>
-</span><span class='line'>            <span class="n">Duration</span> <span class="p">=</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">};</span>
-</span><span class='line'>        <span class="n">Storyboard</span><span class="p">.</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">doubleAnimation</span><span class="p">,</span> <span class="n">spirit</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">Storyboard</span><span class="p">.</span><span class="n">SetTargetProperty</span><span class="p">(</span><span class="n">doubleAnimation</span><span class="p">,</span> <span class="k">new</span> <span class="n">PropertyPath</span><span class="p">(</span><span class="s">&quot;(Canvas.Left)&quot;</span><span class="p">));</span>
-</span><span class='line'>        <span class="n">storyboard</span><span class="p">.</span><span class="n">Children</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">doubleAnimation</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">doubleAnimation</span> <span class="p">=</span> <span class="k">new</span> <span class="n">DoubleAnimation</span><span class="p">()</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">From</span> <span class="p">=</span> <span class="n">pFrom</span><span class="p">.</span><span class="n">Y</span><span class="p">,</span>
-</span><span class='line'>            <span class="n">To</span> <span class="p">=</span> <span class="n">pTo</span><span class="p">.</span><span class="n">Y</span><span class="p">,</span>
-</span><span class='line'>            <span class="n">Duration</span> <span class="p">=</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromSeconds</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">};</span>
-</span><span class='line'>        <span class="n">Storyboard</span><span class="p">.</span><span class="n">SetTarget</span><span class="p">(</span><span class="n">doubleAnimation</span><span class="p">,</span> <span class="n">spirit</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">Storyboard</span><span class="p">.</span><span class="n">SetTargetProperty</span><span class="p">(</span><span class="n">doubleAnimation</span><span class="p">,</span> <span class="k">new</span> <span class="n">PropertyPath</span><span class="p">(</span><span class="s">&quot;(Canvas.Top)&quot;</span><span class="p">));</span>
-</span><span class='line'>        <span class="n">storyboard</span><span class="p">.</span><span class="n">Children</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">doubleAnimation</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(!</span><span class="n">Resources</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;rectAnimation&quot;</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">Resources</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;rectAnimation&quot;</span><span class="p">,</span> <span class="n">storyboard</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">storyboard</span><span class="p">.</span><span class="n">Begin</span><span class="p">();</span>
-</span><span class='line'>        <span class="n">storyboard</span><span class="p">.</span><span class="n">Completed</span> <span class="p">+=</span> <span class="k">new</span> <span class="n">EventHandler</span><span class="p">((</span><span class="kt">object</span> <span class="n">ssender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">ee</span><span class="p">)</span> <span class="p">=&gt;</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>            <span class="n">isWalking</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">});</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>就这样，结尾了！萌点在于林克~  虽然最近很忙，不过写一个AVG游戏的念头又冒出来了。。</p>
-
-<p>以上</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-08-18T07:30:44+08:00" pubdate data-updated="true">Aug 18<span>th</span>, 2010</time></div>
 	<div class="tags">
 
 
