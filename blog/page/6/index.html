@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="今天登陆后台，就看到说wordpress 3.0 is available! 正式版终于可以升级了啊，改动挺大的，我正在犹豫要不要升级，要不还是过两天在升级吧，升级之后我也要考虑下是不是换个模板了，因为很多new features都只有新的Default主题能用。 &hellip;">
+	<meta name="description" content="我毕业了，虽然最后一年已经在外面实习，几乎没有在学校出现过，不过昨天离开学校的情况的确不太一样了。其他同学都走得差不多了，我差不多拖到了最后才走，走得时候没有刻意的和其他朋友说再见，不说貌似比较好，不然气氛容易伤感。坐在离开学校的大巴上我就想为什么这次离开这么不一样的。分析得出的结论是， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,48 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/graduation-sick/">
+		
+			毕业症候群</a>
+	</h2>
+	<div class="entry-content">
+		<p>我毕业了，虽然最后一年已经在外面实习，几乎没有在学校出现过，不过昨天离开学校的情况的确不太一样了。其他同学都走得差不多了，我差不多拖到了最后才走，走得时候没有刻意的和其他朋友说再见，不说貌似比较好，不然气氛容易伤感。坐在离开学校的大巴上我就想为什么这次离开这么不一样的。分析得出的结论是，这次离开后不是不能来学校了，而是找不到理由来学校了。没有一个理由让你&#8221;天经地义&#8221;的要来这学校了，曾经试图摆脱的那种束缚感，反而成了毕业后失落的原因了。总之，我光荣毕业了，不是好学校，没有好成绩，但无论如何，我拼尽全力的读完了大学。</p>
+
+<p><a href="/images/uploads/wp/graduation.jpg"><img src="/images/uploads/wp/graduation.jpg" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-23T20:03:34+08:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -707,109 +749,6 @@
 
 
 	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/imified-a-free-im-bot-servic/">
-		
-			免费的IM机器人服务—imified</a>
-	</h2>
-	<div class="entry-content">
-		<p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
-
-<p><a href="/images/uploads/wp/logo_shine.png"><img src="/images/uploads/wp/logo_shine.png" alt="" /></a></p>
-
-<p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
-</span><span class='line'><span class="nv">$msg</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">];</span>
-</span><span class='line'><span class="nv">$step</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">];</span>
-</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$step</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">){</span>
-</span><span class='line'>  <span class="k">switch</span><span class="p">(</span><span class="nv">$msg</span><span class="p">){</span>
-</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hi&quot;</span><span class="o">:</span>
-</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hello&quot;</span><span class="o">:</span>
-</span><span class='line'>      <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn&quot;</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="nv">$step</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
-</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn, so what&#39;s your name?&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
-</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hi &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;, where do you live?&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
-</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Well, welcome to this bot, &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;from &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value2&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;.&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
-
-<p><a href="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
-
-<p>再之后他就只会回应hi和hello了，Arthur同学表示不会php，所以对我来说好像没有什么可以创造的东西。会php的同学可以做很多事情啊~</p>
-
-<p>以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-05-20T19:04:05+08:00" pubdate data-updated="true">May 20<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/internet/'>internet</a>
 
 
 </div>

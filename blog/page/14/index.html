@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="最近好像很少更新关于游戏的内容，其实慢慢觉得自己对游戏的态度不同了，虽然一样喜爱这个艺术形式（心中永远的第九艺术不会变），不过喜欢的游戏类型不同了，游戏向着画面提升的发展方向也的确是让我有些厌倦了，一些诸如wii的体感游戏和三国志大战这样的游戏反而对我产生了不错的好感。当然这些废话跑题了， &hellip;">
+	<meta name="description" content="Arthur（据说现在独立博客为了防止被非法转载都这么干）相信熟悉.net 的朋友也一定熟悉Microsoft Visual Studio系列的产品。当然，哪怕是你只是在学习C语言时候，经历了Visual C++ 6.0时代，也有理由相信你会习惯之后的Visual Studio系列。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,88 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/write-a-wow-plugin-with-visual-studio/">
+		
+			用最习惯的Visual Studio编写魔兽世界插件</a>
+	</h2>
+	<div class="entry-content">
+		<p>Arthur（据说现在独立博客为了防止被非法转载都这么干）相信熟悉.net 的朋友也一定熟悉Microsoft Visual Studio系列的产品。当然，哪怕是你只是在学习C语言时候，经历了Visual C++ 6.0时代，也有理由相信你会习惯之后的Visual Studio系列。Arthur这一次要介绍的，就是用类似Visual Studio来开发魔兽世界（World O Warcraft）的插件，而要用到的，是一个简单的开源项目，它让你根本不需要安装Visual Studio系列产品也可以完成开发。</p>
+
+<p><a href="/images/uploads/zb/AddOnStudioBanner.jpg">     <img src="/images/uploads/zb/AddOnStudioBanner.jpg" alt="" /></a></p>
+
+<p><strong>AddOn Sudio For World of Warcraft</strong> &#8212;- 这就是今天要介绍的主角了。</p>
+
+<p>一直相信Visual studio的外围扩展能力是很强的，定制的插件、工具都是很强的。看见这个开源项目之后，足以让我相信它真正的强大了。这是一款完全独立于任何一个Visual Studio产品存在的IDE，只是用的都是VS的库。这个IDE本身集成的是Lua的解释器。拥有一个project template就是魔兽世界的插件工程。</p>
+
+<p>具体关于它的其他特性以及下载地址请看<a href="http://addonstudio.codeplex.com/">这里</a>。</p>
+
+<p>在这里Arthur简单的写一个例子，稍微写下步骤，没什么代码，看图就好，轻松愉快。</p>
+
+<p><strong>一、环境配置</strong></p>
+
+<p>下载完成安装包之后安装。如果安装失败，请先下载<a href="http://mschnlnine.vo.llnwd.net/d1/coding4fun/AddOnStudio/VSShell90SP1/vs_shell_isolated.enu.exe">Visual Studio Shell</a>，再重新安装。安装之前一样要确认有装魔兽世界。但是安装它是不需要安装Visual Studio的。</p>
+
+<p><strong>二、编写代码、设计界面</strong></p>
+
+<p>1、打开程序，看到以下界面。无须Arthur多介绍，整个一个Visual Studio，只是标题不同而已。（博客使用Lightbox，图片点击放大）</p>
+
+<p><a href="/images/uploads/zb/2009-08-03_AddonForWOW.JPG">     <img src="/images/uploads/zb/2009-08-03_AddonForWOW.JPG" alt="" /></a>     <a href="/images/uploads/zb/2009-08-03_AddonForWOW_UI.JPG">     <img src="/images/uploads/zb/2009-08-03_AddonForWOW_UI.JPG" alt="" /></a></p>
+
+<p>2、然后看看究竟区别在哪里。新建一个工程试试就可以看到如下界面，果然不但有魔兽的插件工程，而且只有魔兽的插件工程。很好，我很喜欢这种内聚的感觉。</p>
+
+<p><a href="/images/uploads/zb/2009-08-03_AddonForWOW_NewProject.JPG">     <img src="/images/uploads/zb/2009-08-03_AddonForWOW_NewProject.JPG" alt="" /></a></p>
+
+<p>3、用可视化的设计器来设计一个窗口吧～ 然后写一个按钮的事件，打印Hello, world。 （没有任何魔兽世界插件开发的知识，所以我就划水一下简单点好了）</p>
+
+<p><a href="/images/uploads/zb/2009-08-03_AddonForWOW_AllProjectInterface.JPG">     <img src="/images/uploads/zb/2009-08-03_AddonForWOW_AllProjectInterface.JPG" alt="" /></a></p>
+
+<p>4、按运行后就会自动弹出魔兽世界应用，然后输入帐号密码登录吧，你写的插件已经自动开启了。看看Arthur的程序，hello,world而已。（对了，玩魔兽世界我只是个Light User，很少玩，所以不要尝试从截图里看出我的游戏情况，嘿嘿）</p>
+
+<p><a href="/images/uploads/zb/2009-08-03_AddonForWOW_Runtime.JPG">     <img src="/images/uploads/zb/2009-08-03_AddonForWOW_Runtime.JPG" alt="" /></a></p>
+
+<p><strong>三、特殊注意点</strong></p>
+
+<p>这里Arthur也遇上了一些小问题，所以写出来分享下。就是编译后的插件在游戏中显示&#8221;过期&#8221;，一下子就想到了版本问题。再回头去看工程里，有一个&#8221;工程名.toc&#8221; 的文件，熟悉魔兽世界插件开发的朋友一定比Arthur还要清楚，这就是插件的版本修改要修改的文件，既然还在开发阶段，那么我就可以随便修改啦～ 把interface后面的版本号改成30100，就可以在国服客户端里正常运行了。（虽然国服是3.13了，不过我看其他的插件版本一律都是30100，并且Arthur尝试过31300是不可以的，所以权且这样写吧。）</p>
+
+<p>后来发现右键工程属性，也有可视化修改这些信息的地方。和其他VS工程一样方便。</p>
+
+<p><a href="/images/uploads/zb/2009-08-03_AddonForWOW_Property.JPG">     <img src="/images/uploads/zb/2009-08-03_AddonForWOW_Property.JPG" alt="" /></a></p>
+
+<p>偶然发现这个开源项目，所以就当是推荐开源项目好了。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-08-04T04:50:34+08:00" pubdate data-updated="true">Aug 4<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1055,254 +1137,6 @@ const float shipMaxVelocity = 10.0f;
 
 
 <time datetime="2009-07-20T07:40:59+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/xna-tutorial-3d-ch9-add-audio/">
-		
-			XNA教程-3D游戏-08-添加声效</a>
-	</h2>
-	<div class="entry-content">
-		<p>这个3D教程中，有一个对于2D也通用的，并且在之前的教程没有涉及到过的内容，就是音效，也就是这一次要完成的内容。用到了XACT来处理一些东西，那么教程就是音效的添加了，发射导弹之后的音效。当然作为XNA游戏，你也可以调用其他API来完成这个工作，不过这里讲的是标准的利用XNA的XACT来完成的步骤。</p>
-
-<p>放假就是放假，感觉做正经事情的效率还真是很低，更不用说好好打理博客了。拖了几天，因为组织了一场初中同学会，可谓轰轰烈烈，难得可以请到那么多以前的老师，都很是感激和感动。言归正传，写程序吧。</p>
-
-<p><strong>第一步、简介</strong></p>
-
-<p>游戏很重要的一个因素是声音，在之前的2D教程中，却没有涉及到这个内容。在XNA中，我们使用的音效将是被包含在另一个声音工程当中的，这就要使用到XNA Game Studio中的一个工具 &#8212;- Microsoft Cross-Platform Audio Creation Tool 简称为XACT。在开始菜单中选择它，有v2或v3两个版本，这里我们和教程一样v3，大概的功能都是一样的。（参见文章后方的翻译1、什么是XACT？）</p>
-
-<p><img src="/images/uploads/zb/2009-07-13_XACTs.jpg" alt="" /></p>
-
-<p>打开后界面如下图所示，除了工具栏，左侧上方是一个树形视图，有一些项目已经存在。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_XactUserInterface.jpg"><img src="/images/uploads/zb/2009-07-13_XactUserInterface.jpg" alt="" /></a></p>
-
-<hr />
-
-<p><strong>第二步、新建XACT工程</strong></p>
-
-<p><strong>1、创建新工程</strong></p>
-
-<p>类似Visual Studio的思路：选择File->New Project。</p>
-
-<blockquote><p>&#8230;TChapter8ContentAudioTAudio.xap</p></blockquote>
-
-<p>选择路径（比如我使用如上路径），保存为任意的名字，[确定]，这样创建就算成功了。</p>
-
-<p><img src="/images/uploads/zb/2009-07-13_NewXactProject.jpg" alt="" /></p>
-
-<p><strong>2、新建Wave Band</strong></p>
-
-<p>然后在左边树形图上，WaveBand处右键->New Wave Band。新建一个Wave Band。</p>
-
-<p><strong>3、新建Sound Band</strong></p>
-
-<p>最后在左边树形图上，SoundBand处右键->New Sound Band。新建一个Sound Band。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_NewWaveBand_NewSoundBand.jpg"><img src="/images/uploads/zb/2009-07-13_NewWaveBand_NewSoundBand.jpg" alt="" /></a></p>
-
-<hr />
-
-<p><strong>第三步、添加Wave并创建Sound</strong></p>
-
-<p><strong>1、插入wav文件</strong></p>
-
-<p>右键单击右侧Wave Band的子窗口空白处，选择Insert Wave Files。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_AddWavesToWaveBand.jpg"><img src="/images/uploads/zb/2009-07-13_AddWavesToWaveBand.jpg" alt="" /></a></p>
-
-<p>记得我们之前排除到GS游戏工程外面的那两个wav文件吗，现在把他们找到并且插入进来。一个是发射导弹的声音，一个是爆炸的声音。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_Waves.jpg"><img src="/images/uploads/zb/2009-07-13_Waves.jpg" alt="" /></a></p>
-
-<p>插入之后如下图所显示的，这样我们准备好了Wave了。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_AfterAddedWaves.jpg"><img src="/images/uploads/zb/2009-07-13_AfterAddedWaves.jpg" alt="" /></a></p>
-
-<p><strong>2、创建Sound</strong></p>
-
-<p>这里利用一些XACT提供的便捷操作，我们很容易办到。简单的把Wave Band子窗体内的两个wav，拖拽到Sound Band子窗体的Cue区域内，这样会自动创建出我们需要的一切。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_AddWavesToCue.jpg"><img src="/images/uploads/zb/2009-07-13_AddWavesToCue.jpg" alt="" /></a></p>
-
-<p>Wave, Sound, Cue是XACT中涉及的重要的概念，如上图我们是这样的处理顺序，但是其实内部处理时不是这样的。（参见文章后方的翻译2、设计时与运行时的XACT对象）</p>
-
-<p>准备就绪后，保存并且退出，之后的工作，就是在GS里完成了。</p>
-
-<hr />
-
-<p><strong>第四步、在GS工程中添加XACT工程</strong></p>
-
-<p>完整的创建了一个XACT工程之后，我们就直接可以把它当作asset放进GS工程的Content中，并且在游戏中，直接可以从Content pipline去Load这些声音了。当然首先我们要把它添加进来。</p>
-
-<p>右键单击Content下的Audio目录，选择Add->Existing Items。</p>
-
-<p><a href="/images/uploads/zb/2009-07-13_AddXactProjectToGs.jpg"><img src="/images/uploads/zb/2009-07-13_AddXactProjectToGs.jpg" alt="" /></a></p>
-
-<p>找到保存起来的xap工程文件，[确定]。（比如我刚才保存的是TAudio.xap，找到它）</p>
-
-<p><img src="/images/uploads/zb/2009-07-13_AfterAddedXactProject.jpg" alt="" /></p>
-
-<p>如上图，声音就添加成功了。</p>
-
-<hr />
-
-<p><strong>第五步、加载声音内容</strong></p>
-
-<p>之前我们载入一些资源都是使用了Content.Load这个方法，那么这里载入Audio将会有些不同，我们需要一些其他的方法来调用它们。</p>
-
-<p><strong>1、声明 </strong></p>
-
-<p>首先在Game类声明一些需要用到的私有变量。</p>
-
-<pre><code>AudioEngine audioEngine;
-SoundBank soundBank;
-WaveBank waveBank;
-</code></pre>
-
-<p>没错，这里用到了三个类，两个很熟悉，SoundBank和WaveBank，应该是和之前的对应起来的。AudioEngine顾名思义，是处理声音的引擎，究竟如何工作，看下去。</p>
-
-<p><strong>2、加载</strong></p>
-
-<p>加载Content中的声音文件，是一个非常特殊的步骤，代码只有三行，在LoadContent方法中，SpriteBatch那一行的下面加上这样三行代码。</p>
-
-<pre><code>audioEngine = new AudioEngine(@"ContentAudioTAudio.xgs");
-waveBank = new WaveBank(audioEngine, @"ContentAudioWave Band.xwb");
-soundBank = new SoundBank(audioEngine, @"ContentAudioSound Band.xsb");
-</code></pre>
-
-<p>注意，这三行代码的特殊之处，就在于三个后缀。</p>
-
-<p>audioEngine中，不是使用了TAudio.xap这个文件，而是使用了TAudio.xgs这样的方式。如果看过之前对Content Pipline的介绍，那么你就不会不知道，Content不是简单的一个文件夹把文件组织起来，而是会对输入asset做处理并且有相应的输出，而这里的xap作为输入，我们是无法直接获得相应的Wave Band和Sound Band的。&#8221;xgs&#8221;缩写自XACT Global Settings，它是一个告诉你XACT工程如何组织文件的文件，Content Pipline只有依靠他才能找到我们需要的各种资源。大致说来就是这样。</p>
-
-<p>一样的WaveBand和SoundBand的构造方法中，传入的是Wave Band.xwb（代表XACT Wave Band）和Sound Band.xsb（代表XACT Sound Band），而文件名则是我们之前在XACT工程中保留默认命名的Wave Band和Sound Band，当然你可以取不一样的名字。xwb和xsb类似xgs，也是输出的结果，就像之前的texture和model我们根本不使用后缀一样。</p>
-
-<p>如果你编译了你的工程之后，可以在Debug目录下相应的位置找到这三个文件。（参见文章后方的翻译3、加载一个XACT工程）</p>
-
-<hr />
-
-<p><strong>第六步、添加声音播放的代码</strong></p>
-
-<p><strong>1、Update声音</strong></p>
-
-<p>我们肯定要求声音跟着游戏循环播放，而不是在一帧里面放完就结束。</p>
-
-<p>在Update方法中，找到UpdateMissiles();这行调用，在其下方插入一行。</p>
-
-<pre><code>audioEngine.Update();
-</code></pre>
-
-<p>这个方法可以保证声音一帧一帧的更新并且播放，其实游戏中我们播放的既不是Sound也不是Wave，而只是Cue。</p>
-
-<p><strong>2、 播放导弹发射声音</strong></p>
-
-<p>在发射导弹的时刻播放一个missilelaunch的声音，下面来找到FireMissile()方法，在if (!missile.alive)之后插入这样一行代码。</p>
-
-<pre><code>soundBank.PlayCue("missilelaunch");
-</code></pre>
-
-<p>编译运行，我们要的生效就出现了～</p>
-
-<p>【官方代码下载】</p>
-
-<p><a href="http://creators.xna.com/downloads/?id=163"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
-
-<hr />
-
-<p>以下是一些XACT相关内容的翻译，总共有三个部分，分别对应第一步、第三步、和第五步的相关操作。</p>
-
-<p>在翻译中涉及到了一些概念，其中经常被提到的有3个词，在原文中采用了小写，因此不是什么特有名字，但是却很难翻译成中文，这里特别提出一下。分别是wave,sound,cue这三个词。这是XACT涉及到的三个很重要的概念，它们环环相扣，所以翻译也许十分恼人。我把它们翻译成&#8221;波&#8221;、&#8221;声音&#8221;、&#8221;索引&#8221;，虽然不太贴切，但是可以保证在以下的文字中，只要出现这三个中文词，绝对就代表了这三个英文的原文单词。并且每一段文字中第一次出现这三个词的时候，都会在括号里写上相应的原文。另外设计到的一些首字母大写的专有名词都没有翻译。</p>
-
-<p>（以下文字有本人翻译自XNA Creators Club官网，未经允许严禁转载；因本人水平有限，难免出错，望得到更正）</p>
-
-<p><strong>1、什么是XACT？</strong></p>
-
-<blockquote><p>教程的这一部分将介绍包含在XNA Game Sudio中的一个新的程序&#8212;-Microsoft Cross-Platform Audio Creation Tool，或者简称为XACT。</p>
-
-<p>就像它的名字一样，XACT是一个跨平台的工具，制作音频输出用以Windows和Xbox360。XACT的设计允许音频独立于将要使用的平台来单独设计。</p>
-
-<p>XACT由两个主要部分组成：音频设计器（在这章节教程开始时你用到的图形化工具）和音频API（教程结束部分你会用到的代码）。音频设计器旨在允许任何一个为游戏设计音频的设计者可以进行操作，即便其不熟悉音频代码。</p>
-
-<p>音频设计者使用所有原生的波形音频文件（.wav文件，被称为波（wave））。然后设计者组织这些波到声音（sound）形式，可以被让一个或多个波在各种时间和各种设定下被播放。最后，音频设计者组织声音到索引（Cue）形式。索引代表了在代码阶段可以访问的对象，并且相比实际的音频文件，更加接近游戏事件。</p>
-
-<p>索引是暴露给程序员的，在合适的游戏事件发生时，使用XACT API调用索引播放。音频设计者同时可以设计一些运行时的参数，来修改播放的声音的音量或说是波幅，传递这些参数给程序员，使其能转化这些参数为游戏代码中的变量。</p>
-
-<p>虽然起初看起来似乎有些复杂，但其优势可以在音频设计者要替换波形音频文件的时候，调整音频如何播放的时候，修改索引如何播放一个声音的时候，或改变设定的参数如何修改播放的声音的时候。音频设计者可以做所有的这些工作，而不必接触游戏源代码。</p>
-
-<p>XACT是一个快捷且灵活的工具，来添加健壮、饱满的音频到使用XNA Game Studio创建的游戏中。</p></blockquote>
-
-<p><strong>2、设计时和运行时的XACT对象</strong></p>
-
-<blockquote><p>XACT工程有很多的组成部分。虽然其中一些部分是可选的，但一个基本形式的XACT对象对于XACT工程组织音频到XACT API还是非常必要的。</p>
-
-<p>每个XACT工程包含了一个或多个Wave Bank。一个Wave Bank是一些波形音频文件的集合，称为波（wave）。这些Wave Bank中的波不是由XACT API直接访问的。而是给音频设计者转换其成为声音（sound）的。</p>
-
-<p>这些声音组织成为一个或多个Sound Bank。一个Sound Bank是一些声音的集合。声音是使用各种参数去播放一个或多个波的时候的须知（instruction），这些参数可以是控制循环，变换效果，波的随机选择，或者更多其它的。</p>
-
-<p>Sound Bank也同样可以包含索引（cue）。索引是播放声音的须知（instruction to play sounds）。索引调用特定的声音，或随机选择声音，这取决于音频设计者如何设定这个索引。</p>
-
-<p>当一个XACT工程已经建立，sound bank和wave bank就被编译到文件中了，一起的还有一个全局设定文件（global setting file）包含了一些工程特定的信息。这些文件在运行时使用XNA Framewrok来调用。</p>
-
-<p>在sound bank、wave bank和全局设定文件被加载到游戏中后，程序员可以调用SoundBank.PlayCue，传入音频设计者已经定义好的索引的名字，来播放任意一个sound bank中索引。这样会按照音频设计者设计的默认方式播放这些索引，而没有任何程序员掌握的控制条件。</p>
-
-<p>要得到播放的索引更多颗粒化的操作，包括暂停、回复和停止的功能，程序员可以调用SoundBank.GetCue并且得到一个Cue对象。然后程序员可以根据需要调用Cue.Play，Cue.Stop，CuePause，和Cue.Resume。然而，这样使用Cue对象仍然需要谨慎一些。如果你创建的一个Cue对象在声明的时候存在范围的限制（比方说只声明在一个方法中），就不要把Cue对象存储到静态化存储空间中，就像类的数组或List集合，这些Cue对象会在程序溢出这个范围之后停止并释放。</p>
-
-<p>在一个索引被封播放之后，XACT音频引擎的任务就完成了。这取决于索引和其相关联的声音的关系，以及声音和其相关联的波的关系，然后按照音频设计者设计的那样来播放相应声音和波。</p></blockquote>
-
-<p><strong>3、加载一个XACT工程</strong></p>
-
-<blockquote><p>在XNA Game Studio游戏中播放音频需要加载XACT工程到XNA Framework内容管道（Content Pipline）中，编写加载XACT运行时输出文件所必要的代码，然后在游戏编译进程中XACT工程会被编译成为XACT输出文件。</p>
-
-<p>音频内容和XNA Game Studio中大部分其他内容的形式不同。XACT处理生成的内容不像模型、贴图纹理或者字体那样在运行时使用ContentManager.Load方法加载。</p>
-
-<p>取而代之的，是构造AudioEngine、SoundBank、和WaveBank这些XNA Framework中音频相关的类，用来加载编译后的音频文件。用正确的顺序加载这些文件，用名称和后缀定义它们都非常重要。否则，你可能会遇到错误。</p>
-
-<p>要明白如何加载这些文件，那明白XACT工程编译后生成了什么文件就显得十分重要。</p>
-
-<p>XACT生成的第一个文件就是XACT工程文件（.xap）。这个文件是音频设计者在用音频设计工具保存音频工程时创建的。这个文件应该放置到Solution Explorer中，即把它添加到XNA Framework内容管道（Content Pipeline）的文件列表中去编译。</p>
-
-<p>在编译开始后，内容管道把XACT工程文件编译成为一系列XACT输出文件。第一个生成的文件是全局设定文件（Global Settings File），默认命名为XACT工程文件一样的名字，扩展名为.xgs。如果XACT工程文件的名字是MyGameAudio.xap，那全局设定文件的默认的名字就是MyGameAudio.xgs。</p>
-
-<p>编译过程之后会生成一个或多个wave bank文件，数量取决于音频设计者在XACT工程中添加的wave bank的数量。这些wave bank文件有一个后缀.xwb，并且由音频设计者在之前命名。默认的一个wave bank的输出文件名为Wave Bank.xwb。</p>
-
-<p>编译过程还会生成一些sound bank文件，同样取决于音频设计者在XACT工程中添加的sound bank的数量。这些Sound bank文件有一个后缀.xsb，并且由音频设计者在之前命名。默认的一个sound bank的输出文件名为Sound Bank.xsb。</p>
-
-<p>加载这些文件是初始化当使用XNA Framework播放音频时需要的代码对象的重要部分。加载工作表现为一步一步构造所有相关联的这些代码对象。全局设定文件用来构造AudioEngine。AudioEngine对象和wave bank文件同时使用，可以初始化一个WaveBank对象，而和sound bank文件一起使用，可以初始化一个SoundBank对象。</p>
-
-<p>下面的插图解释了文件的一些关系，从音频设计者在设计时的形式，到通过内容管道编译时的形式，最终成为运行时游戏开始后被载入的形式。</p>
-
-<p><a href="/images/uploads/zb/BG_4.8.5.4pd.png"><img src="/images/uploads/zb/BG_4.8.5.4pd.png" alt="" /></a></p></blockquote>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-07-14T01:26:58+08:00" pubdate data-updated="true">Jul 14<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

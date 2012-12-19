@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="有的事情一拖就被我拖了一年，一年前我想把Axum的UserGuide讲讲完，后来就一直没有做了。今天突然翻了一下以前的文章，发现是去年5月1X号的时候在关注的东西。于是我回去看了一看Axum在这一年里做了些什么。在去年7月份，Axum就公布了0.2版本，修复了一些bug。其中最让我在意的， &hellip;">
+	<meta name="description" content="Google中游荡的时候发现了这个网站，imified。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。 要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,109 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/imified-a-free-im-bot-servic/">
+		
+			免费的IM机器人服务—imified</a>
+	</h2>
+	<div class="entry-content">
+		<p>Google中游荡的时候发现了这个网站，<a href="http://imified.com">imified</a>。这个网站可以免费的为你制作自己的IM机器人，支持gtalk, Jabber, MSN, AIM，甚至还有twitter和短信。</p>
+
+<p><a href="/images/uploads/wp/logo_shine.png"><img src="/images/uploads/wp/logo_shine.png" alt="" /></a></p>
+
+<p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="cp">&lt;?php</span>
+</span><span class='line'><span class="nv">$msg</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="nv">$step</span><span class="o">=</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nv">$step</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">){</span>
+</span><span class='line'>  <span class="k">switch</span><span class="p">(</span><span class="nv">$msg</span><span class="p">){</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hi&quot;</span><span class="o">:</span>
+</span><span class='line'>      <span class="k">case</span> <span class="s2">&quot;hello&quot;</span><span class="o">:</span>
+</span><span class='line'>      <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">switch</span> <span class="p">(</span><span class="nv">$step</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hello there, I&#39;m Arthurobot from Arthraim.cn, so what&#39;s your name?&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Hi &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;, where do you live?&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span><span class='line'>  <span class="k">echo</span> <span class="s2">&quot;Well, welcome to this bot, &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value1&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;&lt;br&gt;from &quot;</span> <span class="o">.</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;value2&#39;</span><span class="p">]</span> <span class="o">.</span> <span class="s2">&quot;.&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cp">?&gt;</span><span class="x"></span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在gtalk加好友arthurobot@bot.im，和他对话，最终的效果就像这样。</p>
+
+<p><a href="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png"><img src="/images/uploads/wp/2010-05-20_bot_im_arthurobot_runtime.png" alt="" /></a></p>
+
+<p>再之后他就只会回应hi和hello了，Arthur同学表示不会php，所以对我来说好像没有什么可以创造的东西。会php的同学可以做很多事情啊~</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-20T19:04:05+08:00" pubdate data-updated="true">May 20<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/internet/'>internet</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -784,102 +887,6 @@
 
 
 <time datetime="2010-04-19T06:50:38+08:00" pubdate data-updated="true">Apr 19<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/internet/'>internet</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/douban-fm-desktop-client-arthur-wrote-a-lol-script/">
-		
-			豆瓣电台桌面客户端 - Arthur蛋疼剧本一枚</a>
-	</h2>
-	<div class="entry-content">
-		<p><strong>以下，剧本一枚</strong></p>
-
-<p>[幕起] Arthur抱着一个印着女朋友照片的杯子，在闲暇的午后坐在床边敲键盘…… 一边写程序，一边Chrome查资料，一边豆瓣电台听音乐，他突然觉得有些烦躁，因为豆瓣音乐也是一个Chrome的窗口…… 麻烦……</p>
-
-<p>Arthur：我又蛋疼了（一边在上人间）</p>
-
-<p>天之音：你干嘛？</p>
-
-<p>Arthur：我想让豆瓣电台更桌面一点。<a href="/post/2010/01/141.html">上次的bookmarklet</a>t只是打开简单一点而已啊。</p>
-
-<p>天之音：你到底图个啥？</p>
-
-<p>Arthur：哥蛋疼。（双眼炯炯有神，望天）</p>
-
-<p>天之音：已经够简单了，你还不够吗？</p>
-
-<p><img src="/images/uploads/zb/2010-04-13_douban_fm_chrome.png" alt="" /></p>
-
-<p>Arthur：最好…… Win7最小化后和Chrome不在一组里，有独立的打开图标，没有那个地址栏。</p>
-
-<p>天之音：你蛋疼（orz）</p>
-
-<p>Arthur：（自言自语）AIR的html loader能不能跑flash啊……</p>
-
-<p>天之音：你看过《<a href="/post/2009/04/3.html">我用Chrome，遐想云时代</a>》这篇文章吗？</p>
-
-<p>Arthur：谁写的？</p>
-
-<p>天之音：您真蛋疼……</p>
-
-<p>（Arthur这时候开始使用Chrome的Create Application，</p>
-
-<p>然后开始找豆瓣电台的图标做成ico，给shortcut换上，</p>
-
-<p>打开应用，调整好窗口的大小，关闭，再打开，大小也保存了。</p>
-
-<p>心满意足）</p>
-
-<p>天之音：您满意了吧？</p>
-
-<p>Arthur：我真蛋疼…………</p>
-
-<p><img src="/images/uploads/zb/2010-04-13_douban_fm_app.png" alt="" /></p>
-
-<p>天之音：你还能更蛋疼吗？</p>
-
-<p>Arthur：我还想有个托盘图标…………</p>
-
-<p>天之音：谁创造的你啊！</p>
-
-<p>Arthur：你也蛋疼……</p>
-
-<p>天之音：你想比谁蛋疼吗？我告诉你一个事情，去年的今天，你写了arthraim.cn的第一篇文章，一周年的时候你在写这个</p>
-
-<p>Arthur：好吧，我真TM蛋疼…………</p>
-
-<p>[灯光淡出，幕落]</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-13T21:42:25+08:00" pubdate data-updated="true">Apr 13<span>th</span>, 2010</time></div>
 	<div class="tags">
 
 

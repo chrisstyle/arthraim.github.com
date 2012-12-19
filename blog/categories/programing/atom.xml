@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programing | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2012-12-13T13:39:37+08:00</updated>
+  <updated>2012-12-19T11:34:34+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[bottle直接返回pymongo查询结果]]></title>
+    <link href="http://artori.us/bottle-autojson-with-pymongo/"/>
+    <updated>2012-12-19T10:32:00+08:00</updated>
+    <id>http://artori.us/bottle-autojson-with-pymongo</id>
+    <content type="html"><![CDATA[<p>以前提到过<a href="/bottle-i-love-this-framework/">bottle</a>，也写过在<a href="/use-mongodb-with-django/">django里使用pymongo</a>，这次是在bottle里用pymongo。</p>
+
+<p>bottle有类似ROR的一些特性，比如处理请求的时候直接return一个字典，框架会自动把它parse成json（autojson）。</p>
+
+<p>我是想偷个懒来着，把代码写成了下面这样。</p>
+
+<p>```py
+@get('/api/today')
+def api_today():</p>
+
+<pre><code>udid = request.GET.get('udid')
+return self.coll.find_one({'udid':udid, 'date':today})
+</code></pre>
+
+<p>```</p>
+
+<p>这会有问题，因为find_one返回的bson没办法直接parse。伟大的发明都是在偷懒的时候诞生的，看起来我要做的事情也很简单，只要能让我改一改parser就行了。</p>
+
+<ol>
+<li>写一个dump方法替换原来JSONPlugin里的</li>
+<li>设置Bottle app的autojson为False。<code>Bottle(autojson=False)</code></li>
+<li>把有自己dump方法的JSONPlugin给install到app里</li>
+</ol>
+
+
+<p>```py
+def mongo_dumps(obj):</p>
+
+<pre><code># convert all iterables to lists
+if hasattr(obj, '__iter__'):
+    return list(obj)
+# convert cursors to lists
+elif isinstance(obj, pymongo.cursor.Cursor):
+    return list(obj)
+# convert ObjectId to string
+elif isinstance(obj, bson.objectid.ObjectId):
+    return unicode(obj)
+# dereference DBRef
+elif isinstance(obj, bson.dbref.DBRef):
+    return db.dereference(obj)
+# convert dates to strings
+elif isinstance(obj, datetime.datetime) or isinstance(obj, datetime.date) or isinstance(obj, datetime.time):
+    return unicode(obj)
+return json.JSONEncoder.default(self, obj)
+</code></pre>
+
+<p>app = app()
+app.autojson = False
+app.install(JSONPlugin(json_dumps=lambda s: dumps(s, default=mongo_dumps)))
+```</p>
+
+<p>via:</p>
+
+<ul>
+<li><a href="https://github.com/defnull/bottle/issues/287">https://github.com/defnull/bottle/issues/287</a></li>
+<li><a href="https://gist.github.com/2779820">https://gist.github.com/2779820</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[异或]]></title>
@@ -215,25 +281,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 <p><strong>更新：</strong>好吧看到了新说法是只要装好Application Loader 2.5.1，重启xcode，clean工程，重新archive，然后就能通过验证了，不需要真的使用Application Loader上传。 没试过，不一定管用，可以试试看。</p>
 
 <p>以上。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Windows Phone版微博通]]></title>
-    <link href="http://artori.us/windows-phone-wbt/"/>
-    <updated>2011-12-12T00:53:41+08:00</updated>
-    <id>http://artori.us/windows-phone-wbt</id>
-    <content type="html"><![CDATA[<p>很久没有写博客了，已经有友联的童鞋抱怨了，最近这段时间很忙，几乎下班就没心情做自己的事情了。话说最近入手了一台WP7，三星focus，白菜价，手机丢了所以来不及等Nokia Lumia 800了，很急就入手了。话说这不是重点，我手痒然后卸掉了WP7sdk的beta2，装上了新的7.1，小玩了一下。</p>
-
-<p>话说其实给WP7写应用还真的蛮好玩的，事实上marketplace实际上也比我想象的要热闹一点，所以还蛮有动力写点东西的，最近在公司写iOS的app，每天都是objective-c，捡起了以前的C#真是一下子觉得好厉害，一个天一个地啊，终于不用自己retain, release了。</p>
-
-<p>对了写了两段还是没有说到重点，因为重点就一句话，在熟悉WP7的开发，所以写了个微博通的客户端，好吧只是调用api发个post的请求而已很简单，主要是自己熟悉一下。</p>
-
-<p>对了东西已经开源了在<a href="https://github.com/Arthraim/WbtoMongo">这里</a></p>
-
-<p>那写到这里就写完了。感叹一下，visual studio真的不错，现在.net的包管理也很方便！现在dotnet我已经算是局外人了，所以不嘴贫了 -。-</p>
-
-<p>以上</p>
 ]]></content>
   </entry>
   

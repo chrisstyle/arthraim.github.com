@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="话说本文4个背景。上一篇说装了XNA4.0的环境，于是还水了一篇玩模拟器的文，总觉得XNA不给力，于是想试试看silverlight写游戏会怎么样，上星期花了两个晚上试了一试，以上是第一个背景。我对游戏总是念念不忘，算是自己的梦想吧。以前写的XNA教程里从来没有提过动画的事情。最后一个原因， &hellip;">
+	<meta name="description" content="相信Windows7已经有很多人在用了，应该说比起vista是好很多了。Win7有个很大的新特性是支持多点触摸，当然到目前为止我还没有条件使用多点触摸！不过这并不影响人们对多点触摸的热情，Apple除了Magic Trackpad，磨刀霍霍向鼠标，看来触控操作将是趋势。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,90 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/pymt-even-python-can-multi-touch/">
+		
+			PyMT,小蟒蛇也懂多点触摸</a>
+	</h2>
+	<div class="entry-content">
+		<p>相信Windows7已经有很多人在用了，应该说比起vista是好很多了。Win7有个很大的新特性是支持多点触摸，当然到目前为止我还没有条件使用多点触摸！不过这并不影响人们对多点触摸的热情，Apple除了Magic Trackpad，磨刀霍霍向鼠标，看来触控操作将是趋势。开发者也怀着满腔热情的在做一些multitouch的轮子，比如PyMT，就是python支持多点触控的一个库。更重要的是，它是跨平台的~</p>
+
+<p><a href="http://pymt.eu/"><img src="/images/uploads/wp/pymt_logo.png" alt="" /></a></p>
+
+<p>PyMT是一个开源的类库，支持多点触控。在<a href="http://pymt.eu/#download">这里</a>可以下载到三个平台的版本，github上host了<a href="http://github.com/tito/pymt">源代码</a>。我下载了Windows7下面的版本来看看，解压后有192MB的大小，看起来料很足的样子，其实它完整的下了一个python，真正pymt本身只有20多M，不过也很大了。解压缩得到的那个pymt.bat批处理文件，就可以来运行pymt的程序了。如果你迫不及待想试试看，并且你有多点触摸的设备（没有也可以啦），那么有个简单的办法。</p>
+
+<p>在命令行输入：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>pymt -m pymt.tools.demo
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后就可以在弹出的窗口里尝试一下多点触摸了。</p>
+
+<p><a href="/images/uploads/wp/2010-08-20_pymt_demo.png"><img src="/images/uploads/wp/2010-08-20_pymt_demo.png" alt="" /></a></p>
+
+<p>利用类库也不难，据说最简单的代码只需要两行。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="kn">from</span> <span class="nn">pymt</span> <span class="kn">import</span> <span class="o">*</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">CircleDrawer</span><span class="p">(</span><span class="n">MTWidget</span><span class="p">):</span>
+</span><span class='line'>    <span class="sd">&#39;&#39;&#39;Draw a circle at the position of all touches.&#39;&#39;&#39;</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class='line'>        <span class="n">set_color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">touch</span> <span class="ow">in</span> <span class="n">getCurrentTouches</span><span class="p">():</span>
+</span><span class='line'>            <span class="n">drawCircle</span><span class="p">(</span><span class="n">touch</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">runTouchApp</span><span class="p">(</span><span class="n">CircleDrawer</span><span class="p">())</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>简单介绍到这里。如果你的应用程序有对多点触摸的需求，不妨试试看用pymt来写？</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-20T08:38:24+08:00" pubdate data-updated="true">Aug 20<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -986,48 +1070,6 @@ C:-----1=4==6=-------------
 
 
 	<a class='category' href='/blog/categories/i-t-/'>I.T.</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/graduation-sick/">
-		
-			毕业症候群</a>
-	</h2>
-	<div class="entry-content">
-		<p>我毕业了，虽然最后一年已经在外面实习，几乎没有在学校出现过，不过昨天离开学校的情况的确不太一样了。其他同学都走得差不多了，我差不多拖到了最后才走，走得时候没有刻意的和其他朋友说再见，不说貌似比较好，不然气氛容易伤感。坐在离开学校的大巴上我就想为什么这次离开这么不一样的。分析得出的结论是，这次离开后不是不能来学校了，而是找不到理由来学校了。没有一个理由让你&#8221;天经地义&#8221;的要来这学校了，曾经试图摆脱的那种束缚感，反而成了毕业后失落的原因了。总之，我光荣毕业了，不是好学校，没有好成绩，但无论如何，我拼尽全力的读完了大学。</p>
-
-<p><a href="/images/uploads/wp/graduation.jpg"><img src="/images/uploads/wp/graduation.jpg" alt="" /></a></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-23T20:03:34+08:00" pubdate data-updated="true">Jun 23<span>rd</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>
