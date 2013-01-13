@@ -82,34 +82,45 @@
 
 <p>安装的时候最好还是允许在shell嵌入git的命令，相对还是比较方便的。</p>
 
+<p>OSX可以在xcode中安装command line tools，或者<code>brew install git</code></p>
+
 <p><strong>2、git的初始设置</strong></p>
 
-<pre><code>git config --global user.name "Your Real Name"
-git config --global user.email you@email.address
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git config --global user.name <span class="s2">&quot;Your Real Name&quot;</span>
+</span><span class='line'>git config --global user.email you@email.address
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>3、建立仓库</strong></p>
 
 <p>在git bash里找到你的项目目录。（或直接用shell右键里的git bash here）</p>
 
-<pre><code>git init
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git init
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这样在你的项目目录下就会有一个.git的隐藏目录（类似于.svn） 。</p>
 
 <p><strong>4、初始化项目</strong></p>
 
-<pre><code>git add .
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git add .
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>留心后面的一个 &#8220;.&#8221; ， 这是添加所有文件的情况，如果愿意，你也可以添加特定的几个文件，比如git add readme.txt等等。</p>
 
 <p>之后就可以做我们的first commit到仓库里了。</p>
 
-<pre><code>git commit -m 'first commit'
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git commit -m <span class="s1">&#39;first commit&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>-m 参数以及后面的字串是添加说明。</p>
+
+<p><code>-m</code> 参数以及后面的字串是添加说明。</p>
 
 <p><strong>5、 注册github账号</strong></p>
 
@@ -132,38 +143,47 @@ git config --global user.email you@email.address
 
 <p>这步工作应该是最麻烦的吧。回到桌面，打开git bash，输入以下命令。</p>
 
-<pre><code>ssh-keygen -C 'your@email.address' -t rsa
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ssh-keygen -C <span class="s1">&#39;your@email.address&#39;</span> -t rsa
+</span></code></pre></td></tr></table></div></figure>
 
-<p>确认使用默认路径，然后输入两次你要是用的密码就行。</p>
 
-<p>可以使用以下命令测试连接</p>
-
-<pre><code>SSH -v git@github.com
-</code></pre>
-
-<p>会要求输入你刚才设置的密码，如果成功的话可以看到这样的ERROR（orz，起码证明连接是成功了）</p>
-
-<pre><code>ERROR: Hi Arthraim! You've successfully authenticated, but GitHub does not provide shell access
-</code></pre>
+<p>确认使用默认路径，然后输入两次你要是用的密码就行（一般直接敲几个回车不使用密码）。</p>
 
 <p><strong>7、提交密匙</strong></p>
 
 <p>现在又要回到github的页面上，在右上方工具栏里找到Account Settings。在这个页面上有一个SSH Public Keys标签，选择Add another public key。Title随便取，Key是一段东西。</p>
 
-<p>找到刚才创建密匙的那个目录下（默认是C:Documents and Settings你的windows用户名.ssh）找到id_rsa.pub文件，把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。</p>
+<p>找到刚才创建密匙的那个目录下（默认是<code>C:\Documents and Settings\你的windows用户名.ssh</code>，OSX是<code>~/.ssh</code>）找到id_rsa.pub文件，把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。</p>
+
+<p>可以使用以下命令测试连接</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ssh -v git@github.com
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>会要求输入你刚才设置的密码，如果成功的话可以看到这样的ERROR（orz，起码证明连接是成功了）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ERROR: Hi Arthraim! You<span class="err">&#39;</span>ve successfully authenticated, but GitHub does not provide shell access
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p><strong>8、上传代码</strong></p>
 
 <p>最后就是上传你的代码了~ bash切换到你的项目目录下，输入以下命令。</p>
 
-<pre><code>git remote add origin git@github.com:你的github用户名/你的github项目名.git
-git push origin master
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git remote add origin git@github.com:你的github用户名/你的github项目名.git
+</span><span class='line'>git push origin master
+</span></code></pre></td></tr></table></div></figure>
 
-<p>hehe，现在再去&#8221;http://github.com/你的github用户名/你的github项目homepage Url&#8221; 就可以看到你的项目了~ Good luck</p>
 
-<p>当然这是从无到有，如果你有一个git的repo，想添加到github上，那就直接使用伟大的第8步的命令就可以了（不要忘记密匙的相关工作）。话说很多初学者应该会和我一样，在初期搞不清git和github的关系，git是和CVS,SVN并列的一个概念，而github是和Google Code, sourceforge并列的一个概念，这样说就明白了吧。所以，git的学习的话，参见<a href="http://www.linuxgem.org/2008/8/1/git-tutorial.4889.html">这里</a>。</p>
+<p>hehe，现在再去<code>http://github.com/你的github用户名/你的github项目</code> 就可以看到你的项目了~ Good luck</p>
+
+<p>当然这是从无到有，如果你有一个git的repo，想添加到github上，那就直接使用第8步的命令就可以了（不要忘记密匙的相关工作）。话说很多初学者应该会和我一样，在初期搞不清git和github的关系，git是和CVS,SVN并列的一个概念，而github是和Google Code, sourceforge并列的一个概念，这样说就明白了吧。所以，git的学习的话，参见<a href="http://www.linuxgem.org/2008/8/1/git-tutorial.4889.html">这里</a>。</p>
 
 <p>BTW：Github的社区感很好，体验很不错，怪不得有这么多人在github上乐此不疲的交流代码。</p>
 
@@ -229,7 +249,7 @@ git push origin master
 </div>
 </section>
 </div>
-	<footer id="footer" class="inner">Copyright &copy; 2012
+	<footer id="footer" class="inner">Copyright &copy; 2013
 
     Arthur Wang
 
