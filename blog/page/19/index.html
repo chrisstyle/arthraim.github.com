@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="今天在催了很多次之后，装着诺基亚5800XpressMusic的快递终于发到了我手上，一般我去快递都不是很着急，多等两天也无所谓，但是这次是个手机，好歹是个大件。何况更加关键的是，我看到了网站上的跟踪显示说早上8点就派件了，9点47分我的单子因为&#8221;未知原因派件失败&#8221;。 &hellip;">
+	<meta name="description" content="在做项目的时候碰到了类似的需求，要做一个主从表，本来是用ajax，悬停在某一行的时候显示一个气泡，用来显示具体信息，但是对方要求说要在表里显示这些信息，于是主从表应该是比较合适的。扩展一下的话还可以加上各种控制。 效果： 虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,98 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/asp-net-gridview-father-child-tables/">
+		
+			ASP.NET 用GridView实现主从表</a>
+	</h2>
+	<div class="entry-content">
+		<p>在做项目的时候碰到了类似的需求，要做一个主从表，本来是用ajax，悬停在某一行的时候显示一个气泡，用来显示具体信息，但是对方要求说要在表里显示这些信息，于是主从表应该是比较合适的。扩展一下的话还可以加上各种控制。</p>
+
+<p><strong>效果</strong>：</p>
+
+<p><img src="/images/uploads/zb/2009-05-19_showtable.png" alt="" /></p>
+
+<p>虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。大体的思路就是在template列里面嵌套另外一个gridview。看下具体的实现方法……（无视业务相关的部分）</p>
+
+<p><strong>前台</strong> &#8212;- 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
+
+<pre><code>&lt;asp:GridView ID="gvhandle" runat="server" Caption="已检查项目" AutoGenerateColumns="False" OnRowDataBound="gvhandle_RowDataBound"&gt;
+&lt;Columns&gt;
+&lt;asp:TemplateField Visible="False"&gt;
+&lt;ItemTemplate&gt;
+&lt;asp:Label ID="lbhidden" runat="server" Text='&lt;%#Eval("projID") %&gt;'&gt;&lt;/asp:Label&gt;
+&lt;/ItemTemplate&gt;
+&lt;/asp:TemplateField&gt;
+&lt;asp:BoundField DataField="projectName" HeaderText="项目名称"/&gt;
+&lt;asp:BoundField DataField="hostName" HeaderText="主持人" /&gt;
+&lt;asp:BoundField DataField="college" HeaderText="所在学院/部门" /&gt;
+&lt;asp:BoundField DataField="Rank" HeaderText="学院/部门排名情况" /&gt;
+&lt;!--就是这里！！--&gt;
+&lt;asp:TemplateField HeaderText="评审细节"&gt;
+&lt;ItemTemplate&gt;
+&lt;asp:GridView ID="gvChild" runat="server" AutoGenerateColumns="False"&gt;
+&lt;Columns&gt;
+&lt;asp:BoundField DataField="userName" HeaderText="专家姓名"/&gt;
+&lt;asp:BoundField DataField="judgeLvl" HeaderText="评分"/&gt;
+&lt;asp:BoundField DataField="judgeContent" HeaderText="定性评价"/&gt;
+&lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+&lt;/ItemTemplate&gt;
+&lt;/asp:TemplateField&gt;
+&lt;asp:BoundField DataField="result" HeaderText="最终处理" /&gt;
+&lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+</code></pre>
+
+<p><strong>后台</strong> &#8212;- 写gvhandle的RowDataBound事件</p>
+
+<pre><code>protected void gvhandle_RowDataBound(object sender, GridViewRowEventArgs e)
+{
+    if (((GridView)e.Row.FindControl("gvChild")) != null)
+    {
+        // 无论什么乱七八糟的代码，主要是在这里绑定GridView里的那个GridView
+        string tProjectID = (e.Row.FindControl("lbhidden") as Label).Text;
+        string tMissionID = missionID;
+        GridView tempGV = (e.Row.FindControl("gvChild") as GridView);
+        tempGV.DataSource = new ProjectOperate().GetComplexChildTable(tMissionID, tProjectID);
+        tempGV.DataBind();
+    }
+}
+</code></pre>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-20T02:56:00+08:00" pubdate data-updated="true">May 20<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -794,86 +886,6 @@ filter:Gray;
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/how-to-choose-a-3g-cellphone/">
-		
-			如何选择3G手机？</a>
-	</h2>
-	<div class="entry-content">
-		<p>自从手机利用房间垃圾桶脱逃之后，买个新手机的想法就一直徘徊于脑海之中。眼看3G就要在杭州搞起来了，买一个能支持3G的手机才是当务之急，那么在这个不三不四的时候究竟如何选择一款能长治久安的手机似乎真的是一个学问。</p>
-
-<p>先介绍一下之前的N72，也算是N系的明星机型了，到了后期真的是正宗的街机。上至企业白领，下至外地民工，谁都能用得起，而且功能也的确是中规中矩了。只是S60第三版横行的大学校园里显得有些落伍而已。所以对于它我还是非常喜欢的。我喜欢直板机，因为滑盖翻盖什么的到了我手上说不定几个月后就变成两个手机了，所以还是直板耐用。</p>
-
-<p>再讲讲3G，可恶的3G三足鼎立也不是一件好事情。因为我们入什么网就要买什么手机。所以万一你买了一个优秀的终端，可是网络服务不好，那么就哭去吧。也许某个运营商资费便宜、网络通畅、信号强大、服务优良，集一切优点于一身，可是终端牌子、性能、外观、质量都差，也就无奈了。所以在这个应该观望的时候想要买一个手机是非常痛苦的。</p>
-
-<hr />
-
-<p><img src="/images/uploads/zb/tianyi.jpg" alt="" />电信的3G品牌。最早公布的，也是现在广告最多的，貌似我们学校电梯里面就有，资费标准也都出来了，基本上还是消费的起的一种情况。提供的终端是我比较郁闷的，CDMA2000的终端都看上去很不好，而且太粗糙。电信刚刚拥有手机这一业务，我个人真的非常不看好电信，虽然不能一棒子打死说以后他怎么样怎么样的，不过从目前来看，应该还是会在移动和联通当中做出选择，应该有很多人和我一样吧。到目前为止的天翼，应该是不会选择的。</p>
-
-<p>值得一提的是LG给电信提供了一些终端，其中一些还是很不错的，比如&#8221;心贵&#8221;手机KW838，这应该也是电信现在宣传的生力军了，价格也还算合理。</p>
-
-<p><img src="/images/uploads/zb/KM838.jpg" alt="" /></p>
-
-<hr />
-
-<p><img src="/images/uploads/zb/G3.jpg" alt="" />G3是移动的3G品牌，LOGO灵感来源于太极。好吧我败了，说实话真的不感冒，第一次听说叫G3，我就想，你把3G倒过来有啥意思啊。LOGO又是毛笔字+图章的设计，真的失去了一些新意啊。</p>
-
-<p>当然移动的优势不在这里，移动的优势在动感地带，也就是大把大把的学生用户。浙江省的套餐便宜到令人发指，月租费也就是15-25RMB左右，你要是其他什么都不用，那么一个月就是这些了，包括一定的短信和电话通话时间。虽然说便宜，但是其实利润还是非常大的。手机上网、彩铃、QQ、彩信举不胜举的其他业务在学生中是非常常用的，所以移动的确是在2G时代强大到了无边无际的情况。</p>
-
-<p>利用已经有的用户群优势，移动应该会在3G时代做出点名堂。只是移动的TD-SCDMA技术是相对比较落后的（相对于其他两个来说），当然我估计对于用户来说不会有什么特别的感觉。另外移动的终端也是非常的强悍。有中兴的加盟，另外还听说诺基亚强力支持TD，真是这样，那移动又要强大一回了。查了下，TD终端：熊猫、宇龙酷派、中兴、三星、夏新、LG、华为、多普达、华立、海信、联想、TCL、新邮通、龙旗、海尔、大唐电信、飞利浦、摩托罗拉、UT斯达康。</p>
-
-<blockquote><p>无需换号，无需换卡，也不用到营业厅登记，只需更换一部TD制式的手机，就可以享受到精彩的移动3G生活。这就是中国移动一直强调的&#8221;三不原则&#8221;。据介绍，用3G手机通话，资费和2G手机一致。用3G手机上网，速度更快，资费按流量计费，资费和2G上网相一致。</p></blockquote>
-
-<p><img src="/images/uploads/zb/samsung_sgh_l288.jpg" alt="" /></p>
-
-<hr />
-
-<p><img src="/images/uploads/zb/wo.jpg" alt="" />联通的3G品牌是最后一个出炉的，当然也是最雷我的一个，满世界的都是&#8221;沃&#8221;，你不觉得很奇怪吗？不过不得不承认，沃这个品牌看上去奇怪，确实最时尚的一个。不知道其他人如何认为，对我来说，沃是让我觉得最舒服的一个。联通从品牌上就不小心抓住了我的心。</p>
-
-<p>虽然联通的资费标准还不是十分明朗，不过估计也是八九不离十，何况2G时代的收费，的确是联通比较低。联通这次卯足了劲想要打个翻身仗，这个地方应该不会犯错吧。</p>
-
-<p>联通的终端优势也非常明显。WCDMA手机可谓随处可见。要什么牌子有什么牌子。只是一般都是水货。我对N78和5800Xpressmusic很有好感，只是他们的行货都不支持WIFI和WCDMA，真是可恶啊。话说S60第五版的SDK也可以在nokia官网上下到了。</p>
-
-<p><img src="/images/uploads/zb/nokia-n78-phone.jpg" alt="" /></p>
-
-<hr />
-
-<p>最后还是这个问题，如何选择3G手机呢？经过上面的介绍，究竟选择什么运营商？什么制式的手机呢？</p>
-
-<p>我还是茫然啊 囧。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-11T01:38:46+08:00" pubdate data-updated="true">May 11<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/i-t-/'>I.T.</a>
 
 
 </div>

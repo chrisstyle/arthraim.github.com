@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO 这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。 &hellip;">
+	<meta name="description" content="游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。 那么接下来， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,140 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/xna-tutorial-2d-ch9-record-scores/">
+		
+			XNA教程-2D游戏-09-记录分数</a>
+	</h2>
+	<div class="entry-content">
+		<p>游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
+
+<p>那么接下来，介绍方法。</p>
+
+<p><strong>第一步、添加Font到Content中</strong></p>
+
+<p><strong>一、添加SpriteFont的Content资源。</strong></p>
+
+<p>要在Content pipline中添加SpriteFont（字体）的内容。</p>
+
+<ol>
+<li><p><strong>Content中添加一个Fonts文件夹</strong>。</p>
+
+<p>   <img src="/images/uploads/zb/2009-06-19_AddFontToContent.jpg" alt="" /></p></li>
+<li><p><strong>在Fonts中添加一个GameFont对象</strong>。</p>
+
+<p>   [<img src="/images/uploads/zb/2009-06-19_AddSpriteFont.jpg" alt="" /></p>
+
+<p>   ](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)</p></li>
+<li><p><strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p></li>
+</ol>
+
+
+<pre><code>&lt;FontName&gt;Arial&lt;/FontName&gt;
+&lt;Size&gt;18&lt;/Size&gt;
+</code></pre>
+
+<p>好了，这样准备工作就完成了，我们可以在之后的Content的相关操作中使用这个font了。</p>
+
+<p><strong>二、声明一些新变量</strong></p>
+
+<p>声明一个int型的分数。</p>
+
+<p>声明一个SpriteFont对象当作字体。</p>
+
+<p>声明一个Vector2来记录分数显示的位置（百分比）。</p>
+
+<pre><code>int score;
+SpriteFont font;
+Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
+</code></pre>
+
+<p>就像之前说的，微软的大大们都有强大逻辑，可以在开始写程序的时候声明出所有的变量。</p>
+
+<p><strong>三、Content载入字体</strong></p>
+
+<p>在LoadContent方法中载入我们感概添加和修改的字体。</p>
+
+<pre><code>font = Content.Load&lt;SpriteFont&gt;(@"FontsGameFont");
+</code></pre>
+
+<p>这样，我们就可以自由的使用了。</p>
+
+<hr />
+
+<p><strong>第二步、添加记分逻辑</strong></p>
+
+<p>视频中的逻辑是击毁一个UFO加一分，所以在判断碰撞的地方加上score++就好。</p>
+
+<p>我设计的逻辑击毁加2分，漏掉一个（飞出屏幕）扣一分。</p>
+
+<p>当然你可以设计更加复杂的功能，比如距离远速度快的3分等等，总之分数不是关键。</p>
+
+<hr />
+
+<p><strong>第三步、绘制分数</strong></p>
+
+<p>绘制我们记分的结果，在Draw这个方法的SpriteBatch.End()之前加入绘制字符串的代码。</p>
+
+<pre><code>spriteBatch.DrawString(
+    font,
+    "Score:" + score.ToString(),
+    new Vector2(
+        scoreDrawPoint.X * viewportRect.Width,
+        scoreDrawPoint.Y * viewportRect.Height),
+    Color.White);
+</code></pre>
+
+<p>看一下参数。</p>
+
+<ol>
+<li><p>SpriteFont，要求传入一个SpriteFont，我们这里传入了之前创建的font。</p></li>
+<li><p>string，传入要显示的字符串，这里是得分。</p></li>
+<li><p>Vector2，传入一个显示位置（左上角）的Vector2，这里我们利用之前创建的百分比和屏幕大小计算出一个新的Vector2</p></li>
+<li><p>Color，传入一个字形的颜色。</p></li>
+</ol>
+
+
+<p>好了，这样我们的游戏就完整的完成了。放一张运行时的截图。</p>
+
+<p><a href="/images/uploads/zb/2009-06-19_Chapter9_Runtime.jpg"><img src="/images/uploads/zb/2009-06-19_Chapter9_Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=156"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-19T08:03:20+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1560,210 +1694,6 @@ spriteBatch.End();
 
 
 <time datetime="2009-06-12T18:22:06+08:00" pubdate data-updated="true">Jun 12<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/asp-net-twitter-api-client/">
-		
-			ASP.NET调用twitter Api实现简单的功能</a>
-	</h2>
-	<div class="entry-content">
-		<p>很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine.net的开源项目里找到了一段.net实现的通过feed方式获取tweets的方法。把代码整理了一下，去掉了blogengine的widget成分，做成个页面……</p>
-
-<p><strong><a href="http://twitter.com/arthraim/">Follow me</a></strong></p>
-
-<p><strong>Links:</strong></p>
-
-<p><a href="http://www.dotnetblogengine.net/">BlogEngine.net</a> | blogEngine.net的官方网站，下载完整博客文件后，查看widget中的twitter部分就可以了。</p>
-
-<pre><code>[TwitterFeed-Widget for BlogEngine.NET](http://twitterfeedwidget.codeplex.com/) | 这是在上面那些代码的基础上修改的一个codeplex开源项目，稍微优化了一下，其实读下来差不多。  
-
-[twitter api 中文文档](http://www.54chen.com/c/591) | twitter api的翻译，来自陈臻（@54chen）。
-</code></pre>
-
-<p><strong>前台代码</strong>。加入页面，如Default.aspx。</p>
-
-<pre><code>&lt;asp:HyperLink runat="server" ID="hlTwitterAccount" Text="Follow me on Twitter" rel="me" /&gt;
-&lt;asp:Repeater runat="server" ID="repItems" OnItemDataBound="repItems_ItemDataBound"&gt;
-    &lt;ItemTemplate&gt;
-        &lt;img src="twitter.ico" alt="Twitter" /&gt;
-        &lt;asp:Label runat="server" ID="lblDate" style="color:gray" /&gt;&lt;br /&gt;
-        &lt;asp:Label runat="server" ID="lblItem" /&gt;&lt;br /&gt;&lt;br /&gt;
-    &lt;/ItemTemplate&gt;
-&lt;/asp:Repeater&gt;
-</code></pre>
-
-<p><strong>后台代码</strong>。</p>
-
-<pre><code>using System;
-using System.Configuration;
-using System.Data;
-using System.Xml;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Collections.Specialized;
-using System.Collections.Generic;
-using System.Net;
-using System.Globalization;
-public partial class _Default : System.Web.UI.Page
-{
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        ShowTweets();
-    }
-    private static DateTime LastModified = DateTime.MinValue;
-    private const string CACHE_KEY = "twits";
-    private void ShowTweets()
-    {
-        //用户名
-        string _username = "arthraim";
-        //用户的twitter地址
-        string _url = "http://twitter.com/" + _username + "/";
-        //FEED地址（user_timeline为自己的，可以根据需要修改）
-        string _feedurl = "http://twitter.com/statuses/user_timeline/" + _username + ".rss";
-        //显示的最大条目数
-        int maxItems = 30;
-        hlTwitterAccount.NavigateUrl = _url;
-        if (_feedurl != null)
-        {
-            if (HttpRuntime.Cache[CACHE_KEY] != null)
-            {
-                string xml = (string)HttpRuntime.Cache[CACHE_KEY];
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(xml);
-                BindFeed(doc, maxItems);
-            }
-            if (DateTime.Now &gt; LastModified.AddMinutes(15))
-            {
-                LastModified = DateTime.Now;
-                BeginGetFeed(_feedurl);
-            }
-        }
-    }
-    protected void repItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        Label text = (Label)e.Item.FindControl("lblItem");
-        Label date = (Label)e.Item.FindControl("lblDate");
-        Twit twit = (Twit)e.Item.DataItem;
-        text.Text = twit.Title;
-        date.Text = twit.PubDate.ToString("MMMM d. HH:mm");
-    }
-    private void BeginGetFeed(string url)
-    {
-        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-        request.Credentials = CredentialCache.DefaultNetworkCredentials;
-        request.BeginGetResponse(EndGetResponse, request);
-    }
-    private void EndGetResponse(IAsyncResult result)
-        {
-        HttpWebRequest request = (HttpWebRequest)result.AsyncState;
-        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(response.GetResponseStream());
-            HttpRuntime.Cache[CACHE_KEY] = doc.OuterXml;
-        }
-    }
-    private void BindFeed(XmlDocument doc, int maxItems)
-    {
-        XmlNodeList items = doc.SelectNodes("//channel/item");
-        List&lt;Twit&gt; twits = new List&lt;Twit&gt;();
-        int count = 0;
-        for (int i = 0; i &lt; items.Count; i++)
-        {
-            if (count == maxItems)
-                break;
-            XmlNode node = items[i];
-            Twit twit = new Twit();
-            string title = node.SelectSingleNode("description").InnerText;
-            if (title.Contains("@"))
-                continue;
-            if (title.Contains(":"))
-            {
-                int start = title.IndexOf(":") + 1;
-                title = title.Substring(start);
-            }
-            twit.Title = ResolveLinks(title);
-            twit.PubDate = DateTime.Parse(node.SelectSingleNode("pubDate").InnerText, CultureInfo.InvariantCulture);
-            twit.Url = new Uri(node.SelectSingleNode("link").InnerText, UriKind.Absolute);
-            twits.Add(twit);
-            count++;
-        }
-        twits.Sort();
-        repItems.DataSource = twits;
-        repItems.DataBind();
-    }
-    private static readonly Regex regex = new Regex("((http://|https://|www\.)([A-Z0-9.\-]{1,})\.[0-9A-Z?;~&amp;\(\)#,=\-_\./\+]{2,})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private const string link = "&lt;a href="{0}{1}" rel="nofollow"&gt;{1}&lt;/a&gt;";
-    /// &lt;summary&gt;
-    /// The event handler that is triggered every time a comment is served to a client.
-    /// &lt;/summary&gt;
-    private string ResolveLinks(string body)
-    {
-        CultureInfo info = CultureInfo.InvariantCulture;
-        foreach (Match match in regex.Matches(body))
-        {
-            if (!match.Value.Contains("://"))
-            {
-                body = body.Replace(match.Value, string.Format(info, link, "http://", match.Value));
-            }
-            else
-            {
-                body = body.Replace(match.Value, string.Format(info, link, string.Empty, match.Value));
-            }
-        }
-        return body;
-    }
-    private struct Twit : IComparable&lt;Twit&gt;
-    {
-        public string Title;
-        public Uri Url;
-        public DateTime PubDate;
-        public int CompareTo(Twit other)
-        {
-            return other.PubDate.CompareTo(this.PubDate);
-        }
-    }
-}
-</code></pre>
-
-<p>[修改自开源项目blogengine.net]</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

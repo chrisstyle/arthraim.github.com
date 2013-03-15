@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="PSP3000的玩家最近似乎有些接受不了太多的现实，PSP3000的破解进展工作像重演了PSP早期破解一样，从TIFF漏洞开始一路扶摇直上。随着CFWEnabler 3.01的放出，似乎PSP3000在多个破解小组这里都多面开花，不难相信，kernel mode也终将会被黑客破解。 &hellip;">
+	<meta name="description" content="很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,210 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/asp-net-twitter-api-client/">
+		
+			ASP.NET调用twitter Api实现简单的功能</a>
+	</h2>
+	<div class="entry-content">
+		<p>很让人高兴的是在敏感时期过后，我们可爱的twitter又能上去了。今天更新的tweet特别多，很多人都在欢呼雀跃，不过大多数用着其他渠道发的人还是继续保持步调。于是在一星期前就有过看twitter api的想法，今天还是得以如愿以偿了。不过看着看着我就偷了个懒，在blogengine.net的开源项目里找到了一段.net实现的通过feed方式获取tweets的方法。把代码整理了一下，去掉了blogengine的widget成分，做成个页面……</p>
+
+<p><strong><a href="http://twitter.com/arthraim/">Follow me</a></strong></p>
+
+<p><strong>Links:</strong></p>
+
+<p><a href="http://www.dotnetblogengine.net/">BlogEngine.net</a> | blogEngine.net的官方网站，下载完整博客文件后，查看widget中的twitter部分就可以了。</p>
+
+<pre><code>[TwitterFeed-Widget for BlogEngine.NET](http://twitterfeedwidget.codeplex.com/) | 这是在上面那些代码的基础上修改的一个codeplex开源项目，稍微优化了一下，其实读下来差不多。  
+
+[twitter api 中文文档](http://www.54chen.com/c/591) | twitter api的翻译，来自陈臻（@54chen）。
+</code></pre>
+
+<p><strong>前台代码</strong>。加入页面，如Default.aspx。</p>
+
+<pre><code>&lt;asp:HyperLink runat="server" ID="hlTwitterAccount" Text="Follow me on Twitter" rel="me" /&gt;
+&lt;asp:Repeater runat="server" ID="repItems" OnItemDataBound="repItems_ItemDataBound"&gt;
+    &lt;ItemTemplate&gt;
+        &lt;img src="twitter.ico" alt="Twitter" /&gt;
+        &lt;asp:Label runat="server" ID="lblDate" style="color:gray" /&gt;&lt;br /&gt;
+        &lt;asp:Label runat="server" ID="lblItem" /&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;/ItemTemplate&gt;
+&lt;/asp:Repeater&gt;
+</code></pre>
+
+<p><strong>后台代码</strong>。</p>
+
+<pre><code>using System;
+using System.Configuration;
+using System.Data;
+using System.Xml;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Collections.Specialized;
+using System.Collections.Generic;
+using System.Net;
+using System.Globalization;
+public partial class _Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        ShowTweets();
+    }
+    private static DateTime LastModified = DateTime.MinValue;
+    private const string CACHE_KEY = "twits";
+    private void ShowTweets()
+    {
+        //用户名
+        string _username = "arthraim";
+        //用户的twitter地址
+        string _url = "http://twitter.com/" + _username + "/";
+        //FEED地址（user_timeline为自己的，可以根据需要修改）
+        string _feedurl = "http://twitter.com/statuses/user_timeline/" + _username + ".rss";
+        //显示的最大条目数
+        int maxItems = 30;
+        hlTwitterAccount.NavigateUrl = _url;
+        if (_feedurl != null)
+        {
+            if (HttpRuntime.Cache[CACHE_KEY] != null)
+            {
+                string xml = (string)HttpRuntime.Cache[CACHE_KEY];
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(xml);
+                BindFeed(doc, maxItems);
+            }
+            if (DateTime.Now &gt; LastModified.AddMinutes(15))
+            {
+                LastModified = DateTime.Now;
+                BeginGetFeed(_feedurl);
+            }
+        }
+    }
+    protected void repItems_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        Label text = (Label)e.Item.FindControl("lblItem");
+        Label date = (Label)e.Item.FindControl("lblDate");
+        Twit twit = (Twit)e.Item.DataItem;
+        text.Text = twit.Title;
+        date.Text = twit.PubDate.ToString("MMMM d. HH:mm");
+    }
+    private void BeginGetFeed(string url)
+    {
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        request.Credentials = CredentialCache.DefaultNetworkCredentials;
+        request.BeginGetResponse(EndGetResponse, request);
+    }
+    private void EndGetResponse(IAsyncResult result)
+        {
+        HttpWebRequest request = (HttpWebRequest)result.AsyncState;
+        using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(response.GetResponseStream());
+            HttpRuntime.Cache[CACHE_KEY] = doc.OuterXml;
+        }
+    }
+    private void BindFeed(XmlDocument doc, int maxItems)
+    {
+        XmlNodeList items = doc.SelectNodes("//channel/item");
+        List&lt;Twit&gt; twits = new List&lt;Twit&gt;();
+        int count = 0;
+        for (int i = 0; i &lt; items.Count; i++)
+        {
+            if (count == maxItems)
+                break;
+            XmlNode node = items[i];
+            Twit twit = new Twit();
+            string title = node.SelectSingleNode("description").InnerText;
+            if (title.Contains("@"))
+                continue;
+            if (title.Contains(":"))
+            {
+                int start = title.IndexOf(":") + 1;
+                title = title.Substring(start);
+            }
+            twit.Title = ResolveLinks(title);
+            twit.PubDate = DateTime.Parse(node.SelectSingleNode("pubDate").InnerText, CultureInfo.InvariantCulture);
+            twit.Url = new Uri(node.SelectSingleNode("link").InnerText, UriKind.Absolute);
+            twits.Add(twit);
+            count++;
+        }
+        twits.Sort();
+        repItems.DataSource = twits;
+        repItems.DataBind();
+    }
+    private static readonly Regex regex = new Regex("((http://|https://|www\.)([A-Z0-9.\-]{1,})\.[0-9A-Z?;~&amp;\(\)#,=\-_\./\+]{2,})", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private const string link = "&lt;a href="{0}{1}" rel="nofollow"&gt;{1}&lt;/a&gt;";
+    /// &lt;summary&gt;
+    /// The event handler that is triggered every time a comment is served to a client.
+    /// &lt;/summary&gt;
+    private string ResolveLinks(string body)
+    {
+        CultureInfo info = CultureInfo.InvariantCulture;
+        foreach (Match match in regex.Matches(body))
+        {
+            if (!match.Value.Contains("://"))
+            {
+                body = body.Replace(match.Value, string.Format(info, link, "http://", match.Value));
+            }
+            else
+            {
+                body = body.Replace(match.Value, string.Format(info, link, string.Empty, match.Value));
+            }
+        }
+        return body;
+    }
+    private struct Twit : IComparable&lt;Twit&gt;
+    {
+        public string Title;
+        public Uri Url;
+        public DateTime PubDate;
+        public int CompareTo(Twit other)
+        {
+            return other.PubDate.CompareTo(this.PubDate);
+        }
+    }
+}
+</code></pre>
+
+<p>[修改自开源项目blogengine.net]</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-09T06:49:31+08:00" pubdate data-updated="true">Jun 9<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -759,54 +963,6 @@
 
 
 <time datetime="2009-06-01T23:40:33+08:00" pubdate data-updated="true">Jun 1<span>st</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/internet/'>internet</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/google-wave-the-habit-challenger/">
-		
-			Google Wave， 挑战已存的习惯</a>
-	</h2>
-	<div class="entry-content">
-		<p>Google Map的团队再一次出手，会出现什么东西在这个世界上呢？有了Chrome这个在Google看来真正能领略到网络的窗口了，他们会希望我们看见什么呢？如果IM，邮箱，文字处理，blog，twitter甚至游戏等所有的功能变成了一个应用，那它会是什么样的呢？</p>
-
-<p><img src="/images/uploads/zb/GoogleWave.JPG" alt="" /></p>
-
-<p>它的公布，似乎就是公布了这三个答案一样，给所有巴望着的人们指向了一个方向。年内，我们就会看到它的真身，Google Wave，究竟会给我们一个怎么样的波浪呢？（话说我出门了3天好像好消息很多啊~）</p>
-
-<p><a href="http://wave.google.com/">Google Wave Home</a> | <a href="http://wave.google.com/help/wave/about.html">About Google Wave</a></p>
-
-<p><img src="/images/uploads/zb/ss1.gif" alt="" /></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-31T12:25:09+08:00" pubdate data-updated="true">May 31<span>st</span>, 2009</time></div>
 	<div class="tags">
 
 

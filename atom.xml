@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-01-13T10:29:50+08:00</updated>
+  <updated>2013-03-15T15:25:48+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,49 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Arthur的2012总结]]></title>
+    <link href="http://artori.us/arthur-s-2012-summary/"/>
+    <updated>2013-03-15T13:27:00+08:00</updated>
+    <id>http://artori.us/arthur-s-2012-summary</id>
+    <content type="html"><![CDATA[<p>我觉得这篇2012年总结如果今天不写估计我这辈子都不会写了。2012的末日没有如期而至，以至于写2012年末总结的计划不得不又被提上日程了。</p>
+
+<p>2012年总的来说发生的事情不算多，但是心态变了很多。</p>
+
+<p>博客几乎没怎么折腾，偶尔写了几篇文章。换了octopress。换完博客系统的时候倒是热情高涨把evernote里攒下的素材写了一堆。不过现在又瞬间消极怠工了。</p>
+
+<h3>dev</h3>
+
+<p>今年主要是iOS开发结结实实的盖了几层楼，从之前搭搭积木的阶段，终于到了可以自己造轮子的程度了。完成了几个公司里的产品、项目。现在正在给自己做一个简单的app，买了idp，打算最后把这个应用弄到appstore上，虽然很多人不看好，不过我的初衷也只是做着玩，才没有改变世界的伟大志向呢。</p>
+
+<p>另外因为参与了一个微博应用开发，所以对python、bottle.py、uwsgi都熟悉了不少，之前提到的那个app，以及接下来要说的小玩具的服务端，也都是用bottle和mongodb架起来的，不过VPS能力有限部署的时候还是用了passenger wsgi。</p>
+
+<p>说的小玩具是一个arduino做的小东西，其实就是按一下按钮发一条微博，把它当作门铃来用的话就可以知道家里有没有人按门铃了，虽然知道了也没办法进一步才去什么错失。。。 关于这个东西欢迎关注微博@<a href="http://weibo.com/micbell">阳哥的门铃</a></p>
+
+<h3>life</h3>
+
+<p>依然在魔都打拼，因为之前公司搬到杨浦，所以也住到杨浦来了，和好基友@lionelzhang 以及@luosky 同居了，住在复旦大学附近，欢迎来做客，做客前记得联系，我好搞下卫生。</p>
+
+<p>10月份的时候正式跳槽了，离开之前的人间网、爱折客，从创业公司来到了一家金融企业。新的工作新的环境，包括换工作这件事情本身，在我内心起了不少化学变化。说实话这个决定让我失去了不少珍惜的甚至引以为傲的东西，当然也感受到了很多期待之内期待之外的新东西。</p>
+
+<p>要说今年印象深刻的好玩经历。十一的时候租了一辆车一路疾行500公里路去参加一个同事的婚礼，吃过晚饭出发，到了那里的时候已经是后半夜了。作为一个今年换了10年期驾照的「老司机」来说，第一次开这样的远门是不是太水了一点。在台州的时候还出了第一次车祸哦。。。</p>
+
+<p>另一个大事就是欧洲杯，不被看好的意大利居然一路杀进决赛。决赛是转成跑到宁波去看的，不过输的也太难看了一点吧。</p>
+
+<h3>diagram</h3>
+
+<p>好吧最后是去过的地方、看过的书、看过的电影。</p>
+
+<p><a href="http://artori.us/images/uploads/octo/2012_places.png"><img src="http://artori.us/images/uploads/octo/2012_places.png" alt="" /></a></p>
+
+<p><a href="http://artori.us/images/uploads/octo/2012_books.png"><img src="http://artori.us/images/uploads/octo/2012_books.png" alt="" /></a></p>
+
+<p><a href="http://artori.us/images/uploads/octo/2012_movies.png"><img src="http://artori.us/images/uploads/octo/2012_movies.png" alt="" /></a></p>
+
+<p>2013加油。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[bottle直接返回pymongo查询结果]]></title>
@@ -865,31 +908,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 <p>那么做到这里之前的问题就解决了, 记录一下, 因为在其他环境下都没遇到类似问题.</p>
 
 <p>以上</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2011-02-15 小记两笔]]></title>
-    <link href="http://artori.us/2011-02-15-notes/"/>
-    <updated>2011-02-16T09:02:03+08:00</updated>
-    <id>http://artori.us/2011-02-15-notes</id>
-    <content type="html"><![CDATA[<p>博客似乎没什么特别的东西好写, 小记一下昨天Google的两个东东, 有用没用稀有不稀有都记录一下. 这样轻松愉快的blog不但记录了成长说不定还对别人有帮助, 对我这种小角色来说还真是不错, hoho</p>
-
-<hr />
-
-<p><strong>第一个: </strong>freemarker遇到个错误</p>
-
-<blockquote><p>Cannot expose session attribute &#8216;business&#8217; because of an existing model object of the same name.</p></blockquote>
-
-<p>好吧我经验不足, 在记录session的时候用到了business这么个名字, 之后又req.setAttribute(&#8220;business&#8221;, XXXX) 了一下, 于是就报错了. 于是教训告诉我session的名字还是变态一点比较好, 经前辈指点, 存取session的地方都要记得给key的名字做个手脚加个前缀.</p>
-
-<hr />
-
-<p><strong>第二个: </strong>logrotate的小配置</p>
-
-<p>logrotate出来的文件总是xxxxx.log.1.gz, 后来又Google了一下, 发现还有一个叫做dateext的参数用YYYYMMDD这样的date extension来代替单调的1234数字. 好吧这个问题真的有点小白 - -</p>
-
-<p>那么, 以上就是全部了~</p>
 ]]></content>
   </entry>
   
