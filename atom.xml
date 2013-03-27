@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-03-27T20:34:03+08:00</updated>
+  <updated>2013-03-27T20:43:09+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -50,6 +50,10 @@
 <h2>添加.js文件的时候</h2>
 
 <p>添加js文件有点特殊，xcode会以为js是可以编译的代码。要在Xcode的target里，把.js文件从 &#8220;Compile Sources&#8221; 移到 &#8220;Copy Bundle Resources&#8221; .</p>
+
+<h2>写HTML的时候</h2>
+
+<p>可以直接写相对路径了。<code>&lt;script src="jquery.min.js"&gt;&lt;/script&gt;</code></p>
 
 <p><strong>题外话1</strong>: 有个基友要做一个HTML5播放视频的东东，想把视频缓存到本地，但是UIWebView无视HTML5 mainifest里指定的音频视频文件，还有5M的限制。其实也可以存下来本地加载撒。</p>
 
