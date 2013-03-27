@@ -7,7 +7,18 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="我觉得这篇2012年总结如果今天不写估计我这辈子都不会写了。2012的末日没有如期而至，以至于写2012年末总结的计划不得不又被提上日程了。 2012年总的来说发生的事情不算多，但是心态变了很多。 博客几乎没怎么折腾，偶尔写了几篇文章。换了octopress。 &hellip;">
+	<meta name="description" content="作为一个不会javascript只会jQuery的程序员，我在做Objective-c和HTML5页面交互的demo的时候需要HTML至少依赖一个jQuery，放在本地咋整？ 创建UIWebView的时候 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+_webView = [[ &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +82,89 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/uiwebview-load-local-javascript/">
+		
+			UIWebView加载本地资源</a>
+	</h2>
+	<div class="entry-content">
+		<p>作为一个不会javascript只会jQuery的程序员，我在做<a href="https://github.com/Arthraim/objs">Objective-c和HTML5页面交互的demo</a>的时候需要HTML至少依赖一个jQuery，放在本地咋整？</p>
+
+<h2>创建UIWebView的时候</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">_webView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIWebView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="p">)];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">htmlFile</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span> <span class="nl">pathForResource:</span><span class="s">@&quot;index&quot;</span> <span class="nl">ofType:</span><span class="s">@&quot;html&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="n">htmlString</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithContentsOfFile:</span><span class="n">htmlFile</span> <span class="nl">encoding:</span><span class="n">NSUTF8StringEncoding</span> <span class="nl">error:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span> <span class="n">bundlePath</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSURL</span> <span class="o">*</span><span class="n">baseURL</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">path</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">[</span><span class="n">_webView</span> <span class="nl">loadHTMLString:</span><span class="n">htmlString</span> <span class="nl">baseURL:</span><span class="n">baseURL</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// 把baseURL知道bundle的Url，就能调用bundle里的其他文件了，图片音乐什么的</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">_webView</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">_webView</span> <span class="n">release</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>添加.js文件的时候</h2>
+
+<p>添加js文件有点特殊，xcode会以为js是可以编译的代码。要在Xcode的target里，把.js文件从 &#8220;Compile Sources&#8221; 移到 &#8220;Copy Bundle Resources&#8221; .</p>
+
+<p><strong>题外话1</strong>: 有个基友要做一个HTML5播放视频的东东，想把视频缓存到本地，但是UIWebView无视HTML5 mainifest里指定的音频视频文件，还有5M的限制。其实也可以存下来本地加载撒。</p>
+
+<p><strong>题外话2</strong>: objc可以用stringByEvaluatingJavaScriptFromString:在webview里执行脚本。js要调用objective-c就比较麻烦。iOS可行的办法是利用custom URL scheme，跳转到应用之后应用或从path或从querystring来判断js要调用什么类什么方法，比较蛋疼。最理想的方式应该是<a href="https://developer.apple.com/library/mac/#documentation/AppleApplications/Conceptual/SafariJSProgTopics/Tasks/ObjCFromJavaScript.html">safari插件支持的方式</a>，可惜iOS没有。</p>
+
+<p>via:</p>
+
+<ul>
+<li><a href="https://devforums.apple.com/message/32282">https://devforums.apple.com/message/32282</a></li>
+<li><a href="http://mentormate.com/blog/iphone-uiwebview-class-local-css-javascript-resources/">http://mentormate.com/blog/iphone-uiwebview-class-local-css-javascript-resources/</a></li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-27T18:19:00+08:00" pubdate data-updated="true">Mar 27<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -739,54 +833,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 
 
 <time datetime="2012-01-06T22:52:15+08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/arthur-s-2011-summary/">
-		
-			Arthur的2011年总结</a>
-	</h2>
-	<div class="entry-content">
-		<p>还有一个小时2011年就过完了，末日年就在眼前。今年博客更新的非常少，当然我没有偷懒，公司从年底上马了新的产品之后我就全身心的投入到了新的工作里去了。</p>
-
-<p>爱折客从去年年底开始慢慢开发到现在整一年，发展迅速，今天年终总结的时候说实话我也觉得很振奋，虽然始终我的兴趣点在social上而爱折客虽然有点像solomo，但是其实是没有social的成分的，所以我承认我并不是那么&#8221;爱&#8221;它。但是到了这个时候看着这个产品我觉得很自豪，我们是一群踏踏实实的童鞋们，没有开复老师呼风唤雨的本事，勤勤恳恳的做业绩，可能并不是很多人看到我们的成绩，但是我们很棒。</p>
-
-<p>技术上，算是真正独立完成了一个web的客户端，初期也并没有存储全部和后面的api交互，后来做着做着后台越做越大mongodb越做越熟。另外转型iOS开发才是这一年真正拼了老命的事情，要感谢公司给我配了台iMac坦率说是动力的源泉，很有压力但是的确是动力。现在自豪的说app store上已经有5个app出自我手啦。因为要偶尔维护api，所以虽然没有系统的学不过接触了ruby on rails，很有魅力！</p>
-
-<p>依然看了很多电影，没有去年多当然。依然看了很少书。动画几乎没看，剧集也是有一集没一集的追。在游戏上花的钱更多了，因为今年掌机换代了，入手了PSVita，也算是5年一次的大开销吧。</p>
-
-<p>希望明年公司蒸蒸日上，希望自己大大进步。2012我来了。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-01T07:07:29+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2012</time></div>
 	<div class="tags">
 
 

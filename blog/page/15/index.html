@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="应当说之前的Chapter08是插进来的一个部分，让我们的工程还没有变得非常巨大之前，在我们第一个需要声音的对象创建之后，插进如何制作音频的教程。而按照正常的逻辑，我们现在应该添加敌人，让我们的导弹&#8221;有的放矢&#8221;（有地方使）。和2D类似，UFO是我们的敌人， &hellip;">
+	<meta name="description" content="运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&# &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,102 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/xna-tutorial-3d-ch10-destroy-ufo/">
+		
+			XNA教程-3D游戏-10-摧毁UFO</a>
+	</h2>
+	<div class="entry-content">
+		<p>运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&#8212;-导弹无法射落UFO。那么这次的教程显而易见，就是用到3D碰撞检测，来让missile和enemyship来个大碰撞。</p>
+
+<p>这次的教程不是很复杂，所以今天心情好就赶快把他结束掉，可以让博客转入让我自由发挥的方向。那马上开始吧～</p>
+
+<p><strong>1、修改UpdateMissiles()</strong></p>
+
+<p>先要修改一下这个方法，在if (missile.position.Z &lt; -6000.0f) { missile.alive = false; } 后面加上一个else，然后调用一个莫须有的方法，代码如下：</p>
+
+<pre><code>else
+{
+    TestCollision(missile);
+}
+</code></pre>
+
+<p>当然这个方法还没有加上。</p>
+
+<p><strong>2、写TestCollision()</strong></p>
+
+<p>先把这个方法全部的代码贴上吧：</p>
+
+<pre><code>void TestCollision(GameObject missile)
+{
+    BoundingSphere missilesphere =
+        missile.model.Meshes[0].BoundingSphere;
+    missilesphere.Center = missile.position;
+    missilesphere.Radius *= missile.scale;
+    foreach (GameObject ship in enemyShips)
+    {
+        if (ship.alive)
+        {
+            BoundingSphere shipsphere =
+                ship.model.Meshes[0].BoundingSphere;
+            shipsphere.Center = ship.position;
+            shipsphere.Radius *= ship.scale;
+            if (shipsphere.Intersects(missilesphere))
+            {
+                soundBank.PlayCue("explosion");
+                missile.alive = false;
+                ship.alive = false;
+                break;
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>解释一下，BoundingSphere类是记录的是一个球形，也就是3D模型最大的外轮廓。用这个类的intersects方法和其他模型的boundingsphere确定是否相交，虽然粗糙，但是基本上已经符合我们的要求了。（相信我，即便是这样，依然难度很高）要确定BoundingSphere的中心点为模型所在的position，而半径要记得乘上scale，不然就不对了。</p>
+
+<p>那么实际检验的地方就很简单，拿到一个missile后，遍历每一个UFO（两层循环），然后检查是否相交，如果相交就杀掉双方，并且播放声音&#8212;-我们之前准备的爆炸的声音。</p>
+
+<p>OK，编译运行，我们这个教程的最后一部分就完成了。（放效果图，不过放了也看不出碰撞）</p>
+
+<p><a href="/images/uploads/zb/2009-07-20_Runtime.jpg"><img src="/images/uploads/zb/2009-07-20_Runtime.jpg" alt="" /></a></p>
+
+<p>【官方源代码下载】</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=165"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-07-20T08:23:33+08:00" pubdate data-updated="true">Jul 20<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1775,85 +1871,6 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 
 <time datetime="2009-06-25T22:47:25+08:00" pubdate data-updated="true">Jun 25<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/xna-tutorial-2d-index/">
-		
-			XNA教程-2D游戏-目录索引</a>
-	</h2>
-	<div class="entry-content">
-		<p><a href="/images/uploads/zb/XNA_logo.jpg"><img src="/images/uploads/zb/XNA_logo.jpg" alt="" /></a></p>
-
-<p><strong>2011-01-16更新：换了域名和URL，更新一下链接~</strong></p>
-
-<p>XNA GameStudio 3.1，微软XNA Creators Club Online上2D游戏视频教程文字版索引。</p>
-
-<p><strong>XNA游戏教程.2D</strong></p>
-
-<ol>
-<li><p><a href="/xna-tutorial-2d-ch1-introduction/">2D游戏教程简介</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch2-create-solution/">创建游戏工程</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch3-add-assets/">添加Asset</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch4-rending-backgrounds/">绘制背景</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch5-create-a-cannon/">添加一门加农炮</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch6-launch-missiles/">发射炮弹</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">添加敌人UFO</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch8-destroy-ufo/">摧毁UFO</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch9-record-scores/">记录分数</a></p></li>
-<li><p>其他扩展：<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/ExtraCredit">Extra Credit - Community Tutorials</a></p></li>
-</ol>
-
-
-<p><strong>相关知识点链接</strong>（在各个章节中涉及到的知识点，基本上都在文章的末尾）：</p>
-
-<ol>
-<li><p><a href="/xna-tutorial-2d-ch3-add-assets/">什么是Asset？</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch4-rending-backgrounds/">Content Pipeline是如何工作的？</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch4-rending-backgrounds/">Sprites，Sprites绘制，和SpriteBatch。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch5-create-a-cannon/">为什么要创建GameObject类？</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch5-create-a-cannon/">XNA Game Studio中表示的角。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch6-launch-missiles/">使用数组。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch6-launch-missiles/">转化一个旋转角度为速度向量。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">随机数和线性插入方法Lerp。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch8-destroy-ufo/">使用Rectangle的2D碰撞检测。</a></p></li>
-</ol>
-
-
-<p><strong>原视频教程链接</strong>：<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/chapter1">这里</a></p>
-
-<p><strong>系列3D教程目录索引</strong>：<a href="/xna-tutorial-3d-index/">这里</a></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-19T08:18:48+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

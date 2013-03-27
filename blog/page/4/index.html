@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="首先声明这个文字的内容是在阮一峰的英文博客上看到的，先把原文贴过来吧： 5 Technology Trends Programmers Should Know by ruanyf Learn and use a modern scripting language. Ruby, Python, &hellip;">
+	<meta name="description" content="谨以此文献给所有小气鬼. 话说ubuntu下面(其他gnome的估计差不多, 不知道kde是什么光景) 的eclipse真是难看的爆掉, 工具栏高的可以占掉全世界了, 弄得这么高干吗啊, 还有各种标签各种XX各种OO. 本本的分辨率是1280800, 这样的margin真叫人难以忍受. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,136 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/make-eclipse-look-better-on-ubuntu/">
+		
+			让eclipse在ubuntu下面好看一点</a>
+	</h2>
+	<div class="entry-content">
+		<p>谨以此文献给所有小气鬼.</p>
+
+<p>话说ubuntu下面(其他gnome的估计差不多, 不知道kde是什么光景) 的eclipse真是难看的爆掉, 工具栏高的可以占掉全世界了, 弄得这么高干吗啊, 还有各种标签各种XX各种OO. 本本的分辨率是1280<em>800, 这样的margin真叫人难以忍受. 虽然19寸的1680</em>1050多少应该空间宽裕一点, 但是小气鬼还是觉得非常的不给力, 受不了它的高度宽度温度湿度经度纬度!</p>
+
+<p>于是我生气了, 于是我在寻求了别人帮助未果然后憋屈了好多年之后我终于生气了. 于是我今天去Google了, 于是我Google到了, 顺便提一下另外一个很让小气鬼生气的事情是Google到的结果是要翻墙才能看到的. 于是我在墙外某处看到了一个灰常牛B的做法, 自己改.gtkrc文件.</p>
+
+<p>在用户目录下(就是.bashrc的目录) 修改或创建 .gtkrc 文件, 然后填上以下内容.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>style "gtkcompact" {
+</span><span class='line'>font_name="Sans 8"
+</span><span class='line'>GtkButton::default_border={0,0,0,0}
+</span><span class='line'>GtkButton::default_outside_border={0,0,0,0}
+</span><span class='line'>GtkButtonBox::child_min_width=0
+</span><span class='line'>GtkButtonBox::child_min_heigth=0
+</span><span class='line'>GtkButtonBox::child_internal_pad_x=0
+</span><span class='line'>GtkButtonBox::child_internal_pad_y=0
+</span><span class='line'>GtkMenu::vertical-padding=1
+</span><span class='line'>GtkMenuBar::internal_padding=0
+</span><span class='line'>GtkMenuItem::horizontal_padding=4
+</span><span class='line'>GtkToolbar::internal-padding=0
+</span><span class='line'>GtkToolbar::space-size=0
+</span><span class='line'>GtkOptionMenu::indicator_size=0
+</span><span class='line'>GtkOptionMenu::indicator_spacing=0
+</span><span class='line'>GtkPaned::handle_size=4
+</span><span class='line'>GtkRange::trough_border=0
+</span><span class='line'>GtkRange::stepper_spacing=0
+</span><span class='line'>GtkScale::value_spacing=0
+</span><span class='line'>GtkScrolledWindow::scrollbar_spacing=0
+</span><span class='line'>GtkExpander::expander_size=10
+</span><span class='line'>GtkExpander::expander_spacing=0
+</span><span class='line'>GtkTreeView::vertical-separator=0
+</span><span class='line'>GtkTreeView::horizontal-separator=0
+</span><span class='line'>GtkTreeView::expander-size=8
+</span><span class='line'>GtkTreeView::fixed-height-mode=TRUE
+</span><span class='line'>GtkWidget::focus_padding=0
+</span><span class='line'>}
+</span><span class='line'>class "GtkWidget" style "gtkcompact"
+</span><span class='line'>
+</span><span class='line'>style "gtkcompactextra" {
+</span><span class='line'>xthickness=0
+</span><span class='line'>ythickness=0
+</span><span class='line'>}
+</span><span class='line'>class "GtkButton" style "gtkcompactextra"
+</span><span class='line'>class "GtkToolbar" style "gtkcompactextra"
+</span><span class='line'>class "GtkPaned" style "gtkcompactextra"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>说实话小气鬼真的看不懂, 也懒得看懂, 反正eclipse现在不碍着我了, 缺点是没有碍着我的其他软件其他界面里的一些布局都发生了一些变化, 不过这种让出屏幕空间的变化对一般人来说是缺点, 但是对小气鬼来说也不能不说是另一种feature~!  最后小气鬼心满意足的放一张截图<del>~ 这窄窄的看上去多顺眼啊</del></p>
+
+<p><a href="/images/uploads/wp/2010-11-24_better_look_eclipse.png"><img src="/images/uploads/wp/2010-11-24_better_look_eclipse.png" alt="" /></a></p>
+
+<p>via: <a href="http://lj4newbies.blogspot.com/2008/02/make-your-eclipse-look-better-on-ubuntu.html">http://lj4newbies.blogspot.com/2008/02/make-your-eclipse-look-better-on-ubuntu.html</a></p>
+
+<p>以上!</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-25T03:44:42+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/o-dot-s/'>O.S.</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -197,7 +327,7 @@
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/o-s-/'>O.S.</a>
+	<a class='category' href='/blog/categories/o-dot-s/'>O.S.</a>
 
 
 </div>
@@ -397,7 +527,7 @@
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/i-t-/'>I.T.</a>
+	<a class='category' href='/blog/categories/i-dot-t/'>I.T.</a>
 
 
 </div>
@@ -705,58 +835,6 @@
 
 
 <time datetime="2010-09-26T04:05:21+08:00" pubdate data-updated="true">Sep 26<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/psgroove-ps3-hack-source-code/">
-		
-			破解PS3源代码psgroove</a>
-	</h2>
-	<div class="entry-content">
-		<p>PS3四年了，一直没破解，之前George Hotz，那个完成iPhone越狱的少年号称破解了PS3，利用在主板上焊上一个按钮，在特定开机时刻发送特殊的信号实现了破解，但是源代码也公布了。但是后来geohoz在博客宣称只进展到这里不再继续了，希望有心人加入这个接下来的工作中。之后发生的事情有些匪夷所思，各界开始谩骂geohoz，称其没有真正破解PS3，甚至诋毁他的能力。事实上当时的代码的确已经破解了PS3的，只是因为还要一个硬件的支持，距离量产更是很远！但的确是有人在论坛上成功的。</p>
-
-<p>再后来比较爆炸的新闻就是PSjailbreak，利用一个类似U盘一样的小小的USB设备就可以完成破解PS3的工作。利用这个PSjailbreak，可以读硬盘上的镜像文件来玩游戏。随着jailbreak消息越来越多，国内某处也号称开始生产，jailbreak的价格也是非常的可怕，看到过一个价格是140的美刀，这貌似都要超过。</p>
-
-<p>今天看到一则<a href="http://www.h-online.com/open/news/item/PS3-hack-source-code-published-1071444.html">消息</a>比较开心（索尼也很开心），<strong>一个叫做psgroove的代码在<a href="http://github.com/psgroove/psgroove">github</a>上开源了</strong>，这是个什么玩意儿呢。其实就是一些代码，可以在AT90USB系列的开发板上运行。把设备接到PS3上后，第一时间向PS3发送一些代码，这些代码本来是加载USB外部设备包括电源连接数等等信息，如果这些代码非常多非常长，就会溢出，听到溢出后面就不用说了，我们自己的代码就可以被跳出来跑了。</p>
-
-<p>现在这个代码对3.41内核有效，我有点想对自己家PS3动手的冲动了。</p>
-
-<p>以上……</p>
-
-<p><strong>Update</strong>: 有人把这个代码移植到了N900和palm pre上。另外，如我所说，索尼真的很开心，昨天发布了3.42就是修补这个漏洞的。</p>
-
-<p>Update 2: 昨天看到有人把PSgroove移植到了<a href="http://brandonw.net/ps3jb/">可编程计算器</a>上，然后还有<a href="http://www.redmondpie.com/how-to-jailbreak-playstation-3-ps3-with-psfreedom-using-android-nexus-one-htc-desire/">andoird</a>，今天又看到有人移植到了<a href="http://www.redmondpie.com/jailbreak-playstation-3-ps3-with-iphone-3g-ipod-touch-using-psfreedom-psgroove-video/">iPhone和iPod上</a>，开源就是好啊，越来越靠谱了~</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-04T22:33:18+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2010</time></div>
 	<div class="tags">
 
 

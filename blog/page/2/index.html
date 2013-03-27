@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="很久没有写博客了，已经有友联的童鞋抱怨了，最近这段时间很忙，几乎下班就没心情做自己的事情了。话说最近入手了一台WP7，三星focus，白菜价，手机丢了所以来不及等Nokia Lumia 800了，很急就入手了。话说这不是重点，我手痒然后卸掉了WP7sdk的beta2，装上了新的7.1，小玩了一下 &hellip;">
+	<meta name="description" content="还有一个小时2011年就过完了，末日年就在眼前。今年博客更新的非常少，当然我没有偷懒，公司从年底上马了新的产品之后我就全身心的投入到了新的工作里去了。 爱折客从去年年底开始慢慢开发到现在整一年，发展迅速，今天年终总结的时候说实话我也觉得很振奋， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,54 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/arthur-s-2011-summary/">
+		
+			Arthur的2011年总结</a>
+	</h2>
+	<div class="entry-content">
+		<p>还有一个小时2011年就过完了，末日年就在眼前。今年博客更新的非常少，当然我没有偷懒，公司从年底上马了新的产品之后我就全身心的投入到了新的工作里去了。</p>
+
+<p>爱折客从去年年底开始慢慢开发到现在整一年，发展迅速，今天年终总结的时候说实话我也觉得很振奋，虽然始终我的兴趣点在social上而爱折客虽然有点像solomo，但是其实是没有social的成分的，所以我承认我并不是那么&#8221;爱&#8221;它。但是到了这个时候看着这个产品我觉得很自豪，我们是一群踏踏实实的童鞋们，没有开复老师呼风唤雨的本事，勤勤恳恳的做业绩，可能并不是很多人看到我们的成绩，但是我们很棒。</p>
+
+<p>技术上，算是真正独立完成了一个web的客户端，初期也并没有存储全部和后面的api交互，后来做着做着后台越做越大mongodb越做越熟。另外转型iOS开发才是这一年真正拼了老命的事情，要感谢公司给我配了台iMac坦率说是动力的源泉，很有压力但是的确是动力。现在自豪的说app store上已经有5个app出自我手啦。因为要偶尔维护api，所以虽然没有系统的学不过接触了ruby on rails，很有魅力！</p>
+
+<p>依然看了很多电影，没有去年多当然。依然看了很少书。动画几乎没看，剧集也是有一集没一集的追。在游戏上花的钱更多了，因为今年掌机换代了，入手了PSVita，也算是5年一次的大开销吧。</p>
+
+<p>希望明年公司蒸蒸日上，希望自己大大进步。2012我来了。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-01T07:07:29+08:00" pubdate data-updated="true">Jan 1<span>st</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -710,151 +758,6 @@
 
 
 <time datetime="2011-03-19T23:26:22+08:00" pubdate data-updated="true">Mar 19<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/nginx-411-error/">
-		
-			Nginx返回411错误</a>
-	</h2>
-	<div class="entry-content">
-		<p>今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, 生产环境测试环境都没有nginx, 唯独产品服务器上是, 糟糕吧.</p>
-
-<h2>引发411的原因</h2>
-
-<p>nginx给出的官方解释有三种情况会引发nginx弹411回去</p>
-
-<ol>
-<li>client sent invalid &#8220;Content-Length&#8221; header</li>
-<li>client sent … method without &#8220;Content-Length&#8221; header</li>
-<li>client sent &#8220;Transfer-Encoding: chunked&#8221; header</li>
-</ol>
-
-
-<p>我的场景是这样的, 用httpclient4(java)去调用一个api服务, 这个api使用的server正是nginx, 使用multipart提交图片文件的时候因为它忽略或省略了文件的真正的长度, 所以(通过firebug发现)在request header里就压根没有Content-Length. 那显然符合上面的第二种情况.</p>
-
-<h2>改代码</h2>
-
-<p>然后我尝试通过修改代码来解决, 自己填充这个header, 但是httpclient很硬气, 我写了一句</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">header</span> <span class="s">httppost.setHeader(&quot;Content-Length&quot;,</span> <span class="s">&quot;0&quot;)</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>它直接就报错了</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">org.apache.http.ProtocolException:</span> <span class="s">Content-Length</span> <span class="s">header</span> <span class="s">already</span> <span class="s">present</span> <span class="s">at</span> <span class="s">org.apache.http.protocol.RequestContent.process(RequestContent.java:67)</span>  <span class="s">......</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>看来想在包外面改还不是那么容易, 算了, 继续Google, 一定有合理的办法. <strong>不用改代码.</strong></p>
-
-<h2>重新编译nginx</h2>
-
-<p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &#8211; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
-
-<ol>
-<li><p>下载新版nginx(或者你还有原来的nginx代码在?), 并下载nginxHttpChunkinModule, 然后解压缩. (下载地址就不帖了, 前者版本更新很快, 后者最近又在开始更新支持DELETE方法了)</p></li>
-<li><p><code>nginx -V</code> 查一下之前编译nginx时候的参数, 并且记下来</p></li>
-<li><p><code>./configure</code> 并加上一堆参数, 尤其记得要加上 <code>--add-module=/path/to/your/module</code></p></li>
-<li><p><code>make</code> (不要马上<code>make install</code>)</p></li>
-</ol>
-
-
-<h2>不停掉nginx, 平滑过渡到新版本</h2>
-
-<p>这才是最最技术的活&#8230; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
-
-<ol>
-<li><p>备份原来的nginx可执行文件, 比如nginx_bak</p></li>
-<li><p><code>cp obj/nginx</code>到旧的nginx可执行文件的位置, 因为它还在跑所以要加上参数 <code>-f</code></p></li>
-<li><p><code>kill -USR2 旧版本的nginx主进程号</code> (用<code>ps aux | grep nginx</code>找到, 除了主进程还有一个worker process), 之后再ps会发现一个新的nginx进程被启动, 并且一个新的worker process也开始启动. 这个时候它们同时在工作.</p></li>
-<li><p><code>kill - WHINCH 旧版本的nginx主进程号</code> 这会让旧的nginx进程不再处理新的请求, 过一段时间之后再ps, 会看到旧的worker process已经消失停止了. 这时候所有的请求都交给新的nginx在处理了.</p></li>
-<li><p><code>kill -QUIT 旧版本的nginx主进程号</code> 退出旧的进程, 新的进程就可以使用了.</p></li>
-</ol>
-
-
-<p>当然这个平滑过渡适用版本升级等各种更换nginx可执行文件的情况, 所以再额外提一下如果发现新版本不好要退回去的时候怎么办.</p>
-
-<ul>
-<li><p><code>kill -HUP 旧的nginx主进程号</code> 不reload配置文件就直接重新启动旧的nginx</p></li>
-<li><p><code>kill -QUIT 新的nginx主进程号</code> 从容关闭新的Nginx实例</p></li>
-<li><p><code>kill -TERM 新的nginx主进程号</code> 这个和上面的可以二选一</p></li>
-<li><p>之后可以把之前的nginx_bak重新复制回来覆盖新的</p></li>
-</ul>
-
-
-<p>当然以上都是文明人的做法, 想施暴也是可以的&#8230;</p>
-
-<h2>修改nginx的配置文件</h2>
-
-<p>然后要改一下配置, 使新的模块生效</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">chunkin</span> <span class="no">on</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">error_page</span> <span class="mi">411</span> <span class="p">=</span> <span class="s">@my_411_error</span><span class="p">;</span>
-</span><span class='line'><span class="k">location</span> <span class="s">@my_411_error</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kn">chunkin_resume</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">location</span> <span class="s">/foo</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1"># your fastcgi_pass/proxy_pass/set/if and</span>
-</span><span class='line'>    <span class="c1"># any other config directives go here...</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">...</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样改过之后reload nginx就可以正常工作了, 详细配置方法请参考<a href="http://wiki.nginx.org/NginxHttpChunkinModule">wiki</a>谢谢.</p>
-
-<p>那么做到这里之前的问题就解决了, 记录一下, 因为在其他环境下都没遇到类似问题.</p>
-
-<p>以上</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-24T03:26:52+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time></div>
 	<div class="tags">
 
 

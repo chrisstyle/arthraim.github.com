@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="于是我又来了，前两天就想写了，拖到今天8月最后一天了，好吧，写一下吧。这个月看了14部电影，其实有一部不算电影，是新的福尔摩斯英剧。另外到剧场观影的有2部。 每张图都是douban的链接，如果你愿意，我也做了豆列。热烈欢迎大家在豆瓣上关注我： 暮光之城3：月食 / The Twilight &hellip;">
+	<meta name="description" content="PS3四年了，一直没破解，之前George Hotz，那个完成iPhone越狱的少年号称破解了PS3，利用在主板上焊上一个按钮，在特定开机时刻发送特殊的信号实现了破解，但是源代码也公布了。但是后来geohoz在博客宣称只进展到这里不再继续了，希望有心人加入这个接下来的工作中。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,58 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/psgroove-ps3-hack-source-code/">
+		
+			破解PS3源代码psgroove</a>
+	</h2>
+	<div class="entry-content">
+		<p>PS3四年了，一直没破解，之前George Hotz，那个完成iPhone越狱的少年号称破解了PS3，利用在主板上焊上一个按钮，在特定开机时刻发送特殊的信号实现了破解，但是源代码也公布了。但是后来geohoz在博客宣称只进展到这里不再继续了，希望有心人加入这个接下来的工作中。之后发生的事情有些匪夷所思，各界开始谩骂geohoz，称其没有真正破解PS3，甚至诋毁他的能力。事实上当时的代码的确已经破解了PS3的，只是因为还要一个硬件的支持，距离量产更是很远！但的确是有人在论坛上成功的。</p>
+
+<p>再后来比较爆炸的新闻就是PSjailbreak，利用一个类似U盘一样的小小的USB设备就可以完成破解PS3的工作。利用这个PSjailbreak，可以读硬盘上的镜像文件来玩游戏。随着jailbreak消息越来越多，国内某处也号称开始生产，jailbreak的价格也是非常的可怕，看到过一个价格是140的美刀，这貌似都要超过。</p>
+
+<p>今天看到一则<a href="http://www.h-online.com/open/news/item/PS3-hack-source-code-published-1071444.html">消息</a>比较开心（索尼也很开心），<strong>一个叫做psgroove的代码在<a href="http://github.com/psgroove/psgroove">github</a>上开源了</strong>，这是个什么玩意儿呢。其实就是一些代码，可以在AT90USB系列的开发板上运行。把设备接到PS3上后，第一时间向PS3发送一些代码，这些代码本来是加载USB外部设备包括电源连接数等等信息，如果这些代码非常多非常长，就会溢出，听到溢出后面就不用说了，我们自己的代码就可以被跳出来跑了。</p>
+
+<p>现在这个代码对3.41内核有效，我有点想对自己家PS3动手的冲动了。</p>
+
+<p>以上……</p>
+
+<p><strong>Update</strong>: 有人把这个代码移植到了N900和palm pre上。另外，如我所说，索尼真的很开心，昨天发布了3.42就是修补这个漏洞的。</p>
+
+<p>Update 2: 昨天看到有人把PSgroove移植到了<a href="http://brandonw.net/ps3jb/">可编程计算器</a>上，然后还有<a href="http://www.redmondpie.com/how-to-jailbreak-playstation-3-ps3-with-psfreedom-using-android-nexus-one-htc-desire/">andoird</a>，今天又看到有人移植到了<a href="http://www.redmondpie.com/jailbreak-playstation-3-ps3-with-iphone-3g-ipod-touch-using-psfreedom-psgroove-video/">iPhone和iPod上</a>，开源就是好啊，越来越靠谱了~</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-04T22:33:18+08:00" pubdate data-updated="true">Sep 4<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -632,7 +684,7 @@
 	<div class="tags">
 
 
-	<a class='category' href='/blog/categories/i-t-/'>I.T.</a>
+	<a class='category' href='/blog/categories/i-dot-t/'>I.T.</a>
 
 
 </div>
@@ -1027,77 +1079,6 @@ C:-----1=4==6=-------------
 
 
 	<a class='category' href='/blog/categories/movie/'>Movie</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/ps3-340-and-plus-is-available/">
-		
-			PS3系统固件3.4和PlayStation Plus</a>
-	</h2>
-	<div class="entry-content">
-		<p>还记得之前<a href="http://arthraim.cn/sony-e3-2010-press-conference/">E3展前发布会</a>上索尼宣布的PlayStation Plus吗？很快，它已经来了，18美刀3个月，50美刀1年的价格。相比之下Xbox live的gold会员在amazon上也差不多只要30美刀一年，这价格实在是有点小贵，而且目前为止Arthur还不知道plus究竟给了玩家什么好处，和所有玩家一样，Arthur最担心的是给布什premium会员带来的坏处。</p>
-
-<p>对Plus的支持来自于PS3已经或即将向用户推送的3.40固件。在添加plus支持的同时，3.40固件还提供了以下的一些新特性。</p>
-
-<ul>
-<li><strong>PlayStation Plus</strong>：PlayStation Network用户现在可以支付成为PlayStation Plus用户，plus，一个新的PSN订阅服务提供用户更多的选择以扩展和提高你的游戏体验，获得更多专享的特性和内容。友情提示，所有PSN的免费用户依然可以登录PSN得到plus特供以外的东东。（这狗屁广告我都懒得翻译下去了）</li>
-</ul>
-
-
-<p><a href="/images/uploads/wp/playstation_plus.jpg"><img src="/images/uploads/wp/playstation_plus.jpg" alt="" /></a></p>
-
-<ul>
-<li><p><strong>Photo Gallery（照片相册）</strong>：一个拥有新的网络图片分享特性的照片相册。新提升的功能允许你上传、浏览或评论所有在Facebook、Picasa网络相册上的照片。同时你也可以把相册中的照片分享给PSN好友，或直接打印。</p></li>
-<li><p><strong>Video Editor &amp; Uploader（视频编辑&amp;上传）</strong>： 视频编辑器和上传时XMB上的一个新功能，使你可以编辑、存储上传你存储在PS3系统里的视频，并且把他们上传到Facebook或者Youtube上。</p></li>
-</ul>
-
-
-<p><a href="/images/uploads/wp/2010-06-30_ps3_340_video_editor.jpg"><img src="/images/uploads/wp/2010-06-30_ps3_340_video_editor.jpg" alt="" /></a></p>
-
-<ul>
-<li><p><strong>Five Star Rating Support:（五星打分支持）</strong>：用户可以对PS Store里购买的内容给予1-5颗五角星的评价。</p></li>
-<li><p><strong>Power Save Settings（节能设置）</strong>：PS3自动关机设置将默认设为2小时，并且提供更多PS3节能设置。</p></li>
-</ul>
-
-
-<p>不得不说虽然目前为止Arthur对plus不感冒，不过这次固件是个很重要的固件升级，提供了一些很酷的网络相关的新特性~（虽然无奈的是设计到的social服务没有一个在墙内）。</p>
-
-<p>另外上不清楚这次固件对现在不温不火的自制固件等PS3破解行为是不是做出了相应的防御。</p>
-
-<p>以上</p>
-
-<p><strong>Arthur小通知一枚</strong>：早起订阅本博客的各位subscriber们~ 你们订阅的可能是http://feed.arthraim.cn/这个feedsky的RSS源，建议大家换成新的 http://arthraim.cn/feed 这个wordpress原生的feed。众所周知因为feedsky不稳定，并且最近经常抽风抓取老文章。如果您使用Google Reader订阅的，那么本博客新的feed几乎可以达到实时更新~ 谢谢大家一如既往的支持~~</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-06-30T01:37:11+08:00" pubdate data-updated="true">Jun 30<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
 
 
 </div>

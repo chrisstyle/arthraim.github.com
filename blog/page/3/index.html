@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="博客似乎没什么特别的东西好写, 小记一下昨天Google的两个东东, 有用没用稀有不稀有都记录一下. 这样轻松愉快的blog不但记录了成长说不定还对别人有帮助, 对我这种小角色来说还真是不错, hoho 第一个: freemarker遇到个错误 Cannot expose session &hellip;">
+	<meta name="description" content="今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,151 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/nginx-411-error/">
+		
+			Nginx返回411错误</a>
+	</h2>
+	<div class="entry-content">
+		<p>今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, 生产环境测试环境都没有nginx, 唯独产品服务器上是, 糟糕吧.</p>
+
+<h2>引发411的原因</h2>
+
+<p>nginx给出的官方解释有三种情况会引发nginx弹411回去</p>
+
+<ol>
+<li>client sent invalid &#8220;Content-Length&#8221; header</li>
+<li>client sent … method without &#8220;Content-Length&#8221; header</li>
+<li>client sent &#8220;Transfer-Encoding: chunked&#8221; header</li>
+</ol>
+
+
+<p>我的场景是这样的, 用httpclient4(java)去调用一个api服务, 这个api使用的server正是nginx, 使用multipart提交图片文件的时候因为它忽略或省略了文件的真正的长度, 所以(通过firebug发现)在request header里就压根没有Content-Length. 那显然符合上面的第二种情况.</p>
+
+<h2>改代码</h2>
+
+<p>然后我尝试通过修改代码来解决, 自己填充这个header, 但是httpclient很硬气, 我写了一句</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">header</span> <span class="s">httppost.setHeader(&quot;Content-Length&quot;,</span> <span class="s">&quot;0&quot;)</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>它直接就报错了</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">org.apache.http.ProtocolException:</span> <span class="s">Content-Length</span> <span class="s">header</span> <span class="s">already</span> <span class="s">present</span> <span class="s">at</span> <span class="s">org.apache.http.protocol.RequestContent.process(RequestContent.java:67)</span>  <span class="s">......</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看来想在包外面改还不是那么容易, 算了, 继续Google, 一定有合理的办法. <strong>不用改代码.</strong></p>
+
+<h2>重新编译nginx</h2>
+
+<p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &#8211; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
+
+<ol>
+<li><p>下载新版nginx(或者你还有原来的nginx代码在?), 并下载nginxHttpChunkinModule, 然后解压缩. (下载地址就不帖了, 前者版本更新很快, 后者最近又在开始更新支持DELETE方法了)</p></li>
+<li><p><code>nginx -V</code> 查一下之前编译nginx时候的参数, 并且记下来</p></li>
+<li><p><code>./configure</code> 并加上一堆参数, 尤其记得要加上 <code>--add-module=/path/to/your/module</code></p></li>
+<li><p><code>make</code> (不要马上<code>make install</code>)</p></li>
+</ol>
+
+
+<h2>不停掉nginx, 平滑过渡到新版本</h2>
+
+<p>这才是最最技术的活&#8230; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
+
+<ol>
+<li><p>备份原来的nginx可执行文件, 比如nginx_bak</p></li>
+<li><p><code>cp obj/nginx</code>到旧的nginx可执行文件的位置, 因为它还在跑所以要加上参数 <code>-f</code></p></li>
+<li><p><code>kill -USR2 旧版本的nginx主进程号</code> (用<code>ps aux | grep nginx</code>找到, 除了主进程还有一个worker process), 之后再ps会发现一个新的nginx进程被启动, 并且一个新的worker process也开始启动. 这个时候它们同时在工作.</p></li>
+<li><p><code>kill - WHINCH 旧版本的nginx主进程号</code> 这会让旧的nginx进程不再处理新的请求, 过一段时间之后再ps, 会看到旧的worker process已经消失停止了. 这时候所有的请求都交给新的nginx在处理了.</p></li>
+<li><p><code>kill -QUIT 旧版本的nginx主进程号</code> 退出旧的进程, 新的进程就可以使用了.</p></li>
+</ol>
+
+
+<p>当然这个平滑过渡适用版本升级等各种更换nginx可执行文件的情况, 所以再额外提一下如果发现新版本不好要退回去的时候怎么办.</p>
+
+<ul>
+<li><p><code>kill -HUP 旧的nginx主进程号</code> 不reload配置文件就直接重新启动旧的nginx</p></li>
+<li><p><code>kill -QUIT 新的nginx主进程号</code> 从容关闭新的Nginx实例</p></li>
+<li><p><code>kill -TERM 新的nginx主进程号</code> 这个和上面的可以二选一</p></li>
+<li><p>之后可以把之前的nginx_bak重新复制回来覆盖新的</p></li>
+</ul>
+
+
+<p>当然以上都是文明人的做法, 想施暴也是可以的&#8230;</p>
+
+<h2>修改nginx的配置文件</h2>
+
+<p>然后要改一下配置, 使新的模块生效</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='nginx'><span class='line'><span class="k">chunkin</span> <span class="no">on</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">error_page</span> <span class="mi">411</span> <span class="p">=</span> <span class="s">@my_411_error</span><span class="p">;</span>
+</span><span class='line'><span class="k">location</span> <span class="s">@my_411_error</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kn">chunkin_resume</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">location</span> <span class="s">/foo</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1"># your fastcgi_pass/proxy_pass/set/if and</span>
+</span><span class='line'>    <span class="c1"># any other config directives go here...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">...</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样改过之后reload nginx就可以正常工作了, 详细配置方法请参考<a href="http://wiki.nginx.org/NginxHttpChunkinModule">wiki</a>谢谢.</p>
+
+<p>那么做到这里之前的问题就解决了, 记录一下, 因为在其他环境下都没遇到类似问题.</p>
+
+<p>以上</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-24T03:26:52+08:00" pubdate data-updated="true">Feb 24<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -699,136 +844,6 @@
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/make-eclipse-look-better-on-ubuntu/">
-		
-			让eclipse在ubuntu下面好看一点</a>
-	</h2>
-	<div class="entry-content">
-		<p>谨以此文献给所有小气鬼.</p>
-
-<p>话说ubuntu下面(其他gnome的估计差不多, 不知道kde是什么光景) 的eclipse真是难看的爆掉, 工具栏高的可以占掉全世界了, 弄得这么高干吗啊, 还有各种标签各种XX各种OO. 本本的分辨率是1280<em>800, 这样的margin真叫人难以忍受. 虽然19寸的1680</em>1050多少应该空间宽裕一点, 但是小气鬼还是觉得非常的不给力, 受不了它的高度宽度温度湿度经度纬度!</p>
-
-<p>于是我生气了, 于是我在寻求了别人帮助未果然后憋屈了好多年之后我终于生气了. 于是我今天去Google了, 于是我Google到了, 顺便提一下另外一个很让小气鬼生气的事情是Google到的结果是要翻墙才能看到的. 于是我在墙外某处看到了一个灰常牛B的做法, 自己改.gtkrc文件.</p>
-
-<p>在用户目录下(就是.bashrc的目录) 修改或创建 .gtkrc 文件, 然后填上以下内容.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>style "gtkcompact" {
-</span><span class='line'>font_name="Sans 8"
-</span><span class='line'>GtkButton::default_border={0,0,0,0}
-</span><span class='line'>GtkButton::default_outside_border={0,0,0,0}
-</span><span class='line'>GtkButtonBox::child_min_width=0
-</span><span class='line'>GtkButtonBox::child_min_heigth=0
-</span><span class='line'>GtkButtonBox::child_internal_pad_x=0
-</span><span class='line'>GtkButtonBox::child_internal_pad_y=0
-</span><span class='line'>GtkMenu::vertical-padding=1
-</span><span class='line'>GtkMenuBar::internal_padding=0
-</span><span class='line'>GtkMenuItem::horizontal_padding=4
-</span><span class='line'>GtkToolbar::internal-padding=0
-</span><span class='line'>GtkToolbar::space-size=0
-</span><span class='line'>GtkOptionMenu::indicator_size=0
-</span><span class='line'>GtkOptionMenu::indicator_spacing=0
-</span><span class='line'>GtkPaned::handle_size=4
-</span><span class='line'>GtkRange::trough_border=0
-</span><span class='line'>GtkRange::stepper_spacing=0
-</span><span class='line'>GtkScale::value_spacing=0
-</span><span class='line'>GtkScrolledWindow::scrollbar_spacing=0
-</span><span class='line'>GtkExpander::expander_size=10
-</span><span class='line'>GtkExpander::expander_spacing=0
-</span><span class='line'>GtkTreeView::vertical-separator=0
-</span><span class='line'>GtkTreeView::horizontal-separator=0
-</span><span class='line'>GtkTreeView::expander-size=8
-</span><span class='line'>GtkTreeView::fixed-height-mode=TRUE
-</span><span class='line'>GtkWidget::focus_padding=0
-</span><span class='line'>}
-</span><span class='line'>class "GtkWidget" style "gtkcompact"
-</span><span class='line'>
-</span><span class='line'>style "gtkcompactextra" {
-</span><span class='line'>xthickness=0
-</span><span class='line'>ythickness=0
-</span><span class='line'>}
-</span><span class='line'>class "GtkButton" style "gtkcompactextra"
-</span><span class='line'>class "GtkToolbar" style "gtkcompactextra"
-</span><span class='line'>class "GtkPaned" style "gtkcompactextra"</span></code></pre></td></tr></table></div></figure>
-
-
-<p>说实话小气鬼真的看不懂, 也懒得看懂, 反正eclipse现在不碍着我了, 缺点是没有碍着我的其他软件其他界面里的一些布局都发生了一些变化, 不过这种让出屏幕空间的变化对一般人来说是缺点, 但是对小气鬼来说也不能不说是另一种feature~!  最后小气鬼心满意足的放一张截图<del>~ 这窄窄的看上去多顺眼啊</del></p>
-
-<p><a href="/images/uploads/wp/2010-11-24_better_look_eclipse.png"><img src="/images/uploads/wp/2010-11-24_better_look_eclipse.png" alt="" /></a></p>
-
-<p>via: <a href="http://lj4newbies.blogspot.com/2008/02/make-your-eclipse-look-better-on-ubuntu.html">http://lj4newbies.blogspot.com/2008/02/make-your-eclipse-look-better-on-ubuntu.html</a></p>
-
-<p>以上!</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-25T03:44:42+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/o-s-/'>O.S.</a>
 
 
 </div>
