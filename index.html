@@ -300,27 +300,31 @@ _webView = [[ &hellip;">
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
 <span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">def</span> <span class="nf">mongo_dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-</span><span class='line'>    <span class="c"># convert all iterables to lists</span>
-</span><span class='line'>    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;__iter__&#39;</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'>    <span class="c"># convert cursors to lists</span>
-</span><span class='line'>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'>    <span class="c"># convert ObjectId to string</span>
-</span><span class='line'>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">bson</span><span class="o">.</span><span class="n">objectid</span><span class="o">.</span><span class="n">ObjectId</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'>    <span class="c"># dereference DBRef</span>
-</span><span class='line'>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">bson</span><span class="o">.</span><span class="n">dbref</span><span class="o">.</span><span class="n">DBRef</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">db</span><span class="o">.</span><span class="n">dereference</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'>    <span class="c"># convert dates to strings</span>
-</span><span class='line'>    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">class</span> <span class="nc">MongoEncoder</span><span class="p">(</span><span class="n">JSONEncoder</span><span class="p">):</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">mongo_dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+</span><span class='line'>        <span class="c"># convert all iterables to lists</span>
+</span><span class='line'>        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;__iter__&#39;</span><span class="p">):</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'>        <span class="c"># convert cursors to lists</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'>        <span class="c"># convert ObjectId to string</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">bson</span><span class="o">.</span><span class="n">objectid</span><span class="o">.</span><span class="n">ObjectId</span><span class="p">):</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'>        <span class="c"># dereference DBRef</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">bson</span><span class="o">.</span><span class="n">dbref</span><span class="o">.</span><span class="n">DBRef</span><span class="p">):</span>
+</span><span class='line'>            <span class="k">return</span> <span class="n">db</span><span class="o">.</span><span class="n">dereference</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="c"># db is the incetance database</span>
+</span><span class='line'>        <span class="c"># convert dates to strings</span>
+</span><span class='line'>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">):</span>
+</span><span class='line'>            <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">app</span> <span class="o">=</span> <span class="n">app</span><span class="p">()</span>
 </span><span class='line'><span class="n">app</span><span class="o">.</span><span class="n">autojson</span> <span class="o">=</span> <span class="bp">False</span>
-</span><span class='line'><span class="n">app</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">JSONPlugin</span><span class="p">(</span><span class="n">json_dumps</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">mongo_dumps</span><span class="p">)))</span>
+</span><span class='line'><span class="n">m_encoder</span> <span class="o">=</span> <span class="n">MongoEncoder</span><span class="p">()</span>
+</span><span class='line'><span class="n">app</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">JSONPlugin</span><span class="p">(</span><span class="n">json_dumps</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">dumps</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">m_encoder</span><span class="o">.</span><span class="n">mongo_dumps</span><span class="p">)))</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
