@@ -1,0 +1,252 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>快速使用uwsgi部署 - Artoirus</title>
+	<meta name="author" content="Arthur Wang">
+
+	
+	<meta name="description" content="之前尝试在阿里云部署一个bottle.py写的web服务，选择了unbuntu12.04，一穷二白的ubuntu上用uwsgi部署还挺简单的。这里简单记录一下。 先要改一改程序代码，声明一个application 1
+application = bottle.app() 然后安装uwsgi， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Artoirus</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:artori.us">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="https://www.google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:artori.us">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">快速使用uwsgi部署</h2>
+	<div class="entry-content"><p>之前尝试在阿里云部署一个bottle.py写的web服务，选择了unbuntu12.04，一穷二白的ubuntu上用uwsgi部署还挺简单的。这里简单记录一下。</p>
+
+<p>先要改一改程序代码，声明一个application</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">bottle</span><span class="o">.</span><span class="n">app</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后安装uwsgi，demo.py就是修改过的bottle的代码。</p>
+
+<p>这里我遇到了<code>— unavailable modifier requested: 0 --</code>，要安装uwsgi-plugin-python，并且uwsgi启动时候添加<code>--plugin python</code></p>
+
+<p>一些uwsgi的操作看<a href="http://uwsgi-docs.readthedocs.org/en/latest/Management.html">这里</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>apt-get install uwsgi uwsgi-plugin-python
+</span><span class='line'>uwsgi --socket :8000 --plugin python --file demo.py --processes 4 --pidfile /tmp/demo.pid --touch-reload<span class="o">=</span>/tmp/restart -d uwsgi.log
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装nginx</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>apt-get install libpcre3 libpcre3-dbg libpcre3-dev
+</span><span class='line'>apt-get install zlib1g zlib1g-dbg zlib1g-dev
+</span><span class='line'>apt-get install make
+</span><span class='line'><span class="nb">cd</span> /path/to/nginx
+</span><span class='line'>./configure
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后配置nginx。默认安装路径在<code>/usr/local/nginx/conf/nginx.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">listen</span>       <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">server_name</span>  <span class="nx">demo</span><span class="p">.</span><span class="nx">artori</span><span class="p">.</span><span class="nx">us</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span><span class="kr">static</span><span class="o">/</span> <span class="p">{</span> <span class="nx">alias</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">demo</span><span class="o">/</span><span class="kr">static</span><span class="o">/</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">uwsgi_pass</span>      <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8000</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">include</span>         <span class="nx">uwsgi_params</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自此搞定</p>
+
+<p>via:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0">http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0</a></li>
+<li><a href="http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html">http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html</a></li>
+<li><a href="http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py">http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk">https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk</a></li>
+<li><a href="http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/">http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/</a></li>
+<li><a href="http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi">http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi</a></li>
+<li><a href="http://down.chinaz.com/server/201112/1467_1.htm">http://down.chinaz.com/server/201112/1467_1.htm</a></li>
+</ul>
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-14T01:02:00+08:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Arthur Wang
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artorius';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://artori.us/easy-deploy-with-uwsgi/';
+        var disqus_url = 'http://artori.us/easy-deploy-with-uwsgi/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-8352384-7']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

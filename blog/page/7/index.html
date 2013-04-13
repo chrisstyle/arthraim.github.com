@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="我的blog是一直有Movie这个分类的，不过似乎我写电影的时候很少，于是每个月写一篇电影相关的报告吧。我也不是什么专业影评人，凭着自己的感觉写，基本上应该是比较&#8221;观众向&#8221;的吧。 五月是忙着毕业的时候，过完五一花了两天写了毕业论文的初稿，之后就回去学校了。 &hellip;">
+	<meta name="description" content="偶然发现pydev已经更新到了新版本，新版本里原生支持了django。这个版本应该已经更新了快有1个月了吧。pydev是eclipse开发python的利器，是对eclipse最好的扩展；而Django是python web框架中最受欢迎的一个。pydev如今原生支持Django， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,60 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/pydev-new-version-supports-django/">
+		
+			Pydev新版本支持Django</a>
+	</h2>
+	<div class="entry-content">
+		<p>偶然发现pydev已经更新到了新版本，新版本里原生支持了django。这个版本应该已经更新了快有1个月了吧。pydev是eclipse开发python的利器，是对eclipse最好的扩展；而Django是python web框架中最受欢迎的一个。pydev如今原生支持Django，使得Django的使用更加方便了。</p>
+
+<p><a href="/images/uploads/wp/pydev_banner.gif"><img src="/images/uploads/wp/pydev_banner.gif" alt="" /></a><a href="/images/uploads/wp/django-logo.jpg"><img src="/images/uploads/wp/django-logo.jpg" alt="" /></a></p>
+
+<p>以前的做法是创建pydev项目，在项目目录下<code>django-admin.py startproject</code>，然后把新建的目录设为src，再自己设置Run和Debug，使用manage.py runserver 0.0.0.0:8080。</p>
+
+<p>如今pydev会自动在新建Django项目的时候startproject，自动设为src，和我们手动做的其实都是一样的。不过还会自动添加<code>DJANGO_MANAGE_LOCATION</code>和<code>DJANGO_SETTINGS_MODULE</code>两个字符串替换变量（string substitution variable）分别指向项目目录下的manage.py和settings.py。</p>
+
+<p>当然，以前手动处理的项目，也可以使用右键-pydev-Set As Django Project把原有的项目转换为Pydev Django项目。当然一样要确认下是不是有<code>DJANGO_MANAGE_LOCATION</code>和<code>DJANGO_SETTINGS_MODULE</code>两个变量。</p>
+
+<p><a href="/images/uploads/wp/2010-06-05_pydev_django_vaviables.png"><img src="/images/uploads/wp/2010-06-05_pydev_django_vaviables.png" alt="" /></a></p>
+
+<p>详细情况参见<a href="http://pydev.org/manual_adv_django.html">官方说明</a>。</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-05T23:07:49+08:00" pubdate data-updated="true">Jun 5<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -880,76 +934,6 @@
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/more-about-blog-migration/">
-		
-			博客搬家后续</a>
-	</h2>
-	<div class="entry-content">
-		<p>博客搬家几天了，一直时不时的在做一些剩余的工作，比较郁闷的是前天夜里突然发现调整过ID的日志和与之相匹配的分类、标签信息都错位了，于是又在wp_term_relationship表里调整了好久。不过总算是后来有惊无险损失不大。</p>
-
-<p>因为那次经历大大的加深了我对wordpress的数据库设计的熟悉程度。刚刚开始调整的时候我不停的抱怨WP的设计过于技巧化，无论是post的category还是tag，还是说links对象的category，实现的方式只有一种&#8212;-term，然后通过一张term_taxonomy的表来记录这些term的具体类型(taxonomy)。而tags和posts的关系则被存在另一张叫做term_relationships的表里，这看起来倒是有点像一张n-n表的样子了，不过也不是这么简单，WP伟大的把links（会不会还有其他对象我没有注意到）和term的关系也一起放到了这张表里。于是这张表里的object_id有时候它是post的id，有时候也会是link的id。comment是不能加tag的，不然估计也一起写进去了。</p>
-
-<p>另外WP的数据库和一般的博客系统例如Z-BLOG有很大的不同&#8212;-写文章的时候是拥有版本管理的。这是一个非常酷且实用的功能，尤其是对理性的程序员使用者来说这样的功能真是用不着但是有备无患的存在。但是这样的功能数据库是如何实现的呢，于是你会发现每更新一篇文章，为重新作为一个post对象插入到数据库里。Z-blog的一篇文章是一条记录，那么最终我用id作为静态文件（z-blog支持建立静态页面）的名字的话，它们都将是延续的（除非中间有草稿或者被删除过）。而WP这样id必定不是连续的，所以url里%postid%似乎是这篇文章的第一个版本的ID。具体情况没有更加深入了。</p>
-
-<p>上面两段讲了讲对WP数据结构的初步认识，还是挺有趣的，这样基本上也坚定了我不适用ID作为文章地址的决心了。下面还有几个东西要说说。</p>
-
-<p><strong>关于URL</strong>，我真的决心去掉了原来permalinks的方式，当然这也是在原来博客链接都无缝转移到现在的前提下。安装了<a href="http://www.deanlee.cn/wordpress/permalinks-migration-plugin/">dean&#8217;s pemalinks migration</a>这个插件，告诉他之前的permalinks和现在的，他会自动帮你把访问原来地址的请求301到现在的地址。只是比较蛋疼的是原来的博客文章都没有slug这个东东，中文做url又不是很好，所以我一篇一篇文章的加上了slug，使得所有的文章都拥有一个英文的url。话说新的sitemap才提交，不知道搜索引擎们什么时候会更新我的url地址，不过有301总是没有什么大问题滴~</p>
-
-<p><strong>关于原来的主机</strong>，今天和服务商取得了联系，他们要求我提交一份新的备案信息，之前的备案是工信部的，这一次是浙江网监的（主机在杭州）。我坚持不配合，我告诉他们我不再需要他们的服务了，因此也不再需要履行这些程序了，我只是希望拿出原有主机上的所有数据（现在因为没有提交信息，ftp处在禁止接入的状态），对方承诺今天下午可以帮我全部下载回来。总共也不到100M的数据，何况我备份过了其中的大部分。</p>
-
-<p><strong>关于SyntaxHighlight</strong>，我还是把之前会引起javascript执行错误的文章找出来给改好了。其实大部分工作最终还是在数据库用replace函数搞定了，只是还有一些个例，最后是在数据库里个别修复的（不在后台是为了绕过版本管理，毕竟是之前的老数据的转换问题）。只是比较奇怪的是代码的缩进都丢了，事实上数据库里是存在的，如果不是WP程序问题，就是使用的模板的关系，这个可能再观察一段时间吧。</p>
-
-<p><strong>关于feed</strong>，之前说了是无缝转换过来了。只是我看了WP的feed的详细介绍，我决定不再使用feed烧录的服务了。feedsky经常故障众所周知，feedburner已经在墙外，从阅读器跳转到原址已经不可能了。另外，wordpress轻松的可以实现RSS RSS2 ATOM各个标准的订阅，如果烧录恐怕我要根据不同的需求全都烧录下（按照我的想法），那与其这样还不如就那样算了。这样的缺点是我再也不知道有多少个订阅者了。但是和全文输出feed的初衷一样，我希望可以带来更好的体验，起码我一更新文章就可以等着阅读器来抓了（不然还要等feed烧录服务先来抓）。新的订阅者或老的订阅者都可以直接订阅<a href="http://arthraim.cn/feed">http://arthraim.cn/feed</a>，当然就像我说的，feedsky的<a href="http://feed.arthraim.cn/">http://feed.arthraim.cn/</a>也依然有效，至于feedburner的地址我就不放了（从来没有放出来过）。</p>
-
-<p><strong>关于评论和Google Friend Connect</strong>，之前的博客我去掉了Z-blog自带的评论系统，而全部采用了GFC的登录、评论。这样大大的抬高了评论的门槛，但是好处在于我可以block掉一些讨厌的留言者。现在WP完全支持&#8221;拖黑&#8221;的需求，并且比起以往，我更希望看到看我博客的人的回复和交流了。至于GFC，我觉得已经不再有必要整合进博客了，总的来说GFC还是相当失败的，比如它和prototype.js的兼容性。</p>
-
-<p><strong>关于kill ie6</strong>，我最终使用了NEOEASE的mg12提供的<a href="http://www.neoease.com/lets-kill-ie6/">这个脚本</a>，很美观。因为我的模板本身是兼容IE6，所以其实对IE6用户来说体验还是不错的，因为这个脚本不是那么暴力。相比起来老赵的博客就非常暴力了，用IE6？你别去了…… 当然，作为一个互联网从业者，我奉劝大家升级IE6吧，同时我推荐大家使用万能无敌天下无双完美支持CSS3 HTML5的次时代新浏览器Google Chrome。</p>
-
-<p><strong>关于手机用户</strong>，我装了MobilePress的插件，使用手机访问时会自动根据user-agent给你合适的页面了。普通手机访问时MobilePress默认的主题，而iPhone用户我特地给换了一个和Carrington主题配套的一个移动版主题，只是我没有iPhone没有试过好不好。在android上测试下来，这个主题没有MobilePress自带的来的好，但是它是专门为iPhone设计的哦。所有的同学可以通过更换url访问本博客的这3个不同版本，分别是普通网页版（<a href="http://arthraim.cn/?nomobile">http://arthraim.cn/?nomobile</a>）、普通手机版（<a href="http://arthraim.cn/?mobile">http://arthraim.cn/?mobile</a>）、iPhone版（<a href="http://arthraim.cn/?iPhone">http://arthraim.cn/?iPhone</a>）。欢迎大家根据需求选择。</p>
-
-<p>这就是全部关于这次搬家我剩下的没有说完的了，谢谢大家耐心看完。</p>
-
-<p><strong>Update 2010-04-27</strong>：</p>
-
-<p>今天下午客服主动联系我帮我把数据打包好了提供我下载，顺利的下载到了之前的数据，有用的我已经都放回到现在的服务器上了，不得不感谢一下这位客服同学，他给我的貌似是一个网通IP，我是电信的，所以为了等我龟速下载完，他一直没有重启服务器，等到我下载完成后才继续。这样的态度对待一个要放弃他们产品的客户，实在是让人有些感动。</p>
-
-<p>值得一提的是他把我的根目录所有的数据他都打包了，以至于我发现之前黑掉我博客的那个木马还在，被我现在电脑里的杀毒软甲杀了，不过他们的服务器…… 希望那个技术人员注意到了这一点。</p>
-
-<p>以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-27T10:38:08+08:00" pubdate data-updated="true">Apr 27<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>

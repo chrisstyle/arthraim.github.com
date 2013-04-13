@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programing | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-04-13T20:39:58+08:00</updated>
+  <updated>2013-04-14T01:30:22+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[快速使用uwsgi部署]]></title>
+    <link href="http://artori.us/easy-deploy-with-uwsgi/"/>
+    <updated>2013-04-14T01:02:00+08:00</updated>
+    <id>http://artori.us/easy-deploy-with-uwsgi</id>
+    <content type="html"><![CDATA[<p>之前尝试在阿里云部署一个bottle.py写的web服务，选择了unbuntu12.04，一穷二白的ubuntu上用uwsgi部署还挺简单的。这里简单记录一下。</p>
+
+<p>先要改一改程序代码，声明一个application</p>
+
+<p><code>py
+application = bottle.app()
+</code></p>
+
+<p>然后安装uwsgi，demo.py就是修改过的bottle的代码。</p>
+
+<p>这里我遇到了<code>— unavailable modifier requested: 0 --</code>，要安装uwsgi-plugin-python，并且uwsgi启动时候添加<code>--plugin python</code></p>
+
+<p>一些uwsgi的操作看<a href="http://uwsgi-docs.readthedocs.org/en/latest/Management.html">这里</a></p>
+
+<p><code>sh
+apt-get install uwsgi uwsgi-plugin-python
+uwsgi --socket :8000 --plugin python --file demo.py --processes 4 --pidfile /tmp/demo.pid --touch-reload=/tmp/restart -d uwsgi.log
+</code></p>
+
+<p>安装nginx</p>
+
+<p><code>sh
+apt-get install libpcre3 libpcre3-dbg libpcre3-dev
+apt-get install zlib1g zlib1g-dbg zlib1g-dev
+apt-get install make
+cd /path/to/nginx
+./configure
+make
+make install
+</code></p>
+
+<p>最后配置nginx。默认安装路径在<code>/usr/local/nginx/conf/nginx.conf</code></p>
+
+<p>```js
+server {</p>
+
+<pre><code>listen       80;
+server_name  demo.artori.us;
+
+location /static/ { alias /home/root/demo/static/; }
+
+location / {
+    uwsgi_pass      127.0.0.1:8000;
+    include         uwsgi_params;
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>自此搞定</p>
+
+<p>via:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0">http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0</a></li>
+<li><a href="http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html">http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html</a></li>
+<li><a href="http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py">http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk">https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk</a></li>
+<li><a href="http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/">http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/</a></li>
+<li><a href="http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi">http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi</a></li>
+<li><a href="http://down.chinaz.com/server/201112/1467_1.htm">http://down.chinaz.com/server/201112/1467_1.htm</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIWebView加载本地资源]]></title>
@@ -277,30 +349,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 <p>PS: <a href="http://developer.apple.com/library/ios/#qa/qa1681/_index.html">这里</a>还有一个手动转换，和还原的办法</p>
 
 <p>via: <a href="http://iphonedevelopment.blogspot.jp/2008/10/iphone-optimized-pngs.html">http://iphonedevelopment.blogspot.jp/2008/10/iphone-optimized-pngs.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[git修剪分支]]></title>
-    <link href="http://artori.us/git-prune-branch/"/>
-    <updated>2012-03-02T08:07:32+08:00</updated>
-    <id>http://artori.us/git-prune-branch</id>
-    <content type="html"><![CDATA[<p>项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。</p>
-
-<ul>
-<li><p><code>git branch</code> 可以查看本地有的分支，当前分支之前有个*。</p></li>
-<li><p><code>git branch -r</code> 查看所有远程的分支（不代表远程还有的分支）</p></li>
-<li><p><code>git branch -a --color</code> 查看所有分支（<code>--color</code>加颜色，绿色是tracking的）</p></li>
-<li><p><code>git branch -d TAG</code> 删除本地分支，如果这个分支有没有合并的提交，git会提示你改用 <code>-D</code> 强制删除（或干脆别删除！）</p></li>
-<li><p><code>git push REMOTE :TAG</code> 删除远程REMOTE（比如一般叫origin）分支，注意分支名前加冒号</p></li>
-<li><p><code>git remote prune REMOTE</code> 这个指令比较特殊，如果你在A仓库上<code>git fetch</code>过，在B仓库用上一条命令删除了远程分支，那么A仓库里 <code>git branch -r</code> 还是可以看到已经删掉的分支。这个时候可以用这个命令修剪这些分支。</p></li>
-<li><p><code>git prune</code> 在本地也可以使用，不过作用我还真不清楚，官方用推荐用 <code>git gc</code></p></li>
-</ul>
-
-
-<p>记录下，git真的很萌的你们不要黑他。</p>
-
-<p>以上。</p>
 ]]></content>
   </entry>
   

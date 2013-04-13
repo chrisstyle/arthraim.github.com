@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="这是一部非常意外的收获，我喜欢查理兹塞隆，她的眼神中可以诠释出角色的一切灵魂，而这部《燃烧的平原》就是一部让我非常震撼的电影。Mtime时光网上有很多的影评，在我看完这部电影之后我都去一一看了，我都不喜欢这些影评，也不推荐任何人在看这部电影前去看任何的影评，这不是因为《第六感》式的畏惧剧透， &hellip;">
+	<meta name="description" content="PSPgen小组如约发出了5.55的eboot的破译程序，经过我刚才的测试已经顺利的让GT PSP跑在我的PSP上了。我下载的GT是欧版的，我的PSP是1000型并且使用的是5.50GEN-B(FULL)。这里我会讲解一下这次破解的原理，几乎和PSP的型号是没有关系的， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,112 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/pspgen-decrypted-eboot-bin-and-usage-of-game-decrypter/">
+		
+			PSPgen小组破译EBOOT.bin及Game Decrypter使用方法</a>
+	</h2>
+	<div class="entry-content">
+		<p>PSPgen小组如约发出了5.55的eboot的破译程序，经过我刚才的测试已经顺利的让GT PSP跑在我的PSP上了。我下载的GT是欧版的，我的PSP是1000型并且使用的是5.50GEN-B(FULL)。这里我会讲解一下这次破解的原理，几乎和PSP的型号是没有关系的，只是我现在还没有机会在3000上试验，据一些论坛的反馈，在3000上还是存在一些问题。好了现在展开说一下吧。</p>
+
+<p><strong>一、原理讲解</strong></p>
+
+<p>众所周知，dark_alex已经几乎弹出了破解界，据他自己所说hacker needs to eat，当然说他深藏不露、蓄势待发的消息不绝于耳。因为PSP新的CPU对ipl加载等方面做了很多的防御措施，所以到目前为止无法进入kernel mode，也就是核心模式，即我们还是只能在用户模式下徘徊。</p>
+
+<p>之前利用chickhen，可以成功的破解TA-088v3以及PSP3000的TA-090主板又是什么原理呢？这和当初破解2.71时一样，利用的是一个TIFF的漏洞，可以利用它跳转执行自己的代码。TIFF模块不是什么深奥的东西，就是来显示tiff图片的，因此我们才看到了chickhen的破解第一步是要在图片目录里折腾，这就是引发漏洞，只有引发了这个漏洞才能执行我们的代码，完成破解。</p>
+
+<p>而今番再次鼓吹告破，其实不是什么和以上有关的内容，因为上面的思路都是制作自己的自治系统，从而可以轻易的使用索尼的所有模块而不需要去了解这些模块是如何工作的。而这一次的思路完全不同，是关注每个游戏，也就是说，要让每一个高于5.50系统（目前为止版本最高的自制系统）的游戏都可以在5.50上甚至更低级的系统上跑。</p>
+
+<p>那么修改游戏有哪些方法呢，困难又在哪里呢？</p>
+
+<p><strong>1、使用替换的version.txt</strong>，就像Arthur在《<a href="http://arthraim.cn/post/2009/09/109.html">破解PSP 5.55系统的雷人Lua代码</a>》里说的一样，替换一个version.txt就能骗过很多对系统有要求的demo甚至游戏。</p>
+
+<p><strong>2、用boot.bin替换eboot.bin</strong>，如果你用Winrar解压缩过PSP的ISO文件，那么其实你会发现存在eboot.bin和boot.bin两个用以启动游戏的文件。以前的做法是，直接把boot.bin改名为eboot.bin并且替换原来的文件，打包。就可以运行了。</p>
+
+<p>但是这样的做法在现在的版本中（5.55之后）不行了，因为索尼防御了这个做法，如果用HEX工具打开boot.bin来开的话，可以看到全是000000，被成为dummy file。事实上索尼已经不再需要这个文件来加载游戏了。而以前的boot.ini往往是以~ELF开始的。同时，eboot.bin也被加密了，无法按照正常的HEX修改方法去修改它对版本的需求，需要decrypt才可以。</p>
+
+<p><strong>3、利用版本间的差异</strong>，这也是一个因为无法破译新文件而产生的另类的方法，运气很好的是有些游戏（比如灵魂能力）虽然一些版本（比如日版）的eboot.bin是加密的，但是其他版本（比如欧版美版）没有加密，所以只要做个迁移的工作，就可以搞定了。</p>
+
+<p><strong>4、破解eboot.bin</strong>，这是在破解每个游戏上比较治本的方法了，如果能破译eboot.ini，那就能按照传统的方法去处理了。其实说治本也不见得，因为这毕竟是比较被动的方法，人家加密了，我们解密……</p>
+
+<p>那这一次，PSP gen小组就告诉我们，可以破译eboot.bin了。</p>
+
+<hr />
+
+<p><strong>二、破解方法</strong></p>
+
+<p>1、用UMDGEN4.0打开GT的ISO。</p>
+
+<p>2、解压出eboot.ini</p>
+
+<p><a href="/images/uploads/zb/2009-09-30_excompress_eboot_bin.jpg"><img src="/images/uploads/zb/2009-09-30_excompress_eboot_bin.jpg" alt="" /></a></p>
+
+<p>3、把解压出来的EBOOT.bin拷贝到PSP记忆棒根目录下</p>
+
+<p>4、在PSP上运行使用Game Decrypter Yoshihiro</p>
+
+<p><a href="/images/uploads/zb/screenshot_9930112319_811.png"><img src="/images/uploads/zb/screenshot_9930112319_811.png" alt="" /></a></p>
+
+<p><a href="/images/uploads/zb/2009-09-30_run_game_decrypter.jpg"><img src="/images/uploads/zb/2009-09-30_run_game_decrypter.jpg" alt="" /></a></p>
+
+<p>5、PSP记忆棒根目录会生成一个DECRYPTOR目录，取出里面新的eboot.bin</p>
+
+<p><a href="/images/uploads/zb/2009-09-30_get_new_eboot_bin.jpg"><img src="/images/uploads/zb/2009-09-30_get_new_eboot_bin.jpg" alt="" /></a></p>
+
+<p>6、用UMDGEN替换原有文件</p>
+
+<p><a href="/images/uploads/zb/2009-09-30_replace_eboot_bin.jpg"><img src="/images/uploads/zb/2009-09-30_replace_eboot_bin.jpg" alt="" /></a></p>
+
+<p>7、最后保存为新的iso文件</p>
+
+<p><a href="/images/uploads/zb/2009-09-30_save_new_iso.jpg"><img src="/images/uploads/zb/2009-09-30_save_new_iso.jpg" alt="" /></a></p>
+
+<p><a href="/images/uploads/zb/2009-09-30_saving_new_iso.jpg"><img src="/images/uploads/zb/2009-09-30_saving_new_iso.jpg" alt="" /></a></p>
+
+<p>这样，新的ISO就产生了，赶快装进PSP试试看能不能用吧~</p>
+
+<p><a href="/images/uploads/zb/screenshot_993011372_491.png"><img src="/images/uploads/zb/screenshot_993011372_491.png" alt="" /></a></p>
+
+<p><a href="/images/uploads/zb/UCUS-98632_9930124135_098.png"><img src="/images/uploads/zb/UCUS-98632_9930124135_098.png" alt="" /></a></p>
+
+<p><strong>相关下载</strong>：<a href="ftp://download1:fmMRHK15@ftp2.tg777.com/PSP/tools/gamedecrypter-by-yoshihiro.zip">Game Decryptor</a> | <a href="ftp://download3:fmMRHK15@ftp2.tg777.com/PSP/tools/UMDGen4.0.rar">UMDGEN4.0</a></p>
+
+<p><strong>相关链接</strong>：<a href="http://www.pspgen.com/tutoriel-game-decrypter-yoshihiro-article-190008-1.html">PSP GEN官方发布页</a> | <a href="http://www.cngba.com/thread-18457527-1-1.html">cngba论坛教程</a></p>
+
+<p>以上……</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-09-30T19:13:38+08:00" pubdate data-updated="true">Sep 30<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1212,87 +1318,6 @@
 
 
 	<a class='category' href='/blog/categories/internet/'>internet</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/arthur-2009-09-15/">
-		
-			Arthur 杂记 | 2009-09-15</a>
-	</h2>
-	<div class="entry-content">
-		<p>杂记：杂乱无章的记录一些东西，我觉得我的博客真是越来越堕落了…… 主要讲讲博客小小的变化，前些日子我小小的消失，对博客需求发生的变化。意识流，想到哪里算哪里了。这篇文章就是传说中的fans向，对本博客无爱的朋友绕道吧。</p>
-
-<p><img src="http://arthraim.cn/themes/techified/style/images/arthraim_logo.png" alt="" /></p>
-
-<p><strong>博客更新：</strong></p>
-
-<p>博客又一次作了小小的调整，大致情况如下：</p>
-
-<ol>
-<li><p>改用新的LOGO字体。</p></li>
-<li><p>模板的顶部页面链接处，改成了原有的导航。</p></li>
-<li><p>之前的导航改为了分类列表。</p></li>
-<li><p>取消原来右侧的Websites这个widget。</p></li>
-<li><p>twitter的javascript代码被注释掉了，也没有使用其他微博服务。（之前说的《<a href="http://arthraim.cn/post/2009/09/100.html">简单的人间网Widget </a>》）</p></li>
-<li><p>去掉了CNZZ的图标。</p></li>
-</ol>
-
-
-<p>都是些小改动，不过2、3、5对体验还是有很大的改进的，也发挥出了正在使用的这个主题的全部能量了。</p>
-
-<p><strong>我的消失：</strong></p>
-
-<p>这个月已经过半，博客更新才两篇，真是可怜巴巴。主要是9月初是开学的日子，所以我去学校处理一些大四最后一年的手续（奖学金还是要的啊），另外本着去两天就回来的初衷，所以只带了一些换洗衣服，唯一的数码设备就是手机。所以结结实实的体验了一把没有电脑、没有网络的生活。这些天里只要有空余的时间就觉得无聊的没办法，吃过晚饭就找个网吧往里一钻，把Reader里一天积累下来的一大堆feed读完。twitter也几乎不推。上的最多的是人人网，因为手机能上的几个站点里也就人人网朋友最多一点。</p>
-
-<p>此行学校报道、注册等事情处理外，还为实习弄了一些相关的手续，另外还目睹了一场H1N1流感在校园流行的人间惨剧，就在离我们寝室不到100米的那幢楼里确诊了4例，而学校宾馆的所有房间也全都用来隔离接触者、体温异常者了。每天早上要量体温，学校也是很慌的，毕竟新生还没开学，这要是控制的不好新生就不用来了。</p>
-
-<p><strong>博客需求：</strong></p>
-
-<p>在对博客作相关修改的时候，我真的越来越受不了Z-blog了。首先我真的对ASP和VBscript一窍不通，所以想对核心程序做什么修改是不可能了，我也不愿意学啊。所以Z-blog不满足我的地方越来越多了。</p>
-
-<ul>
-<li><p>比如侧边栏是没有办法自定义的，所以我要不得不去修改模板（Z-blog的一大好处就是页面都是根据模板生成静态HTML的）。</p></li>
-<li><p>模板的设定又很笨，包括头部、脚部、导航、侧边栏等一大堆东西都要重复修改5遍。当然啦，也许这5个功能不同的页面需要不一样的头部脚步导航侧边栏，可我是一样的，所以不得不修改重复的代码5次。</p></li>
-<li><p>没有&#8221;页面&#8221;，不能自己生成一些页面，像about啦之类的。话说Dutory好像有，可是Dutory却不开源，一堆一堆的dll。</p></li>
-<li><p>没有widget。我所谓的widget要求不高，就是能放个列表啊，放个图片啊啥的，当然最好是编辑HTML。</p></li>
-<li><p>不能自定义列表。只能生硬的使用它提供的几种列表，连sohu博客都可以自定义列表。</p></li>
-</ul>
-
-
-<p>由此可以看出我对博客系统的一些需求，反正Z-blog是大大的没有满足我，把wordpress的主题模板移植过来却完全都用不到那些个功能。但是反过来说，除了Z-blog我也没有找到什么其他的替代品，最好是.net的，但是blogengine.net 维护力量很薄弱了，dutory还是个娃娃阶段。不知道Oxite怎么样，没有尝试过。还有什么.net 的博客系统？换博客系统也是个麻烦的事情啊……</p>
-
-<p>以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-09-15T09:15:50+08:00" pubdate data-updated="true">Sep 15<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>

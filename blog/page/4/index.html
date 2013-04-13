@@ -7,7 +7,8 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="谨以此文献给所有小气鬼. 话说ubuntu下面(其他gnome的估计差不多, 不知道kde是什么光景) 的eclipse真是难看的爆掉, 工具栏高的可以占掉全世界了, 弄得这么高干吗啊, 还有各种标签各种XX各种OO. 本本的分辨率是1280800, 这样的margin真叫人难以忍受. &hellip;">
+	<meta name="description" content="每次发生这样的问题都要重新Google, 每次不外乎就是那么几种方法, 记录下, 自己找起来方便一点: %eclispe_dir%/configration/config.ini文件 org.eclipse.update.reconcile=false, 改成true
+或者加上osgi. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +72,61 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/reset-eclipse-plugins-when-updated/">
+		
+			升级造成eclipse插件失效</a>
+	</h2>
+	<div class="entry-content">
+		<p>每次发生这样的问题都要重新Google, 每次不外乎就是那么几种方法, 记录下, 自己找起来方便一点:</p>
+
+<ul>
+<li><p>%eclispe_dir%/configration/config.ini文件</p>
+
+<ul>
+<li><p><code>org.eclipse.update.reconcile=false</code>, 改成<code>true</code></p></li>
+<li><p>或者加上<code>osgi.checkconfiguration=true</code></p></li>
+</ul>
+</li>
+<li><p>删除整个目录<code>/eclipse/configuration/org.eclipse.update/</code>，重启eclipse</p></li>
+<li><p>在启动eclipse时带上 <code>-clean</code>参数</p></li>
+</ul>
+
+
+<p>记录之, 以上.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-25T22:49:12+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -777,68 +833,6 @@
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/tgs2010-highlights/">
-		
-			TGS2010的小总结</a>
-	</h2>
-	<div class="entry-content">
-		<p>TGS结束了快一周了，我还是想写一下。近来日本游戏产业没落的言论不停的传播，日本游戏市场本身不景气也是冰冻三尺。本身日本的技术力已经落后欧美越来越多，另外日本发达的中古市场让销售本身也变得不是那么让人满意。</p>
-
-<p>如题，今年2010年的TGS出来的一些消息真的是比起E3要给力多了。因为我眼界有限，眼光独特 - - 所以我这里只列举几个让我特别high的消息。</p>
-
-<p><strong>鬼泣5</strong>：这是雷作，因为CAPCOM的发布会最早，所以这个惊天消息一出来整个A9VG论坛都炸开了锅。相信有不少人看到过但丁永垂不朽的头像了。年轻版但丁，太雷。</p>
-
-<p><strong>Asura&#8217;s Wrath</strong>：这是老卡全新的一个title，老招牌砸的差不多了，开辟新路是必要的。从后来的概念影片来看，这游戏还是非常值得期待的。（也有雷的潜质）</p>
-
-<p><strong>真三国无双6</strong>：356的公布非常意外！而且日本地区PS3独占。不过KT你们懂得，最早发布的版本往往是料最少的。355我玩了PS3, PS2, PSP系列上所有的作品，PS3绝对是最早也是最单薄的，虽然画面是最好的。</p>
-
-<p><strong>Project DARK</strong>：不知道是向Another M一样在初期用project命名，还是这个游戏就用这名儿了，不过一看就是恶魔之魂的续作，让这个作品备受关注。</p>
-
-<p><strong>恶魔城*暗影之王</strong>：日版发售日公布，也是年内。不过美版10月份就可以玩到了~ 你喜欢Castlevania还是恶魔城呢？</p>
-
-<p><strong>MGS SNAKE EATER</strong>：这是一个3DS的作品，目前消息还很少，不过从标题来看和GC差距应该不大。3DS的游戏作品才刚刚开始萌芽，小岛是个喜欢创新的人，相信会开拓别人的思路吧。</p>
-
-<p><strong>FFXIII A&amp;V</strong>：FF13在最初就是一个大的系列，除了正片也有4个title挂在FF13名下。不过随着时间的流逝，现在让人记得的只剩下agito和versus了，一个是DS的作品，一个是PS3独占作品。SE是每年TGS小黑屋放猛料的，今年第一时间有人放出了小黑屋偷拍的视频。看见的时候真是激动的不行！两款挂着FF13名字的作品素质都非常的高。</p>
-
-<p><strong>MHP3</strong>：不出意外的公布了很多的消息，包括MGS的乱入。多说无益，速速发售！</p>
-
-<p><strong>铁拳TT2</strong>：这是非常出乎意料的消息。铁拳10多年前的作品的续作，详细平衡性会得到更加深入的调整。明年发售，明年打铁的朋友可以依次玩到SFxTK，TT2，TKxSF。</p>
-
-<p>不知道还有什么我漏掉的重磅消息吗。不过光是这几个就足够让我兴奋的了。期待什么时候可以自己去一下TGS感受一下这个盛会。可惜任天堂从古至今都不参加TGS，关于3DS的消息少之又少啊。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-09-26T04:05:21+08:00" pubdate data-updated="true">Sep 26<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
 
 
 </div>

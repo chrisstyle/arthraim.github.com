@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-04-13T20:39:58+08:00</updated>
+  <updated>2013-04-14T01:30:22+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,96 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[快速使用uwsgi部署]]></title>
+    <link href="http://artori.us/easy-deploy-with-uwsgi/"/>
+    <updated>2013-04-14T01:02:00+08:00</updated>
+    <id>http://artori.us/easy-deploy-with-uwsgi</id>
+    <content type="html"><![CDATA[<p>之前尝试在阿里云部署一个bottle.py写的web服务，选择了unbuntu12.04，一穷二白的ubuntu上用uwsgi部署还挺简单的。这里简单记录一下。</p>
+
+<p>先要改一改程序代码，声明一个application</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">bottle</span><span class="o">.</span><span class="n">app</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后安装uwsgi，demo.py就是修改过的bottle的代码。</p>
+
+<p>这里我遇到了<code>— unavailable modifier requested: 0 --</code>，要安装uwsgi-plugin-python，并且uwsgi启动时候添加<code>--plugin python</code></p>
+
+<p>一些uwsgi的操作看<a href="http://uwsgi-docs.readthedocs.org/en/latest/Management.html">这里</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>apt-get install uwsgi uwsgi-plugin-python
+</span><span class='line'>uwsgi --socket :8000 --plugin python --file demo.py --processes 4 --pidfile /tmp/demo.pid --touch-reload<span class="o">=</span>/tmp/restart -d uwsgi.log
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装nginx</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>apt-get install libpcre3 libpcre3-dbg libpcre3-dev
+</span><span class='line'>apt-get install zlib1g zlib1g-dbg zlib1g-dev
+</span><span class='line'>apt-get install make
+</span><span class='line'><span class="nb">cd</span> /path/to/nginx
+</span><span class='line'>./configure
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后配置nginx。默认安装路径在<code>/usr/local/nginx/conf/nginx.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">listen</span>       <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">server_name</span>  <span class="nx">demo</span><span class="p">.</span><span class="nx">artori</span><span class="p">.</span><span class="nx">us</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span><span class="kr">static</span><span class="o">/</span> <span class="p">{</span> <span class="nx">alias</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">demo</span><span class="o">/</span><span class="kr">static</span><span class="o">/</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">uwsgi_pass</span>      <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8000</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">include</span>         <span class="nx">uwsgi_params</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自此搞定</p>
+
+<p>via:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0">http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0</a></li>
+<li><a href="http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html">http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html</a></li>
+<li><a href="http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py">http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk">https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk</a></li>
+<li><a href="http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/">http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/</a></li>
+<li><a href="http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi">http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi</a></li>
+<li><a href="http://down.chinaz.com/server/201112/1467_1.htm">http://down.chinaz.com/server/201112/1467_1.htm</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIWebView加载本地资源]]></title>
@@ -795,65 +885,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 <p>从开发角度来说, 不得不承认oauth并不简单, 我也并不精通oauth, 偷懒了用了别人的库或多或少出现了些问题. 我依然比较郁闷的是, scribe-java本身自己就支持一大堆国外的oauth, 并且在我看来代码都是没有什么问题的, 到了国内, 标准就不是标准了, 标准只是参考, 各家各户按照自己的理解在做. 这篇文章写完, 我也有些心虚, 一些问题可能还是我有错, 如果你发现了, 欢迎拍砖我赔礼道歉.</p>
 
 <p>最后提一下, 在<a href="https://github.com/Arthraim/scribe-java">github上</a>把scribe-java给folk了, 添加了4大门户的微博, 欢迎其他开发者使用或贡献.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2011-03-19 技术小记]]></title>
-    <link href="http://artori.us/2011-03-19-technical-notes/"/>
-    <updated>2011-03-19T23:26:22+08:00</updated>
-    <id>http://artori.us/2011-03-19-technical-notes</id>
-    <content type="html"><![CDATA[<p>好久木有更新了，碰到一些素材或遇到过的问题都会在evernote里记一下，不过总觉得事情都不够大不足以单独写一篇文章，所以全都一起写一下好了。</p>
-
-<p>在windows下用maven2，遇到一个错：<strong>编码 GBK 的不可映射字符</strong>，原因是windows版的maven2默认编码是GBK。如果有windows的参与者，那解决方法是在pom.xml里加入以下语句：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;properties&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;maven.compiler.encoding&gt;</span>UTF-8<span class="nt">&lt;/maven.compiler.encoding&gt;</span>
-</span><span class='line'><span class="nt">&lt;/properties&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>另外后面一句是在使用mvn compile命令的时候才需要的。</p>
-
-<p>via: <a href="http://wozailongyou.javaeye.com/blog/711664">http://wozailongyou.javaeye.com/blog/711664</a></p>
-
-<hr />
-
-<p>然后是git的一个问题。在某个java工程，git pull 的时候遇到如下错误：</p>
-
-<blockquote><p>error: Untracked working tree file &#8216;webapp/WEB-INF/classes/com/arthraim/foo.class&#8217; would be overwritten by merge. Aborting</p></blockquote>
-
-<p>不小心把.class加入到版本管理，并push到远程了。在另一个本地repo又把他们去掉了，于是就出了类似的错。解决方法大致是移出掉本地的文件（当然如果不是.class这样无所谓的文件的话，不妨备份他们先），并把他们从本地git仓库移出，确保在远程git仓库也移出。</p>
-
-<p>这个问题解决的不是特别干净漂亮，说实话也并没深究。</p>
-
-<hr />
-
-<p>还是一个git的小问题，一直很顺的用 <code>git pull 仓库名 分支名</code> 和 <code>git push 仓库名 分支名</code> 突然有人问起本地分支和远程分支的命名不一样的时候怎么办。。。 还真是查了很久啊。发现原来git pull 语句是这样描述的：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>git push <span class="o">[</span>远程仓库名<span class="o">]</span> <span class="o">[</span>本地分支<span class="o">]</span> :<span class="o">[</span>远程分支<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个冒号很微妙啊。。以前都是偷懒了用了他的默认。</p>
-
-<p>via: <a href="http://progit.org/book/zh/ch3-5.html">http://progit.org/book/zh/ch3-5.html</a></p>
-
-<hr />
-
-<p>最后一个是freemarker遇到的问题，后端Double类型的数据在freemarker转成string的时候会默认取3位小数，所以这又是和上一个问题类似的被默认耍了的事情。写成下面这样就可以控制最大小数点数位：</p>
-
-<p>${some_double_number?string(0.######)}</p>
-
-<p>&#8217;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
-
-<p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
 ]]></content>
   </entry>
   

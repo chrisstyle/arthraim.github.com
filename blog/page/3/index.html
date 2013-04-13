@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="今天提交一个form的时候遇到一个411错误, 当时我就孤陋寡闻, 第一次见到411, 查了一下然后就囧了, 是nginx直接把请求给弹回来了. 深入的查一下之后发现这个问题还是非常容易引起的, 于是我当时很奇怪的是在之前的开发中难道从来没有遇到过? 话说也是不良习惯造成的问题, &hellip;">
+	<meta name="description" content="好久木有更新了，碰到一些素材或遇到过的问题都会在evernote里记一下，不过总觉得事情都不够大不足以单独写一篇文章，所以全都一起写一下好了。 在windows下用maven2，遇到一个错：编码 GBK 的不可映射字符，原因是windows版的maven2默认编码是GBK。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,96 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2011-03-19-technical-notes/">
+		
+			2011-03-19 技术小记</a>
+	</h2>
+	<div class="entry-content">
+		<p>好久木有更新了，碰到一些素材或遇到过的问题都会在evernote里记一下，不过总觉得事情都不够大不足以单独写一篇文章，所以全都一起写一下好了。</p>
+
+<p>在windows下用maven2，遇到一个错：<strong>编码 GBK 的不可映射字符</strong>，原因是windows版的maven2默认编码是GBK。如果有windows的参与者，那解决方法是在pom.xml里加入以下语句：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;properties&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;maven.compiler.encoding&gt;</span>UTF-8<span class="nt">&lt;/maven.compiler.encoding&gt;</span>
+</span><span class='line'><span class="nt">&lt;/properties&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外后面一句是在使用mvn compile命令的时候才需要的。</p>
+
+<p>via: <a href="http://wozailongyou.javaeye.com/blog/711664">http://wozailongyou.javaeye.com/blog/711664</a></p>
+
+<hr />
+
+<p>然后是git的一个问题。在某个java工程，git pull 的时候遇到如下错误：</p>
+
+<blockquote><p>error: Untracked working tree file &#8216;webapp/WEB-INF/classes/com/arthraim/foo.class&#8217; would be overwritten by merge. Aborting</p></blockquote>
+
+<p>不小心把.class加入到版本管理，并push到远程了。在另一个本地repo又把他们去掉了，于是就出了类似的错。解决方法大致是移出掉本地的文件（当然如果不是.class这样无所谓的文件的话，不妨备份他们先），并把他们从本地git仓库移出，确保在远程git仓库也移出。</p>
+
+<p>这个问题解决的不是特别干净漂亮，说实话也并没深究。</p>
+
+<hr />
+
+<p>还是一个git的小问题，一直很顺的用 <code>git pull 仓库名 分支名</code> 和 <code>git push 仓库名 分支名</code> 突然有人问起本地分支和远程分支的命名不一样的时候怎么办。。。 还真是查了很久啊。发现原来git pull 语句是这样描述的：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git push <span class="o">[</span>远程仓库名<span class="o">]</span> <span class="o">[</span>本地分支<span class="o">]</span> :<span class="o">[</span>远程分支<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个冒号很微妙啊。。以前都是偷懒了用了他的默认。</p>
+
+<p>via: <a href="http://progit.org/book/zh/ch3-5.html">http://progit.org/book/zh/ch3-5.html</a></p>
+
+<hr />
+
+<p>最后一个是freemarker遇到的问题，后端Double类型的数据在freemarker转成string的时候会默认取3位小数，所以这又是和上一个问题类似的被默认耍了的事情。写成下面这样就可以控制最大小数点数位：</p>
+
+<p>${some_double_number?string(0.######)}</p>
+
+<p>&#8217;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
+
+<p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-19T23:26:22+08:00" pubdate data-updated="true">Mar 19<span>th</span>, 2011</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -789,61 +879,6 @@
 
 
 	<a class='category' href='/blog/categories/movie/'>Movie</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/reset-eclipse-plugins-when-updated/">
-		
-			升级造成eclipse插件失效</a>
-	</h2>
-	<div class="entry-content">
-		<p>每次发生这样的问题都要重新Google, 每次不外乎就是那么几种方法, 记录下, 自己找起来方便一点:</p>
-
-<ul>
-<li><p>%eclispe_dir%/configration/config.ini文件</p>
-
-<ul>
-<li><p><code>org.eclipse.update.reconcile=false</code>, 改成<code>true</code></p></li>
-<li><p>或者加上<code>osgi.checkconfiguration=true</code></p></li>
-</ul>
-</li>
-<li><p>删除整个目录<code>/eclipse/configuration/org.eclipse.update/</code>，重启eclipse</p></li>
-<li><p>在启动eclipse时带上 <code>-clean</code>参数</p></li>
-</ul>
-
-
-<p>记录之, 以上.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-11-25T22:49:12+08:00" pubdate data-updated="true">Nov 25<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

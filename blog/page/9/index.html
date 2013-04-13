@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="最近真是越来越喜欢豆瓣了，douban.fm这个豆瓣电台更是变成了系统里唯一的音乐播放器~ 不过每次听豆瓣好像都不是很方便，因为总要现在地址栏输入douban.fm，然后点一个链接…… 于是今天Inspect Element了一下，发现也就是href里面的一段js代码，那就好办了， &hellip;">
+	<meta name="description" content="有人记得这个教程不？不知道写得大大到哪里去了，不过问题不大，资料是很多的，要写一个psp的helloworld还不简单？（我记得很久很久以前就用devkitpro写过了）如果你愿意用psptoolchain来写，那么就根据上面那个链接里的教程先搭建一个环境吧。如果是windows的用户， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,146 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/psp-helloworld/">
+		
+			PSP的hello,world</a>
+	</h2>
+	<div class="entry-content">
+		<p>有人记得这个教程不？不知道写得大大到哪里去了，不过问题不大，资料是很多的，要写一个psp的helloworld还不简单？（我记得很久很久以前就用devkitpro写过了）如果你愿意用psptoolchain来写，那么就根据上面那个链接里的教程先搭建一个环境吧。如果是windows的用户，可以去搜索一下devkitpro，很傻瓜的。话说还有一个教程也不错，看看这里吧。额，其实今天只是觉得很久没有更新博客了太不厚道，所以来水一下……</p>
+
+<p><a href="/images/uploads/zb/2010-02-12_psp_helloworld.jpg"><img src="/images/uploads/zb/2010-02-12_psp_helloworld.jpg" alt="" /></a></p>
+
+<p>代码如下。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include &lt;pspkernel.h&gt;</span>
+</span><span class='line'><span class="cp">#include &lt;pspdebug.h&gt;</span>
+</span><span class='line'><span class="n">PSP_MODULE_INFO</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="cp">#define printf pspDebugScreenPrintf</span>
+</span><span class='line'><span class="cm">/* Exit callback */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">exit_callback</span><span class="p">(</span><span class="kt">int</span> <span class="n">arg1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arg2</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">common</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">sceKernelExitGame</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cm">/* Callback thread */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">CallbackThread</span><span class="p">(</span><span class="n">SceSize</span> <span class="n">args</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">argp</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">cbid</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">cbid</span> <span class="o">=</span> <span class="n">sceKernelCreateCallback</span><span class="p">(</span><span class="s">&quot;Exit Callback&quot;</span><span class="p">,</span> <span class="n">exit_callback</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelRegisterExitCallback</span><span class="p">(</span><span class="n">cbid</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelSleepThreadCB</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="cm">/* Sets up the callback thread and returns its thread id */</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">SetupCallbacks</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">thid</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">thid</span> <span class="o">=</span> <span class="n">sceKernelCreateThread</span><span class="p">(</span><span class="s">&quot;update_thread&quot;</span><span class="p">,</span> <span class="n">CallbackThread</span><span class="p">,</span> <span class="mh">0x11</span><span class="p">,</span> <span class="mh">0xFA0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">thid</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">sceKernelStartThread</span><span class="p">(</span><span class="n">thid</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">thid</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">pspDebugScreenInit</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">SetupCallbacks</span><span class="p">();</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">sceKernelSleepThread</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然如果要正常编译，还需要一个Makefile文件。如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='makefile'><span class='line'><span class="nv">TARGET</span> <span class="o">=</span> hello
+</span><span class='line'><span class="nv">OBJS</span> <span class="o">=</span> main.o
+</span><span class='line'><span class="nv">CFLAGS</span> <span class="o">=</span> -O2 -G0 -Wall
+</span><span class='line'><span class="nv">CXXFLAGS</span> <span class="o">=</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -fno-exceptions -fno-rtti
+</span><span class='line'><span class="nv">ASFLAGS</span> <span class="o">=</span> <span class="k">$(</span>CFLAGS<span class="k">)</span>
+</span><span class='line'><span class="nv">EXTRA_TARGETS</span> <span class="o">=</span> EBOOT.PBP
+</span><span class='line'><span class="nv">PSP_EBOOT_TITLE</span> <span class="o">=</span> Hello World
+</span><span class='line'><span class="nv">PSPSDK</span><span class="o">=</span><span class="k">$(</span>shell psp-config --pspsdk-path<span class="k">)</span>
+</span><span class='line'><span class="cp">include $(PSPSDK)/lib/build.mak</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Makefile决定了产生的EBOOT.PBP文件的一些信息，比如TITLE是Hello World，如果要加上图pic0 pic1那都是在Makefile里写得，不过只是helloworld就淡定一定吧 = = PSPSDK的环境变量当然也需要你事先配置好的（没打算说怎么配置环境）。</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-02-12T21:58:15+08:00" pubdate data-updated="true">Feb 12<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -610,52 +750,6 @@
 
 
 	<a class='category' href='/blog/categories/i-dot-t/'>I.T.</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/final-fantasy-xiii-hand-in/">
-		
-			Final Fantasy XIII 入手纪念</a>
-	</h2>
-	<div class="entry-content">
-		<p>最终幻想13！昨天淘宝，今天就入手了~ 特地收了一个日版的初回限定，本来以为会有贺卡的，不过后来同学告知只有网上预约的版本才有贺卡，带贺卡的版本要卖899RMB，也就是说，差不多这张贺卡价值300RMB，太可怕了，我还是玩玩普通店头的初回限定吧。BTW：港版的内容和日版一模一样，价格只有500RMB不到，比较理性的同学不妨选择港版。</p>
-
-<p><a href="/images/uploads/zb/201001091052.jpg"><img src="/images/uploads/zb/201001091052.jpg" alt="" /></a></p>
-
-<p><a href="/images/uploads/zb/201001091053.jpg"><img src="/images/uploads/zb/201001091053.jpg" alt="" /></a></p>
-
-<p>以上……</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-01-10T02:18:44+08:00" pubdate data-updated="true">Jan 10<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
 
 
 </div>

@@ -7,18 +7,8 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="作为一个不会javascript只会jQuery的程序员，我在做Objective-c和HTML5页面交互的demo的时候需要HTML至少依赖一个jQuery，放在本地咋整？ 创建UIWebView的时候 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-_webView = [[ &hellip;">
+	<meta name="description" content="之前尝试在阿里云部署一个bottle.py写的web服务，选择了unbuntu12.04，一穷二白的ubuntu上用uwsgi部署还挺简单的。这里简单记录一下。 先要改一改程序代码，声明一个application 1
+application = bottle.app() 然后安装uwsgi， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -82,6 +72,127 @@ _webView = [[ &hellip;">
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/easy-deploy-with-uwsgi/">
+		
+			快速使用uwsgi部署</a>
+	</h2>
+	<div class="entry-content">
+		<p>之前尝试在阿里云部署一个bottle.py写的web服务，选择了unbuntu12.04，一穷二白的ubuntu上用uwsgi部署还挺简单的。这里简单记录一下。</p>
+
+<p>先要改一改程序代码，声明一个application</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">application</span> <span class="o">=</span> <span class="n">bottle</span><span class="o">.</span><span class="n">app</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后安装uwsgi，demo.py就是修改过的bottle的代码。</p>
+
+<p>这里我遇到了<code>— unavailable modifier requested: 0 --</code>，要安装uwsgi-plugin-python，并且uwsgi启动时候添加<code>--plugin python</code></p>
+
+<p>一些uwsgi的操作看<a href="http://uwsgi-docs.readthedocs.org/en/latest/Management.html">这里</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>apt-get install uwsgi uwsgi-plugin-python
+</span><span class='line'>uwsgi --socket :8000 --plugin python --file demo.py --processes 4 --pidfile /tmp/demo.pid --touch-reload<span class="o">=</span>/tmp/restart -d uwsgi.log
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>安装nginx</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>apt-get install libpcre3 libpcre3-dbg libpcre3-dev
+</span><span class='line'>apt-get install zlib1g zlib1g-dbg zlib1g-dev
+</span><span class='line'>apt-get install make
+</span><span class='line'><span class="nb">cd</span> /path/to/nginx
+</span><span class='line'>./configure
+</span><span class='line'>make
+</span><span class='line'>make install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后配置nginx。默认安装路径在<code>/usr/local/nginx/conf/nginx.conf</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">server</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">listen</span>       <span class="mi">80</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">server_name</span>  <span class="nx">demo</span><span class="p">.</span><span class="nx">artori</span><span class="p">.</span><span class="nx">us</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span><span class="kr">static</span><span class="o">/</span> <span class="p">{</span> <span class="nx">alias</span> <span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">root</span><span class="o">/</span><span class="nx">demo</span><span class="o">/</span><span class="kr">static</span><span class="o">/</span><span class="p">;</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">location</span> <span class="o">/</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">uwsgi_pass</span>      <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span><span class="o">:</span><span class="mi">8000</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">include</span>         <span class="nx">uwsgi_params</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>自此搞定</p>
+
+<p>via:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0">http://stackoverflow.com/questions/10748108/nginx-uwsgi-unavailable-modifier-requested-0</a></li>
+<li><a href="http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html">http://lists.unbit.it/pipermail/uwsgi/2011-November/002923.html</a></li>
+<li><a href="http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py">http://aaronsnow.tumblr.com/post/11560674160/nginx-uwsgi-bottle-py</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk">https://groups.google.com/forum/?fromgroups=#!topic/bottlepy/wRfgm4obLXk</a></li>
+<li><a href="http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/">http://blog.felixc.at/2011/01/ubuntu-uwsgi-nginx-bottle-configuration/</a></li>
+<li><a href="http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi">http://apt-blog.net/moinmoin-on-nginx-via-fastcgi-and-uwgi</a></li>
+<li><a href="http://down.chinaz.com/server/201112/1467_1.htm">http://down.chinaz.com/server/201112/1467_1.htm</a></li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-14T01:02:00+08:00" pubdate data-updated="true">Apr 14<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -801,50 +912,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 
 
 	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/abandon-arthraim-cn/">
-		
-			停用arthraim.cn域名</a>
-	</h2>
-	<div class="entry-content">
-		<p>arthraim.cn的域名又到期了，因为之前的代理被卖到别的地方了所以很烦躁这个域名不要了.cn域名也实在是操蛋的可以。</p>
-
-<p>之前留着也只是为了做一个重定向，现在重定向了一年了搜索引擎什么的也应该反应过来了，所以就不要了吧。</p>
-
-<p>再见arthraim.cn</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-01-06T22:52:15+08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>
