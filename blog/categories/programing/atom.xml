@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programing | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-04-15T09:52:24+08:00</updated>
+  <updated>2013-05-06T09:33:03+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -226,6 +226,8 @@ a = a^b
 </code></p>
 
 <p>有意思的是搜索其他异或例子的时候，发现了<a href="http://blog.chinaunix.net/uid-1844931-id-3034714.html">这篇</a>文章，文章里实现了一个异或交换的算法，和本文主题无关，不过很有意思，函数更多的时候应该只操作值而不是变量。</p>
+
+<p><strong>UPDATE_2013-05-06</strong>: 这个，看到云风写了一个利用这个特性做的<a href="http://blog.codingnow.com/2013/05/xor_linked_list.html">双向链表</a>，挺好玩，忍不住写过来。</p>
 
 <h2>A集合里拿掉数x得到B集合，求x</h2>
 
