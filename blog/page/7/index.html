@@ -7,7 +7,14 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="偶然发现pydev已经更新到了新版本，新版本里原生支持了django。这个版本应该已经更新了快有1个月了吧。pydev是eclipse开发python的利器，是对eclipse最好的扩展；而Django是python web框架中最受欢迎的一个。pydev如今原生支持Django， &hellip;">
+	<meta name="description" content="说django的静态文件说起来很简单，不过我还真是碰到了形形色色的问题并且追求完美。说起来一般做法用过django的应该都熟悉部署环境中只要利用web server去处理静态文件就可以了；调试时可能稍微特殊一点，按照官方文档所说，要在urls里加上这样的代码。 1
+2
+3
+4
+5
+6
+7
+if &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +78,80 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/django-static-files-serve/">
+		
+			Django的静态文件服务</a>
+	</h2>
+	<div class="entry-content">
+		<p>说django的静态文件说起来很简单，不过我还真是碰到了形形色色的问题并且追求完美。说起来一般做法用过django的应该都熟悉部署环境中只要利用web server去处理静态文件就可以了；调试时可能稍微特殊一点，按照<a href="http://docs.djangoproject.com/en/dev/howto/static-files/">官方文档</a>所说，要在urls里加上这样的代码。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+</span><span class='line'>  <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="p">(</span><span class="s">r&#39;^media/(?P&lt;path&gt;.*)$&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="s">&#39;django.views.static.serve&#39;</span><span class="p">,</span>
+</span><span class='line'>      <span class="p">{</span><span class="s">&#39;document_root&#39;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">}</span>
+</span><span class='line'>      <span class="p">),</span>
+</span><span class='line'>    <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外，settings里要做三个关于media的配置</p>
+
+<ul>
+<li><p>配置MEDIA_ROOT指向media文件夹的本地绝对路径</p></li>
+<li><p>配置MEDIA_URL为/media/</p></li>
+<li><p>配置ADMIN_MEDIA_PREFIX为/amedia/</p></li>
+</ul>
+
+
+<p>这是最正确的做法，按照这样做的话部署的时候什么代码都不用改动就可以保证media服务正常了。（最重要的是直接使用/media/写模板文件就好了）</p>
+
+<p>不过因为ADMIN_MEDIA_PREFIX的设置如果按照默认的/media/，那么就会使得调试时无法正常服务静态文件。如果MEDIA_ROOT不配置，ADMIN_MEDIA_PREFIX改成./media/，那么站点的静态文件能正常服务，但是admin页面的静态文件就错误了。如果不配置MEDIA_ROOT，也不修改ADMIN_MEDIA_PREFIX（就像默认的一样），那么一样只要在urls.py里写上之前的代码，并把setting.MEDIA_ROOT直接替换成本地的绝对路径，那么就能正常服务静态文件，唯一要做的，是不使用<code>r'^media/(?P&lt;path&gt;.*)$'</code>，而改一个诸如<code>r'^dmedia/(?P&lt;path&gt;.*)$'</code>之类的其他路径，我我很不喜欢这个方式，能解决问题，但是部署的时候我就是看得不顺眼，要改的话就要改所有模板、py中的所有路径。</p>
+
+<p>总之上面正确方法之后说的所有东西都是我碰到过的情况，按照文章一上来的做法做，那么调试到部署，一切都很简单。如有错误，或有更标准的做法，希望您留言。</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-06-06T13:26:11+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -874,66 +955,6 @@
 
 
 	<a class='category' href='/blog/categories/video-game/'>Video Game</a>, <a class='category' href='/blog/categories/internet/'>internet</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/ms-sql-server-build-version-and-migration-method/">
-		
-			SQL Server各版本编号及迁移方法</a>
-	</h2>
-	<div class="entry-content">
-		<p>使用sql server附加数据库的时候会遭遇到一些错误，其中有一个很常见的就是&#8221;数据库XXX的版本为655，无法打开。此服务器支持643版及更低版本。不支持降级路径。&#8221;其实是很困扰的错误，因为你明明知道你的版本低，可是不知道自己应该装什么版本。比如我是把一个10.0.2531上的数据库attach到10.0.1300的数据库上发生了上面的错误。</p>
-
-<p>于是Google了一下，找到了<a href="http://sqlserverbuilds.blogspot.com/">这个文章</a>(墙外)的那些东东，就是我们解决这个错误的最好办法。查一下就可以知道10..0.2531就是SP1，那么装上SP1就好了吧~</p>
-
-<p>当然要把数据库移到旧版本的需求肯定是有的，那要怎么做呢？首先可以确定的是&#8221;附加&#8221;肯定是不行，另外&#8221;备份-还原&#8221;也是不行。<a href="http://social.microsoft.com/Forums/zh-CN/sqlserverzhchs/thread/aa561da8-db83-4304-84f2-8c4995b95994">这里</a>有个好办法：</p>
-
-<ol>
-<li><p>在2008中右键点击数据库 - 任务 - 生成脚本。</p></li>
-<li><p>在向导中为整个库的对象生成脚本，并设置好相关的脚本生成选项，脚本的服务器版本要选择你需要的低版本，比如sql server 2005。</p></li>
-<li><p>去低版本（如2005）中执行刚才生成的脚本，数据结构就好了。</p></li>
-<li><p>最后再用数据导入/导出向导把数据导过去</p></li>
-</ol>
-
-
-<p>今天把某些数据给同学的时候发生的错误，因为对方的版本低一点，记录一下。</p>
-
-<p><strong>Update：</strong></p>
-
-<p>比较郁闷的是我同学的10.0.1300是可恶的CTP版本，这个版本不能直接安装SP1，非常郁闷，而SP1最起码装在10.0.1600也就是RTM版上，这真是有些郁闷的。</p>
-
-<p>以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-04-27T23:05:28+08:00" pubdate data-updated="true">Apr 27<span>th</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; Chapter 1.1 &#8211; 2D游戏教程简介 从今天开始，我将分享对于XNA学习的所有过程，这是一个教程，但其实我也不懂，这是自己学习和所有一起学习的人的过程，我想通过这段时间的简单学习可以初步实现XNA的简单的小游戏， &hellip;">
+	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; Chapter 2 &#8211; 创建游戏工程 从最开始学习XNA，那么首先我们需要自己的环境。微软提供XNA Game Studio给大家，当然还要有Visual Studio，如果愿意你可以在安装好Visual Studio &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,101 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/xna-tutorial-2d-ch2-create-solution/">
+		
+			XNA教程-2D游戏-02-创建游戏工程</a>
+	</h2>
+	<div class="entry-content">
+		<p><a href="/images/uploads/zb/2009-06-13_PlatformerGameDemo.jpg"><img src="/images/uploads/zb/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
+
+<p><strong> XNA教程 &#8211; 2D游戏 &#8211; Chapter 2 &#8211; 创建游戏工程</strong></p>
+
+<p>从最开始学习XNA，那么首先我们需要自己的环境。微软提供XNA Game Studio给大家，当然还要有Visual Studio，如果愿意你可以在安装好Visual Studio 2005或更高版本的前提下安装XNA Game Studio（以下简称GS）。当然，本着XNA游戏开发是基本免费的原则，我们也可以使用Express版本，也是支持的。具体VS和GS的安装和配置请大家自己解决了，这里不赘述了。</p>
+
+<p>使用GS3.1+VS2008是基于.NET Framework 3.5的，否则一些新特性将不会被用到，如果你的开发使用其他环境，那么也许会不一样。</p>
+
+<p><strong>步骤一：Visual Studio简单介绍</strong></p>
+
+<p>这一步骤简单的雷人。稍微讲讲就过去了吧。首先要安装好VS和GS，就像之前说到的，然后我们看一下VS的新建。新建中总共有这么几项（GS3.1+VS2008，不保证其他版本有一样的工程）</p>
+
+<p><a href="/images/uploads/zb/2009-06-13_VS2008GS31.jpg"><img src="/images/uploads/zb/2009-06-13_VS2008GS31.jpg" alt="" /></a></p>
+
+<blockquote><ul>
+<li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
+<li><p>Windows Game Library (3.1) &#8212;- Windows游戏类库</p></li>
+<li><p>Xbox 360 Game (3.1) &#8212;- Xbox360游戏</p></li>
+<li><p>Xbox 360 Game Library (3.1) &#8212;- Xbox360游戏类库</p></li>
+<li><p>Zune Game (3.1) &#8212;- Zune游戏</p></li>
+<li><p>Zune Game Library (3.1) &#8212;- Zune游戏类库</p></li>
+<li><p>Content Pipeline Extension Library (3.1) &#8212;- Content管道扩展库</p></li>
+<li><p>Platformer Starter Kit (3.1) &#8212;- 一个游戏示例（提供windows x360 zune三种版本都有，本章顶部图为Windows版）</p></li>
+</ul>
+</blockquote>
+
+<p>VS的具体操作就不介绍了，至于最终我们的游戏如何使用，如果你没有加入XNA Creator Club成为白金会员，那么你的游戏也是没办法在XBOX360上用的，我这里就简单的使用Windows开发了。另外，视频中使用的是VS2005+GS2，所以我们直接可以看到两个视频中制作的游戏的示例工程，偷懒的直接下2吧。究竟3有什么新特性，我也不是很了解，也许讲到最后我也就了解了吧。（总觉得自己都不会就开始写是非常不妥的方法。）</p>
+
+<p><strong>步骤二：新建工程，获取资源</strong></p>
+
+<p>这一步也非常的简单，根据刚才介绍的新建，建立相应的工程。</p>
+
+<p>比如我新建一个Windows Game (3.1)工程，并且取名为Chapter2。</p>
+
+<p><img src="/images/uploads/zb/2009-06-13_Project.jpg" alt="" /></p>
+
+<p>可以看到IDE为我们创建了如图一些文件，具体都是什么呢？</p>
+
+<blockquote><ul>
+<li><p>Content &#8212;- 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
+<li><p>Game1.cs &#8212;- 游戏逻辑代码。</p></li>
+<li><p>Game.ico &#8212;- 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
+<li><p>GameThumbnail.png &#8212;- 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
+<li><p>Program.cs &#8212;- 就是程序的入口Main方法了。</p></li>
+</ul>
+</blockquote>
+
+<p>GameThumbnail.png原图如下</p>
+
+<p><img src="/images/uploads/zb/2009-06-13_GameThumb.jpg" alt="" /></p>
+
+<p>接下去本章很重要的一部就是下载必须的游戏素材。这里提供官方链接，下载解压缩后放入Content文件夹中，这是我们制作我们示例要用到的全部素材了。只有一个lisense文件和sprite文件夹，sprite文件夹中有四张图，看看就知道干什么了～</p>
+
+<p><a href="http://creators.xna.com/downloads/?id=149"><img src="/images/uploads/zb/2009-06-12_download_XNA.png" alt="" /></a>素材下载点击图标</p>
+
+<p>OK，好了这一章很简单，就说到这里吧。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-06-13T20:47:02+08:00" pubdate data-updated="true">Jun 13<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -884,107 +979,6 @@ public partial class _Default : System.Web.UI.Page
 
 
 <time datetime="2009-06-03T08:47:24+08:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/e3-microsoft-press-conference/">
-		
-			Microsoft E3展前发布会</a>
-	</h2>
-	<div class="entry-content">
-		<blockquote><ul>
-<li><p>The Beatles:Rockband</p></li>
-<li><p>Tony Harwk</p></li>
-<li><p>Call of duty Modern Warfare2</p></li>
-<li><p>Left 4 Dead 2</p></li>
-<li><p>Final Fantasy XIII</p></li>
-<li><p>Forza3</p></li>
-<li><p>Audi R8</p></li>
-<li><p>Halo ODST</p></li>
-<li><p>Halo reach</p></li>
-<li><p>Alan Wake</p></li>
-<li><p>Metal Gear Solid Rising</p></li>
-<li><p>Project Natal</p></li>
-<li><p>Steven Spielberg</p></li>
-</ul>
-</blockquote>
-
-<p>这样的阵容您满意吗？哈哈！这就是今年E3微软展前发布会的内容，光不说别的，单单是MGS的360版，就足够让人兴奋了。作为很长时间360阵营的我来说，看到这样的阵容真的是会感到无比高兴的。（从PS3用户角度上来看，我亏大了）</p>
-
-<p><strong>Forza3</strong>和MGS应该是最大的惊喜了，没有想到Forza会这么快的公布三，据说有了新的车内视角，不过还是晚了GT一步。<strong>MGS</strong>这一次又是小岛秀夫亲自出马，每次都嚷着MGS不做了，自己退出了等等，到后来总是从新跑出来，虽然个人对MGS系列的感情一般，不过有这样的大作，fans会高兴的。其他的话Halo也算是个大事情，对于XB360的玩家来说，独占一下子来了这么多。<strong>FF13</strong>也早就确定跨平台了，这次发售日期锁定在2010年春，看来还是要比PS3多等几个月吧。当然召唤兽也是第一次让大家看见。</p>
-
-<p><img src="/images/uploads/zb/Forza_3.jpg" alt="" /></p>
-
-<p>另外就是微软的体感阵容了，托尼霍克的体感滑板，然后还有新公布的利用摄像头的Project Natal。还不惜血本请上了斯皮尔伯格来show这个新技术。人脸识别什么的的确不是什么新鲜玩意儿了，只不过不知道到了微软手上会变出什么花样来。据说这个东西已经在各个开发商那里了，不过能开发出什么游戏，还是要看第二方第三方的创意了。</p>
-
-<p><img src="/images/uploads/zb/Skateborad.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/Project_Natal.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/Natal_Camera.jpg" alt="" /></p>
-
-<p>其他说起来<strong>Alan Wake</strong>是最让人期待的了，之前有过一段即时演算的画面，很棒，这次E3上也算是重头戏了。<strong>Rockband</strong>是刚刚接触到的系列，对于我来说，非常非常喜欢这个系列，新作可以看到beatles的身影，那么快点来吧，来个PS3版吧。<strong>CODMW2</strong>也是非常让人期待的，因为1绝对是我玩过的最好的FPS，所以2一定不能差，一定要优秀。</p>
-
-<p><img src="/images/uploads/zb/Alan_wake.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/The_Beatles_Rockband.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/halo_odst.jpg" alt="" /> <img src="/images/uploads/zb/halo_reach.jpg" alt="" /></p>
-
-<p>微软还强大了一把，利用他在互联网上的那么一点点的小门路，给xbox live增色不少。<strong>last.fm</strong>的广播节目，<strong>netflix</strong>的DVD租赁等服务，<strong>twitter</strong>微博，<strong>facebook</strong> SNS网站。微软还真是什么都往xbox live上面挤上去。Google怎么不出游戏机呢 - - 否则Google Live肯定无敌了。</p>
-
-<p><img src="/images/uploads/zb/last_fm_xboxlive.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/netflix_xboxlive.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/Facebook_xboxlive.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/Twitter_XboxLive_UI.jpg" alt="" /></p>
-
-<p><img src="/images/uploads/zb/Twitter_XboxLive.jpg" alt="" /></p>
-
-<p>那么看过这样的微软阵容，让我们看看向来重视E3的任天堂，和需要反击的SCE的展前发布会会有什么好东西出炉吧！</p>
-
-<p>最后更多资料：<a href="http://www.levelup.cn/news/NewsDetails/2009-6-2/34001.shtml">Levelup.cn的E3现场报道</a> | <a href="http://e3.gamespot.com/?om_act=convert&amp;om_clk=picks&amp;tag=picks;title;1&amp;highlights_page=0">Gamespot E3板块</a></p>
-
-<blockquote><p>使命召唤 现代战争2 现场实际操作影像3个</p>
-
-<p>Alan Wake实际游戏画面</p>
-
-<p>Project Natal 宣传影像</p>
-
-<p>受不了。。。实在太火爆，这个视频还是转过来吧</p></blockquote>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-06-02T14:03:40+08:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2009</time></div>
 	<div class="tags">
 
 

@@ -858,7 +858,7 @@
     </url>
     <url>
         <loc>http://artori.us/bottle-autojson-with-pymongo/</loc>
-        <lastmod>2013-04-12T11:42:38+08:00</lastmod>
+        <lastmod>2013-04-12T11:42:22+08:00</lastmod>
     </url>
     <url>
         <loc>http://artori.us/arthur-s-2012-summary/</loc>
@@ -873,15 +873,19 @@
         <lastmod>2013-04-14T01:29:58+08:00</lastmod>
     </url>
     <url>
+        <loc>http://artori.us/wwdc-2013-session-404-advances-in-objective-c/</loc>
+        <lastmod>2013-06-18T11:43:22+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://artori.us/blog/archives/</loc>
-        <lastmod>2013-05-06T09:32:34+08:00</lastmod>
+        <lastmod>2013-06-18T11:43:22+08:00</lastmod>
     </url>
     <url>
         <loc>http://artori.us/</loc>
-        <lastmod>2013-05-06T09:32:34+08:00</lastmod>
+        <lastmod>2013-06-18T11:43:22+08:00</lastmod>
     </url>
     <url>
         <loc>http://artori.us/robots.txt</loc>
-        <lastmod>2013-03-15T15:15:34+08:00</lastmod>
+        <lastmod>2013-03-15T15:14:41+08:00</lastmod>
     </url>
 </urlset>

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="TGS结束了快一周了，我还是想写一下。近来日本游戏产业没落的言论不停的传播，日本游戏市场本身不景气也是冰冻三尺。本身日本的技术力已经落后欧美越来越多，另外日本发达的中古市场让销售本身也变得不是那么让人满意。 如题，今年2010年的TGS出来的一些消息真的是比起E3要给力多了。因为我眼界有限， &hellip;">
+	<meta name="description" content="不说前因后果了, 在使用pymongo连接服务器mongodb的时候遇到了pymongo.errors.AutoReconnect: could not find master/primary这个错误. 折腾了很久才发现是个简单的问题, 不过鉴于我Google了很久也没有找到合适的答案, &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,80 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/pymongo-errors-autoreconnect-could-not-find-masterprimary/">
+		
+			pymongo.errors.AutoReconnect: Could Not Find Master/primary</a>
+	</h2>
+	<div class="entry-content">
+		<p>不说前因后果了, 在使用pymongo连接服务器mongodb的时候遇到了pymongo.errors.AutoReconnect: could not find master/primary这个错误. 折腾了很久才发现是个简单的问题, 不过鉴于我Google了很久也没有找到合适的答案, 不妨在博客记录一下, 我的问题说不定是将来你遇到的问题.</p>
+
+<p>具体错误如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/home/arthur/workspace/DUMMY/python/DUMMY.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">7</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="n">mongo_con</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span> <span class="p">)</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">291</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__init__</span>
+</span><span class='line'>    <span class="bp">self</span><span class="o">.</span><span class="n">__find_master</span><span class="p">()</span>
+</span><span class='line'>  <span class="n">File</span> <span class="s">&quot;/usr/local/lib/python2.6/dist-packages/pymongo-1.8.1-py2.6-linux-x86_64.egg/pymongo/connection.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">495</span><span class="p">,</span> <span class="ow">in</span> <span class="n">__find_master</span>
+</span><span class='line'>    <span class="k">raise</span> <span class="n">AutoReconnect</span><span class="p">(</span><span class="s">&quot;could not find master/primary&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">pymongo</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">AutoReconnect</span><span class="p">:</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">find</span> <span class="n">master</span><span class="o">/</span><span class="n">primary</span><span class="o">&lt;/</span><span class="n">module</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>引起这个错误的原因有很多, 比如mongod根本没有起来, Google到还有早期版本可能存在的bug. 我连接任何一台计算机上的mongodb都是正常的, 唯独连接那台的有问题. 在我闷头升级服务器的python版本(2.7), 升级了服务器的mongodb版本(1.8.1), 都于事无补(事实上在我的尝试看来, pymongo 1.8.1连接1.4.3以上的mongodb都没有问题).</p>
+
+<p>最后问题是因为Master-Slave. 因为升级mongo的时候要更新各个节点, 之后同事重启后才突然想到, 连不上是因为这台服务器是slave. 找会不会是这个原因引发的问题的时候, 在<a href="http://api.mongodb.org/python/1.7/api/pymongo/master_slave_connection.html">这里</a>仔细一看发现构建Connection的时候, 有一个slave_okay的参数, 设置为True之后就可以单独连接一个slave节点了. 当然文档里pymongo.master_slave_connection.MasterSlaveConnection类就更重了.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="n">mongo_con</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">slave_okay</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后随便说一句, mongodb真的是个好东西, <a href="http://renjian.com">人间网</a>的技术人员从我来之前就一直尝试使用它.</p>
+
+<p>以上.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-09-29T09:43:13+08:00" pubdate data-updated="true">Sep 29<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -973,91 +1047,6 @@
 
 
 	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/about-niconico-timeline-comment/">
-		
-			Niconico弹幕评论之我见</a>
-	</h2>
-	<div class="entry-content">
-		<p>Niconico是日本的一个视频网站，但说对他的了解程度我不自信有身边那些腐女朋友来的深入。我今天想说的是有关Niconico上的一个特性，弹幕评论。不过我的思路是，先不说它，从别的说起。</p>
-
-<p>首先来说豆瓣，豆瓣的电影是一个很重要的模块，观影之后豆瓣提供了一个记录的地方，我每年每月看了什么电影，每次去&#8221;看过&#8221;一下，记录了很多。另外看完之后可以写个小点评，不用多，一句话，足以对别人产生足够的影响。另外还可以打分，这个打分只要数据量大，那最终的平均分是非常客观的（当然得分最高的往往有一些小众电影夹入其中）。好吧，究竟豆瓣电影满足了多少需求，不是我重点要说的。无论是豆瓣，还是时光网，所谓的影评或一句话，都是在电影观看之后的感想，用户对电影的交流，是一种大家聚在一起谈论电影的感觉。</p>
-
-<blockquote><pre><code>A:---------====-------------------2--------
-B:-------------====-------1----------------
-C:--------------------------====3----------
-</code></pre>
-
-<p>字母代表观影的人，&#8211;代表绝对时间，=代表观影相对时间，数字代表评论。</p>
-
-<p>三个人看一个视频，看完之后抽空去了聚合评论的网站谈感想，最后平面的结构上就是看评论的时间顺序排列成123这样的社区样子。</p></blockquote>
-
-<p>优酷、土豆，甚至是youtube，这些在线视频网站也有评论版面，现在的评论往往利用ajax让你留言之后不用刷新甚至翻页也不用。借助像遨游弹出视频这样的功能，可以边看视频边看评论。这些评论应该说在之前提到的第一种体验上又满足了一些其他的需求，比如电影前的观感之类的。但是这些评论存在一个问题，我看到影片某一个阶段，有一些话想说，我留言了，但是这是我的相对时间，在绝对时间里，它不适合任何人。</p>
-
-<blockquote><pre><code>A:---------=1==3=-------------------9--------
-B:-------------=2===4-------7----------------
-C:--------------------------5=6==8=----------
-</code></pre>
-
-<p>同样是这三个人看一个视频，看的过程中，网站本身就可以留言，留言的发生可以在观影的任何时间里，最后平面的结构上就是看评论的时间顺序排列成123456789这样的样子，可以看得出5这条感想排在相对后面，但是其实它的内容产生的时候影片都还没有开始播放。而排的相对远的（假设界面上越新的留言距离用户越近）4，反而是影片观影结束之后的感想。</p></blockquote>
-
-<p>因为一个影片的每个人观影的绝对时间是不一样的，所以想聚焦某个镜头的讨论是很困难的。在现代快节奏生活中，要凑齐几个人一起看电影，一起起哄一起哭是很难的事情了，人越多越困难。要100好朋友约在一起看更是不可能，只能大家分开来看，再用第一种豆瓣这样的平台讨论感受。但是必须知道的是，无论什么时候看，影片的长度是一定的，即每个人看到影片某个镜头的相对时间是一样的，把每个人对电影的实时评论拉到同一个起跑线，那么这些评论就在一个时空中了，对后来观影的朋友来说，就像是和自己的朋友一起看一样。这种&#8221;一起看电影&#8221;的体验，正是niconico包括国内acfun等网站的评论系统所带给我们的。它让一起讨论一起看片这样的现实中最完美的观影体验，在每个空闲时间不一样的人中实现了。虽然绝对时间不同，但是相对时间一样这一特性，让这种体验成为可能。只要给评论加上一个简单的时间标记，就轻松实现了这个需求。</p>
-
-<blockquote><pre><code>A:---------=2==5=7---------------------------
-B:-------------=3===89-----------------------
-C:--------------------------1=4==6=------------
-</code></pre>
-
-<p>依然三个人，和第二种情况一样的影片的时间点留言（影片看过之后的感想必须在影片最后一个时间点），就形成了这张图表。但是利用带有时间标记的评论，我们把它放在了同一个时间参照系里，如下图。</p>
-
-<pre><code>A:-----=2==5=7-------------
-B:-----=3===89-------------
-C:-----1=4==6=-------------
-</code></pre>
-
-<p>这张示意图不太好了，因为=是一个时间段，而代表评论的数字是一个时间点。不过示意图只是示意图，宽容一下啦。最终用户看到的评论就被聚合成下面这样。</p>
-
-<pre><code>T:-----1=234==56=789-------------
-</code></pre>
-
-<p>哈哈，这下真的说明问题了。分开来的评论被聚合到了一起了～～</p></blockquote>
-
-<p>至于弹幕这种表现形式，其实是不重要的，从左往右、从上到下都不重要，而，把离散在各个绝对时间点的人们的实时感受，根据一样的相对时间参照点，聚合到一个绝对坐标系里，这才是在我看来niconico评论系统的真正最重要的最伟大的地方。</p>
-
-<p>以上～</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-03T08:25:37+08:00" pubdate data-updated="true">Jul 3<span>rd</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/internet/'>internet</a>
 
 
 </div>

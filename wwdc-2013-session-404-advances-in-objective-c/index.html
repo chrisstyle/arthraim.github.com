@@ -1,0 +1,212 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>WWDC: 2013 session 404 advances in objective-c - Artoirus</title>
+	<meta name="author" content="Arthur Wang">
+
+	
+	<meta name="description" content="看了几个WWDC的session，做了一些笔记，简单贴在博客上吧。 404这个session大概说了objective-c的一些变化，和去年比起来改动实在是不多。 module 这个改动比较引入瞩目，简单说就是写#import的时候改成@import。#include是复制粘帖，#import是# &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Artoirus" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Artoirus</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:artori.us">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="https://www.google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:artori.us">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">WWDC: 2013 Session 404 Advances in Objective-c</h2>
+	<div class="entry-content"><p>看了几个WWDC的session，做了一些笔记，简单贴在博客上吧。</p>
+
+<p>404这个session大概说了objective-c的一些变化，和去年比起来改动实在是不多。</p>
+
+<h3>module</h3>
+
+<p>这个改动比较引入瞩目，简单说就是写#import的时候改成@import。#include是复制粘帖，#import是#define保护下复制粘帖，@import则用了一个结构去维护。</p>
+
+<p>在工程设置里，把「Enable Modules (C and Objective-C)」设为YES，不用改代码就能自动生效。会提高编译和索引的速度。</p>
+
+<p>有一句话很刺眼叫「not available for user frameworks」，呵呵。</p>
+
+<p>另外随之而来的Auto Linking特性，你不用自己去加那些依赖了。</p>
+
+<h3>refactor tools</h3>
+
+<p>重构工具什么的，然后又提了提literals的语法什么的。说起后者今天看到<a href="http://nshipster.com/object-subscripting/">一篇文章</a>，把object subscripting（这货就是比如说array[@3], dictionary[@&#8221;key&#8221;]这样）扩展成一门DSL。</p>
+
+<h3>instancetype</h3>
+
+<p>这个改动我觉得挺重要。以前方法（尤其init）返回一个指针的时候用<code>id</code>作为类型。编译器其实很难（几乎不能）对它的类型作出判断。新增这个instancetype来声明返回值类型，可以避免很多不安全的问题。</p>
+
+<p>比如Foo的init方法返回一个NSArray，调用的时候写成<code>NSDictionary *dict = [[Foo alloc] init];</code>。如果init方法是<code>-(id)init</code>，那编译器啥也不知道。如果改写成<code>-(instancetype)init</code>，xcode会警告你这里类型有问题了。</p>
+
+<h3>explicitly-typed enums</h3>
+
+<p><code>cell.selectionStyle = UITableViewCellAccessoryCheckmark</code>这种不同枚举类型的赋值会得到一个警告了。另外xcode的自动完成也更智能了。别忘了用<code>NS_ENUM</code>这个宏来写枚举哟。</p>
+
+<h3>runtime</h3>
+
+<p>有一些改动，比如新的tagged pointer，以及使用isa的警告等等。下一节还提到了一些retain环的警告等等等等。</p>
+
+<h3>GC -> ARC</h3>
+
+<p>苹果不要GC了，都用ARC了，包括Xcode 5在内的一些工程都放弃GC了。</p>
+
+<p>另外ARC还有些进化。<code>__weak</code>更快了，说是x2快。dubug的<code>autorelease</code>处理更接近release build了。</p>
+
+<h3>CF bridge</h3>
+
+<p>CoreFoundation框架的桥也全都优化了，提到implicit bridging的时候全场掌声，本人level太低不理解什么意思。</p>
+
+<p>笔记大概就是这些，感觉很多都没怎么听懂，还需要补课。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-18T10:27:00+08:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    Arthur Wang
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'artorius';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://artori.us/wwdc-2013-session-404-advances-in-objective-c/';
+        var disqus_url = 'http://artori.us/wwdc-2013-session-404-advances-in-objective-c/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-8352384-7']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
