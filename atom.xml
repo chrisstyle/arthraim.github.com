@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-06-18T11:43:32+08:00</updated>
+  <updated>2013-06-19T09:34:27+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -24,7 +24,7 @@
 
 <h3>module</h3>
 
-<p>这个改动比较引入瞩目，简单说就是写#import的时候改成@import。#include是复制粘帖，#import是#define保护下复制粘帖，@import则用了一个结构去维护。</p>
+<p>这个改动比较引人瞩目，简单说就是写#import的时候改成@import。#include是复制粘帖，#import是#define保护下复制粘帖，@import则用了一个结构去维护。</p>
 
 <p>在工程设置里，把「Enable Modules (C and Objective-C)」设为YES，不用改代码就能自动生效。会提高编译和索引的速度。</p>
 
