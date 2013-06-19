@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="就在昨天PSPgen小组破译EBOOT.bin并发布Game Decrypter后，马上针对软件的兼容性做出了新的更新，b2得以问世。Arthur已经成功的使用它玩上了GT和Armed Core，当然索尼也推出了6.10的内核，现在官方下载已经出现。经过了chickhen阶段破解突破后， &hellip;">
+	<meta name="description" content="Arthur在上一篇文章中说到过jas0nuk已经回归the scene（PSP破解界），而今天早些时候他就如约发布了PRXdecrypter的新版本2.25。可以说这次的版本功能和Yoshihiro的Game Decrypter是一样的，用以解密eboot.bin，只是包含了所有的Eboot. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,96 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/psp-hacking-awake-jas0nuk-released-prxdecrypter-2-25/">
+		
+			PSP破解复苏 jas0nuk发布PRXdecrypter 2.25</a>
+	</h2>
+	<div class="entry-content">
+		<p>Arthur在<a href="http://artori.us/yoshihiro-update-game-decrypter-b2/">上一篇</a>文章中说到过jas0nuk已经回归the scene（PSP破解界），而今天早些时候他就如约发布了PRXdecrypter的新版本2.25。可以说这次的版本功能和Yoshihiro的Game Decrypter是一样的，用以解密eboot.bin，只是包含了所有的Eboot.bin的密匙，即你可以解密目前为止所有的eboot.bin了。务须多说，这里是官方说明。</p>
+
+<blockquote><p><img src="/images/uploads/zb/bankey.gif" alt="" /></p>
+
+<p>Contains all the 6.00/6.10 EBOOT.BIN keys, just like those in Yoshihiro&#8217;s decrypter.</p>
+
+<p>There is another odd one not present in either decrypter: 0xD91612F0 (if you get an error message with this code, post here! I need to work out where this tag is being used.)</p>
+
+<p>To anyone on PSPGEN who accused Yoshihiro of copying/stealing my work: this is complete nonsense.</p>
+
+<p>You should be able to decrypt any of the below EBOOT.BINs (except the last one) even on 5.00 M33 and below, as long as PRXdecrypter runs.</p>
+
+<p>General EBOOT.BIN keytags info</p>
+
+<p>The classics:</p>
+
+<p>Tag 0x08000000 - 1.xx EBOOT.BIN</p>
+
+<p>Tag 0xC0CB167C - 2.xx EBOOT.BIN</p>
+
+<p>Unknown if these were ever used, but I found them ages ago - Sony were planning new EBOOT keys for a long time:</p>
+
+<p>Tag 0x8004FD03 - 2.71 EBOOT.BIN</p>
+
+<p>Tag 0xD91605F0 - 2.8X EBOOT.BIN</p>
+
+<p>Tag 0xD91606F0 - 3.0X EBOOT.BIN</p>
+
+<p>Tag 0xD91607F0 - ???</p>
+
+<p>Tag 0xD91608F0 - 3.1X EBOOT.BIN</p>
+
+<p>These are now being used:</p>
+
+<p>Tag 0xD91609F0 - 5.00 EBOOT.BIN</p>
+
+<p>Tag 0xD9160AF0 - 5.50 EBOOT.BIN</p>
+
+<p>Tag 0xD9160BF0 - 5.55 EBOOT.BIN</p>
+
+<p>Tag 0xD9160CF0 - 6.00 EBOOT.BIN (which game(s) use this?)</p>
+
+<p>Tag 0xD91611F0 - 6.00 EBOOT.BIN (which game(s) use this?)</p>
+
+<p>Tag 0xD91612F0 - 6.00 EBOOT.BIN (GTN USA - PSN edition, any others?) not decrypted!</p></blockquote>
+
+<p>如果你遇到错误代码0xD91612F0，可以到<a href="http://forums.maxconsole.net/showthread.php?t=143538">这里</a>注册留言，当然也可以在我的博客留言。另外，可以想见不出多日就会有新的修复版发布，以修复一些这个版本没有解决的问题，Arthur将继续跟踪，敬请关注。</p>
+
+<p><strong>下载地址</strong>：<a href="http://forums.maxconsole.net/attachment.php?attachmentid=24494&amp;d=1254444222">官方地址</a> | <a href="http://rapidshare.com/files/287691816/PRXdecrypter_2-25.rar">rapidshare</a></p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-10-03T03:46:07+08:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1194,116 +1284,6 @@
 
 
 	<a class='category' href='/blog/categories/video-game/'>Video Game</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/more-renjian-widget-javascript/">
-		
-			继续人间网Widget - Javascript</a>
-	</h2>
-	<div class="entry-content">
-		<p>又要说到前文《<a href="http://arthraim.cn/post/2009/09/100.html">简单的人间网Widget</a>》和《<a href="http://arthraim.cn/post/2009/09/103.html">官方的人间网Widget</a>》，第一篇文章我是拿出javascript的三脚猫功夫把twitter widget 改成了人间网的widget，第二篇文章是看到了第一篇的一个回复，人间网官方的一个widget，当时说道：&#8221;只是在自己博客用之前，还要改造一番，兴许等我改了之后又能再发一篇分享一下。&#8221; 没错，这一次就是来做什么事情的。</p>
-
-<p>因为官方提供的widget不但包括了核心功能还提供了各种样式，保留了人间网的自己的风格。但是Arthur是把各种各样的widget都要融入自己的博客主题中的，所以就悄悄的向renseaApi.js这个文件开刀了。我尽可能的保留了twitter widget的风格，只让javascript更新一个ul的内容，而不提供任何的div及样式，使得如何使用这个ul取决于我。</p>
-
-<p>注意看现在我已经在使用的右侧的RENSEA这个模块。</p>
-
-<p><a href="/images/uploads/zb/2009-09-18_rensea_widget.jpg"><img src="/images/uploads/zb/2009-09-18_rensea_widget.jpg" alt="" /></a></p>
-
-<p>那代码的话，我就贴出所有的我的正在调用的这个rensea2.js。就像之前说的，Arthur保留了twitter只填充ul里li的这一方式，使得结合主题更加灵活。另外，所有的更新的现实方式没有对renseaApi.js作修改（除了&#8221;通过网站&#8221;）。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">renseaCallback2</span><span class="p">(</span><span class="nx">statuss</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">sData</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">sHtml</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">statuss</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">=</span> <span class="s1">&#39;&lt;li&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div class=&quot;text&quot;&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">text</span><span class="p">){</span>
-</span><span class='line'>            <span class="nx">sHtml</span> <span class="o">+=</span> <span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">text</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/@(.+?)(?=s)/g</span><span class="p">,</span> <span class="s2">&quot;@&lt;a href=&#39;http://rensea.com/$1&#39; target=&#39;_blank&#39;&gt;$1&lt;/a&gt;&quot;</span><span class="p">);</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">status_type</span> <span class="o">==</span> <span class="s2">&quot;LINK&quot;</span><span class="p">){</span>
-</span><span class='line'>            <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s2">&quot;&lt;a href=&#39;&quot;</span> <span class="o">+</span> <span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">link_url</span> <span class="o">+</span> <span class="s2">&quot;&#39; target=&#39;_blank&#39;&gt;&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">link_title</span><span class="o">||</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">link_desc</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&lt;/a&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">status_type</span> <span class="o">==</span> <span class="s2">&quot;PICTURE&quot;</span><span class="p">){</span>
-</span><span class='line'>            <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s2">&quot;&lt;a href=&#39;&quot;</span> <span class="o">+</span> <span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">original_url</span> <span class="o">+</span> <span class="s2">&quot;&#39; target=&#39;_blank&#39;&gt;图片&lt;/a&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s1">&#39;&lt;div class=&quot;timeAndWay&quot;&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">+=</span> <span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">relative_date</span> <span class="o">+</span> <span class="s2">&quot; 通过&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">source</span><span class="o">==</span><span class="s2">&quot;网站&quot;</span><span class="o">?</span><span class="s2">&quot;人间网&quot;</span><span class="o">:</span><span class="nx">statuss</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">source</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">sHtml</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/li&gt;&#39;</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">sData</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">sHtml</span><span class="p">);</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;microblog_list&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">sData</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>HTML调用相对简单一点，不需要有什么特别的参数，宽度就让CSS去处理吧。callback参数的方法renseaCallback2当然就是js里面的函数名，不过2是为了防止和之前简单的那个冲突。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;rensea2.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://rensea.com/statuses/user_timeline/arthraim.json?count=10&amp;callback=renseaCallback2&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>CSS就不用贴了吧。</p>
-
-<p>以上……</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-09-19T05:22:44+08:00" pubdate data-updated="true">Sep 19<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="看了几个WWDC的session，做了一些笔记，简单贴在博客上吧。 404这个session大概说了objective-c的一些变化，和去年比起来改动实在是不多。 module 这个改动比较引人瞩目，简单说就是写#import的时候改成@import。#include是复制粘帖，#import是 &hellip;">
+	<meta name="description" content="继续简单贴WWDC的笔记。这个session内容相当多啊。 session 203 关于Cocoa Touch的改动，先看这个也是个人兴趣所致。随着iOS7的大动作，Cocoa Touch的改动真心多，还有更多更多细节可能没发现。 多任务 iOS7中多任务是一个重头戏。这里讲到三种。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,9 +76,222 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/wwdc-2013-session-203-whats-new-in-cocoa-touch/">
+		
+			WWDC 2013: Session 203 What’s New in Cocoa Touch</a>
+	</h2>
+	<div class="entry-content">
+		<p>继续简单贴WWDC的笔记。这个session内容相当多啊。</p>
+
+<p>session 203 关于Cocoa Touch的改动，先看这个也是个人兴趣所致。随着iOS7的大动作，Cocoa Touch的改动真心多，还有更多更多细节可能没发现。</p>
+
+<h3>多任务</h3>
+
+<p>iOS7中多任务是一个重头戏。这里讲到三种。这些改动都是让我非常激动的。</p>
+
+<h4>background fetching | 后台抓取</h4>
+
+<p>这个应该是为了满足类似ping、心跳这样的需求，定时往服务器去抓数据。xcode5的Capabilities设置里，打开Background Modes，可以直接勾选到一个background mode：「Background fetch」。</p>
+
+<p>主要涉及的API如下</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">performFetchWithCompletionHandler:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">UIBackgroundFetchResult</span> <span class="n">result</span><span class="p">))</span><span class="nv">completionHandler</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setMinimumBackgroundFetchInterval:</span><span class="p">(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">minInterval</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>remote notifications | 远程通知</h4>
+
+<p>这是个很酷的功能。让app能够在接到一条推送消息的时候后台打开一个下载任务。</p>
+
+<p>例如微信收到新消息推送后打开app，还会有一个连接下载的过程。现在接到推送的同时，就可以在后台把新消息抓过来，打开应用后app已经呈现了这个消息。另外可以想到的更酷的应用，是例如追美剧的那些视频软件，美剧一更新就通过推送把新的一集抓下来，用户下次进入app的时候就可以直接离线看了。</p>
+
+<p>同样Capabilities设置里有一个选项「Remote notifications」</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didReceiveRemoteNotification:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">userInfo</span> <span class="nf">fetchCompletionHandler:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">UIBackgroundFetchResult</span> <span class="n">result</span><span class="p">))</span><span class="nv">completionHandler</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>background transfers | 后台传输</h4>
+
+<p>这是个比较基本的功能，发起一个网络请求可以在app切到后台或关闭后继续完成（当然你也可以中端或暂停它）</p>
+
+<p>这里有个变化是Cocoa提供了一个新的类NSURLSession来取代NSURLConnection，这个新类可以快速发起background的请求。请求完成后app可以处理一个回调，展示下载完成的图片或其他资源。更多关于NSURLSession的内容在WWDC session 705「What&#8217;s new in Foundation Networking」中有更具体的说明。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">handleEventsForBackgroundURLSession:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">identifier</span> <span class="nf">completionHandler:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">UIBackgroundFetchResult</span> <span class="n">result</span><span class="p">))</span><span class="nv">completionHandler</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Views and Images</h3>
+
+<h4>UIImage的renderingMode</h4>
+
+<p><code>- (UIImage *)imageWithRenderingMode:(UIImageRenderingMode)renderingMode;</code> 可以得到一个设置了renderingMode的图片，默认他是auto的，另外它还会有original和template两种绘制模式，后者无视图片中的颜色信息。</p>
+
+<h4>Tint</h4>
+
+<p>现在好像可以很懒惰的处理整个app的风格了，只要设置好tint，各种文字、图标的颜色都会自动切换过去。具体涉及到<code>UIView</code>的<code>tintColor</code>属性以及<code>tintAdjustmentMode</code>属性。而新的代理<code>- (void)tintColorDidChange;</code>可以让你知道tint改变的情况。</p>
+
+<h4>UIView Animation</h4>
+
+<p>iOS7的动画加强了不少。涉及动画的改动也不少。</p>
+
+<p><code>+ (void)performWithoutAnimation:(void (^)(void))actionsWithoutAnimation;</code> 可以强制一些动作不使用动画。不知道之前让我郁闷的要死的<code>UITableViewRowAnimationNone</code>还是有动画的问题能不能解决。</p>
+
+<p>CocoaTouch提供了关键帧动画的API。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">animateKeyframesWithDuration:</span><span class="p">(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">duration</span> <span class="nf">delay:</span><span class="p">(</span><span class="n">NSTimeInterval</span><span class="p">)</span><span class="nv">delay</span> <span class="nf">options:</span><span class="p">(</span><span class="n">UIViewKeyframeAnimationOptions</span><span class="p">)</span><span class="nv">options</span> <span class="nf">animations:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">animations</span> <span class="nf">completion:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">BOOL</span> <span class="n">finished</span><span class="p">))</span><span class="nv">completion</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addKeyframeValue:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">value</span> <span class="nf">time:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">time</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外还有Motion Effects，动画可以结合重力感应什么的大概是这样。</p>
+
+<h3>Collection View</h3>
+
+<p>这个是去年的新东西，强大到什么瀑布流、coverflow都能用layout实现。今年提供了一个在layout之间快速切换的方法。数据不变，layout换一下界面从瀑布变coverflow不是梦想。具体细节不纠结了。</p>
+
+<h3>View Controllers</h3>
+
+<p>其实我觉得最担心的就是这个东西。因为可以看到statusbar navigationbar tabbar都是半透明毛玻璃了，我怎么让一个tableview显示在整屏却只在中间区域让用户滚动呢（能滚到中间，不会有cell躲在tabbar下面，但要让tabbar半透明看到滚下去的cell）？</p>
+
+<p>viewcontorller涉及到下面的一些改动。</p>
+
+<h4>wantsFullScreenLayout</h4>
+
+<p>现在的viewcontroller始终保持iOS6设置<code>wantsFullScreenLayout</code>为YES的状态。StatusBar、NavigationBar等等都会变成半透明。真是丧心病狂！然后<code>wantsFullScreenLayout</code>这个属性就没了。因为它被始终设为YES。</p>
+
+<h4>extended edges</h4>
+
+<p>这个extended edges的属性，帮我解决了之前的担心。现在怎么让一个scrollView内容显示在中间部分，却可以滚到那些Bar下面实现半透明，就靠这个属性。让viewcontroller的extended edges变成你要躲开的控件的高度宽度就可以。描述不清楚，你们体会下。orz</p>
+
+<h4>content size</h4>
+
+<p>用<code>preferredContentSize</code>属性来设置你期望的大小，iOS7现在会用它来决定自己的大小。一般应该只有子界面才用得到。</p>
+
+<h4>status bar</h4>
+
+<p>因为全屏，所以现在的statusbar是没有背景颜色的。 <code>UIStatusBarStyleBlackTranslucent</code>和<code>UIStatusBarStyleBlackOpaque</code>两个枚举都被deprecated了。新的<code>UIStatusBarStyleLightContent</code>可以让你设置，万恶的毛玻璃。<code>UIStatusBarStyleDefault</code>不变。</p>
+
+<h4>custom transition</h4>
+
+<p>可以定制transition。比如navigation的push pop，viewController的present dismiss，或者手势控制的各种。另外新的代理<code>UIViewControllerTransitioningDelegate</code>（viewcontroller有相应属性）和新的protocol<code>UIViewControllerAnimatedTransitioning</code>、<code>UIViewControllerInteractiveTransitioning</code>、<code>UIViewControllerContextTransitioning</code>，具体的方法文档有，不知道用到的机会有多少。</p>
+
+<h3>状态恢复</h3>
+
+<p>现在新的App状态恢复，系统会给你截一张图，让你的程序的恢复变得无缝。</p>
+
+<p>但事实上，很有可能截图和应用恢复后实际的数据或界面不一样，于是你可以用新的方法<code>- (void)ignoreSnapshotOnNextApplicationLaunch;</code>屏蔽之前的截图。</p>
+
+<p>另外你可以用<code>+ (void) registerObjectForStateRestoration:(id&lt;UIStateRestoring&gt;)object restorationIdentifier:(NSString *)restorationIdentifier;</code>把<strong>和界面无关</strong>的数据对象保存下来。</p>
+
+<p>蓝牙状态也可以恢复，这一块不太熟悉，总之系统帮你保存了一些状态，有两个新的key让你取到他们。</p>
+
+<h3>AirDrop</h3>
+
+<p>这个session里笼统的说了一下，你可以注册protocol，每个app沙箱多了一个inbox目录等等，不深入了（视频里也没深入说啊）。</p>
+
+<h3>Dynamics</h3>
+
+<p>「Getting started with UIKit Dynamics」和「Advanced Techniques with UIKit Dynamics」两个session详细介绍了这一块。</p>
+
+<p>具体这货就是让你做一些效果，两个view粘在一起，view带上物理特效，碰撞、重力感应什么的高级货。</p>
+
+<ul>
+<li><code>UIDynamicAnimator</code> 操作一些动画的模型</li>
+<li><code>UIDynamicBehavior</code> 记录各种动作的一棵树</li>
+<li><code>UIDynamicItem</code> 这个protocol让控件变成你要操作的对象</li>
+</ul>
+
+
+<h3>Text</h3>
+
+<p>iOS7的设置里，用户可以用一个滑槽修改字体大小了。</p>
+
+<p>开发者可以用<code>UIApplication</code>的<code>preferredContentSizeCategory</code>属性取到用户设置的字体大小。</p>
+
+<p>取到的值是一个<code>UIContentSizeCategorySize...</code>枚举，有XS、S、M、L、XL、XXL、XXXL几个档次。</p>
+
+<p>用户修改这个设置的时候，会发送一个notification: <code>UIContentSizeCategoryDidChangeNotification</code>，使用新的key<code>UIContentSizeCategoryNewValueKey</code>可以从notification中取到修改后的字体大小。</p>
+
+<p>另外<code>+ (UIFont *)preferedFontForTextStyle:(NSString *)style;</code>方法可以用「标题文字」「正文文字」这样的形式来获得一些固定的UIFont。</p>
+
+<h3>Text Kit</h3>
+
+<p>这是一个全新的Kit，基于CoreText。具体「Introducing Text Kit」和「Advanced Text Layouts and Effects with Text Kit」以及「Using fonts with Text Kit」三个session涉及到这一块。</p>
+
+<p>这货大致有三个类</p>
+
+<ul>
+<li><code>NSTextContainer</code> 是最外面文字布局的容器</li>
+<li><code>NSLayoutManager</code> 是内部的布局</li>
+<li><code>NSTextStorage</code> 文字的数据</li>
+</ul>
+
+
+<p>修改文字布局只要按需要派生其中一层就可以，还有个<code>NSTextAttachment</code>可以图文混排什么的。细节跳过。</p>
+
+<h3>More</h3>
+
+<p>Session最后提到了其他一下CocoaTouch的修改，罗列一下。</p>
+
+<ul>
+<li>Local networking</li>
+<li>Sprite Kit</li>
+<li>game controllers</li>
+<li>MapKit</li>
+<li>CoreLocation</li>
+<li>game center
+
+<ul>
+<li>new turn based api (like letter press)</li>
+</ul>
+</li>
+</ul>
+
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-19T10:43:00+08:00" pubdate data-updated="true">Jun 19<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/wwdc-2013-session-404-advances-in-objective-c/">
 		
-			WWDC: 2013 Session 404 Advances in Objective-c</a>
+			WWDC 2013: Session 404 Advances in Objective-c</a>
 	</h2>
 	<div class="entry-content">
 		<p>看了几个WWDC的session，做了一些笔记，简单贴在博客上吧。</p>
@@ -882,61 +1095,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 
 
 	<a class='category' href='/blog/categories/life/'>Life</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/git-prune-branch/">
-		
-			Git修剪分支</a>
-	</h2>
-	<div class="entry-content">
-		<p>项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。</p>
-
-<ul>
-<li><p><code>git branch</code> 可以查看本地有的分支，当前分支之前有个*。</p></li>
-<li><p><code>git branch -r</code> 查看所有远程的分支（不代表远程还有的分支）</p></li>
-<li><p><code>git branch -a --color</code> 查看所有分支（<code>--color</code>加颜色，绿色是tracking的）</p></li>
-<li><p><code>git branch -d TAG</code> 删除本地分支，如果这个分支有没有合并的提交，git会提示你改用 <code>-D</code> 强制删除（或干脆别删除！）</p></li>
-<li><p><code>git push REMOTE :TAG</code> 删除远程REMOTE（比如一般叫origin）分支，注意分支名前加冒号</p></li>
-<li><p><code>git remote prune REMOTE</code> 这个指令比较特殊，如果你在A仓库上<code>git fetch</code>过，在B仓库用上一条命令删除了远程分支，那么A仓库里 <code>git branch -r</code> 还是可以看到已经删掉的分支。这个时候可以用这个命令修剪这些分支。</p></li>
-<li><p><code>git prune</code> 在本地也可以使用，不过作用我还真不清楚，官方用推荐用 <code>git gc</code></p></li>
-</ul>
-
-
-<p>记录下，git真的很萌的你们不要黑他。</p>
-
-<p>以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-02T08:07:32+08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
 
 
 </div>

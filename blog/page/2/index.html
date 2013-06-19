@@ -7,7 +7,9 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="近日在提交一个app的时候发生了奇怪的错误。错误如下： iPhone/iPod Touch: Icon.png: icon dimensions (0 x 0) don&#8217;t meet the size requirements. The icon file must be 57x57 &hellip;">
+	<meta name="description" content="项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。 git branch 可以查看本地有的分支，当前分支之前有个*。
+git branch -r 查看所有远程的分支（不代表远程还有的分支）
+git &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +73,61 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/git-prune-branch/">
+		
+			Git修剪分支</a>
+	</h2>
+	<div class="entry-content">
+		<p>项目运转的久了，很多个人的战略的bugfix的feature的分支一堆一堆，今天忍不住想清理一些已经被合并的分支。这里用到了几个相关的git命令。</p>
+
+<ul>
+<li><p><code>git branch</code> 可以查看本地有的分支，当前分支之前有个*。</p></li>
+<li><p><code>git branch -r</code> 查看所有远程的分支（不代表远程还有的分支）</p></li>
+<li><p><code>git branch -a --color</code> 查看所有分支（<code>--color</code>加颜色，绿色是tracking的）</p></li>
+<li><p><code>git branch -d TAG</code> 删除本地分支，如果这个分支有没有合并的提交，git会提示你改用 <code>-D</code> 强制删除（或干脆别删除！）</p></li>
+<li><p><code>git push REMOTE :TAG</code> 删除远程REMOTE（比如一般叫origin）分支，注意分支名前加冒号</p></li>
+<li><p><code>git remote prune REMOTE</code> 这个指令比较特殊，如果你在A仓库上<code>git fetch</code>过，在B仓库用上一条命令删除了远程分支，那么A仓库里 <code>git branch -r</code> 还是可以看到已经删掉的分支。这个时候可以用这个命令修剪这些分支。</p></li>
+<li><p><code>git prune</code> 在本地也可以使用，不过作用我还真不清楚，官方用推荐用 <code>git gc</code></p></li>
+</ul>
+
+
+<p>记录下，git真的很萌的你们不要黑他。</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-02T08:07:32+08:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -612,64 +669,6 @@
 
 
 <time datetime="2011-06-04T07:41:22+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2011</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/bottle-i-love-this-framework/">
-		
-			Bottle-非常喜欢这个框架</a>
-	</h2>
-	<div class="entry-content">
-		<p>大概是我火星了，直到2天前我才知道有bottle这样一个框架。鉴于对自己的翻译能力没有什么信心，就摘抄<a href="http://bottlepy.org">bottle官网</a>上对自己介绍的原文过来吧。</p>
-
-<blockquote><p>Bottle is a fast, simple and lightweight WSGI micro web-framework for Python. It is distributed as a single file module and has no dependencies other than the Python Standard Library.</p></blockquote>
-
-<p>坦率说因为工作中是使用spring的缘故，其实真正用python的web框架机会并不多。相对接触的比较多的是django，无论是工作中还是生活中写点小东西的时候我还是比较愿意使用django，django+mongoengine，可以快速的使用mongodb来做存储，具体就不细说了这不是重点，<a href="/use-mongodb-with-django/">之前的文章</a>中提到过。至于pylons, web.py或者其他的，大概看了一眼文档就没啥特别的感觉就没有深究下去。</p>
-
-<p><a href="/bottle-i-love-this-framework/logo_nav/"><img src="/images/uploads/wp/logo_nav.png" alt="" /></a></p>
-
-<p>今天主角是bottle，早上醒来迷迷糊糊在reader上看了<a href="http://simple-is-better.com/news/detail-292">一个充满印度腔的视频</a>，讲用bottle框架5分钟创建一个wiki。就是这个视频让我对bottle一见钟情。可以看一下官网的helloworld</p>
-
-<p><a href="/bottle-i-love-this-framework/2011-05-29_bottle_hello_world/"><img src="/images/uploads/wp/2011-05-29_bottle_hello_world.png" alt="" /></a></p>
-
-<p>好像做一个restful的东西好轻松的样子，直到我花了2个小时认真的读了他的<a href="http://bottlepy.org/docs/dev/tutorial.html">这一页</a>文档，我才觉得这真的太棒了！搭建一个web应用真的是手到擒来鸟。dict直接输出为json，multipart上传文件直接从request.files里面读取，cookie以及加密的cookie等等偷懒的feature真是不少。</p>
-
-<p>内建的template相对要蛋疼一点，我都没有找到loop，不过支持mako很简单，和内建的用法几乎是一模一样的。</p>
-
-<p>各种给力不多说了，现在自己在写一个用bottle+mongo的应用玩，另外学习的时候写了<a href="https://gist.github.com/994641">一个例子</a>，也传到了github上，愿意的话可以看看，里面有很多让人高兴的地方。如果你和我一样有做一个web应用的冲动，不妨试试看bottle！</p>
-
-<p>以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-30T04:46:07+08:00" pubdate data-updated="true">May 30<span>th</span>, 2011</time></div>
 	<div class="tags">
 
 
