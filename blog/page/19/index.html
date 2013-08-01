@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="网站正式宣布改版啦！ 首先介绍一下Arthraim.cn. 我 &#8212;- Arthur 是这个网站的webmaster。本人是双胞胎的哥哥，我的英文名叫Arthur，弟弟的叫Ephraim。因此把我们的名字结合在一起 &#8212;- Arthraim成为了我在网络上的身份……（ &hellip;">
+	<meta name="description" content="今天继续做了一些工作，在加入Google Friend Conncect之后，决定多用一些它的功能来代替自己的页面功能，让网站的社交感觉更加强烈一点。于是发生了今天的一些修改。 具体的就是修复了Attachment页面的问题（标签错位这样我倒是觉得挺好看的就不去改了）， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,54 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/arthraim-cn-is-changed-2/">
+		
+			Arthraim.cn全面改版·续</a>
+	</h2>
+	<div class="entry-content">
+		<p>今天继续做了一些工作，在加入Google Friend Conncect之后，决定多用一些它的功能来代替自己的页面功能，让网站的社交感觉更加强烈一点。于是发生了今天的一些修改。</p>
+
+<p>具体的就是修复了<a href="http://arthraim.cn/Gallery/">Attachment页面</a>的问题（标签错位这样我倒是觉得挺好看的就不去改了），这一次把右边用特定的div一个一个封装之后就不存在特别的问题了，主页面也是一样，包括加入Google的一些gadget的时候也会有问题，不过通过div的方法就全部解决了。值得一提的是有几个插件没有启用，尤其是评分插件，原来是因为兼容性的问题没有用，现在我相信稍微修改就可以用了吧，不过评分插件不用是因为添加了替代品。</p>
+
+<p>第二个修改就是加入了Google的一个Gadget，这样在回复的时候可以使用新的回复和打分功能了（这就不用其他插件了说）。不过这里把Z-BLOG自带的回复模块去掉了，因为的确没必要了。但是以前回复的东西，我改成历史回复，放在了回复的下面，所以还是看得到的，只是&#8221;回复该评论&#8221;这个按钮没有去改，点了也是没用的说～</p>
+
+<p>然后就是对一些Google Socialbar策略做了一些调整，comments改成了对整个site，这样在任何地方都可以评论下我的网站，或者是给我留言了。至于说留言板来干什么的。。。其实也会改成那个样子，只是今天不想动手了，过两天把留言板也改成一样对整个site的comment，这样就有用了。至于Picasa还是没有弄好，没有深入到作者的代码里面去修改，不过很喜欢这个插件，我想我会自己花时间把它美化一下的。</p>
+
+<p>那简单的说到这里，希望大家有什么意见可以给我提出来。另外关于以后的扩展，我很想加入一个twitter的页面，期待下吧。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-05-24T19:59:27+08:00" pubdate data-updated="true">May 24<span>th</span>, 2009</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/life/'>Life</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -743,125 +791,6 @@ void ProcessResult(int n)
 
 
 <time datetime="2009-05-15T06:23:57+08:00" pubdate data-updated="true">May 15<span>th</span>, 2009</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/programing/'>Programing</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/microsoft-axum-learn-grammar-with-video/">
-		
-			Microsoft Axum —— 跟着视频看语法(AxumMath的实现)</a>
-	</h2>
-	<div class="entry-content">
-		<p>其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ：</p>
-
-<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
-
-<p>平台为Windows 7 build 7057（没有更新RC版啊），IDE是Visual Studio 2008。<strike>不知道2005是不是支持，我的windows xp中安装了Axum和VS2005的，一会考证一下。</strike> 经确认VS2005是不能新建Axum工程的。</p>
-
-<p><strong>下图为IDE和程序运行结果。</strong></p>
-
-<p><img src="/images/uploads/zb/AxumMath.PNG" alt="" /></p>
-
-<p>虽然实现的程序和C#的ReadLine获得几个数字，加一下乘一下得到的效果是一样的，不过我的数据不是通过访问内存的，而是通过Axum提供的数据传输方式的。</p>
-
-<p>简单的说：首先做了一个channel，作为一切传输的通道，输入的数据是int X和int Y，输出的数据是int Z。然后在这个channel的基础上新建两个agent，分别完成相加和相减的过程。</p>
-
-<blockquote><p>Z &lt;&#8211; ( receive(X) + receive(Y))</p></blockquote>
-
-<p>这句话是核心，receive(X)的方法，是agent从channel中接受X的信息，而做出处理后 &lt;&#8211; 传输给Z，Z就得到了需要的结果。（究竟是先处理数据再传输，还是传输过来后再处理不得而知）</p>
-
-<p>UI逻辑中，首先将两个agent创建不同的domain（话说Axum是弱类型语言呢～），然后就可以通过ReadLine得到输入的数据，通过之前创建的domain直接去接收结果。</p>
-
-<p>这是单击完成的，不知道分布之后是不是有特殊地方。下面是视频中整个程序的结构图例。</p>
-
-<p><img src="/images/uploads/zb/2009-05-13_frame.png" alt="" /></p>
-
-<p><strong>下面插入代码，（看来是不是应该自定义高亮方式了呢？先采用相对接近的C#吧～）</strong></p>
-
-<pre><code>using System;
-using System.Concurrency;
-using Microsoft.Axum;
-namespace AxumMath
-{
-    channel IntOperater
-    {
-        input int X;
-        input int Y;
-        output int Z;
-    }
-    private agent AdderAgent : channel IntOperater
-    {
-        public AdderAgent()
-        {
-            while(true)
-            {
-                Z &lt;-- ( receive(X) + receive(Y));
-            }
-        }
-    }
-    private agent MultiplierAgent : channel IntOperater
-    {
-        public MultiplierAgent()
-        {
-            while(true)
-            {
-                Z &lt;-- ( receive(X) * receive(Y));
-            }
-        }
-    }
-    private agent MainAgent : channel Application
-    {
-        public MainAgent()
-        {
-            var adder = AdderAgent.CreateInNewDomain();
-            var multiplier = MultiplierAgent.CreateInNewDomain();
-            while ( true )
-            {
-                Console.Write("X: ");
-                var x = Int32.Parse(Console.ReadLine());
-                Console.Write("Y: ");
-                var y = Int32.Parse(Console.ReadLine());
-                adder::X &lt;-- x;
-                adder::Y &lt;-- y;
-                multiplier::X &lt;-- x;
-                multiplier::Y &lt;-- y;
-                Console.WriteLine( "Sum: " + receive(adder::Z ));
-                Console.WriteLine( "Product: " + receive(multiplier::Z ));
-            }
-        }
-    }
-}
-</code></pre>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-05-14T07:25:35+08:00" pubdate data-updated="true">May 14<span>th</span>, 2009</time></div>
 	<div class="tags">
 
 

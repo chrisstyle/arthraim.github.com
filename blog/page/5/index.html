@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="这个月博客一直没有更新，到了月底才良心发现写了几篇，其实我一直很奇怪，难道我一个月就一点都不想写，我还在奇怪自己为什么没空写博客，刚才一看豆瓣我明白了，我这个月看了23部电影啊！这个是不是太热血了。这个月两个重点，第一是《盗梦空间》，第二个是周星驰。 锅盖头 / Jarhead：不太明白…… &hellip;">
+	<meta name="description" content="之前倒是在ubuntu上用过，双系统在win下面工作，出于懒得重启这么个原因于是想快速在win上跑一段python代码，想想是挺快的一件事情结果倒还真是折腾了一段时间。在sourceforge上下载了最新版（1.2.3），开始安装，于是在执行python setup.py &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +71,106 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/building-mysqldb-for-python-on-windows/">
+		
+			在Windows编译MySQLdb for Python</a>
+	</h2>
+	<div class="entry-content">
+		<p>之前倒是在ubuntu上用过，双系统在win下面工作，出于懒得重启这么个原因于是想快速在win上跑一段python代码，想想是挺快的一件事情结果倒还真是折腾了一段时间。在<a href="http://sourceforge.net/projects/mysql-python/">sourceforge</a>上下载了最新版（1.2.3），开始安装，于是在执行<code>python setup.py install</code>的时候先后遇到了三个问题，分别记录如下：</p>
+
+<hr />
+
+<p><strong>问题</strong>：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>_mysql.c(34) : fatal error C1083: Cannot open include file: 'config-win.h': No such file or directory
+</span><span class='line'>error: command '"C:Program FilesMicrosoft Visual Studio 9.0VCBINcl.exe"' failed with exit status 2</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>原因</strong>：原因是安装MySQL的时候没有安装C语言库。</p>
+
+<p><strong>解决</strong>：重新运行MySQL的安装程序，选择Modify，把<code>C Include Files / Lib Files</code>勾选上，并安装。</p>
+
+<hr />
+
+<p><strong>问题</strong>：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Traceback (most recent call last):
+</span><span class='line'> File "setup.py", line 15, in &lt;module&gt;
+</span><span class='line'> metadata, options = get_config()
+</span><span class='line'> File "C:MySQL-python-1.2.3setup_windows.py", line 7, in get_config
+</span><span class='line'> serverKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, options['registry_key'])
+</span><span class='line'>WindowsError: [Error 2] The system cannot find the file specified</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>原因</strong>：MySQL for python 1.2.3仍然是在寻找MySQL5.0的版本</p>
+
+<p><strong>解决</strong>：</p>
+
+<p>1、打开目录下site.cfg文件，修改最后一行为<code>registry_key = SOFTWAREMySQL ABMySQL Server 5.1</code></p>
+
+<p>2、打开setup_windows.py文件，修改第七行为<code>serverKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, 'SOFTWAREMySQL ABMySQL Server 5.1')</code></p>
+
+<hr />
+
+<p><strong>问题</strong>：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>buildtemp.win32-2.7Release_mysql.pyd.manifest : general error c1010070: Failed to load and parse the manifest. The system cannot find the file specified.
+</span><span class='line'>error: command 'mt.exe' failed with exit status 31</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>原因</strong>：路径发生变化？</p>
+
+<p><strong>解决</strong>：打开<code>你的PYTHON安装目录Libdistutilsmsvc9compiler.py</code>文件，找到<code>ld_args.append('/MANIFESTFILE:' + temp_manifest)</code>这行代码，将其改为<code>ld_args.append('/MANIFEST')</code></p>
+
+<hr />
+
+<p>这样应该就可以正常<code>python setup.py install</code>了。</p>
+
+<p>以上。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-11T01:43:09+08:00" pubdate data-updated="true">Oct 11<span>th</span>, 2010</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/programing/'>Programing</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -982,60 +1082,6 @@
 
 
 	<a class='category' href='/blog/categories/movie/'>Movie</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/hello-sina-microblogging/">
-		
-			新浪微博你好</a>
-	</h2>
-	<div class="entry-content">
-		<p>久未更新博客（其实酝酿了很多题材最近貌似没啥时间折腾），决定今天无论如何要水上一篇。白天刚好伟大的鸽子同学（人间@patric、围脖@鸽子）鼎力推荐@denishua的插件sina-connect。</p>
-
-<p>其实在我博客留言的人貌似不多，我也一直对留言这个东西不太重视。当时用Z-blog的时期，我还一直采用了全封闭的评论策略，就是你必须使用Google Account登录我的博客（GFC把这叫做&#8221;加入&#8221;），不然不能发言。之前一直使用的WP默认的评论，就是要输入至少三个字段。一直想要不要引入GFC或者其他登录方式，正好今天鸽子同学说了几个挺让我动心的feature。终于装上了。</p>
-
-<p>现在鼓励大家来我博客留言吧~ 可以使用新浪微薄直接连接了。在留言那块，点<img src="http://fairyfish.net/wp-content/plugins/all-in-one/sina_button.png" alt="" />，连接之后你的发言还可以同步到新浪微薄上，直接把喜欢我的文章分享出去。今天已经有童鞋换了的试验过了。</p>
-
-<p><a href="/images/uploads/wp/2010-07-22_sina_connect_testers.png"><img src="/images/uploads/wp/2010-07-22_sina_connect_testers.png" alt="" /></a></p>
-
-<p>那啥，最后留下<a href="http://fairyfish.net/2010/06/08/sina-connect/">链接</a>一枚~ 感谢@Denishua同学大恩大德。对了，他以前还做过一个<a href="http://fairyfish.net/2009/06/15/douban-connect/">豆瓣连接</a>的，考虑到我身边豆瓣的朋友不多，所以我就算了…………</p>
-
-<p>欢迎大家在围脖关注我，和<a href="http://renjian.com/arthraim">人间网</a>一样是@<a href="http://t.sina.com.cn/arthraim">Arthraim</a>~</p>
-
-<p>顺便，为了装这个插件，我还把博客升级到了WP3.0（终于下定决心），于是对博客的主题不满意了，因为新的默认主题我挺喜欢的~ 估计过段时间又要手痒换模板了。我把右侧人间网的widget去掉了，因为为了用户载入页面速度快一点~</p>
-
-<p>水的好快乐啊，完了！以上。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-07-23T07:23:01+08:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2010</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/life/'>Life</a>
 
 
 </div>

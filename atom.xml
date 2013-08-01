@@ -4,7 +4,7 @@
   <title><![CDATA[Artoirus]]></title>
   <link href="http://artori.us/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-06-19T15:06:26+08:00</updated>
+  <updated>2013-08-01T09:16:26+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[未找到应用程序的“aps-environment”的权利字符串]]></title>
+    <link href="http://artori.us/no-valid-aps-environment-entitlement-string-found-for-application/"/>
+    <updated>2013-07-31T08:54:00+08:00</updated>
+    <id>http://artori.us/no-valid-aps-environment-entitlement-string-found-for-application</id>
+    <content type="html"><![CDATA[<p>总是想到这个忘了那个，记录一笔</p>
+
+<ol>
+<li>bundle_id 和实际的 appid 一致</li>
+<li>选择的Provisioning profile对不对（有时候auto会使用通配的profile）</li>
+<li>portal中对应的appid是否开启推送，是否有推送证书</li>
+<li>provisioning profile是否是在appid开启推送后再生成的</li>
+<li>设备是否是adhoc的profile包括的设备</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[WWDC 2013: session 203 What’s New in Cocoa Touch]]></title>
@@ -1009,21 +1027,6 @@ Xcode在编译时，会对png资源进行优化。</li>
 <p>E3每天都在恢复往日的气息，伴随着3DS/KINECT甚至NGP/WIIU的出现，E3也真的回来了，复苏了。势必明年的E3会有PS4 X720甚至WII2的出现，让我们好好欣赏今年的E3，并期待它有更大的发展吧~</p>
 
 <p>以上。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[java语言oauth库scribe-java支持新浪微博]]></title>
-    <link href="http://artori.us/java-oauth-lib-scribe-java-start-supporting-weibo/"/>
-    <updated>2011-06-04T07:41:22+08:00</updated>
-    <id>http://artori.us/java-oauth-lib-scribe-java-start-supporting-weibo</id>
-    <content type="html"><![CDATA[<p>好吧这是一篇蛋疼的文章, 因为本人第一次成功pull request所以比较鸡冻. <a href="https://github.com/fernandezpablo85/scribe-java">scribe-java</a>是一个java语言的oauth库, 代码很干净利落很容易扩展而且用起来很方便. 因为<a href="http://artori.us/something-about-oauth/">之前文章</a>提到过的工作, 所以对scribe-java做了<a href="https://github.com/Arthraim/scribe-java">一些改造</a>.</p>
-
-<p>事实上很多改造是因为scribe-java的确还存在一些问题, 比如oauth参数不支持querystring等, 所以改造工作不可避免. 不过随着作者非常快速的更新, 现在它已经大大改善了这些方面的功能. 回过头来再看自己的folk, 事实上也完全没有必要了.</p>
-
-<p>当然很希望国内的开发者在pom.xml里写上scribe-java就可以直接支持国内的各个微博, 所以我整理了一下我的分支正式的发起了pull request. 经过几次交流, 最终 新浪微博 / 网易微博 / 搜狐微博 的相关支持已经正式纳入了原作者的版本中得到支持了. 另外我一起提出请求的QQ微博和人人2.0最终因为代码的修改太大, 作者没有采纳(如果你要使用, 可以下载<a href="https://github.com/Arthraim/scribe-java">我的folk</a>.</p>
-
-<p>具体用法欢迎参考<a href="https://github.com/fernandezpablo85/scribe-java/blob/master/src/test/java/org/scribe/examples/SinaWeiboExample.java">这个例子</a> :) 开源是个尝到甜头就像继续下去的工作, 哪怕你的贡献再渺小, 也非常的美好. 让我鸡冻的感谢一下原作者Pablo Fernandez, 来自阿根廷.</p>
 ]]></content>
   </entry>
   
