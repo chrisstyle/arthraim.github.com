@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programing | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-08-01T09:16:26+08:00</updated>
+  <updated>2013-08-01T09:20:14+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[未找到应用程序的“aps-environment”的权利字符串]]></title>
+    <link href="http://artori.us/no-valid-aps-environment-entitlement-string-found-for-application/"/>
+    <updated>2013-07-31T08:54:00+08:00</updated>
+    <id>http://artori.us/no-valid-aps-environment-entitlement-string-found-for-application</id>
+    <content type="html"><![CDATA[<p>总是想到这个忘了那个，记录一笔</p>
+
+<ol>
+<li>bundle_id 和实际的 appid 一致</li>
+<li>选择的Provisioning profile对不对（有时候auto会使用通配的profile）</li>
+<li>portal中对应的appid是否开启推送，是否有推送证书</li>
+<li>provisioning profile是否是在appid开启推送后再生成的</li>
+<li>设备是否是adhoc的profile包括的设备</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[WWDC 2013: session 203 What’s New in Cocoa Touch]]></title>
@@ -352,74 +370,6 @@ NSURL </em>baseURL = [NSURL fileURLWithPath:path];</p>
 <ul>
 <li><a href="https://devforums.apple.com/message/32282">https://devforums.apple.com/message/32282</a></li>
 <li><a href="http://mentormate.com/blog/iphone-uiwebview-class-local-css-javascript-resources/">http://mentormate.com/blog/iphone-uiwebview-class-local-css-javascript-resources/</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[bottle直接返回pymongo查询结果]]></title>
-    <link href="http://artori.us/bottle-autojson-with-pymongo/"/>
-    <updated>2012-12-19T10:32:00+08:00</updated>
-    <id>http://artori.us/bottle-autojson-with-pymongo</id>
-    <content type="html"><![CDATA[<p>以前提到过<a href="/bottle-i-love-this-framework/">bottle</a>，也写过在<a href="/use-mongodb-with-django/">django里使用pymongo</a>，这次是在bottle里用pymongo。</p>
-
-<p>bottle有类似ROR的一些特性，比如处理请求的时候直接return一个字典，框架会自动把它parse成json（autojson）。</p>
-
-<p>我是想偷个懒来着，把代码写成了下面这样。</p>
-
-<p>```py
-@get('/api/today')
-def api_today():</p>
-
-<pre><code>udid = request.GET.get('udid')
-return self.coll.find_one({'udid':udid, 'date':today})
-</code></pre>
-
-<p>```</p>
-
-<p>这会有问题，因为find_one返回的bson没办法直接parse。伟大的发明都是在偷懒的时候诞生的，看起来我要做的事情也很简单，只要能让我改一改parser就行了。</p>
-
-<ol>
-<li>写一个dump方法替换原来JSONPlugin里的</li>
-<li>设置Bottle app的autojson为False。<code>Bottle(autojson=False)</code></li>
-<li>把有自己dump方法的JSONPlugin给install到app里</li>
-</ol>
-
-
-<p>```py
-class MongoEncoder(JSONEncoder):</p>
-
-<pre><code>def mongo_dumps(obj):
-    # convert all iterables to lists
-    if hasattr(obj, '__iter__'):
-        return list(obj)
-    # convert cursors to lists
-    elif isinstance(obj, pymongo.cursor.Cursor):
-        return list(obj)
-    # convert ObjectId to string
-    elif isinstance(obj, bson.objectid.ObjectId):
-        return unicode(obj)
-    # dereference DBRef
-    elif isinstance(obj, bson.dbref.DBRef):
-        return db.dereference(obj) # db is the incetance database
-    # convert dates to strings
-    elif isinstance(obj, datetime.datetime) or isinstance(obj, datetime.date) or isinstance(obj, datetime.time):
-        return unicode(obj)
-    return json.JSONEncoder.default(self, obj)
-</code></pre>
-
-<p>app = app()
-app.autojson = False
-m_encoder = MongoEncoder()
-app.install(JSONPlugin(json_dumps=lambda s: dumps(s, default=m_encoder.mongo_dumps)))
-```</p>
-
-<p>via:</p>
-
-<ul>
-<li><a href="https://github.com/defnull/bottle/issues/287">https://github.com/defnull/bottle/issues/287</a></li>
-<li><a href="https://gist.github.com/2779820">https://gist.github.com/2779820</a></li>
 </ul>
 
 ]]></content>
