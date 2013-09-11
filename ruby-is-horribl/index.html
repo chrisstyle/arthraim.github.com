@@ -149,10 +149,10 @@ def index &hellip;">
 <p>rails某个模型的index页面，具体做了什么呢？大概是四件事情：</p>
 
 <ol>
-<li><p>取参数version</p></li>
-<li><p>在数据库查询该version并且order字段大于0的数据，根据order字段倒叙排列（数据库是mongodb，driver用mongoid）</p></li>
-<li><p>遍历查询的结果建立一张以order为key，相应order的实体数组为value的表</p></li>
-<li><p>遍历3中的表，每个order的数组中随机抽取一个元素作为这个order的唯一值</p></li>
+<li><p> 取参数version</p></li>
+<li><p> 在数据库查询该version并且order字段大于0的数据，根据order字段倒叙排列（数据库是mongodb，driver用mongoid）</p></li>
+<li><p> 遍历查询的结果建立一张以order为key，相应order的实体数组为value的表</p></li>
+<li><p> 遍历3中的表，每个order的数组中随机抽取一个元素作为这个order的唯一值</p></li>
 </ol>
 
 
@@ -176,10 +176,10 @@ def index &hellip;">
 <p>做的事情是完全一样的。</p>
 
 <ol>
-<li><p>他先看了取参数，不用三元，直接 || 一个默认值</p></li>
-<li><p>然后他把第4步中的取随机的部分改了，因为数组中随机取一个元素，ruby直接有sample方法</p></li>
-<li><p>然后他又觉得第四步可以更简单的调用hash的map方法，映射成另一个value = value.sample的map</p></li>
-<li><p>最后他吃了顿中饭回来灵光一闪，终于发现第三步做的就是一个group_by的事情，ruby可以做这个事情</p></li>
+<li><p> 他先看了取参数，不用三元，直接 || 一个默认值</p></li>
+<li><p> 然后他把第4步中的取随机的部分改了，因为数组中随机取一个元素，ruby直接有sample方法</p></li>
+<li><p> 然后他又觉得第四步可以更简单的调用hash的map方法，映射成另一个value = value.sample的map</p></li>
+<li><p> 最后他吃了顿中饭回来灵光一闪，终于发现第三步做的就是一个group_by的事情，ruby可以做这个事情</p></li>
 </ol>
 
 

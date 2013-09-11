@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Programing | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/programing/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-08-01T09:20:14+08:00</updated>
+  <updated>2013-09-11T10:17:50+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -71,7 +71,7 @@
 
 <p>这是个比较基本的功能，发起一个网络请求可以在app切到后台或关闭后继续完成（当然你也可以中端或暂停它）</p>
 
-<p>这里有个变化是Cocoa提供了一个新的类NSURLSession来取代NSURLConnection，这个新类可以快速发起background的请求。请求完成后app可以处理一个回调，展示下载完成的图片或其他资源。更多关于NSURLSession的内容在WWDC session 705「What's new in Foundation Networking」中有更具体的说明。</p>
+<p>这里有个变化是Cocoa提供了一个新的类NSURLSession来取代NSURLConnection，这个新类可以快速发起background的请求。请求完成后app可以处理一个回调，展示下载完成的图片或其他资源。更多关于NSURLSession的内容在WWDC session 705「What&rsquo;s new in Foundation Networking」中有更具体的说明。</p>
 
 <p><code>objective-c
 - (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler;
@@ -228,7 +228,7 @@
 
 <h3>refactor tools</h3>
 
-<p>重构工具什么的，然后又提了提literals的语法什么的。说起后者今天看到<a href="http://nshipster.com/object-subscripting/">一篇文章</a>，把object subscripting（这货就是比如说array[@3], dictionary[@"key"]这样）扩展成一门DSL。</p>
+<p>重构工具什么的，然后又提了提literals的语法什么的。说起后者今天看到<a href="http://nshipster.com/object-subscripting/">一篇文章</a>，把object subscripting（这货就是比如说array[@3], dictionary[@&ldquo;key&rdquo;]这样）扩展成一门DSL。</p>
 
 <h3>instancetype</h3>
 
@@ -244,7 +244,7 @@
 
 <p>有一些改动，比如新的tagged pointer，以及使用isa的警告等等。下一节还提到了一些retain环的警告等等等等。</p>
 
-<h3>GC -> ARC</h3>
+<h3>GC &ndash;> ARC</h3>
 
 <p>苹果不要GC了，都用ARC了，包括Xcode 5在内的一些工程都放弃GC了。</p>
 
@@ -341,7 +341,7 @@ location / {
 
 <p>```objective-c
 _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height)];
-NSString <em>htmlFile = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+NSString <em>htmlFile = [[NSBundle mainBundle] pathForResource:@&ldquo;index&rdquo; ofType:@&ldquo;html&rdquo;];
 NSString</em> htmlString = [NSString stringWithContentsOfFile:htmlFile encoding:NSUTF8StringEncoding error:nil];</p>
 
 <p>NSString <em>path = [[NSBundle mainBundle] bundlePath];
@@ -355,7 +355,7 @@ NSURL </em>baseURL = [NSURL fileURLWithPath:path];</p>
 
 <h2>添加.js文件的时候</h2>
 
-<p>添加js文件有点特殊，xcode会以为js是可以编译的代码。要在Xcode的target里，把.js文件从 "Compile Sources" 移到 "Copy Bundle Resources" .</p>
+<p>添加js文件有点特殊，xcode会以为js是可以编译的代码。要在Xcode的target里，把.js文件从 &ldquo;Compile Sources&rdquo; 移到 &ldquo;Copy Bundle Resources&rdquo; .</p>
 
 <h2>写HTML的时候</h2>
 

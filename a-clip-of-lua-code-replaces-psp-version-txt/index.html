@@ -74,7 +74,7 @@
 	<h2 class="title">破解PSP 5.55系统的雷人Lua代码</h2>
 	<div class="entry-content"><p>今天看到了一段很雷人的代码，是一段lua的脚本，这是一个邪恶的东西，因为TGS上放出了一个MGS和平行者的试玩版，所以PSP玩家当然都涌上去了，但是PSP的破解现在是滞后的，所有的DEMO会查看你的内核版本，必须要求5.55以上（或者5.51以上），但是现在最新的自制固件（破解的内核）是5.50，所以都是没办法玩的。</p>
 
-<p>当然办法不是没有，要说起PSP的flash0（下次有机会一定要好好写写PSP的破解）。大概介绍下，flash0是存放内核的空间，而flash1是存放用户设置的地方。内核的验证也就很简单（不是所有的验证都这样，因为新内核会有新插件、新模块），验证一个txt文本文件 &#8212;- version.txt。名字叫的太高调了。那么现在欺骗的办法就有了，只要改version.txt！但是不得不说一下version.txt，这个东西不是我凭空讲讲写写改个数字就好了，里面有一堆信息，这里我贴个5.55的version.txt。</p>
+<p>当然办法不是没有，要说起PSP的flash0（下次有机会一定要好好写写PSP的破解）。大概介绍下，flash0是存放内核的空间，而flash1是存放用户设置的地方。内核的验证也就很简单（不是所有的验证都这样，因为新内核会有新插件、新模块），验证一个txt文本文件 &mdash;&mdash; version.txt。名字叫的太高调了。那么现在欺骗的办法就有了，只要改version.txt！但是不得不说一下version.txt，这个东西不是我凭空讲讲写写改个数字就好了，里面有一堆信息，这里我贴个5.55的version.txt。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>

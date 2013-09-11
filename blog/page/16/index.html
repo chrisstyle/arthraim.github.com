@@ -285,7 +285,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <blockquote><p>如果你学习过第一个教程（创建2D游戏），那么你已经变得习惯用2D空间来思维了。位置、方向和动作可以全都用Vector2和一个单独的旋转角度来表示。</p>
 
-<p>这个教程介绍了在三维的概念，和其一系列的新的对象。从根本上，3D世界区别于2D世界的就是新增的第三个坐标轴&#8212;-Z轴，或者说是深度。在XNA Game Studio中，2D世界实质上是一个特殊的，受限制的3D世界的版本&#8212;-你将会在本教程读到的计算也同样在2D中可以读到。</p>
+<p>这个教程介绍了在三维的概念，和其一系列的新的对象。从根本上，3D世界区别于2D世界的就是新增的第三个坐标轴&mdash;&mdash;Z轴，或者说是深度。在XNA Game Studio中，2D世界实质上是一个特殊的，受限制的3D世界的版本&mdash;&mdash;你将会在本教程读到的计算也同样在2D中可以读到。</p>
 
 <p>在XNA Game Studio这哦你，3D的变化意味着，取代在平面世界中画静态的Texture2D对象的是绘制用Model类表示的3D模型。Model类是被叫做网络（mesh）的许多有联系的3D点的集合，在整个世界中，最终渲染在屏幕上的对象，取决于对象的位置和方向，和镜头的位置和方向。</p>
 
@@ -303,7 +303,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p><a href="/images/uploads/zb/BG_4.4.1.2pd.png"><img src="/images/uploads/zb/BG_4.4.1.2pd.png" alt="" /></a></p>
 
-<p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&#8212;-Mesh类，Matrix类和Vector类。</p></blockquote>
+<p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&mdash;&mdash;Mesh类，Matrix类和Vector类。</p></blockquote>
 
 <p><strong> 2、创建一个模型绘制方法</strong></p>
 
@@ -319,7 +319,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>变换（决定了ModelMesh在世界中的定向，并且最终，物体是否出现或是出现在屏幕的哪里）和光（）没有被应用到ModelMesh层面。相对的，每个ModelMesh有一些Effect和它联系在一起。一个Effect对象可以想成提供给可视设备的说明，关于如何绘制一个ModelMesh。</p>
 
-<p>在很多游戏中，Effect对象是由很多复杂的顶点和像素遮罩（shader）组成的。在XNA Game Studio中也可以实现，并且对于高级图形效果来说十分重要。但是在简单的渲染中，XNA Framework Content Pipline（内容管道）提供了一个简单的机制来完成基本的光和绘制效果 &#8212;- BasicEffect类。</p>
+<p>在很多游戏中，Effect对象是由很多复杂的顶点和像素遮罩（shader）组成的。在XNA Game Studio中也可以实现，并且对于高级图形效果来说十分重要。但是在简单的渲染中，XNA Framework Content Pipline（内容管道）提供了一个简单的机制来完成基本的光和绘制效果 &mdash;&mdash; BasicEffect类。</p>
 
 <p>每个通过content pipline加载的ModelMesh接受了一个或多个BasicEffect对象，它们可以在不处理像素或顶点遮罩（shader）的情况下简单的处理变换和光源效果。所有这些BasicEffect类需要一系列表示世界（World）矩阵，视点（View）矩阵和投影（Projection）矩阵的Matrix类，和一些光照的参数。可以调用BasicEffect.EnableDefaultLighting()方法获得默认的参数。</p>
 
@@ -368,9 +368,9 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 		<p>到了这里其实还是和2D的教程是重叠的，这里我们要做的是添加asset们。所以这里你要问自己三个问题：</p>
 
 <ol>
-<li><p>你已经建立了工程（project）了吗？&#8212;- <a href="http://arthraim.cn/post/2009/06/72.html">点我补课</a></p></li>
-<li><p>你已经下载了上一部分要求下载的资源了吗？&#8212;- <a href="http://creators.xna.com/downloads/?id=157">点我下载</a></p></li>
-<li><p>你知道什么是asset吗？你看过之前2D教程的添加asset内容吗？&#8212;- <a href="http://arthraim.cn/post/2009/06/63.html">点我补课</a>（重点浏览链接指向的文章的后半部分，讲解什么是asset）</p></li>
+<li><p> 你已经建立了工程（project）了吗？&mdash;&mdash; <a href="http://arthraim.cn/post/2009/06/72.html">点我补课</a></p></li>
+<li><p> 你已经下载了上一部分要求下载的资源了吗？&mdash;&mdash; <a href="http://creators.xna.com/downloads/?id=157">点我下载</a></p></li>
+<li><p> 你知道什么是asset吗？你看过之前2D教程的添加asset内容吗？&mdash;&mdash; <a href="http://arthraim.cn/post/2009/06/63.html">点我补课</a>（重点浏览链接指向的文章的后半部分，讲解什么是asset）</p></li>
 </ol>
 
 
@@ -449,14 +449,14 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <p><a href="/images/uploads/zb/2009-06-27_NewProject.jpg"><img src="/images/uploads/zb/2009-06-27_NewProject.jpg" alt="" /></a></p>
 
 <blockquote><ul>
-<li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
-<li><p>Windows Game Library (3.1) &#8212;- Windows游戏类库</p></li>
-<li><p>Xbox 360 Game (3.1) &#8212;- Xbox360游戏</p></li>
-<li><p>Xbox 360 Game Library (3.1) &#8212;- Xbox360游戏类库</p></li>
-<li><p>Zune Game (3.1) &#8212;- Zune游戏</p></li>
-<li><p>Zune Game Library (3.1) &#8212;- Zune游戏类库</p></li>
-<li><p>Content Pipeline Extension Library (3.1) &#8212;- Content管道扩展库</p></li>
-<li><p>Platformer Starter Kit (3.1) &#8212;- 一个游戏示例（提供windows x360 zune三种版本都有）</p></li>
+<li><p>Windows Game (3.1) &mdash;&mdash; XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
+<li><p>Windows Game Library (3.1) &mdash;&mdash; Windows游戏类库</p></li>
+<li><p>Xbox 360 Game (3.1) &mdash;&mdash; Xbox360游戏</p></li>
+<li><p>Xbox 360 Game Library (3.1) &mdash;&mdash; Xbox360游戏类库</p></li>
+<li><p>Zune Game (3.1) &mdash;&mdash; Zune游戏</p></li>
+<li><p>Zune Game Library (3.1) &mdash;&mdash; Zune游戏类库</p></li>
+<li><p>Content Pipeline Extension Library (3.1) &mdash;&mdash; Content管道扩展库</p></li>
+<li><p>Platformer Starter Kit (3.1) &mdash;&mdash; 一个游戏示例（提供windows x360 zune三种版本都有）</p></li>
 </ul>
 </blockquote>
 
@@ -467,11 +467,11 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <p>比如我新建一个Windows Game (3.1)工程，并且取名为TChapter2，那么我们可以得到一些IDE为我们创建的文件，具体情况如下。</p>
 
 <blockquote><ul>
-<li><p>Content &#8212;- 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
-<li><p>Game1.cs &#8212;- 游戏逻辑代码。</p></li>
-<li><p>Game.ico &#8212;- 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
-<li><p>GameThumbnail.png &#8212;- 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
-<li><p>Program.cs &#8212;- 就是程序的入口Main方法了。</p></li>
+<li><p>Content &mdash;&mdash; 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
+<li><p>Game1.cs &mdash;&mdash; 游戏逻辑代码。</p></li>
+<li><p>Game.ico &mdash;&mdash; 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
+<li><p>GameThumbnail.png &mdash;&mdash; 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
+<li><p>Program.cs &mdash;&mdash; 就是程序的入口Main方法了。</p></li>
 </ul>
 </blockquote>
 
@@ -479,9 +479,9 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>接下去本章很重要的一部就是下载必须的游戏素材。这里提供官方链接，下载解压缩后就可以看到我们本教程的例子要用到的全部素材了。</p>
 
-<p><a href="/images/uploads/zb/2009-06-27_files1.JPG"><img src="/images/uploads/zb/2009-06-27_files1.JPG" alt="" /></a> &#8230;/Audio/Waves/</p>
+<p><a href="/images/uploads/zb/2009-06-27_files1.JPG"><img src="/images/uploads/zb/2009-06-27_files1.JPG" alt="" /></a> &hellip;/Audio/Waves/</p>
 
-<p><a href="/images/uploads/zb/2009-06-27_files2.JPG"><img src="/images/uploads/zb/2009-06-27_files2.JPG" alt="" /></a> &#8230;/Models/</p>
+<p><a href="/images/uploads/zb/2009-06-27_files2.JPG"><img src="/images/uploads/zb/2009-06-27_files2.JPG" alt="" /></a> &hellip;/Models/</p>
 
 <p>【点击下载官方素材】</p>
 
@@ -532,12 +532,12 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <p>在3D的教程中，我们将完成一个2D教程中的demo中的3D版本。我们要完成一些类似的东西，也会接触一些新的东西。</p>
 
 <ol>
-<li><p>建立自己的3D环境 &#8212;- 毕竟是3D游戏了，所以不单单是像2D一样画一个背景就好了，我们需要建造自己的3D外太空环境。</p></li>
-<li><p>添加加农炮 &#8212;- 同样内容相似的，我们需要一个可以旋转的加农炮，只是这次的旋转是在3D环境中了。</p></li>
-<li><p>添加炮弹 &#8212;- 加农炮设计的炮弹，也将在3D环境中处理，当然其实也就是初速度稍许不同，接触到之后就会发觉到2D教程的作用了。</p></li>
-<li><p>添加敌方UFO &#8212;- 还是类似的，UFO从屏幕的远端向近端飞来，而不是右侧飞到左侧了哦。</p></li>
-<li><p>碰撞检测 &#8212;- 3D的碰撞检测。</p></li>
-<li><p>添加声效 &#8212;- 之前2D的游戏是没有声音的，这一次的3D中我们将加入声音，者是新的内容，会十分有趣的。</p></li>
+<li><p> 建立自己的3D环境 &mdash;&mdash; 毕竟是3D游戏了，所以不单单是像2D一样画一个背景就好了，我们需要建造自己的3D外太空环境。</p></li>
+<li><p> 添加加农炮 &mdash;&mdash; 同样内容相似的，我们需要一个可以旋转的加农炮，只是这次的旋转是在3D环境中了。</p></li>
+<li><p> 添加炮弹 &mdash;&mdash; 加农炮设计的炮弹，也将在3D环境中处理，当然其实也就是初速度稍许不同，接触到之后就会发觉到2D教程的作用了。</p></li>
+<li><p> 添加敌方UFO &mdash;&mdash; 还是类似的，UFO从屏幕的远端向近端飞来，而不是右侧飞到左侧了哦。</p></li>
+<li><p> 碰撞检测 &mdash;&mdash; 3D的碰撞检测。</p></li>
+<li><p> 添加声效 &mdash;&mdash; 之前2D的游戏是没有声音的，这一次的3D中我们将加入声音，者是新的内容，会十分有趣的。</p></li>
 </ol>
 
 
@@ -604,31 +604,31 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <p><strong>XNA游戏教程.2D</strong></p>
 
 <ol>
-<li><p><a href="/xna-tutorial-2d-ch1-introduction/">2D游戏教程简介</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch2-create-solution/">创建游戏工程</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch3-add-assets/">添加Asset</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch4-rending-backgrounds/">绘制背景</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch5-create-a-cannon/">添加一门加农炮</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch6-launch-missiles/">发射炮弹</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">添加敌人UFO</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch8-destroy-ufo/">摧毁UFO</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch9-record-scores/">记录分数</a></p></li>
-<li><p>其他扩展：<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/ExtraCredit">Extra Credit - Community Tutorials</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch1-introduction/">2D游戏教程简介</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch2-create-solution/">创建游戏工程</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch3-add-assets/">添加Asset</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch4-rending-backgrounds/">绘制背景</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch5-create-a-cannon/">添加一门加农炮</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch6-launch-missiles/">发射炮弹</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">添加敌人UFO</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch8-destroy-ufo/">摧毁UFO</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch9-record-scores/">记录分数</a></p></li>
+<li><p>. 其他扩展：<a href="http://creators.xna.com/en-US/education/gettingstarted/bg2d/ExtraCredit">Extra Credit &ndash; Community Tutorials</a></p></li>
 </ol>
 
 
 <p><strong>相关知识点链接</strong>（在各个章节中涉及到的知识点，基本上都在文章的末尾）：</p>
 
 <ol>
-<li><p><a href="/xna-tutorial-2d-ch3-add-assets/">什么是Asset？</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch4-rending-backgrounds/">Content Pipeline是如何工作的？</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch4-rending-backgrounds/">Sprites，Sprites绘制，和SpriteBatch。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch5-create-a-cannon/">为什么要创建GameObject类？</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch5-create-a-cannon/">XNA Game Studio中表示的角。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch6-launch-missiles/">使用数组。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch6-launch-missiles/">转化一个旋转角度为速度向量。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">随机数和线性插入方法Lerp。</a></p></li>
-<li><p><a href="/xna-tutorial-2d-ch8-destroy-ufo/">使用Rectangle的2D碰撞检测。</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch3-add-assets/">什么是Asset？</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch4-rending-backgrounds/">Content Pipeline是如何工作的？</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch4-rending-backgrounds/">Sprites，Sprites绘制，和SpriteBatch。</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch5-create-a-cannon/">为什么要创建GameObject类？</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch5-create-a-cannon/">XNA Game Studio中表示的角。</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch6-launch-missiles/">使用数组。</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch6-launch-missiles/">转化一个旋转角度为速度向量。</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch7-create-enemy-ufo/">随机数和线性插入方法Lerp。</a></p></li>
+<li><p> <a href="/xna-tutorial-2d-ch8-destroy-ufo/">使用Rectangle的2D碰撞检测。</a></p></li>
 </ol>
 
 
@@ -674,7 +674,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 			XNA教程-2D游戏-09-记录分数</a>
 	</h2>
 	<div class="entry-content">
-		<p>游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
+		<p>游戏基本上已经什么都有了，不过接下去还有一些工作 &mdash;&mdash; 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
 
 <p>那么接下来，介绍方法。</p>
 
@@ -685,21 +685,28 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 <p>要在Content pipline中添加SpriteFont（字体）的内容。</p>
 
 <ol>
-<li><p><strong>Content中添加一个Fonts文件夹</strong>。</p>
+<li><p> <strong>Content中添加一个Fonts文件夹</strong>。</p>
 
-<p>   <img src="/images/uploads/zb/2009-06-19_AddFontToContent.jpg" alt="" /></p></li>
-<li><p><strong>在Fonts中添加一个GameFont对象</strong>。</p>
+<pre><code>![](/images/uploads/zb/2009-06-19_AddFontToContent.jpg)
+</code></pre></li>
+<li><p> <strong>在Fonts中添加一个GameFont对象</strong>。</p>
 
-<p>   [<img src="/images/uploads/zb/2009-06-19_AddSpriteFont.jpg" alt="" /></p>
+<pre><code>[![](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)
 
-<p>   ](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)</p></li>
-<li><p><strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p></li>
+
+
+
+
+
+
+](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)
+</code></pre></li>
+<li><p> <strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p>
+
+<p><FontName>Arial</FontName>
+<Size>18</Size></p></li>
 </ol>
 
-
-<pre><code>&lt;FontName&gt;Arial&lt;/FontName&gt;
-&lt;Size&gt;18&lt;/Size&gt;
-</code></pre>
 
 <p>好了，这样准备工作就完成了，我们可以在之后的Content的相关操作中使用这个font了。</p>
 
@@ -755,10 +762,10 @@ Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
 <p>看一下参数。</p>
 
 <ol>
-<li><p>SpriteFont，要求传入一个SpriteFont，我们这里传入了之前创建的font。</p></li>
-<li><p>string，传入要显示的字符串，这里是得分。</p></li>
-<li><p>Vector2，传入一个显示位置（左上角）的Vector2，这里我们利用之前创建的百分比和屏幕大小计算出一个新的Vector2</p></li>
-<li><p>Color，传入一个字形的颜色。</p></li>
+<li><p> SpriteFont，要求传入一个SpriteFont，我们这里传入了之前创建的font。</p></li>
+<li><p> string，传入要显示的字符串，这里是得分。</p></li>
+<li><p> Vector2，传入一个显示位置（左上角）的Vector2，这里我们利用之前创建的百分比和屏幕大小计算出一个新的Vector2</p></li>
+<li><p> Color，传入一个字形的颜色。</p></li>
 </ol>
 
 
@@ -808,7 +815,7 @@ Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
 			XNA教程-2D游戏-08-摧毁UFO</a>
 	</h2>
 	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO</strong></p>
+		<p><strong>XNA教程 &mdash; 2D游戏 &mdash; 08 &mdash; 摧毁UFO</strong></p>
 
 <p>这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。无论是什么游戏类型，物体和物体之间的接触都是要处理的，尚且不说加上什么物理特性，光是这个例子里的子弹碰UFO总要有点反应吧。更不用说什么火星撞地球了………………</p>
 
@@ -817,9 +824,9 @@ Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
 <p>大致的思路为：</p>
 
 <ol>
-<li><p>确定每个炮弹的范围大小和UFO的范围大小。</p></li>
-<li><p>遍历每个炮弹。</p></li>
-<li><p>遍历中每个炮弹再要遍历每个UFO。如果发生碰撞就同时摧毁两个（alive = false）</p></li>
+<li><p> 确定每个炮弹的范围大小和UFO的范围大小。</p></li>
+<li><p> 遍历每个炮弹。</p></li>
+<li><p> 遍历中每个炮弹再要遍历每个UFO。如果发生碰撞就同时摧毁两个（alive = false）</p></li>
 </ol>
 
 
@@ -866,11 +873,11 @@ foreach(GameObject enemy in enemies)
 
 <p>Sprite的这一特性在非常基本的碰撞检测中很实用，XNA Framework提供了一个Rectangle类，自己就拥有碰撞帮助的方法：ectangle.Intersects，和Rectangle.Contains。</p>
 
-<p>在基本的常识中，碰撞检测是基于相交检测的 &#8212;- 两块几何图形是否相交。如果两个几何图形相交，他们可以说是碰撞，游戏逻辑可以根据碰撞的物体产生适当的反应。</p>
+<p>在基本的常识中，碰撞检测是基于相交检测的 &mdash;&mdash; 两块几何图形是否相交。如果两个几何图形相交，他们可以说是碰撞，游戏逻辑可以根据碰撞的物体产生适当的反应。</p>
 
 <p>在我们的2D游戏中，我们关心加农炮是不是和地方UFO相交。如果加农炮的sprite的rectangle相交于敌人sprite的rectangle，那我们的游戏逻辑检测到了一个碰撞，并且同时摧毁两个物体。</p>
 
-<p>Rectangle很容易创建。Rectangle类初始化时需要4个参数 &#8212;- 矩形左上角的点的X和Y坐标，以及矩形的宽度和高度。所有矩形的其他点都会有这些信息计算出来。</p>
+<p>Rectangle很容易创建。Rectangle类初始化时需要4个参数 &mdash;&mdash; 矩形左上角的点的X和Y坐标，以及矩形的宽度和高度。所有矩形的其他点都会有这些信息计算出来。</p>
 
 <p>创建sprite占用的rectangle之间的碰撞，设置X和Y的值为游戏世界中的sprite的X和Y值，GameObject.position.X和GameObject.position.Y。设置宽度和高度为sprite中的Texture2D的宽度和高度，GameObject.sprite.Width和GameObject.sprite.Height。</p>
 
@@ -920,9 +927,9 @@ foreach(GameObject enemy in enemies)
 			XNA教程-2D游戏-07-添加敌人UFO</a>
 	</h2>
 	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 07 &#8211; 添加敌人UFO</strong></p>
+		<p><strong>XNA教程 &mdash; 2D游戏 &mdash; 07 &mdash; 添加敌人UFO</strong></p>
 
-<p>这次要做的就是添加敌人 &#8212;- UFO。我们有了一个防空武器，在一个可恶的看上去非常阴沉的外星球，那我们必须要有人来入侵，这才是建造军用设施的真正目的对吧。所以，程序员真是堪比创世纪的众神了。</p>
+<p>这次要做的就是添加敌人 &mdash;&mdash; UFO。我们有了一个防空武器，在一个可恶的看上去非常阴沉的外星球，那我们必须要有人来入侵，这才是建造军用设施的真正目的对吧。所以，程序员真是堪比创世纪的众神了。</p>
 
 <p>加入UFO的方法其实和子弹差不多（记住这句话，因为我后面实在是懒得讲了），它需要它的初速度向量，需要被杀掉，最后需要画在屏幕上，如果稍微改一下，我们完全可以不看教程做到了。添加UFO还涉及到了一个新的概念，就是随机数，游戏中随机是非常重要的东西，几乎没有一个游戏不用到随机概念的，前段时间刚刚过了25岁生日的俄罗斯方块也是。随机，是游戏的灵魂，而我们将用到Random来产生随机数，再使用XNA提供的方法限定我们需要的范围。OK，开始吧。</p>
 
@@ -942,13 +949,13 @@ GameObject[] enemies;
 <p>似乎有很多不明所以的东西，来看看他们都是些什么。</p>
 
 <ol>
-<li><p>最大的敌人数，3个，好吧，我一定改了你。</p></li>
-<li><p>最大敌人高度，0.1f，似乎可以想到。</p></li>
-<li><p>最小敌人高度，0.5f，对啊，正如之前说到的，坐标系的Y轴是越上方越小。</p></li>
-<li><p>最大敌人速率，5.0f，恩，敌人的速率是可变的，不错。</p></li>
-<li><p>最小敌人速率，1.0f，最小的速度。</p></li>
-<li><p>随机对象，一个Random对象，看来是创建随机数用的。</p></li>
-<li><p>敌人数组，一个敌人的数组，和子弹一样，只是名字不同而已吧。</p></li>
+<li><p> 最大的敌人数，3个，好吧，我一定改了你。</p></li>
+<li><p> 最大敌人高度，0.1f，似乎可以想到。</p></li>
+<li><p> 最小敌人高度，0.5f，对啊，正如之前说到的，坐标系的Y轴是越上方越小。</p></li>
+<li><p> 最大敌人速率，5.0f，恩，敌人的速率是可变的，不错。</p></li>
+<li><p> 最小敌人速率，1.0f，最小的速度。</p></li>
+<li><p> 随机对象，一个Random对象，看来是创建随机数用的。</p></li>
+<li><p> 敌人数组，一个敌人的数组，和子弹一样，只是名字不同而已吧。</p></li>
 </ol>
 
 
@@ -1058,7 +1065,7 @@ else
 }
 </code></pre>
 
-<p>We&#8217;re done here. 运行一下看看效果。（我修改了同屏敌人数，因为我的子弹改成是10 = = 并且我发现我的子弹是可以打成一张网的，这游戏没意思了）</p>
+<p>We&rsquo;re done here. 运行一下看看效果。（我修改了同屏敌人数，因为我的子弹改成是10 = = 并且我发现我的子弹是可以打成一张网的，这游戏没意思了）</p>
 
 <p><a href="/images/uploads/zb/2009-06-16_Chapter7Runtime.jpg"><img src="/images/uploads/zb/2009-06-16_Chapter7Runtime.jpg" alt="" /></a></p>
 
@@ -1084,13 +1091,13 @@ else
 
 <p>怎么才能让你使用一个随机数字来创建随机事件呢？</p>
 
-<p>Microsoft® Visual C# 2005 Express Edition和Visual Studio 2005的包含的标准库中提供了一个实用的类&#8212;-System.Random类。它可以被实例化，也可以生成特定最大范围内的随机整数，或随机生成0到1之间的双精度小数。</p>
+<p>Microsoft® Visual C# 2005 Express Edition和Visual Studio 2005的包含的标准库中提供了一个实用的类&mdash;&mdash;System.Random类。它可以被实例化，也可以生成特定最大范围内的随机整数，或随机生成0到1之间的双精度小数。</p>
 
 <p>乍看之下，产生一个随机证书似乎更管用。在某些情况下，它很管用。举个例子，随机访问你的数组索引，你需要一个整数。但是2D游戏中的数是浮点数，这意味着，他们拥有小数部分。我们需要一些不是严格的整数的数值。打个比方，5到10之间产生一个随机速率。如果我们只是用5到10之间的整数，只有6中可能的数值，这使得速率间的差异性看上去不是那么随机。</p>
 
 <p>一个双精度浮点数之给我们更多范围内数据的变化，使可以转化为更多各种各样的表现。这非常美妙，特别是当我们屏幕上有很多对象拥有不同的位置和速度的时候。</p>
 
-<p>然而，我们的Random类只返回0到1之间的双精度浮点值，或称为double类型的值，却对我们要随机获得5到10之间的数字不怎么实用。你当然可以做一些必要的乘法和加法来让0到1之间的数适应5到10之间这个范围，但是XNA Framework提供了更加简单的方法 &#8212;- MathHelper.Lerp。</p>
+<p>然而，我们的Random类只返回0到1之间的双精度浮点值，或称为double类型的值，却对我们要随机获得5到10之间的数字不怎么实用。你当然可以做一些必要的乘法和加法来让0到1之间的数适应5到10之间这个范围，但是XNA Framework提供了更加简单的方法 &mdash;&mdash; MathHelper.Lerp。</p>
 
 <p>Lerp是linear interpolation（线性插入）的缩写，一个数学方法，提供它一些0到1之间的数值T，并提供给它最大值和最小值，它可以计算出一个最大值和最小值之间的输出T。</p>
 
@@ -1098,7 +1105,7 @@ else
 
 <p>把它想象成是在一个最小值和最大值之间的数轴上决定位置，而T是从开始的0到1之间的一条数轴上的某个位置。如果T是0.75，它应该在数轴范围的3/4的位置，在5到10的数轴上就是8.75。照着这个方法，一个0到1之间的数值可以用来在两个浮点数之间找到一个对应的浮点数。</p>
 
-<p>Lerp方法可以用在游戏中需要以恒定速率增加或减少的任何东西。速率、动画、淡出效果或变换颜色 &#8212;- 简简单单传入一个0到1之间的数值T，一个最小值，一个最大值，Lerp会完成之后的所有事情。</p></blockquote>
+<p>Lerp方法可以用在游戏中需要以恒定速率增加或减少的任何东西。速率、动画、淡出效果或变换颜色 &mdash;&mdash; 简简单单传入一个0到1之间的数值T，一个最小值，一个最大值，Lerp会完成之后的所有事情。</p></blockquote>
 
 		
 		
@@ -1138,7 +1145,7 @@ else
 			XNA教程-2D游戏-06-发射炮弹</a>
 	</h2>
 	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 06 &#8211; 发射炮弹</strong></p>
+		<p><strong>XNA教程 &mdash; 2D游戏 &mdash; 06 &mdash; 发射炮弹</strong></p>
 
 <p>之前已经完成了很多的工作，创建了GameObject类，实例化了加农炮，并且在屏幕上画出了背景和加农炮。而且加农炮已经拥有了Update的代码，即玩家可以控制这个加农炮了。只是，距离我们的要求，这还远远不够，我们的子弹在哪里呢？加农炮打出来的炮弹呢？没错这就是这一次要完成的。我们要创建能被你发射，并且按方向穿过屏幕的炮弹了。</p>
 
@@ -1270,9 +1277,9 @@ if (keyboardState.IsKeyDown(Keys.Space) &amp;&amp;
 <p>来分析下代码，首先，我们遍历三个ball，因为最多只有3个，所以用这样的方法就好了（否则应该加上索引什么的，这里不讨论算法），看哪个球还活着，哪个球死了，只有死了的炮弹，我们才能让他再一次活过来，否则就要等到它死掉为止。那么显然，if(!ball.alive)校验后，留下来的就是可以活过来的炮弹，于是我们让他活过来。</p>
 
 <ol>
-<li><p>首先设置它的alive属性为ture，证明它活过来了。</p></li>
-<li><p>然后设置初始化的位置，是加农炮的位置减去炮弹的中心向量。（这个也许视频里直接ball.position = cannon.position了，那样子会错位）</p></li>
-<li><p>然后要设置它的速度了，方向就是当前加农炮的角度，Cos(A)和Sin(A)计算出单位1的向量确定方向，然后乘上5倍使它得到速率。这样一个速度就初始化完成了，这样每一个炮弹会沿着加农炮发射的方向前进而不管你后面的，前面的炮弹如何。至于数学计算，后面会翻译相关资料说明。但其实很容易理解，画个半径为1的圆，然后连成一个三角形，用Sin,Cos就很容易理解了。数学知识。</p></li>
+<li><p> 首先设置它的alive属性为ture，证明它活过来了。</p></li>
+<li><p> 然后设置初始化的位置，是加农炮的位置减去炮弹的中心向量。（这个也许视频里直接ball.position = cannon.position了，那样子会错位）</p></li>
+<li><p> 然后要设置它的速度了，方向就是当前加农炮的角度，Cos(A)和Sin(A)计算出单位1的向量确定方向，然后乘上5倍使它得到速率。这样一个速度就初始化完成了，这样每一个炮弹会沿着加农炮发射的方向前进而不管你后面的，前面的炮弹如何。至于数学计算，后面会翻译相关资料说明。但其实很容易理解，画个半径为1的圆，然后连成一个三角形，用Sin,Cos就很容易理解了。数学知识。</p></li>
 </ol>
 
 
@@ -1345,7 +1352,7 @@ previousKeyboardState = keyboardState;
 
 <p>例如，如果你有一组要绘制到屏幕上的GameObject对象，并且他们中的每一个都有自己的位置和Texture2D，你为他们每一个写的代码都会是完全相同。虽然目前是这样，但是你还是会要写一些一样的代码来处理每个 GameObject，使你的代码变得混乱。有什么办法只需简单的让对象的集合运行一样的代码，并且可以让每一个都拥有同样方式的互动呢？</p>
 
-<p>有 &#8212;- 解决方案就在于数组。一个数组是一个相似对象的线性集合。你可以拥有一个人和类型的数组；一个Vector数组，一个GameObject数组，一个字符串数组，或者其他任何可能并且合法的数组。</p>
+<p>有 &mdash;&mdash; 解决方案就在于数组。一个数组是一个相似对象的线性集合。你可以拥有一个人和类型的数组；一个Vector数组，一个GameObject数组，一个字符串数组，或者其他任何可能并且合法的数组。</p>
 
 <p><img src="/images/uploads/zb/BG_3.6.2.1pd.png" alt="" /></p>
 
@@ -1363,7 +1370,7 @@ previousKeyboardState = keyboardState;
 
 <blockquote><p>学会这个教程的重点，你已经学会了采用弧度来传递旋转角度。然而，发射炮弹的动作需要我们使用Vector2来传递cannonball的动作。</p>
 
-<p>Cannonball的动作应当和加农炮的角度有联系 &#8212;- 当你的加农炮转到垂直向上，你的炮弹应该垂直向上飞。同样的，当你的加农炮转到平行于地面的位置，炮弹应该平行于地面飞行。</p>
+<p>Cannonball的动作应当和加农炮的角度有联系 &mdash;&mdash; 当你的加农炮转到垂直向上，你的炮弹应该垂直向上飞。同样的，当你的加农炮转到平行于地面的位置，炮弹应该平行于地面飞行。</p>
 
 <p>来做出确定这个数据的唯一方法就是通过加农炮旋转角度的弧度。显然，你必须做一些转换工作，把旋转角度转换为给予炮弹的向量。</p>
 
@@ -1377,9 +1384,9 @@ previousKeyboardState = keyboardState;
 
 <p>这些数学方程式,sine和cosine,代表任何一个有θ大小的角的X和Y的数据。为了构造一个2D向量,你只需要知道X和Y.所以sine和cosine方程就是我们想要的.向量的X坐标是cos(θ)，而向量的Y坐标是sin(θ)。</p>
 
-<p>一个向量的方向使用Y和X坐标的关系来表现。（成为斜度）但是向量也具有幅度。从我们的炮弹上说，它决定了多快的速度来接近向量所指向的方向。在我们的代码中，我们使用一个常数去乘向量的方式来增长这个幅度。它同时使用相同的值去乘了X和Y坐标，确保斜度不变，但向量变得更长了 &#8212;- 这样，炮弹移动加快了。</p></blockquote>
+<p>一个向量的方向使用Y和X坐标的关系来表现。（成为斜度）但是向量也具有幅度。从我们的炮弹上说，它决定了多快的速度来接近向量所指向的方向。在我们的代码中，我们使用一个常数去乘向量的方式来增长这个幅度。它同时使用相同的值去乘了X和Y坐标，确保斜度不变，但向量变得更长了 &mdash;&mdash; 这样，炮弹移动加快了。</p></blockquote>
 
-<p>That&#8217;s all, finished~ Good luck ;)</p>
+<p>That&rsquo;s all, finished~ Good luck ;)</p>
 
 		
 		
@@ -1419,15 +1426,15 @@ previousKeyboardState = keyboardState;
 			XNA教程-2D游戏-05-添加一门加农炮</a>
 	</h2>
 	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 05 &#8211; 添加一门加农炮</strong></p>
+		<p><strong>XNA教程 &mdash; 2D游戏 &mdash; 05 &mdash; 添加一门加农炮</strong></p>
 
-<p>来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&#8212;- 一个用户控制的加农炮，使用Xbox360手柄或者是PC键盘作为输入。完成了这一次的事情，整个程序就有交互了，就更加接近一个游戏了，其实游戏说穿了不就是一个有交互的幻灯片吗。</p>
+<p>来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&mdash;&mdash; 一个用户控制的加农炮，使用Xbox360手柄或者是PC键盘作为输入。完成了这一次的事情，整个程序就有交互了，就更加接近一个游戏了，其实游戏说穿了不就是一个有交互的幻灯片吗。</p>
 
 <p>之前我们做过的东西都是一样的，所以这里就直接开始说真正的步骤了。直接看到此文的同学，相关文章里面应该可以找到之前的那些文章，从第一篇开始看吧，我想等我写完之后，会整理一个目录出来的。</p>
 
 <p>在做所有的工作之前，我们要了解一个概念，就是屏幕的向量。一般做其他游戏的时候，包括direct3D也一样，屏幕的坐标是左上角的点为原点的。X轴正方向在朝右边，而Y轴正方向朝向下边。但是在XNA中也是这样。另外，角度却不是这个坐标系，而是右边是X轴正方向，上边才是Y轴正方向，原点因为是角度当然就无所谓了。这是说明，请大家不要被positon和rotation采取不一样的坐标系而搞混了。</p>
 
-<p><strong>第一步 &#8212;- 建立我们的GameObject，在Game中添加这个GameObject</strong></p>
+<p><strong>第一步 &mdash;&mdash; 建立我们的GameObject，在Game中添加这个GameObject</strong></p>
 
 <p>GameObject是什么，究竟为什么要添加这么一个GameObject在说完具体的代码方法之后我会说，先讲直接上手的东西，因为可能有人对于概念不太感冒。我们要做的工作的前提是，你已经成功的画上了背景，那么接下去我们要加上的加农炮，让我们先添加一个GameObject吧</p>
 
@@ -1565,7 +1572,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 <p>看看MathHelper.Clamp传入了什么？</p>
 
 <ul>
-<li><p><strong>第一个参数</strong>：需要被限定的变量，那么我们要限定的就是加农炮的旋转角度 &#8212;- cannon.rotation。</p></li>
+<li><p><strong>第一个参数</strong>：需要被限定的变量，那么我们要限定的就是加农炮的旋转角度 &mdash;&mdash; cannon.rotation。</p></li>
 <li><p><strong>第二个参数</strong>：最小值，我们旋转角度的最小值。显然，我们传入的最小的是-MathHelper.PiOver2，这有点像个宏，其实是MathHelper的另一个重要功能，帮我们记录一些常数。PiOver就是90度，Pi/2，这个学过向量应该知道，不知道的就可以补习数学去了。（下文会对这个东西详细的讲解）</p></li>
 <li><p><strong>第三个参数</strong>：最大值，就是0，就是说它最大的旋转角度在0，也就是水平线往右，X正方向，这个角度就可以了。</p></li>
 </ul>
@@ -1603,7 +1610,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 <li><p><strong>第五个参数</strong>：float，传入的是旋转的值，它指的是向量的角度，就是屏幕的坐标系上的角度。我们传入的是0，那么就是X正方向，也就是不进行任何旋转，加农炮朝着屏幕左边。</p></li>
 <li><p><strong>第六个参数</strong>：Vector2，是图像的中心点的位置，这里要注意一下，这个中心会根据你绘制的图形重新定义，如果你画的东西不是整个的，那就会发生变化了。这里我们绘制了全部的内容，所以没问题。如果之前一样你只绘制一半，就惨了。也就是说在这个方法内部，是先切割，决定画的部分，再决定中心点，而不是先根据你传入的Texture2D决定中心点，再切割的。</p></li>
 <li><p><strong>第七个参数</strong>：float，这个是指图形缩放的倍数，如果要实现平滑的缩放，那么简单的Update里调整这个数值就可以了。我们这里的1.0f就是1倍，1 / 1，不缩放的意思。</p></li>
-<li><p><strong>第八个参数</strong>：SpriteEffects枚举，这个枚举也只有三个成员，FlipHorizontally，FlipVertically和None。也是2D游戏的除旋转、缩放意外非常重要的特效&#8212;-翻转。一个是纵向的一个是横向的翻转。应该很好理解。我们传入None，就是不翻转。</p></li>
+<li><p><strong>第八个参数</strong>：SpriteEffects枚举，这个枚举也只有三个成员，FlipHorizontally，FlipVertically和None。也是2D游戏的除旋转、缩放意外非常重要的特效&mdash;&mdash;翻转。一个是纵向的一个是横向的翻转。应该很好理解。我们传入None，就是不翻转。</p></li>
 <li><p><strong>第九个参数</strong>：Int32，也就是int了，这是指深度，0和1之间。2D游戏经常会有深度这个概念，Depth，往往，Sprite会自动对这些深度排序，这样可以实现一些角色挡住丛林，或者丛林挡住角色的变化。这是2D游戏很重要的一个参数。当然如果要让这个参数有效，你必须先设置SpriteSortMode，在这里就不多加讨论了，总之我们这里传入了0。</p></li>
 </ul>
 
@@ -1650,7 +1657,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>有很多不同的方式去传递角。一个标准的方法就是用角度。意思是，把一个圆圈分为360个部分，每一个被称为一度。90度是四分之一个圆，180度是半个圆，等等。</p>
 
-<p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &#8212;- 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
+<p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &mdash;&mdash; 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
 
 <p><a href="/images/uploads/zb/BG_3.5.2.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.2.1pd_a.png" alt="" /></a></p>
 

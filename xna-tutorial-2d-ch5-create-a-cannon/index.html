@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 05 &#8211; 添加一门加农炮 来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&#8212;- 一个用户控制的加农炮， &hellip;">
+	<meta name="description" content="XNA教程 &mdash; 2D游戏 &mdash; 05 &mdash; 添加一门加农炮 来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&mdash;&mdash; 一个用户控制的加农炮， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -72,15 +72,15 @@
 	
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">XNA教程-2D游戏-05-添加一门加农炮</h2>
-	<div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 05 &#8211; 添加一门加农炮</strong></p>
+	<div class="entry-content"><p><strong>XNA教程 &mdash; 2D游戏 &mdash; 05 &mdash; 添加一门加农炮</strong></p>
 
-<p>来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&#8212;- 一个用户控制的加农炮，使用Xbox360手柄或者是PC键盘作为输入。完成了这一次的事情，整个程序就有交互了，就更加接近一个游戏了，其实游戏说穿了不就是一个有交互的幻灯片吗。</p>
+<p>来到第五章，这一次要完成的是：建立一个类掌握你所有的游戏数据，并建立你第一个Game Object（游戏对象？还是不翻译比较好）&mdash;&mdash; 一个用户控制的加农炮，使用Xbox360手柄或者是PC键盘作为输入。完成了这一次的事情，整个程序就有交互了，就更加接近一个游戏了，其实游戏说穿了不就是一个有交互的幻灯片吗。</p>
 
 <p>之前我们做过的东西都是一样的，所以这里就直接开始说真正的步骤了。直接看到此文的同学，相关文章里面应该可以找到之前的那些文章，从第一篇开始看吧，我想等我写完之后，会整理一个目录出来的。</p>
 
 <p>在做所有的工作之前，我们要了解一个概念，就是屏幕的向量。一般做其他游戏的时候，包括direct3D也一样，屏幕的坐标是左上角的点为原点的。X轴正方向在朝右边，而Y轴正方向朝向下边。但是在XNA中也是这样。另外，角度却不是这个坐标系，而是右边是X轴正方向，上边才是Y轴正方向，原点因为是角度当然就无所谓了。这是说明，请大家不要被positon和rotation采取不一样的坐标系而搞混了。</p>
 
-<p><strong>第一步 &#8212;- 建立我们的GameObject，在Game中添加这个GameObject</strong></p>
+<p><strong>第一步 &mdash;&mdash; 建立我们的GameObject，在Game中添加这个GameObject</strong></p>
 
 <p>GameObject是什么，究竟为什么要添加这么一个GameObject在说完具体的代码方法之后我会说，先讲直接上手的东西，因为可能有人对于概念不太感冒。我们要做的工作的前提是，你已经成功的画上了背景，那么接下去我们要加上的加农炮，让我们先添加一个GameObject吧</p>
 
@@ -218,7 +218,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 <p>看看MathHelper.Clamp传入了什么？</p>
 
 <ul>
-<li><p><strong>第一个参数</strong>：需要被限定的变量，那么我们要限定的就是加农炮的旋转角度 &#8212;- cannon.rotation。</p></li>
+<li><p><strong>第一个参数</strong>：需要被限定的变量，那么我们要限定的就是加农炮的旋转角度 &mdash;&mdash; cannon.rotation。</p></li>
 <li><p><strong>第二个参数</strong>：最小值，我们旋转角度的最小值。显然，我们传入的最小的是-MathHelper.PiOver2，这有点像个宏，其实是MathHelper的另一个重要功能，帮我们记录一些常数。PiOver就是90度，Pi/2，这个学过向量应该知道，不知道的就可以补习数学去了。（下文会对这个东西详细的讲解）</p></li>
 <li><p><strong>第三个参数</strong>：最大值，就是0，就是说它最大的旋转角度在0，也就是水平线往右，X正方向，这个角度就可以了。</p></li>
 </ul>
@@ -256,7 +256,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 <li><p><strong>第五个参数</strong>：float，传入的是旋转的值，它指的是向量的角度，就是屏幕的坐标系上的角度。我们传入的是0，那么就是X正方向，也就是不进行任何旋转，加农炮朝着屏幕左边。</p></li>
 <li><p><strong>第六个参数</strong>：Vector2，是图像的中心点的位置，这里要注意一下，这个中心会根据你绘制的图形重新定义，如果你画的东西不是整个的，那就会发生变化了。这里我们绘制了全部的内容，所以没问题。如果之前一样你只绘制一半，就惨了。也就是说在这个方法内部，是先切割，决定画的部分，再决定中心点，而不是先根据你传入的Texture2D决定中心点，再切割的。</p></li>
 <li><p><strong>第七个参数</strong>：float，这个是指图形缩放的倍数，如果要实现平滑的缩放，那么简单的Update里调整这个数值就可以了。我们这里的1.0f就是1倍，1 / 1，不缩放的意思。</p></li>
-<li><p><strong>第八个参数</strong>：SpriteEffects枚举，这个枚举也只有三个成员，FlipHorizontally，FlipVertically和None。也是2D游戏的除旋转、缩放意外非常重要的特效&#8212;-翻转。一个是纵向的一个是横向的翻转。应该很好理解。我们传入None，就是不翻转。</p></li>
+<li><p><strong>第八个参数</strong>：SpriteEffects枚举，这个枚举也只有三个成员，FlipHorizontally，FlipVertically和None。也是2D游戏的除旋转、缩放意外非常重要的特效&mdash;&mdash;翻转。一个是纵向的一个是横向的翻转。应该很好理解。我们传入None，就是不翻转。</p></li>
 <li><p><strong>第九个参数</strong>：Int32，也就是int了，这是指深度，0和1之间。2D游戏经常会有深度这个概念，Depth，往往，Sprite会自动对这些深度排序，这样可以实现一些角色挡住丛林，或者丛林挡住角色的变化。这是2D游戏很重要的一个参数。当然如果要让这个参数有效，你必须先设置SpriteSortMode，在这里就不多加讨论了，总之我们这里传入了0。</p></li>
 </ul>
 
@@ -303,7 +303,7 @@ cannon.rotation, -MathHelper.PiOver2, 0);
 
 <p>有很多不同的方式去传递角。一个标准的方法就是用角度。意思是，把一个圆圈分为360个部分，每一个被称为一度。90度是四分之一个圆，180度是半个圆，等等。</p>
 
-<p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &#8212;- 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
+<p>然而，在计算机图形和XNA Game Studio中，更多的采用弧度来传递一个角。弧度采用和角度不一样的方法去切割一个圆 &mdash;&mdash; 代替360度代表一个圆周的方法，是用2倍的π或2π代表一个圆周。这个值被存储在MathHelper类当中，只需简单的调用MathHelper.TwoPi。半圆则就是这个值的一半，或是简单的用π表示，也就是MathHelper.Pi。你可以继续细分来得到其他角度。90度则是MathHelper.PiOver2。</p>
 
 <p><a href="/images/uploads/zb/BG_3.5.2.1pd_a.png"><img src="/images/uploads/zb/BG_3.5.2.1pd_a.png" alt="" /></a></p>
 

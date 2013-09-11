@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。 那么接下来， &hellip;">
+	<meta name="description" content="游戏基本上已经什么都有了，不过接下去还有一些工作 &mdash;&mdash; 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -72,7 +72,7 @@
 	
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">XNA教程-2D游戏-09-记录分数</h2>
-	<div class="entry-content"><p>游戏基本上已经什么都有了，不过接下去还有一些工作 &#8212;- 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
+	<div class="entry-content"><p>游戏基本上已经什么都有了，不过接下去还有一些工作 &mdash;&mdash; 记分。通过击毁UFO来获得分数，这是一个简单的功能，不过还是什么必要的，因为我们不单单是记住分数，还要把它显示在屏幕上，所以如何在屏幕上显示字符才是关键所在。如果你愿意，可以显示一些其他信息，比如常见fps等等。</p>
 
 <p>那么接下来，介绍方法。</p>
 
@@ -83,21 +83,28 @@
 <p>要在Content pipline中添加SpriteFont（字体）的内容。</p>
 
 <ol>
-<li><p><strong>Content中添加一个Fonts文件夹</strong>。</p>
+<li><p> <strong>Content中添加一个Fonts文件夹</strong>。</p>
 
-<p>   <img src="/images/uploads/zb/2009-06-19_AddFontToContent.jpg" alt="" /></p></li>
-<li><p><strong>在Fonts中添加一个GameFont对象</strong>。</p>
+<pre><code>![](/images/uploads/zb/2009-06-19_AddFontToContent.jpg)
+</code></pre></li>
+<li><p> <strong>在Fonts中添加一个GameFont对象</strong>。</p>
 
-<p>   [<img src="/images/uploads/zb/2009-06-19_AddSpriteFont.jpg" alt="" /></p>
+<pre><code>[![](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)
 
-<p>   ](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)</p></li>
-<li><p><strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p></li>
+
+
+
+
+
+
+](/images/uploads/zb/2009-06-19_AddSpriteFont.jpg)
+</code></pre></li>
+<li><p> <strong>修改XML文件</strong>。具体参照如下代码，字体和字体大小的修改。</p>
+
+<p><FontName>Arial</FontName>
+<Size>18</Size></p></li>
 </ol>
 
-
-<pre><code>&lt;FontName&gt;Arial&lt;/FontName&gt;
-&lt;Size&gt;18&lt;/Size&gt;
-</code></pre>
 
 <p>好了，这样准备工作就完成了，我们可以在之后的Content的相关操作中使用这个font了。</p>
 
@@ -153,10 +160,10 @@ Vector2 scoreDrawPoint = new Vector2(0.1f, 0.1f);
 <p>看一下参数。</p>
 
 <ol>
-<li><p>SpriteFont，要求传入一个SpriteFont，我们这里传入了之前创建的font。</p></li>
-<li><p>string，传入要显示的字符串，这里是得分。</p></li>
-<li><p>Vector2，传入一个显示位置（左上角）的Vector2，这里我们利用之前创建的百分比和屏幕大小计算出一个新的Vector2</p></li>
-<li><p>Color，传入一个字形的颜色。</p></li>
+<li><p> SpriteFont，要求传入一个SpriteFont，我们这里传入了之前创建的font。</p></li>
+<li><p> string，传入要显示的字符串，这里是得分。</p></li>
+<li><p> Vector2，传入一个显示位置（左上角）的Vector2，这里我们利用之前创建的百分比和屏幕大小计算出一个新的Vector2</p></li>
+<li><p> Color，传入一个字形的颜色。</p></li>
 </ol>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: internet | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/internet/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-08-01T09:20:14+08:00</updated>
+  <updated>2013-09-11T10:17:50+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -27,7 +27,7 @@ B:-------------====-------1----------------
 C:--------------------------====3----------
 </code></pre>
 
-<p>字母代表观影的人，--代表绝对时间，=代表观影相对时间，数字代表评论。</p>
+<p>字母代表观影的人，&mdash;代表绝对时间，=代表观影相对时间，数字代表评论。</p>
 
 <p>三个人看一个视频，看完之后抽空去了聚合评论的网站谈感想，最后平面的结构上就是看评论的时间顺序排列成123这样的社区样子。</p></blockquote>
 
@@ -102,9 +102,9 @@ C:-----1=4==6=-------------
 <p>我写这篇文章的原因有3：</p>
 
 <ol>
-<li><p>Google很负责，这个事情告诉我们GAE上跑的程序数据是比较安全的。</p></li>
-<li><p>Spamer很强大，不论是撞到了哪个spamer的枪口上，总之这个兼容性可以强大到向我这样一个应用开火，那也的确强大了。</p></li>
-<li><p>娱乐一下~ 今天晚上22点世界杯就开幕了，遇上这样的事还真是挺乐的。hoho</p></li>
+<li><p> Google很负责，这个事情告诉我们GAE上跑的程序数据是比较安全的。</p></li>
+<li><p> Spamer很强大，不论是撞到了哪个spamer的枪口上，总之这个兼容性可以强大到向我这样一个应用开火，那也的确强大了。</p></li>
+<li><p> 娱乐一下~ 今天晚上22点世界杯就开幕了，遇上这样的事还真是挺乐的。hoho</p></li>
 </ol>
 
 
@@ -121,12 +121,12 @@ C:-----1=4==6=-------------
 
 <p><a href="/images/uploads/wp/logo_shine.png"><img src="/images/uploads/wp/logo_shine.png" alt="" /></a></p>
 
-<p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在http://arthraim.cn/bot/arthurobot/ 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
+<p>要做的就是登陆网站，注册账号之后，创建一个自己的bot，取名，并且一定要有一个URL，放驱动你的bot的php程序文件，这就需要你有一个自己的空间。比如我注册了Arthurobot这个名字，然后在<a href="http://arthraim.cn/bot/arthurobot/">http://arthraim.cn/bot/arthurobot/</a> 下面放上index.php。利用网站提供的一些API，可以做一些自己的应用。比如照着例子写我的index..php。</p>
 
 <p>```php
 &lt;?php
-$msg=$<em>REQUEST['msg'];
-$step=$</em>REQUEST['step'];
+$msg=$<em>REQUEST[&lsquo;msg&rsquo;];
+$step=$</em>REQUEST[&lsquo;step&rsquo;];
 if($step > 3){</p>
 
 <pre><code>switch($msg){
@@ -171,7 +171,7 @@ break;
     <link href="http://artori.us/farewell-levelup-cn/"/>
     <updated>2010-04-29T09:18:10+08:00</updated>
     <id>http://artori.us/farewell-levelup-cn</id>
-    <content type="html"><![CDATA[<p><a href="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg"><img src="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg" alt="" /></a>这是今年第二次为一个.cn网站说farewell了，是的，经历了到处都是小道消息的一个多月之后，我确定了，我们都确定了 ---- 游戏城寨(levelup.cn)真的离开大家了。</p>
+    <content type="html"><![CDATA[<p><a href="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg"><img src="/images/uploads/wp/2010-04-29_levelup_cn_logo.jpg" alt="" /></a>这是今年第二次为一个.cn网站说farewell了，是的，经历了到处都是小道消息的一个多月之后，我确定了，我们都确定了 &mdash;&mdash; 游戏城寨(levelup.cn)真的离开大家了。</p>
 
 <p><strong>一个月前（3月20日左右）</strong>，突然发现游戏门户网站（依托国内第一电视游戏杂志《游戏机实用技术》的游戏咨询门户网站，以及一个同样内容的BBS社区）不能上去了，bbs.levelup.cn的访问量大，服务器压力大，故障时有发生，在levelup混的朋友都戏称这种现象为"月经"，每个月要经历一次，所以那天我也不以为然，但是的确，bbs挂掉的时候很多，主站挂掉是很难得的事情。</p>
 
@@ -211,7 +211,7 @@ break;
 
 <p>点击进入临时论坛，感谢罗伊SD提供。</p></blockquote>
 
-<p><strong>同日</strong>，levelup成员（论坛管理员）在新浪博客里写了一篇文章----《<a href="http://blog.sina.com.cn/s/blog_66555c710100hp4y.html">这个五周年，有点不一样</a>》。是的恰逢levelup五周年，可是网站却无法访问，方寸的文章写得很好，原文如下：</p>
+<p><strong>同日</strong>，levelup成员（论坛管理员）在新浪博客里写了一篇文章&mdash;&mdash;《<a href="http://blog.sina.com.cn/s/blog_66555c710100hp4y.html">这个五周年，有点不一样</a>》。是的恰逢levelup五周年，可是网站却无法访问，方寸的文章写得很好，原文如下：</p>
 
 <blockquote><p>《【游戏城寨】这个五周年，有点不一样》</p>
 
@@ -257,9 +257,9 @@ break;
 
 <p>有一天，世界会原谅我们的无知吗</p>
 
-<p>----BY 栾东（原levelup.cn站长Hikaru，原UCG编辑泰坦）</p>
+<p>&mdash;&mdash;BY 栾东（原levelup.cn站长Hikaru，原UCG编辑泰坦）</p>
 
-<p>（2010年3月22日，levelup.cn因为"相关部门的有关规定"而关闭。题图为2010年4月9日，levelup.cn仅剩的全体成员最后的"散伙饭"，就这顿饭还是大家AA制，因为公司不愿意----也不可能----掏钱。翌日，LU的文编们在领取遣散费之后正式下岗，而LU的技术员们至今仍有人还在为争取最后的利益与公司抗争。曾经国内最顶尖最专业的电视游戏资讯网站就此成为历史。）</p></blockquote>
+<p>（2010年3月22日，levelup.cn因为"相关部门的有关规定"而关闭。题图为2010年4月9日，levelup.cn仅剩的全体成员最后的"散伙饭"，就这顿饭还是大家AA制，因为公司不愿意&mdash;&mdash;也不可能&mdash;&mdash;掏钱。翌日，LU的文编们在领取遣散费之后正式下岗，而LU的技术员们至今仍有人还在为争取最后的利益与公司抗争。曾经国内最顶尖最专业的电视游戏资讯网站就此成为历史。）</p></blockquote>
 
 <p>是的一切都尘埃落定了，我倒不是特别想说什么。这样一个并没有颠覆国家政权，一直遵守法律的，并且是国内游戏咨询绝对第一把交椅的好网站，就这样无情的被关闭了。我没有抱怨国家政策，国家有国家的考量，我只是有一些哀伤，因为有很多和levelup一样，和我一样希望在互联网上干出自己一片天地的人，也许或有或无的遭受了政策上的约束，也许是我们的梦想太遥远了吧，遥远到即使我们已经以为把这个梦想抓在手上，甚至抓住了5年的时候，它其实还是一个梦，一戳就破的梦。如果说，twitter, youtube, google, facebook等等网站的离开给我带来的是一种失去优秀互联网产品的遗憾和嫉妒，是一种对相识多年的好友远去的难过和遗憾的话；那像levelup这样属于我们国人自己的东西离开的时候，就让我觉得是失去了一个亲人甚至是看着他长大的孩子一样的心痛和悲伤。</p>
 

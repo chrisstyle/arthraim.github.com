@@ -276,7 +276,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <blockquote><p>如果你学习过第一个教程（创建2D游戏），那么你已经变得习惯用2D空间来思维了。位置、方向和动作可以全都用Vector2和一个单独的旋转角度来表示。</p>
 
-<p>这个教程介绍了在三维的概念，和其一系列的新的对象。从根本上，3D世界区别于2D世界的就是新增的第三个坐标轴&#8212;-Z轴，或者说是深度。在XNA Game Studio中，2D世界实质上是一个特殊的，受限制的3D世界的版本&#8212;-你将会在本教程读到的计算也同样在2D中可以读到。</p>
+<p>这个教程介绍了在三维的概念，和其一系列的新的对象。从根本上，3D世界区别于2D世界的就是新增的第三个坐标轴&mdash;&mdash;Z轴，或者说是深度。在XNA Game Studio中，2D世界实质上是一个特殊的，受限制的3D世界的版本&mdash;&mdash;你将会在本教程读到的计算也同样在2D中可以读到。</p>
 
 <p>在XNA Game Studio这哦你，3D的变化意味着，取代在平面世界中画静态的Texture2D对象的是绘制用Model类表示的3D模型。Model类是被叫做网络（mesh）的许多有联系的3D点的集合，在整个世界中，最终渲染在屏幕上的对象，取决于对象的位置和方向，和镜头的位置和方向。</p>
 
@@ -294,7 +294,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p><a href="/images/uploads/zb/BG_4.4.1.2pd.png"><img src="/images/uploads/zb/BG_4.4.1.2pd.png" alt="" /></a></p>
 
-<p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&#8212;-Mesh类，Matrix类和Vector类。</p></blockquote>
+<p>如果要套用这个概念到3D点的集合所组成的网络（mesh）上（可以是3D表示的任何东西，一个飞船、一个人、或一只恐龙），你只需用到一些在XNA Framework中的基本的对象来制作你的游戏&mdash;&mdash;Mesh类，Matrix类和Vector类。</p></blockquote>
 
 <p><strong> 2、创建一个模型绘制方法</strong></p>
 
@@ -310,7 +310,7 @@ cameraProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
 
 <p>变换（决定了ModelMesh在世界中的定向，并且最终，物体是否出现或是出现在屏幕的哪里）和光（）没有被应用到ModelMesh层面。相对的，每个ModelMesh有一些Effect和它联系在一起。一个Effect对象可以想成提供给可视设备的说明，关于如何绘制一个ModelMesh。</p>
 
-<p>在很多游戏中，Effect对象是由很多复杂的顶点和像素遮罩（shader）组成的。在XNA Game Studio中也可以实现，并且对于高级图形效果来说十分重要。但是在简单的渲染中，XNA Framework Content Pipline（内容管道）提供了一个简单的机制来完成基本的光和绘制效果 &#8212;- BasicEffect类。</p>
+<p>在很多游戏中，Effect对象是由很多复杂的顶点和像素遮罩（shader）组成的。在XNA Game Studio中也可以实现，并且对于高级图形效果来说十分重要。但是在简单的渲染中，XNA Framework Content Pipline（内容管道）提供了一个简单的机制来完成基本的光和绘制效果 &mdash;&mdash; BasicEffect类。</p>
 
 <p>每个通过content pipline加载的ModelMesh接受了一个或多个BasicEffect对象，它们可以在不处理像素或顶点遮罩（shader）的情况下简单的处理变换和光源效果。所有这些BasicEffect类需要一系列表示世界（World）矩阵，视点（View）矩阵和投影（Projection）矩阵的Matrix类，和一些光照的参数。可以调用BasicEffect.EnableDefaultLighting()方法获得默认的参数。</p>
 

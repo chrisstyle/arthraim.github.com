@@ -133,7 +133,7 @@
 
 <p>首先介绍一下Arthraim.cn.</p>
 
-<p>我 &#8212;- Arthur 是这个网站的webmaster。本人是双胞胎的哥哥，我的英文名叫Arthur，弟弟的叫Ephraim。因此把我们的名字结合在一起 &#8212;- Arthraim成为了我在网络上的身份……（如果你是PS3的玩家，也可以在PSN上找到我们。） 所以虽说文章更新的一直写着Arthraim，但其实就是我Arthur了。通过Google Friend Connect也应该可以了解。</p>
+<p>我 &mdash;&mdash; Arthur 是这个网站的webmaster。本人是双胞胎的哥哥，我的英文名叫Arthur，弟弟的叫Ephraim。因此把我们的名字结合在一起 &mdash;&mdash; Arthraim成为了我在网络上的身份……（如果你是PS3的玩家，也可以在PSN上找到我们。） 所以虽说文章更新的一直写着Arthraim，但其实就是我Arthur了。通过Google Friend Connect也应该可以了解。</p>
 
 <p>话说回来。这次网站改版非常的巨大，看腻了有板有眼的博客，博客都搞得像门户网站一样，所以决定给自己的博客弄些革新，当然其实很顺利，网站这次的改革主要包括以下的几个地方。</p>
 
@@ -187,7 +187,7 @@
 
 <p>昨天弄到半夜2点多，女朋友想回去睡觉了，所以就做到一半放下了。今天早上6点被人叫过来继续搞那个VC6.0遗留下来的组件的问题，搞到刚才8点半的样子居然搞定了。用了非常强大的方法，详细说说怎么回事。本来那个组件是一个原始的dll，用的是写.def的方式把方法导出的，用exeScope可以看到唯一的方法，但是在C#无论如何也声明不到，就是提示 System.AccessViolationException: 尝试读取或写入受保护的内存。这通常指示其他内存已损坏。后来毅然决然的把8个参数的组件暴露方法重新写了一遍，缩减成了7个，6个，5个，甚至4个，把能不传的什么指针啊数组啊全都用其他策略替换掉，让参数变得简单到极致，最后还真是成功了，可惜学长已经在8点答辩完了，炫耀不了这个强大的功能了。</p>
 
-<p>继续说，弄到2点半的这个博客风格，虽然很顺利的改下来了，不过还是有很多的bug和不足，列举一下我发现的，也希望其他朋友发现新问题。Z-blog是没办法让访客选择风格的（哪有这样的博客啊 - -），要不然还能让你们看到正常一点的版本。已知问题和需要做的修改记录如下，这两天内解决。</p>
+<p>继续说，弄到2点半的这个博客风格，虽然很顺利的改下来了，不过还是有很多的bug和不足，列举一下我发现的，也希望其他朋友发现新问题。Z-blog是没办法让访客选择风格的（哪有这样的博客啊 &ndash; -），要不然还能让你们看到正常一点的版本。已知问题和需要做的修改记录如下，这两天内解决。</p>
 
 <p><strong>待修正</strong></p>
 
@@ -206,7 +206,7 @@
 <li><p><strike>搜索要放上面。</strike></p></li>
 <li><p><strike>还要加上订阅，不要那些RSS图标</strike></p></li>
 <li><p><strike>主页单篇文章下面信息显示顺序要调整</strike></p></li>
-<li><p>加一个看上去新颖一些的月历（我很喜欢月历的说 - -）</p></li>
+<li><p>加一个看上去新颖一些的月历（我很喜欢月历的说 &ndash; -）</p></li>
 </ul>
 
 
@@ -360,7 +360,7 @@
 
 <p><img src="/images/uploads/zb/2009-05-20_GUIdesign.png" alt="" /></p>
 
-<p>随便放几个控件，然后编译&#8212;-运行，在模拟器中运行！成功！</p>
+<p>随便放几个控件，然后编译&mdash;&mdash;运行，在模拟器中运行！成功！</p>
 
 <p><img src="/images/uploads/zb/2009-05-20_HelloWorld.png" alt="" /></p>
 
@@ -420,7 +420,7 @@
 
 <p>虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。大体的思路就是在template列里面嵌套另外一个gridview。看下具体的实现方法……（无视业务相关的部分）</p>
 
-<p><strong>前台</strong> &#8212;- 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
+<p><strong>前台</strong> &mdash;&mdash; 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
 
 <pre><code>&lt;asp:GridView ID="gvhandle" runat="server" Caption="已检查项目" AutoGenerateColumns="False" OnRowDataBound="gvhandle_RowDataBound"&gt;
 &lt;Columns&gt;
@@ -450,7 +450,7 @@
 &lt;/asp:GridView&gt;
 </code></pre>
 
-<p><strong>后台</strong> &#8212;- 写gvhandle的RowDataBound事件</p>
+<p><strong>后台</strong> &mdash;&mdash; 写gvhandle的RowDataBound事件</p>
 
 <pre><code>protected void gvhandle_RowDataBound(object sender, GridViewRowEventArgs e)
 {
@@ -646,11 +646,11 @@
 
 <p>还是围绕核心的这句话。</p>
 
-<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+<blockquote><p>&ldquo;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&rdquo;</p></blockquote>
 
 <p>在<a href="http://arthraim.cn/post/2009/05/32.html">上一篇文章</a>也在讲这句话，但是说穿了讲的应该是：</p>
 
-<blockquote><p>&#8220;A .NET language for parallel programming through message-passing.&#8221;</p></blockquote>
+<blockquote><p>&ldquo;A .NET language for parallel programming through message-passing.&rdquo;</p></blockquote>
 
 <p>我们只是从一个channel中派生了一个agent，做了数据传递而已，真正意义上的actor在哪里没有讲到（虽然有用到）。那么这次讲一讲。因为刚好看到<a href="http://www.cnblogs.com/JeffreyZhao/archive/2009/05/11/a-simple-actor-model-implementation.html">老赵的博客上</a>好好的分析了actor模型一把，要好好向他学习啊。</p>
 
@@ -664,7 +664,7 @@
 
 <p><strong> 然后讲讲pipeline。先从一个程序出发：斐普纳吉数列的实现。</strong></p>
 
-<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &#8212;- MainAgent。</p>
+<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &mdash;&mdash; MainAgent。</p>
 
 <pre><code>using System;
 using Microsoft.Axum;
@@ -681,7 +681,7 @@ agent MainAgent : channel Microsoft.Axum.Application
 
 <p><strong>agent从channel中派生是种什么特殊情况呢？</strong>在Guide上是这么描述的：</p>
 
-<blockquote><p>Implementing a channel is different - syntactically and semantically - from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
+<blockquote><p>Implementing a channel is different &ndash; syntactically and semantically &ndash; from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
 
 <pre><code>    However, when an agent implements a channel (notice the channel keyword after the colon in the agent declaration), it "attaches" itself to the implementing end of that channel and becomes the "server" of messages on that channel. The other end of the channel - known as the using end - is only visible to the "client", or the component (typically another agent) on the other end of the channel.
 </code></pre>
@@ -700,7 +700,7 @@ agent MainAgent : channel Microsoft.Axum.Application
 
 <p><strong>那从Microsoft.Axum.Application这个channel派生的主程序是如何处理信息的呢？</strong></p>
 
-<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&#8217;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
+<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&rsquo;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
 
 <p>从Microsoft.Axum.Applicationruntime这个Channel派生过来的agent的runtime实例，发送命令行参数到channel的命令行端口（CommandLine port），然后等待退出代码端口（prot ExitCode）的信息。当收到信息后，应用程序就关闭。</p></blockquote>
 
@@ -729,7 +729,7 @@ void ProcessResult(int n)
 }
 </code></pre>
 
-<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&#8211; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
+<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&mdash; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
 
 <p>之后就是最精彩的创建OrderedInteractionPoint和pipeline的代码了。</p>
 
@@ -756,7 +756,7 @@ void ProcessResult(int n)
 
 <blockquote><p>numbers ==> Fibonacci ==> ProcessResult;</p></blockquote>
 
-<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&#8211; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
+<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&mdash; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
 
 <p>有了pipeline，我们就要使用它，因为axum在编译的时候对它是进行特殊处理的。比如斐普纳吉计算过程是a side-effect-free function，一个没有副作用的函数，那么axum就会根据它认为最有效的方式的方式编译出多个线程来处理，并行的优势就体现在这里。</p>
 

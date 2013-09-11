@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="近日在提交一个app的时候发生了奇怪的错误。错误如下： iPhone/iPod Touch: Icon.png: icon dimensions (0 x 0) don&#8217;t meet the size requirements. The icon file must be 57x57 &hellip;">
+	<meta name="description" content="近日在提交一个app的时候发生了奇怪的错误。错误如下： iPhone/iPod Touch: Icon.png: icon dimensions (0 x 0) don&rsquo;t meet the size requirements. The icon file must be 57x57 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,7 +76,7 @@
 
 <p><a href="/mac-os-10-7-3-breaks-xcode-binary-validation/icon-dimensions-dont-meet-the-size-requirements/"><img src="/images/uploads/wp/icon-dimensions-dont-meet-the-size-requirements.png" alt="" /></a></p>
 
-<blockquote><p>iPhone/iPod Touch: Icon.png: icon dimensions (0 x 0) don&#8217;t meet the size requirements. The icon file must be 57x57 pixels, in .png format</p></blockquote>
+<blockquote><p>iPhone/iPod Touch: Icon.png: icon dimensions (0 x 0) don&rsquo;t meet the size requirements. The icon file must be 57x57 pixels, in .png format</p></blockquote>
 
 <p>我使用的Xcode版本是4.2.1，其实一下子也懵了完全没头绪。我第一时间当然是以为我的Icon.png真的出问题了，因为偶尔我会自己用一个叫做prepo的app来把512的图标转成57像素的，所以我第一时间以为是它的问题。（因为它之前也把比如10k的blabla@2x.png转成了20k的blabla.png）。于是我用Photoshop重新转换了一个图标来试图解决这个错误，结果当然是失败了。</p>
 
@@ -86,7 +86,7 @@
 
 <p><a href="/mac-os-10-7-3-breaks-xcode-binary-validation/screen-shot-2012-02-10-at-12-16-13-pm/"><img src="/images/uploads/wp/Screen-Shot-2012-02-10-at-12.16.13-PM.png" alt="" /></a></p>
 
-<p>嗯，自带的版本看来太老了。于是各种Google之后<a href="https://itunesconnect.apple.com/apploader/ApplicationLoader_2.5.1.dmg">新的版本</a>终于还是找到了。使用方法很简单，跟着向导一步一步做（前提是itunes connect上的应用已经waiting for upload状态）直到需要在硬盘选择文件。首先在Xcode里Product -> Build for -> Building for archiving。然后Xcode工程下Products目录，有个 工程名.app，右键Show in finder，在它的上一级目录里找到release版本的app。当然上传前要把它打包成zip文件，application loader不能指定.app。最后完成向导，文件终于上传成功鸟 -。- 然后可以等着review了。</p>
+<p>嗯，自带的版本看来太老了。于是各种Google之后<a href="https://itunesconnect.apple.com/apploader/ApplicationLoader_2.5.1.dmg">新的版本</a>终于还是找到了。使用方法很简单，跟着向导一步一步做（前提是itunes connect上的应用已经waiting for upload状态）直到需要在硬盘选择文件。首先在Xcode里Product &ndash;> Build for &ndash;> Building for archiving。然后Xcode工程下Products目录，有个 工程名.app，右键Show in finder，在它的上一级目录里找到release版本的app。当然上传前要把它打包成zip文件，application loader不能指定.app。最后完成向导，文件终于上传成功鸟 -。- 然后可以等着review了。</p>
 
 <p><strong>更新：</strong>好吧看到了新说法是只要装好Application Loader 2.5.1，重启xcode，clean工程，重新archive，然后就能通过验证了，不需要真的使用Application Loader上传。 没试过，不一定管用，可以试试看。</p>
 

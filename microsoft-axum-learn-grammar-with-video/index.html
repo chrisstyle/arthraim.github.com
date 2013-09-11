@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ： &#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and &hellip;">
+	<meta name="description" content="其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ： &ldquo;A .NET language for safe, scalable and productive parallel programming through isolation, actors and &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,7 +74,7 @@
 	<h2 class="title">Microsoft Axum —— 跟着视频看语法(AxumMath的实现)</h2>
 	<div class="entry-content"><p>其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ：</p>
 
-<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+<blockquote><p>&ldquo;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&rdquo;</p></blockquote>
 
 <p>平台为Windows 7 build 7057（没有更新RC版啊），IDE是Visual Studio 2008。<strike>不知道2005是不是支持，我的windows xp中安装了Axum和VS2005的，一会考证一下。</strike> 经确认VS2005是不能新建Axum工程的。</p>
 
@@ -86,9 +86,9 @@
 
 <p>简单的说：首先做了一个channel，作为一切传输的通道，输入的数据是int X和int Y，输出的数据是int Z。然后在这个channel的基础上新建两个agent，分别完成相加和相减的过程。</p>
 
-<blockquote><p>Z &lt;&#8211; ( receive(X) + receive(Y))</p></blockquote>
+<blockquote><p>Z &lt;&mdash; ( receive(X) + receive(Y))</p></blockquote>
 
-<p>这句话是核心，receive(X)的方法，是agent从channel中接受X的信息，而做出处理后 &lt;&#8211; 传输给Z，Z就得到了需要的结果。（究竟是先处理数据再传输，还是传输过来后再处理不得而知）</p>
+<p>这句话是核心，receive(X)的方法，是agent从channel中接受X的信息，而做出处理后 &lt;&mdash; 传输给Z，Z就得到了需要的结果。（究竟是先处理数据再传输，还是传输过来后再处理不得而知）</p>
 
 <p>UI逻辑中，首先将两个agent创建不同的domain（话说Axum是弱类型语言呢～），然后就可以通过ReadLine得到输入的数据，通过之前创建的domain直接去接收结果。</p>
 

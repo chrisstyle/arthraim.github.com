@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&# &hellip;">
+	<meta name="description" content="运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点& &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -72,7 +72,7 @@
 	
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">XNA教程-3D游戏-10-摧毁UFO</h2>
-	<div class="entry-content"><p>运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&#8212;-导弹无法射落UFO。那么这次的教程显而易见，就是用到3D碰撞检测，来让missile和enemyship来个大碰撞。</p>
+	<div class="entry-content"><p>运行一下现在的样子，实在是已经相当满意了。一个terrain覆盖的世界，一个稳稳的launcher_base，一个可以在base上自由旋转的launcher_top，并且可以使用这个launcher发射无数的导弹，远处也会飞来无数的敌方UFO，看上去游戏已经非常完整了，唯独偏偏少了一点点&mdash;&mdash;导弹无法射落UFO。那么这次的教程显而易见，就是用到3D碰撞检测，来让missile和enemyship来个大碰撞。</p>
 
 <p>这次的教程不是很复杂，所以今天心情好就赶快把他结束掉，可以让博客转入让我自由发挥的方向。那马上开始吧～</p>
 
@@ -120,7 +120,7 @@
 
 <p>解释一下，BoundingSphere类是记录的是一个球形，也就是3D模型最大的外轮廓。用这个类的intersects方法和其他模型的boundingsphere确定是否相交，虽然粗糙，但是基本上已经符合我们的要求了。（相信我，即便是这样，依然难度很高）要确定BoundingSphere的中心点为模型所在的position，而半径要记得乘上scale，不然就不对了。</p>
 
-<p>那么实际检验的地方就很简单，拿到一个missile后，遍历每一个UFO（两层循环），然后检查是否相交，如果相交就杀掉双方，并且播放声音&#8212;-我们之前准备的爆炸的声音。</p>
+<p>那么实际检验的地方就很简单，拿到一个missile后，遍历每一个UFO（两层循环），然后检查是否相交，如果相交就杀掉双方，并且播放声音&mdash;&mdash;我们之前准备的爆炸的声音。</p>
 
 <p>OK，编译运行，我们这个教程的最后一部分就完成了。（放效果图，不过放了也看不出碰撞）</p>
 

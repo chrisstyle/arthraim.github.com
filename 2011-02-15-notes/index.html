@@ -78,15 +78,15 @@
 
 <p><strong>第一个: </strong>freemarker遇到个错误</p>
 
-<blockquote><p>Cannot expose session attribute &#8216;business&#8217; because of an existing model object of the same name.</p></blockquote>
+<blockquote><p>Cannot expose session attribute &lsquo;business&rsquo; because of an existing model object of the same name.</p></blockquote>
 
-<p>好吧我经验不足, 在记录session的时候用到了business这么个名字, 之后又req.setAttribute(&#8220;business&#8221;, XXXX) 了一下, 于是就报错了. 于是教训告诉我session的名字还是变态一点比较好, 经前辈指点, 存取session的地方都要记得给key的名字做个手脚加个前缀.</p>
+<p>好吧我经验不足, 在记录session的时候用到了business这么个名字, 之后又req.setAttribute(&ldquo;business&rdquo;, XXXX) 了一下, 于是就报错了. 于是教训告诉我session的名字还是变态一点比较好, 经前辈指点, 存取session的地方都要记得给key的名字做个手脚加个前缀.</p>
 
 <hr />
 
 <p><strong>第二个: </strong>logrotate的小配置</p>
 
-<p>logrotate出来的文件总是xxxxx.log.1.gz, 后来又Google了一下, 发现还有一个叫做dateext的参数用YYYYMMDD这样的date extension来代替单调的1234数字. 好吧这个问题真的有点小白 - -</p>
+<p>logrotate出来的文件总是xxxxx.log.1.gz, 后来又Google了一下, 发现还有一个叫做dateext的参数用YYYYMMDD这样的date extension来代替单调的1234数字. 好吧这个问题真的有点小白 &ndash; &ndash;</p>
 
 <p>那么, 以上就是全部了~</p>
 </div>

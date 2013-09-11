@@ -79,9 +79,9 @@
 <p>nginx给出的官方解释有三种情况会引发nginx弹411回去</p>
 
 <ol>
-<li>client sent invalid &#8220;Content-Length&#8221; header</li>
-<li>client sent … method without &#8220;Content-Length&#8221; header</li>
-<li>client sent &#8220;Transfer-Encoding: chunked&#8221; header</li>
+<li>client sent invalid &ldquo;Content-Length&rdquo; header</li>
+<li>client sent … method without &ldquo;Content-Length&rdquo; header</li>
+<li>client sent &ldquo;Transfer-Encoding: chunked&rdquo; header</li>
 </ol>
 
 
@@ -107,7 +107,7 @@
 
 <h2>重新编译nginx</h2>
 
-<p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &#8211; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
+<p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &mdash; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
 
 <ol>
 <li><p>下载新版nginx(或者你还有原来的nginx代码在?), 并下载nginxHttpChunkinModule, 然后解压缩. (下载地址就不帖了, 前者版本更新很快, 后者最近又在开始更新支持DELETE方法了)</p></li>
@@ -119,7 +119,7 @@
 
 <h2>不停掉nginx, 平滑过渡到新版本</h2>
 
-<p>这才是最最技术的活&#8230; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
+<p>这才是最最技术的活&hellip; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
 
 <ol>
 <li><p>备份原来的nginx可执行文件, 比如nginx_bak</p></li>
@@ -140,7 +140,7 @@
 </ul>
 
 
-<p>当然以上都是文明人的做法, 想施暴也是可以的&#8230;</p>
+<p>当然以上都是文明人的做法, 想施暴也是可以的&hellip;</p>
 
 <h2>修改nginx的配置文件</h2>
 

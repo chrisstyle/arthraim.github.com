@@ -185,13 +185,13 @@
 			随便写写oauth</a>
 	</h2>
 	<div class="entry-content">
-		<p>最近用到了其他微博的oauth, 起初觉得oauth很烦, 因为文档看了很久很久都没有弄明白怎么回事. 等到初步模到了一些门道之后, 发现其实挺简单的, 因为那是一个标准, 理论上只要支持oauth的网站用一套代码去跑基本上都可以通过. 不过在实际的应用当中我算是领教到了中国互联网的强悍之处. 已经不记得是在什么地方看到一篇文章, 作者一上来第一句话就是 &#8220;从oauth可以看出一个互联网企业的技术力&#8221;, 虽然稍微有些偏激, 但多多少少有值得认同的地方.</p>
+		<p>最近用到了其他微博的oauth, 起初觉得oauth很烦, 因为文档看了很久很久都没有弄明白怎么回事. 等到初步模到了一些门道之后, 发现其实挺简单的, 因为那是一个标准, 理论上只要支持oauth的网站用一套代码去跑基本上都可以通过. 不过在实际的应用当中我算是领教到了中国互联网的强悍之处. 已经不记得是在什么地方看到一篇文章, 作者一上来第一句话就是 &ldquo;从oauth可以看出一个互联网企业的技术力&rdquo;, 虽然稍微有些偏激, 但多多少少有值得认同的地方.</p>
 
 <p><strong>我了解的oauth</strong></p>
 
-<p>oauth其实是个认证, 就和HTTP的basic auth一样, 通过认证才能访问HTTP的资源. 之所以需要oauth, 只是为了解决一个问题:&#8221;第三方不获得用户第一方的密码的前提下访问第一方的资源&#8221;, 所以保障用户通信过程中密码不被泄露是其次, 关键更重要的是第三方不会获得用户名和密码.</p>
+<p>oauth其实是个认证, 就和HTTP的basic auth一样, 通过认证才能访问HTTP的资源. 之所以需要oauth, 只是为了解决一个问题:&ldquo;第三方不获得用户第一方的密码的前提下访问第一方的资源&rdquo;, 所以保障用户通信过程中密码不被泄露是其次, 关键更重要的是第三方不会获得用户名和密码.</p>
 
-<p>于是强大的地方就这样显现出来了, 不知道大家有没有看到过新浪微博的xauth, 什么是xauth呢? 我没有去考据究竟xauth是谁的创造, 它几乎搬了大部分oauth的内容, 不过解决了一个什么问题呢? 解决了一个 &#8220;oauth认证必须跳转到第一方去输入密码&#8221; 的问题(美其名曰提升用户体验). 对不起我凌乱了, 第三方是可以得到用户密码的, 那它是不是直接把oauth的第一大feature给OOXX掉了 - - 那basic auth不能满足你么大哥?</p>
+<p>于是强大的地方就这样显现出来了, 不知道大家有没有看到过新浪微博的xauth, 什么是xauth呢? 我没有去考据究竟xauth是谁的创造, 它几乎搬了大部分oauth的内容, 不过解决了一个什么问题呢? 解决了一个 &ldquo;oauth认证必须跳转到第一方去输入密码&rdquo; 的问题(美其名曰提升用户体验). 对不起我凌乱了, 第三方是可以得到用户密码的, 那它是不是直接把oauth的第一大feature给OOXX掉了 &ndash; &ndash; 那basic auth不能满足你么大哥?</p>
 
 <p><strong>各大网站的oauth</strong></p>
 
@@ -199,7 +199,7 @@
 
 <p><strong>新浪微博</strong></p>
 
-<p>把新浪放在第一家只是因为我第一个做的是新浪微博的oauth, 一上来使用了一个库叫做<a href="http://code.google.com/p/oauth-signpost/">oauth-signpost</a>, 看上去挺不错的样子, 尝试了一下它对Google等国外网站的例子, 我觉得可以用, 于是开始写. 之后马上就遇到了问题, 在申请request_token的过程中, 服务器会返回一个oauth_callback_confirmed的参数, 这个是明确写在oauth 1.0标准中的 (原先的1.0a, 如今已正式merge到了1.0中, 感兴趣的话<a href="http://www.skiyo.cn/2010/08/23/oauth-1-0a-and-1-0/">这里</a>有一篇资料描述了1.0a和早期1.0的差异), 是必须有的, 可是如果你是通过POST方法请求, 那么很抱歉新浪微博是没有提供的. 这显然是一个疏漏. 在新浪微博官方论坛里, 这个问题不止一次的被提到(看<a href="http://forum.open.t.sina.com.cn/read.php?tid=1838">这里</a>, 看<a href="http://forum.open.t.sina.com.cn/read.php?tid=912&amp;ordertype=desc">这里</a>,), 虽然说是 &#8220;近期会加上&#8221; 不过感觉新浪要改应该不会那么敏捷, 所以能做的只有耐心等待和回避这个问题. (虽然不影响正常功能, 不过毕竟人家是标准, signpost就是属于那种按照标准来结果在新浪出错了的牺牲品)</p>
+<p>把新浪放在第一家只是因为我第一个做的是新浪微博的oauth, 一上来使用了一个库叫做<a href="http://code.google.com/p/oauth-signpost/">oauth-signpost</a>, 看上去挺不错的样子, 尝试了一下它对Google等国外网站的例子, 我觉得可以用, 于是开始写. 之后马上就遇到了问题, 在申请request_token的过程中, 服务器会返回一个oauth_callback_confirmed的参数, 这个是明确写在oauth 1.0标准中的 (原先的1.0a, 如今已正式merge到了1.0中, 感兴趣的话<a href="http://www.skiyo.cn/2010/08/23/oauth-1-0a-and-1-0/">这里</a>有一篇资料描述了1.0a和早期1.0的差异), 是必须有的, 可是如果你是通过POST方法请求, 那么很抱歉新浪微博是没有提供的. 这显然是一个疏漏. 在新浪微博官方论坛里, 这个问题不止一次的被提到(看<a href="http://forum.open.t.sina.com.cn/read.php?tid=1838">这里</a>, 看<a href="http://forum.open.t.sina.com.cn/read.php?tid=912&amp;ordertype=desc">这里</a>,), 虽然说是 &ldquo;近期会加上&rdquo; 不过感觉新浪要改应该不会那么敏捷, 所以能做的只有耐心等待和回避这个问题. (虽然不影响正常功能, 不过毕竟人家是标准, signpost就是属于那种按照标准来结果在新浪出错了的牺牲品)</p>
 
 <p>为了回避这个问题, 我改用了<a href="https://github.com/fernandezpablo85/scribe-java">scribe-java</a>这个库. 不过在做新浪微博的时候发现的问题, 好像只有这一个.</p>
 
@@ -211,13 +211,13 @@
 
 <p><strong>腾讯微博</strong></p>
 
-<p>对腾讯微博(QQ微博)的尝试其实在网易之前, 不过才看了文档我就挂掉了, 因为它不支持header传递oauth参数, 只支持querystring, 虽然的确在oauth协议中写出可以使用querystring, 不过我觉得header比较帅气可不可以啊, 而且我的库不支持querystring啊企鹅大哥 - -</p>
+<p>对腾讯微博(QQ微博)的尝试其实在网易之前, 不过才看了文档我就挂掉了, 因为它不支持header传递oauth参数, 只支持querystring, 虽然的确在oauth协议中写出可以使用querystring, 不过我觉得header比较帅气可不可以啊, 而且我的库不支持querystring啊企鹅大哥 &ndash; &ndash;</p>
 
-<p>大问题放前面, 后面还有小问题呢. 在请求request_token时传递oauth_callback参数, 因为写测试没用到callback, 所以肯定库会帮我填上oob(out-of-bound), 不过让我很崩溃的是企鹅大爷不高兴了, 给我跳转到了一个这样一个地方: https://open.t.qq.com/oauth_html/oob?oauth_token=xxxxx&amp;oauth_verifier=xxxxxx, 这当然是NOT FOUND, 这是企鹅大哥的地盘, 我不能做主啊.</p>
+<p>大问题放前面, 后面还有小问题呢. 在请求request_token时传递oauth_callback参数, 因为写测试没用到callback, 所以肯定库会帮我填上oob(out-of-bound), 不过让我很崩溃的是企鹅大爷不高兴了, 给我跳转到了一个这样一个地方: <a href="https://open.t.qq.com/oauth_html/oob?oauth_token=xxxxx&amp;oauth_verifier=xxxxxx,">https://open.t.qq.com/oauth_html/oob?oauth_token=xxxxx&amp;oauth_verifier=xxxxxx,</a> 这当然是NOT FOUND, 这是企鹅大哥的地盘, 我不能做主啊.</p>
 
-<p>千辛万苦查到了企鹅大哥的文档里写了这么一句话: <strong>① 用户授权后web应用将会重定向到oauth_callback。当应用为pc客户端或手机客户端应用时，没有回调url(oauth_callback)的概念，此时设置为字符串null即可。字符串&#8221;null&#8221;必须是小写。</strong>爹啊&#8230; 你是我亲爹啊. 不按套路出牌的啊! (<a href="http://open.t.qq.com/bbs/viewthread.php?tid=2352">愤怒的同学</a>显然不止我一个, 而且没人理他)</p>
+<p>千辛万苦查到了企鹅大哥的文档里写了这么一句话: <strong>① 用户授权后web应用将会重定向到oauth_callback。当应用为pc客户端或手机客户端应用时，没有回调url(oauth_callback)的概念，此时设置为字符串null即可。字符串&#8221;null&#8221;必须是小写。</strong>爹啊&hellip; 你是我亲爹啊. 不按套路出牌的啊! (<a href="http://open.t.qq.com/bbs/viewthread.php?tid=2352">愤怒的同学</a>显然不止我一个, 而且没人理他)</p>
 
-<p>对了, 今天还发现腾讯微博开发平台的文档修改过了, 不过&#8230;&#8230;&#8230;&#8230;.. 被修改的似乎只有文档而已.</p>
+<p>对了, 今天还发现腾讯微博开发平台的文档修改过了, 不过&hellip;&hellip;&hellip;&hellip;.. 被修改的似乎只有文档而已.</p>
 
 <p><strong>搜狐微博</strong></p>
 
@@ -227,11 +227,11 @@
 
 <p><strong>豆瓣</strong></p>
 
-<p>你们知道, 作为一个程序员, 对豆瓣的崇拜之情是难以言表的. 豆瓣的高性能, 以及豆瓣为开源做出的各种贡献都是围城外面的程序员羡慕不已的, 并且把 &#8220;指环王&#8221; 当作文化的豆瓣团队也给我留下了足够美好的印象. 熟悉python的朋友不会不知道simple is better than complex这句话, 用python开发的豆瓣无论如何都让我觉得是simple的典范. 无论如何, 我始终觉得豆瓣是一个技术很棒的企业. 这一切美好的印象只持续到我接触它的oauth之前.</p>
+<p>你们知道, 作为一个程序员, 对豆瓣的崇拜之情是难以言表的. 豆瓣的高性能, 以及豆瓣为开源做出的各种贡献都是围城外面的程序员羡慕不已的, 并且把 &ldquo;指环王&rdquo; 当作文化的豆瓣团队也给我留下了足够美好的印象. 熟悉python的朋友不会不知道simple is better than complex这句话, 用python开发的豆瓣无论如何都让我觉得是simple的典范. 无论如何, 我始终觉得豆瓣是一个技术很棒的企业. 这一切美好的印象只持续到我接触它的oauth之前.</p>
 
 <p>还是先说有点, 豆瓣的oauth文档简介明了, 该说的都说清楚了. 另外豆瓣的错误信息返回的很厚道, 会把服务器拼出来的base string发给你, 让你和自己的好好比较一下, signature错误找起来就方便多了.</p>
 
-<p>不过signature的错误你是永远也不会觉得好办的&#8230; 因为豆瓣太特别了. 在它的basestring里有一个多余的 &#8220;OAuth%2520&#8221; 请求的url之后, 所有参数之前. 百思不得其解这究竟是什么, 难道是历史原因造成的? 总之对于我来说要做的只不过是拼接basestring的时候硬加上去. (至今仍然希望高手解答, 之前的oauth版本里是这样的?)</p>
+<p>不过signature的错误你是永远也不会觉得好办的&hellip; 因为豆瓣太特别了. 在它的basestring里有一个多余的 &ldquo;OAuth%2520&rdquo; 请求的url之后, 所有参数之前. 百思不得其解这究竟是什么, 难道是历史原因造成的? 总之对于我来说要做的只不过是拼接basestring的时候硬加上去. (至今仍然希望高手解答, 之前的oauth版本里是这样的?)</p>
 
 <p>解决了这个问题还没完, 还有问题. 我尝试使用拿回来的access_token去访问资源, 又报signature错误了. 具体问题我在豆瓣的<a href="http://www.douban.com/group/topic/18667209/">这个帖子</a>里详细描述了, 不过还没有得到答案. 在这个请求中我要不要加上oauth_callback_url这个参数是一回事, 它是不是参加排序又是另外一回事不是么? (至少不该是签名错误吧)</p>
 
@@ -308,7 +308,7 @@
 
 <p>然后是git的一个问题。在某个java工程，git pull 的时候遇到如下错误：</p>
 
-<blockquote><p>error: Untracked working tree file &#8216;webapp/WEB-INF/classes/com/arthraim/foo.class&#8217; would be overwritten by merge. Aborting</p></blockquote>
+<blockquote><p>error: Untracked working tree file &lsquo;webapp/WEB-INF/classes/com/arthraim/foo.class&rsquo; would be overwritten by merge. Aborting</p></blockquote>
 
 <p>不小心把.class加入到版本管理，并push到远程了。在另一个本地repo又把他们去掉了，于是就出了类似的错。解决方法大致是移出掉本地的文件（当然如果不是.class这样无所谓的文件的话，不妨备份他们先），并把他们从本地git仓库移出，确保在远程git仓库也移出。</p>
 
@@ -333,7 +333,7 @@
 
 <p>${some_double_number?string(0.######)}</p>
 
-<p>&#8217;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
+<p>&lsquo;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
 
 <p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
 
@@ -382,9 +382,9 @@
 <p>nginx给出的官方解释有三种情况会引发nginx弹411回去</p>
 
 <ol>
-<li>client sent invalid &#8220;Content-Length&#8221; header</li>
-<li>client sent … method without &#8220;Content-Length&#8221; header</li>
-<li>client sent &#8220;Transfer-Encoding: chunked&#8221; header</li>
+<li>client sent invalid &ldquo;Content-Length&rdquo; header</li>
+<li>client sent … method without &ldquo;Content-Length&rdquo; header</li>
+<li>client sent &ldquo;Transfer-Encoding: chunked&rdquo; header</li>
 </ol>
 
 
@@ -410,7 +410,7 @@
 
 <h2>重新编译nginx</h2>
 
-<p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &#8211; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
+<p>于是Google了一圈又看到了<a href="http://www.lamnk.com/blog/computer/fix-nginx-411-length-required-error/">这个文章</a>, 遇到同样的问题, 只是它是上面说到的第三种情况, 不过很幸运的是我意识到解决的方法可能是一样的 &mdash; 给nginx加上一个Chunkin模块. 说干就干, 参考了<a href="http://wiki.nginx.org/NginxHttpChunkinModule#Installation">nginx的wik</a>i和<a href="http://www.shenzhen3c.com/archives/360">这篇文章</a>, 可以顺利的加上外部的模块. 简单来说是以下几步:</p>
 
 <ol>
 <li><p>下载新版nginx(或者你还有原来的nginx代码在?), 并下载nginxHttpChunkinModule, 然后解压缩. (下载地址就不帖了, 前者版本更新很快, 后者最近又在开始更新支持DELETE方法了)</p></li>
@@ -422,7 +422,7 @@
 
 <h2>不停掉nginx, 平滑过渡到新版本</h2>
 
-<p>这才是最最技术的活&#8230; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
+<p>这才是最最技术的活&hellip; 参考&lt;实战nginx>(in action), 可以简单归纳为以下几步</p>
 
 <ol>
 <li><p>备份原来的nginx可执行文件, 比如nginx_bak</p></li>
@@ -443,7 +443,7 @@
 </ul>
 
 
-<p>当然以上都是文明人的做法, 想施暴也是可以的&#8230;</p>
+<p>当然以上都是文明人的做法, 想施暴也是可以的&hellip;</p>
 
 <h2>修改nginx的配置文件</h2>
 
@@ -526,15 +526,15 @@
 
 <p><strong>第一个: </strong>freemarker遇到个错误</p>
 
-<blockquote><p>Cannot expose session attribute &#8216;business&#8217; because of an existing model object of the same name.</p></blockquote>
+<blockquote><p>Cannot expose session attribute &lsquo;business&rsquo; because of an existing model object of the same name.</p></blockquote>
 
-<p>好吧我经验不足, 在记录session的时候用到了business这么个名字, 之后又req.setAttribute(&#8220;business&#8221;, XXXX) 了一下, 于是就报错了. 于是教训告诉我session的名字还是变态一点比较好, 经前辈指点, 存取session的地方都要记得给key的名字做个手脚加个前缀.</p>
+<p>好吧我经验不足, 在记录session的时候用到了business这么个名字, 之后又req.setAttribute(&ldquo;business&rdquo;, XXXX) 了一下, 于是就报错了. 于是教训告诉我session的名字还是变态一点比较好, 经前辈指点, 存取session的地方都要记得给key的名字做个手脚加个前缀.</p>
 
 <hr />
 
 <p><strong>第二个: </strong>logrotate的小配置</p>
 
-<p>logrotate出来的文件总是xxxxx.log.1.gz, 后来又Google了一下, 发现还有一个叫做dateext的参数用YYYYMMDD这样的date extension来代替单调的1234数字. 好吧这个问题真的有点小白 - -</p>
+<p>logrotate出来的文件总是xxxxx.log.1.gz, 后来又Google了一下, 发现还有一个叫做dateext的参数用YYYYMMDD这样的date extension来代替单调的1234数字. 好吧这个问题真的有点小白 &ndash; &ndash;</p>
 
 <p>那么, 以上就是全部了~</p>
 
@@ -578,7 +578,7 @@
 	<div class="entry-content">
 		<p>在我们这里关于ruby和python的争论永远没有停息, 比赛之前也无意间让我发现了很多东西. 这次发现了一个django中使用mongodb的好东西, 叫做<a href="http://mongoengine.org/">mongoengine</a>, 不知道是不是我火星了, 因为从<a href="https://github.com/hmarr/mongoengine">github</a>上看这个项目最早从09年11月就开始了.</p>
 
-<p>在github下载到源码, 有setup.py, 先build再install, 然后&#8230; 开搞!</p>
+<p>在github下载到源码, 有setup.py, 先build再install, 然后&hellip; 开搞!</p>
 
 <p>先很简单的创建一个django的工程(具体不说django), 然后弄个小app或者随便哪里写个view就好了. 然后我用了几步就确定它可以正常使用了.</p>
 
@@ -697,7 +697,7 @@
 </ul>
 
 
-<p>这样的更新数量好像挺健康的~ 去年一个月将近30篇也太猛了&#8230;</p>
+<p>这样的更新数量好像挺健康的~ 去年一个月将近30篇也太猛了&hellip;</p>
 
 <ul>
 <li>Programing: 18</li>
@@ -719,17 +719,17 @@
 <ul>
 <li>人间网发言: 15815  (截止1月17日2时13分, 没有剥离往年的数据)</li>
 <li>新浪微博发言: 1791  (同上)</li>
-<li>看书: 2  (记录在豆瓣&#8221;读过&#8221;, &#8220;在读&#8221;中有7本)</li>
+<li>看书: 2  (记录在豆瓣&#8221;读过&#8221;, &ldquo;在读&#8221;中有7本)</li>
 <li>电影: 145  (通过豆瓣中&#8221;看过&#8221;计算出来的数据, 误差在10)</li>
 <li>美日剧: 190+  (估算, 误差在+-20之内)</li>
 <li>动画: 120+  (估算, 看完整了6部新番, 还有其他短小的OVA等)</li>
-<li>游戏: (尚未统计, 之后更新&#8230;)</li>
+<li>游戏: (尚未统计, 之后更新&hellip;)</li>
 </ul>
 
 
 <p>2010年, 完成了从学生到社会人的角色转换, 当然心理上到底算不算转换成功了尚且不得而知. 显然看书看得不多, 很多都没有读完. 看了好多好多电影, 在后面9个月都有些中间报告系列, 所以看过的所有电影都记录在案了. 因为工作了所有PS3游戏可以多买几个了, 不过因为飘在上海, 只有周末的时候回到嘉兴的家里玩, 所以其实玩的时候并不多.</p>
 
-<p>应该说这一年技术上的进步是很大的, 因为人间网@niedhui @<a href="http://luosky.com">luosky</a> @caoxg @asfman @oh4mm(按照座位顺序)的帮助以及我自己的学习, 学到的真的很多. 另外还有&#8221;人本设计沙龙&#8221; &#8220;nBazzar(.net)技术沙龙&#8221; 等我参加过的技术社区活动.</p>
+<p>应该说这一年技术上的进步是很大的, 因为人间网@niedhui @<a href="http://luosky.com">luosky</a> @caoxg @asfman @oh4mm(按照座位顺序)的帮助以及我自己的学习, 学到的真的很多. 另外还有&#8221;人本设计沙龙&#8221; &ldquo;nBazzar(.net)技术沙龙&rdquo; 等我参加过的技术社区活动.</p>
 
 <p>博客本身也经历了很多, 从z-blog搬迁到wordpress, 从垃圾虚拟主机到@caoxg的个人服务器(redsaga那台:D)直到今年(2011)搬到了dreamhost. 搬来搬去丢了好多读者好多流量, 不过我还会坚持host它的.</p>
 
@@ -737,7 +737,7 @@
 
 <p>2011继续加油!</p>
 
-<p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问&#8230;)</p>
+<p>最后的最后补放一张Google Analytic的统计报表, 因为很不幸的博客关闭了20天(并更换域名和主机), 所以主要靠Google带流量的本博客2011年的数据几乎是重新开始了. (没有展示的数据比如浏览器操作系统等等欢迎留言提问&hellip;)</p>
 
 <p><a href="/arthur-s-2010-summary/2011-01-17-030351_640x630_scrot/"><img src="/images/uploads/wp/2011-01-17-030351_640x630_scrot-500x492.png" alt="" /></a></p>
 
@@ -787,14 +787,14 @@
 
 <ol>
 <li><p><strong>城中大盗 / The Town</strong>：本阿弗莱克导演的第二个作品，非常棒！</p></li>
-<li><p><strong>社交网络 / The Social Network</strong>：创造帝国的过程中免不了明争暗斗弱肉强食. 多米诺骨牌的比喻我很喜欢&#8230;</p></li>
-<li><p><strong>天际浩劫 / Skyline</strong>：特技还不错&#8230; 剧情演员逻辑其他什么都是狗屎..</p></li>
+<li><p><strong>社交网络 / The Social Network</strong>：创造帝国的过程中免不了明争暗斗弱肉强食. 多米诺骨牌的比喻我很喜欢&hellip;</p></li>
+<li><p><strong>天际浩劫 / Skyline</strong>：特技还不错&hellip; 剧情演员逻辑其他什么都是狗屎..</p></li>
 <li><p><strong>凉宫春日的消失 / 涼宮ハルヒの消失</strong>：神作啊!!!!!!!!!!!!!!!!!!!!!!!! 凉宫春日!! 没有你的日子萨必西乃!!</p></li>
 <li><p><strong>卑鄙的我 / Despicable Me</strong>：剧情比较老套，那个很萌的黄色药丸一样的人的行为也比较像疯兔。不过不得不说借鉴了其他很多作品的同时做了很多颇有意义的创新，很多细节也处理的很萌，比如一只飘在天上那只和缩小的那只。。。</p></li>
 <li><p><strong>特工绍特 / Salt</strong>：非常牛X的节奏！一直很紧凑但是情节也有起伏，穿插的回忆一来慢慢的交代了故事的前因，二来交代了salt的心理变化和做这些事情…… 值得品味的好片~~</p></li>
 <li><p><strong>三个傻瓜 / 3 Idiots</strong>：好片子，剧情寓意都不错，不过我还是不太能接受印度电影里歌舞的那些桥段 orz</p></li>
 <li><p><strong>狂野目标 / Wild Target</strong>：英国人的搞笑方式还真不太一样，女主角很漂亮。。。</p></li>
-<li><p><strong>怪兽 / Monsters</strong>：看到结尾来救他们的士兵，然后拉回开头一看，发现原来之前都没有注意到的战斗场景里其实就有男女主角，男主角在叫help，女主角似乎死在了他的怀中………… I don&#8217;t wanna go home&#8230;..似乎她如愿了</p></li>
+<li><p><strong>怪兽 / Monsters</strong>：看到结尾来救他们的士兵，然后拉回开头一看，发现原来之前都没有注意到的战斗场景里其实就有男女主角，男主角在叫help，女主角似乎死在了他的怀中………… I don&rsquo;t wanna go home&hellip;..似乎她如愿了</p></li>
 <li><p><strong>绯闻计划 / Easy A</strong>：这就是青春啊~ 可以抱着轻松愉快的心情看完的电影，非常不错</p></li>
 </ol>
 
@@ -856,15 +856,15 @@
 		<p>终于联系上了域名代理, 我的arthraim.cn也续费成功了, 不会被劫持到广告页了, 然后我做了以下几件事.</p>
 
 <ol>
-<li><p>之前当然先做了artori.us这个镜像, 和之前的一模一样</p></li>
-<li><p>修改之前arthraim.cn上的.htaccess文件, 重定向所有对arthraim.cn的请求到artori.us.</p></li>
-<li><p>到Google Webmaster Tools验证了新的artori.us; 并且设置arthraim.cn的站点迁移, 让Google知道我换域名了.</p></li>
+<li><p> 之前当然先做了artori.us这个镜像, 和之前的一模一样</p></li>
+<li><p> 修改之前arthraim.cn上的.htaccess文件, 重定向所有对arthraim.cn的请求到artori.us.</p></li>
+<li><p> 到Google Webmaster Tools验证了新的artori.us; 并且设置arthraim.cn的站点迁移, 让Google知道我换域名了.</p></li>
 </ol>
 
 
 <p>在这几天Google已经删掉了很多我的收录, 不过好歹有所挽回.</p>
 
-<p>以上&#8230;</p>
+<p>以上&hellip;</p>
 
 <p><strong>Update</strong>：</p>
 

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ： &#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and &hellip;">
+	<meta name="description" content="其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ： &ldquo;A .NET language for safe, scalable and productive parallel programming through isolation, actors and &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -83,7 +83,7 @@
 	<div class="entry-content">
 		<p>其实这是一种抄袭行为，跟着主页上的视频把代码实现了一遍，用以理解所谓的 ：</p>
 
-<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+<blockquote><p>&ldquo;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&rdquo;</p></blockquote>
 
 <p>平台为Windows 7 build 7057（没有更新RC版啊），IDE是Visual Studio 2008。<strike>不知道2005是不是支持，我的windows xp中安装了Axum和VS2005的，一会考证一下。</strike> 经确认VS2005是不能新建Axum工程的。</p>
 
@@ -95,9 +95,9 @@
 
 <p>简单的说：首先做了一个channel，作为一切传输的通道，输入的数据是int X和int Y，输出的数据是int Z。然后在这个channel的基础上新建两个agent，分别完成相加和相减的过程。</p>
 
-<blockquote><p>Z &lt;&#8211; ( receive(X) + receive(Y))</p></blockquote>
+<blockquote><p>Z &lt;&mdash; ( receive(X) + receive(Y))</p></blockquote>
 
-<p>这句话是核心，receive(X)的方法，是agent从channel中接受X的信息，而做出处理后 &lt;&#8211; 传输给Z，Z就得到了需要的结果。（究竟是先处理数据再传输，还是传输过来后再处理不得而知）</p>
+<p>这句话是核心，receive(X)的方法，是agent从channel中接受X的信息，而做出处理后 &lt;&mdash; 传输给Z，Z就得到了需要的结果。（究竟是先处理数据再传输，还是传输过来后再处理不得而知）</p>
 
 <p>UI逻辑中，首先将两个agent创建不同的domain（话说Axum是弱类型语言呢～），然后就可以通过ReadLine得到输入的数据，通过之前创建的domain直接去接收结果。</p>
 
@@ -216,11 +216,11 @@ namespace AxumMath
 
 <p>新建了一个Console Application之后，速度看看它generate了一些什么代码。[如下图]</p>
 
-<p>果然不出所料的一头雾水啊，domain是个什么存在，agent又是什么呢？ :: 是什么？C++的domian的概念吗？那 &lt;&#8211; 这又是什么。虽然看上去有些像C家族的语言，不过一上来真是一头雾水啊。从微软的高亮习惯，似乎可以猜出一些什么东西来。</p>
+<p>果然不出所料的一头雾水啊，domain是个什么存在，agent又是什么呢？ :: 是什么？C++的domian的概念吗？那 &lt;&mdash; 这又是什么。虽然看上去有些像C家族的语言，不过一上来真是一头雾水啊。从微软的高亮习惯，似乎可以猜出一些什么东西来。</p>
 
 <p><img src="/images/uploads/zb/2009-05-13_GenerateCode.png" alt="" /></p>
 
-<p><strong>4、下载Programmer&#8217;s Guide。</strong></p>
+<p><strong>4、下载Programmer&rsquo;s Guide。</strong></p>
 
 <p>还是老老实实的看看官方做法吧，下载一份<a href="http://download.microsoft.com/download/B/D/5/BD51FFB2-C777-43B0-AC24-BDE3C88E231F/Axum%20Program">官方指导</a>来看看。</p>
 
@@ -278,7 +278,7 @@ namespace AxumMath
 	<div class="entry-content">
 		<p><img src="/images/uploads/zb/dd795202.AXUM_banner(en-us" alt="" />.png)</p>
 
-<p>微软发布了最新的.net编程语言&#8212;-Axum。主要针对Windows7，不知道具体带给了我们什么不一样的东西，小心的窥探一下先。</p>
+<p>微软发布了最新的.net编程语言&mdash;&mdash;Axum。主要针对Windows7，不知道具体带给了我们什么不一样的东西，小心的窥探一下先。</p>
 
 <p><a href="http://msdn.microsoft.com/en-us/devlabs/dd795202.aspx">官方网址</a> | <a href="http://blogs.msdn.com/maestroteam/default.aspx">Axum小组博客</a> | <a href="http://www.microsoft.com/downloads/details.aspx?displaylang=en&amp;FamilyID=cfe70d5d-37aa-4c4c-8eeb-d4576c41baa2#tm">下载</a></p>
 
@@ -589,9 +589,9 @@ filter:Gray;
 
 <p>追逐美剧也是我人生中一大乐趣了，只不过我比较挑剔，一般喜欢一些跟踪一个角色的长篇。看过的美剧千奇百怪，什么《Knight Rider》、《Prison Break》之类的。不过这些都是没有留下特别的印象的。要说最近在追的，或者说在期待下一季的只有5部。分别是《House M.D》、《<a href="http://www.sho.com/site/dexter/home.do">Dexter</a>》、《<a href="http://abc.go.com/primetime/elistone/index?pn=index">Eli Stone</a>》、《<a href="http://www.fox.com/24/">24</a>》、《<a href="http://www.fox.com/fringe/">Fringe</a>》。其中4部都是以主角为核心的（House,Dexter,eli,24），3部直接以主角的名字为片名（House,dexter,eli），还有一部比较例外，片名比较怪（fringe）。另外其中2部是一集一个故事（House,Fringe），2部是一季一个故事（dexter,24）。House是医生，Dexter是连环杀手，Eli是律师，24的Jack Bauer是联邦特工，Fringe的女主角也是FBI，不过她的魅力一般，反而是父子俩比较有意思。</p>
 
-<p>House是我最喜欢的一部，虽然有的时候也会觉得这是不是中年妇女看看的东西，不过事实上它的受众面还真是很广。House是一个医生，诊断医生，看些一般医生解决不了的疑难杂症。瘸子，因为一些悲剧。嗑药，因为腿的疼痛。吐槽，因为愤世嫉俗。House真的语不惊人誓不罢休，像S05E23里，他来了一句：&#8221;I think skinless women are hot. &#8220;真是好笑。（没皮的女人很性感。结合剧情才有趣）其实这个博客的副标题Everybody lies就是House的名言，只是我觉得这句话很真实，每个人都不能否认，只是能去面对才是做人的真理。这样变相解释了为什么放这句话吧。</p>
+<p>House是我最喜欢的一部，虽然有的时候也会觉得这是不是中年妇女看看的东西，不过事实上它的受众面还真是很广。House是一个医生，诊断医生，看些一般医生解决不了的疑难杂症。瘸子，因为一些悲剧。嗑药，因为腿的疼痛。吐槽，因为愤世嫉俗。House真的语不惊人誓不罢休，像S05E23里，他来了一句：&#8221;I think skinless women are hot. &ldquo;真是好笑。（没皮的女人很性感。结合剧情才有趣）其实这个博客的副标题Everybody lies就是House的名言，只是我觉得这句话很真实，每个人都不能否认，只是能去面对才是做人的真理。这样变相解释了为什么放这句话吧。</p>
 
-<p>刚才去Google了一下<a href="http://www.imdb.com/name/nm0491402/">Hugh Laurie</a>，也就是House的扮演者，果然十分的有趣，发现了很多有趣的资料。比如他是由剧集里的演员组成的乐队&#8221;<a href="http://www.bandfromtv.org/">The Band From TV</a>&#8220;中的键盘手。比如一些他裸体拍戏的照片。比如有人谈论他的秃顶。不过其实它们都不会影响我们喜欢House的吧。我也不知道是喜欢House还是喜欢这个演员，不过看见他就是十年前演《<a href="http://www.imdb.com/title/tt0164912/">Stuart Little</a>》（精灵鼠小弟）里Stuart的爸爸的时候，还是觉得这事情有点搞笑。不过我还是真的第一次知道他是英国人，因为House纯正的美语实在是太让人不敢相信他是出生于牛津的。</p>
+<p>刚才去Google了一下<a href="http://www.imdb.com/name/nm0491402/">Hugh Laurie</a>，也就是House的扮演者，果然十分的有趣，发现了很多有趣的资料。比如他是由剧集里的演员组成的乐队&#8221;<a href="http://www.bandfromtv.org/">The Band From TV</a>&ldquo;中的键盘手。比如一些他裸体拍戏的照片。比如有人谈论他的秃顶。不过其实它们都不会影响我们喜欢House的吧。我也不知道是喜欢House还是喜欢这个演员，不过看见他就是十年前演《<a href="http://www.imdb.com/title/tt0164912/">Stuart Little</a>》（精灵鼠小弟）里Stuart的爸爸的时候，还是觉得这事情有点搞笑。不过我还是真的第一次知道他是英国人，因为House纯正的美语实在是太让人不敢相信他是出生于牛津的。</p>
 
 <p>好吧，接下去放些链接什么的吧。</p>
 
@@ -607,7 +607,7 @@ filter:Gray;
 
 <p><strong>歌</strong></p>
 
-<p>Hugh Laurie - You Can&#8217;t Always Get What You Want</p>
+<p>Hugh Laurie &ndash; You Can&rsquo;t Always Get What You Want</p>
 
 <p><strong> 照片</strong></p>
 
@@ -721,13 +721,13 @@ filter:Gray;
 			PSP3000破解再进一步 ChickHEN R2发布</a>
 	</h2>
 	<div class="entry-content">
-		<p>我早上点到<a href="http://davee.x-fusion.co.uk/">Davee&#8217;s DevSite</a>的时候还没有仔细看，刚才在别的网站看到说PSP3000 Homebrew（自制软件）破解了，忙上去一看，果不其然，在<a href="http://arthraim.cn/post/2009/05/22.html">昨天发布了第一个ChickHEN</a>之后，ChickHEN Homebrew Enabler R2也速度发布了，点<a href="http://davee.x-fusion.co.uk/releases/ChickHENR2.rar">这里</a>官方下载，另外不妨到<a href="http://www.levelup.cn/news/NewsDetails/2009-5-7/33623.shtml">这里</a>看一下国人的评测，GBA,FC,CPS2,MVS模拟器都测试通过了，并且PPS和xReader这样的常用软件也可以用了。弟妹啊，恭喜你~~</p>
+		<p>我早上点到<a href="http://davee.x-fusion.co.uk/">Davee&rsquo;s DevSite</a>的时候还没有仔细看，刚才在别的网站看到说PSP3000 Homebrew（自制软件）破解了，忙上去一看，果不其然，在<a href="http://arthraim.cn/post/2009/05/22.html">昨天发布了第一个ChickHEN</a>之后，ChickHEN Homebrew Enabler R2也速度发布了，点<a href="http://davee.x-fusion.co.uk/releases/ChickHENR2.rar">这里</a>官方下载，另外不妨到<a href="http://www.levelup.cn/news/NewsDetails/2009-5-7/33623.shtml">这里</a>看一下国人的评测，GBA,FC,CPS2,MVS模拟器都测试通过了，并且PPS和xReader这样的常用软件也可以用了。弟妹啊，恭喜你~~</p>
 
 <p>来看看这一次的更新。</p>
 
 <p><a href="http://davee.x-fusion.co.uk/"><img src="/images/uploads/zb/davee.png" alt="" /></a></p>
 
-<blockquote><p>[ChickHEN Revision 2] - Team Typhoon</p></blockquote>
+<blockquote><p>[ChickHEN Revision 2] &ndash; Team Typhoon</p></blockquote>
 
 <p>[Changelog]</p>
 
@@ -755,17 +755,17 @@ filter:Gray;
 
 <p>[How do I use it?]</p>
 
-<p>Depending on your PSP Model, you&#8217;re going to need a specific tiff image. If you have a Phat (1000) PSP, use the tiff image supplied in the &#8220;PHAT&#8221; folder and copy it to ms0:/PSP/PHOTO. Else copy the tiff image in the &#8220;SLIM&#8221; folder to ms0:/PSP/PHOTO. After you&#8217;ve copied the image to your PSP, you can copy the h.bin supplied to the root of the memorystick (ms0:/). This should be sufficient for PSP to reboot into ChickHEN.</p>
+<p>Depending on your PSP Model, you&rsquo;re going to need a specific tiff image. If you have a Phat (1000) PSP, use the tiff image supplied in the &ldquo;PHAT&rdquo; folder and copy it to ms0:/PSP/PHOTO. Else copy the tiff image in the &ldquo;SLIM&rdquo; folder to ms0:/PSP/PHOTO. After you&rsquo;ve copied the image to your PSP, you can copy the h.bin supplied to the root of the memorystick (ms0:/). This should be sufficient for PSP to reboot into ChickHEN.</p>
 
 <p>[Can it break my PSP?]</p>
 
-<p>ChickHEN works differently to all previous HEN&#8217;s. Instead of flashing to flash0, it resides entirely in RAM to prevent any damage to the system. Sure enough, you can run applications in HEN to flash stuff but I strongly recommend against it. ChickHEN comes with no warrenty, no guanantee and you run this software under your own responsibility. Flashing onto your PSP WILL BRICK IT!!</p>
+<p>ChickHEN works differently to all previous HEN&rsquo;s. Instead of flashing to flash0, it resides entirely in RAM to prevent any damage to the system. Sure enough, you can run applications in HEN to flash stuff but I strongly recommend against it. ChickHEN comes with no warrenty, no guanantee and you run this software under your own responsibility. Flashing onto your PSP WILL BRICK IT!!</p>
 
 <p>As stated, HEN comes with no warrenty, and this software should not be used in conjunction with homebrew which can countervent any copyright laws.</p>
 
 <p>[Credits]</p>
 
-<p>Team Typhoon - ChickHEN</p>
+<p>Team Typhoon &ndash; ChickHEN</p>
 
 <p>MaTiAz: TIFF Eggsploit ;)</p>
 
@@ -779,7 +779,7 @@ filter:Gray;
 
 <p><a href="http://www.mformature.net/">mformature.net</a></p>
 
-<p>http://davee.x-fusion.co.uk</p>
+<p><a href="http://davee.x-fusion.co.uk">http://davee.x-fusion.co.uk</a></p>
 
 <blockquote></blockquote>
 
@@ -827,15 +827,15 @@ filter:Gray;
 
 <p>经过几次的延期，第一个HEN系统ChickHEN Homebrew Enabler终于还是出现了。能提供一个可以运行Homebrew的环境。Alek也在<a href="http://www.sceners.org/">Sceners.org</a>上写了相关的文章《<a href="http://sceners.org/index.php?id=25">ChickHEN Eggsploited!</a>》</p>
 
-<p>下载请至：<a href="http://davee.x-fusion.co.uk/">Davee&#8217;s DevSite</a></p>
+<p>下载请至：<a href="http://davee.x-fusion.co.uk/">Davee&rsquo;s DevSite</a></p>
 
 <p><a href="http://davee.x-fusion.co.uk/"><img src="/images/uploads/zb/davee.png" alt="" /></a></p>
 
-<blockquote><p>5.03 ChickHEN Homebrew Enabler - Team Typhoon (Article by Granite) So comes the release of the highly anticipated ChickHEN homebrew enabler by Team Typhoon. After 1800 Lines of code, 4 weeks of stressful developing and countless amounts of tests the dawn of a new homebrew era for all the 3000, 2000 and 1000 users is on the horizon. What was said to be impossible by many is now a reality, all styles homebrew are now running on the &#8220;unhackable&#8221; T88v3 and TA-090 motherboards rolled out by Sony.</p></blockquote>
+<blockquote><p>5.03 ChickHEN Homebrew Enabler &ndash; Team Typhoon (Article by Granite) So comes the release of the highly anticipated ChickHEN homebrew enabler by Team Typhoon. After 1800 Lines of code, 4 weeks of stressful developing and countless amounts of tests the dawn of a new homebrew era for all the 3000, 2000 and 1000 users is on the horizon. What was said to be impossible by many is now a reality, all styles homebrew are now running on the &ldquo;unhackable&rdquo; T88v3 and TA-090 motherboards rolled out by Sony.</p></blockquote>
 
 <p>What does the ChickHEN do?</p>
 
-<p>ChickHEN as a Homebrew Enabler that allows the execution of homebrew via the PSP XMB. Running via a vulnerability in the lib TIFF the launcher takes advantage of the system by performing a kernel exploit and rebooting into a homebrew enabled enviroment. The ChickHEN remains active until the PSP is fully reset in which case official firmware loads from the flash. ChickHEN unlike other HEN&#8217;s doesn&#8217;t touch the flash0 and resides completely in memory. The h.bin supplied in this download consists of a loader and systemex, which is a inversed order of systemctrl and rebootex</p>
+<p>ChickHEN as a Homebrew Enabler that allows the execution of homebrew via the PSP XMB. Running via a vulnerability in the lib TIFF the launcher takes advantage of the system by performing a kernel exploit and rebooting into a homebrew enabled enviroment. The ChickHEN remains active until the PSP is fully reset in which case official firmware loads from the flash. ChickHEN unlike other HEN&rsquo;s doesn&rsquo;t touch the flash0 and resides completely in memory. The h.bin supplied in this download consists of a loader and systemex, which is a inversed order of systemctrl and rebootex</p>
 
 <p>What ChickHEN does NOT do?</p>
 
@@ -856,7 +856,7 @@ filter:Gray;
 <li><p>Copy h.bin over to the MS ROOT and safely remove device.</p></li>
 <li><p>Scroll over to the PHOTO icon on the XMB and click the ChickHEN folder and wait. (This will not work the first time, you may have to just use a method of loading that works for you but this is what we have found most efficient)</p></li>
 <li><p>If all goes well the screen should blank out and flash green showing that the HEN is loaded and all is well.</p></li>
-<li><p>Wait for your PSP to reboot and check your PSP&#8217;s system software. It should now display: &#8220;5.03 ChickHEN&#8221;.</p></li>
+<li><p>Wait for your PSP to reboot and check your PSP&rsquo;s system software. It should now display: &ldquo;5.03 ChickHEN&rdquo;.</p></li>
 <li><p>Scroll on over to GAME and enjoy some Homebrew!</p></li>
 </ol>
 
@@ -871,7 +871,7 @@ filter:Gray;
 
 <p>MaTiAz: TIFF Eggsploit ;)</p>
 
-<p>Lawrence Jackson (LCJ14) - PSP 3000</p>
+<p>Lawrence Jackson (LCJ14) &ndash; PSP 3000</p>
 
 <p>MforMature staff: For everything</p>
 
@@ -879,7 +879,7 @@ filter:Gray;
 
 <p>SHA-1 of h.bin: 39339DF6D67DA88BDFF78261222AAADAEBCD9203</p>
 
-<p>http://davee.x-fusion.co.uk</p>
+<p><a href="http://davee.x-fusion.co.uk">http://davee.x-fusion.co.uk</a></p>
 
 <blockquote></blockquote>
 

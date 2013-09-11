@@ -110,7 +110,7 @@
 
 <p>这是个比较基本的功能，发起一个网络请求可以在app切到后台或关闭后继续完成（当然你也可以中端或暂停它）</p>
 
-<p>这里有个变化是Cocoa提供了一个新的类NSURLSession来取代NSURLConnection，这个新类可以快速发起background的请求。请求完成后app可以处理一个回调，展示下载完成的图片或其他资源。更多关于NSURLSession的内容在WWDC session 705「What&#8217;s new in Foundation Networking」中有更具体的说明。</p>
+<p>这里有个变化是Cocoa提供了一个新的类NSURLSession来取代NSURLConnection，这个新类可以快速发起background的请求。请求完成后app可以处理一个回调，展示下载完成的图片或其他资源。更多关于NSURLSession的内容在WWDC session 705「What&rsquo;s new in Foundation Networking」中有更具体的说明。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">handleEventsForBackgroundURLSession:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">identifier</span> <span class="nf">completionHandler:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">UIBackgroundFetchResult</span> <span class="n">result</span><span class="p">))</span><span class="nv">completionHandler</span><span class="p">;</span>

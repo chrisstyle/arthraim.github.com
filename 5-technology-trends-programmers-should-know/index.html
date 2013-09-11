@@ -97,7 +97,7 @@
 
 <p><strong>动态语言</strong>：python, ruby是难分伯仲的两种动态脚本语言，我个人更喜欢python的语法，甚至有人说python是厌倦了括号甚至shift的人用的。ruby其实是最接近lisp的，所以在我的认知里，ruby的底层实现是强于python的，另外rails也似乎比无论是django还是pylons要强大的多。groovy最大的特点就是它是基于JVM的，所以无论是JVM带来的优点还是缺点都将成为选择这个语言的主要因素。当然还有很多动态语言，比如在WEB前端呼风唤雨的javascript，还有actionscript。极度接近模板语言的php，还有在游戏UI领域应用比较广泛的lua语言。别忘了还有老大哥LISP。</p>
 
-<p><strong>版本控制</strong>：CVS,SVN并不在这个modern的范围里。这里我只使用过git，因为github的关系才会接触它（github现在也支持svn了），不过我实在是说不出来git的真正优势，个人也刚刚会用而已，从SVN过来还有很多不喜欢。比如git pull是git fetch + git merge，要untrack一个文件的话要用git remove &#8211;cache。git必须在本地创建仓库的特性让提交都在本地完成，之后再push到远程服务器。和SVN一样，只有真正用过了恐怕才会遇到各种问题熟悉这个东西吧，一个人自己commit,push岂不是很寂寞……</p>
+<p><strong>版本控制</strong>：CVS,SVN并不在这个modern的范围里。这里我只使用过git，因为github的关系才会接触它（github现在也支持svn了），不过我实在是说不出来git的真正优势，个人也刚刚会用而已，从SVN过来还有很多不喜欢。比如git pull是git fetch + git merge，要untrack一个文件的话要用git remove &mdash;cache。git必须在本地创建仓库的特性让提交都在本地完成，之后再push到远程服务器。和SVN一样，只有真正用过了恐怕才会遇到各种问题熟悉这个东西吧，一个人自己commit,push岂不是很寂寞……</p>
 
 <p><strong>NO-SQL</strong>：文档型数据库因为灵活快速，迅速流行了起来。虽然关于它并不能说完全能取代传统关系型数据库，但它具有的一些特性真的是让人爱不释手。比如在我实用中非常受用的灵活的结构，如果要alter表结构，在mongodb里只要给新数据直接加上新字段，老数据在必要的时候update就可以了。另外update如果where不存在，也会新建记录。新的collection在第一次使用的时候就会产生，完全不必create table（初学的时候我还在努力寻找create collection）。当然mongodb的查询速度也是非常的令人愉快，规模不是很大的话甚至不需要使用memcached。当然我眼里的no-sql数据库有两个巨大的劣势：因为没有inner join，所以设计的时候很多数据可能要被冗余，在这一点上完全不是关系数据库的那套设计哲学；还有一个是一些高级的统计，通过map/reduce才能完成，很多讨论认为这是NO-SQL的最大的倒退，这种依赖程序员的算法的查询可能会让开发效率运行效率都极端低下。</p>
 

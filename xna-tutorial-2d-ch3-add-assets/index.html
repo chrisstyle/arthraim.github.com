@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset 这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节 &hellip;">
+	<meta name="description" content="XNA教程 &mdash; 2D游戏 &mdash; Chapter 03 &mdash; 添加Asset 这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -74,7 +74,7 @@
 	<h2 class="title">XNA教程-2D游戏-03-添加Assets</h2>
 	<div class="entry-content"><p><a href="/images/uploads/zb/2009-06-13_WhatIsAssets.jpg"><img src="/images/uploads/zb/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
 
-<p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset</strong></p>
+<p><strong>XNA教程 &mdash; 2D游戏 &mdash; Chapter 03 &mdash; 添加Asset</strong></p>
 
 <p>这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节，看不懂的可以看视频的，那么接下去就正式开始写了。</p>
 
@@ -90,13 +90,13 @@
 
 <p>在XNA Game Studio项目中，你会频繁的听到&#8221;代码&#8221;和&#8221;asset&#8221;这样的措辞。&#8221;代码&#8221;指在程序说明中包含的.cs文件。这些说明告诉游戏怎么行动：怎么对用户操作进行反应，怎么移动物体，以及怎么显示给玩家看。</p>
 
-<p>另一方面的asset，不是唯一的一个文件类型。位图图形、声音文件、3D模型 &#8212;- 他们都是asset。总之，accets指数据（图形、声音或其他一些东西），他们被&#8221;代码&#8221;操控着。举个UFO图片的例子。这个UFO图片本身，存储为.tga或者.png文件，他是一个asset。代码可能载入这个UFO图像，并且把它显示在屏幕的不同位置，并给他一些移动的效果。如果有一组asset的话，它不被称为content。</p>
+<p>另一方面的asset，不是唯一的一个文件类型。位图图形、声音文件、3D模型 &mdash;&mdash; 他们都是asset。总之，accets指数据（图形、声音或其他一些东西），他们被&#8221;代码&#8221;操控着。举个UFO图片的例子。这个UFO图片本身，存储为.tga或者.png文件，他是一个asset。代码可能载入这个UFO图像，并且把它显示在屏幕的不同位置，并给他一些移动的效果。如果有一组asset的话，它不被称为content。</p>
 
 <p>在游戏中，你必须同时拥有&#8221;代码&#8221;和&#8221;asset&#8221;。典型的，asset表现出物体的外表和声音，你的代码代表了它的动作（行动）。</p>
 
 <p>这个规则有一个例外，就是一个asset的特殊类型，叫做shader。他是一些特别的代码，帮助绘制图形在屏幕上，但是它不是图片。Shader不会在这次的教程中使用到，但是在使用高级图形的游戏中它们经常被用到，并且要像代码一样的进行编辑就。</p>
 
-<p>在教程中，我们只使用两种类型的asset &#8212;- 2D texture（材质，还是不要翻译了）和font（字体）。2D texture只是一些图片文件。在教程中，我们每个游戏元素拥有一个图片 &#8212;- 我们玩家的加农炮，敌人的UFO，玩家可以发射的加农炮的子弹，还有一个背景。font字体是特殊的一种texture，代表了我们可以画在屏幕上的文本。它将在游戏中当我们需要跟踪玩家得分时帮助到我们。</p>
+<p>在教程中，我们只使用两种类型的asset &mdash;&mdash; 2D texture（材质，还是不要翻译了）和font（字体）。2D texture只是一些图片文件。在教程中，我们每个游戏元素拥有一个图片 &mdash;&mdash; 我们玩家的加农炮，敌人的UFO，玩家可以发射的加农炮的子弹，还有一个背景。font字体是特殊的一种texture，代表了我们可以画在屏幕上的文本。它将在游戏中当我们需要跟踪玩家得分时帮助到我们。</p>
 
 <p><strong>三、如何添加？</strong></p>
 
@@ -106,9 +106,9 @@
 
 <p>要加入到工程中很简单，两步走。</p>
 
-<p>1、右键单击Content &#8211; Add &#8211; New Folder。然后命名为Sprites。2D游戏里都这么称呼，那么我们就这么命名。（中文版自重）</p>
+<p>1、右键单击Content &mdash; Add &mdash; New Folder。然后命名为Sprites。2D游戏里都这么称呼，那么我们就这么命名。（中文版自重）</p>
 
-<p>2、右键单击Sprites文件夹 &#8211; Add &#8211; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
+<p>2、右键单击Sprites文件夹 &mdash; Add &mdash; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
 
 <p><a href="/images/uploads/zb/2009-06-13_AddAssets.jpg"><img src="/images/uploads/zb/2009-06-13_AddAssets.jpg" alt="" /></a></p>
 

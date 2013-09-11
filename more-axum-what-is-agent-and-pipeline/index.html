@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。 还是围绕核心的这句话。 &#8220;A .NET language for safe, scalable and productive &hellip;">
+	<meta name="description" content="写在前面：我也是刚刚接触包括actor模型在内的并行开发概念，所以理解有偏差的地方还希望看见的人可以给我指出来。共同前进。毕竟在我看来，这是我们的发展方向。 还是围绕核心的这句话。 &ldquo;A .NET language for safe, scalable and productive &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,11 +76,11 @@
 
 <p>还是围绕核心的这句话。</p>
 
-<blockquote><p>&#8220;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&#8221;</p></blockquote>
+<blockquote><p>&ldquo;A .NET language for safe, scalable and productive parallel programming through isolation, actors and message-passing.&rdquo;</p></blockquote>
 
 <p>在<a href="http://arthraim.cn/post/2009/05/32.html">上一篇文章</a>也在讲这句话，但是说穿了讲的应该是：</p>
 
-<blockquote><p>&#8220;A .NET language for parallel programming through message-passing.&#8221;</p></blockquote>
+<blockquote><p>&ldquo;A .NET language for parallel programming through message-passing.&rdquo;</p></blockquote>
 
 <p>我们只是从一个channel中派生了一个agent，做了数据传递而已，真正意义上的actor在哪里没有讲到（虽然有用到）。那么这次讲一讲。因为刚好看到<a href="http://www.cnblogs.com/JeffreyZhao/archive/2009/05/11/a-simple-actor-model-implementation.html">老赵的博客上</a>好好的分析了actor模型一把，要好好向他学习啊。</p>
 
@@ -94,7 +94,7 @@
 
 <p><strong> 然后讲讲pipeline。先从一个程序出发：斐普纳吉数列的实现。</strong></p>
 
-<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &#8212;- MainAgent。</p>
+<p>首先是从Microsoft.Axum.Application这个channel中派生出一个agent &mdash;&mdash; MainAgent。</p>
 
 <pre><code>using System;
 using Microsoft.Axum;
@@ -111,7 +111,7 @@ agent MainAgent : channel Microsoft.Axum.Application
 
 <p><strong>agent从channel中派生是种什么特殊情况呢？</strong>在Guide上是这么描述的：</p>
 
-<blockquote><p>Implementing a channel is different - syntactically and semantically - from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
+<blockquote><p>Implementing a channel is different &ndash; syntactically and semantically &ndash; from deriving from a base agent. When an agent derives from another agent, it merely extends it by overriding some virtual methods, and potentially adding more of its own.</p></blockquote>
 
 <pre><code>    However, when an agent implements a channel (notice the channel keyword after the colon in the agent declaration), it "attaches" itself to the implementing end of that channel and becomes the "server" of messages on that channel. The other end of the channel - known as the using end - is only visible to the "client", or the component (typically another agent) on the other end of the channel.
 </code></pre>
@@ -130,7 +130,7 @@ agent MainAgent : channel Microsoft.Axum.Application
 
 <p><strong>那从Microsoft.Axum.Application这个channel派生的主程序是如何处理信息的呢？</strong></p>
 
-<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&#8217;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
+<blockquote><p>The runtime instantiates the agent implementing channel Microsoft.Axum.Application, sends command line parameters to the channel&rsquo;s CommandLine port, and then waits for a message on port ExitCode. When the message is received, the application shuts down.</p>
 
 <p>从Microsoft.Axum.Applicationruntime这个Channel派生过来的agent的runtime实例，发送命令行参数到channel的命令行端口（CommandLine port），然后等待退出代码端口（prot ExitCode）的信息。当收到信息后，应用程序就关闭。</p></blockquote>
 
@@ -159,7 +159,7 @@ void ProcessResult(int n)
 }
 </code></pre>
 
-<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&#8211; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
+<p>这些都是无聊的部分了说。PrimaryChannel::ExitCode &lt;&mdash; 0; 可以理解为跳出代码，就像前面说到的，给main channel（PrimaryChannel）ExitCode Port送去0，程序就退出了。至于ReadLine只是为了看到打印的10个结果而已。</p>
 
 <p>之后就是最精彩的创建OrderedInteractionPoint和pipeline的代码了。</p>
 
@@ -186,7 +186,7 @@ void ProcessResult(int n)
 
 <blockquote><p>numbers ==> Fibonacci ==> ProcessResult;</p></blockquote>
 
-<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&#8211; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
+<p>numbers是创建的OrderedInteractionPoint，Ordered可以看出它是有顺序的，这个后面会讲到。当执行到numbers &lt;&mdash; 42-i语句的时候，这个interaction point得到了信息，于是激发了管道内后面的function的运行。看上去的确很棒！</p>
 
 <p>有了pipeline，我们就要使用它，因为axum在编译的时候对它是进行特殊处理的。比如斐普纳吉计算过程是a side-effect-free function，一个没有副作用的函数，那么axum就会根据它认为最有效的方式的方式编译出多个线程来处理，并行的优势就体现在这里。</p>
 

@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景 通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧， &hellip;">
+	<meta name="description" content="XNA教程 &mdash; 2D游戏 &mdash; 04 &mdash; 绘制背景 通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -72,11 +72,11 @@
 	
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">XNA教程-2D游戏-04-绘制背景</h2>
-	<div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景</strong></p>
+	<div class="entry-content"><p><strong>XNA教程 &mdash; 2D游戏 &mdash; 04 &mdash; 绘制背景</strong></p>
 
 <p>通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧，这一次我们要直接开始写一些代码，一些可以运行起来的代码。</p>
 
-<p>在我们做这个之前，首先建立工程，并且把asset加入到content里面。完成的同学举手～是的我也已经完成了。那么，在做这个之前，还是要再讲一些东西 &#8212;- Game1.cs。没错generate的文件中至关重要的就是Game1.cs这个东西，它在你的命名空间中自动生成了一个类，派生自Microsoft.Xna.Framework.Game，究竟Game类里实现了什么，你可以把dll找出来看看。（别告诉我.net的dll是不可读的，工具才是王道，哈哈）但是之前说了，微软还是奉行着不用关注底层的策略去做XNA的，所以大部分就不要关注了。</p>
+<p>在我们做这个之前，首先建立工程，并且把asset加入到content里面。完成的同学举手～是的我也已经完成了。那么，在做这个之前，还是要再讲一些东西 &mdash;&mdash; Game1.cs。没错generate的文件中至关重要的就是Game1.cs这个东西，它在你的命名空间中自动生成了一个类，派生自Microsoft.Xna.Framework.Game，究竟Game类里实现了什么，你可以把dll找出来看看。（别告诉我.net的dll是不可读的，工具才是王道，哈哈）但是之前说了，微软还是奉行着不用关注底层的策略去做XNA的，所以大部分就不要关注了。</p>
 
 <p>直接来看类的结构。有经验的人一定发现了，这个结构和directX的C#程序非常的接近，如果你和我一样用SharpDevelop直接新建过D3D的工程，那么一定看到过类似的代码。只不过仔细看看会发现很多东西不见了，也有些东西不能不见。比如熟悉的device变成了GraphicsDeviceManager。是换汤不换药吗？还是那句话，不要关注了。可能写完所有的教程我能讲讲。先大概讲一下：</p>
 
@@ -274,11 +274,11 @@ spriteBatch.End();
 
 <p>第一个是Asset名字。这是一个字符串，用来在你调用ContentManager.Load的时候定义内容名称。注意他的命名就是文件名去掉了后缀。</p>
 
-<p>第二个是Content导入器（importer）。它定义了从磁盘文件读取内容所使用的导入器的类型。一个导入器被调整接受某特定格式。只要文件一被导入，他会通过第三个道具&#8212;-Content处理器（Processor）。这些处理器转换传入的数据到可以在运行时被读取的格式，并且转换成一个类。</p>
+<p>第二个是Content导入器（importer）。它定义了从磁盘文件读取内容所使用的导入器的类型。一个导入器被调整接受某特定格式。只要文件一被导入，他会通过第三个道具&mdash;&mdash;Content处理器（Processor）。这些处理器转换传入的数据到可以在运行时被读取的格式，并且转换成一个类。</p>
 
 <p>任何独立的物件所对应的导入器和处理器可以通过第四个属性（名叫XNA Framework Content）的设置打开或关闭。如果设为true，这个内容就会完成之前提到过的导入和处理工作。如果设为false，Content Pipeline将不会导入或处理内容。</p>
 
-<p>当你添加一个物件到解决方案查看器，这些设置将按照默认值设置，并且在大多数情况下，他们不需要修改。想要完成你会经常在游戏类中完成的事情&#8212;-把内容加载到游戏中，所有你要做的事情就是调用ContentManager.Load方法了。</p></blockquote>
+<p>当你添加一个物件到解决方案查看器，这些设置将按照默认值设置，并且在大多数情况下，他们不需要修改。想要完成你会经常在游戏类中完成的事情&mdash;&mdash;把内容加载到游戏中，所有你要做的事情就是调用ContentManager.Load方法了。</p></blockquote>
 
 <p>看完这段翻译有些东西不得不讲一下：</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: O.S. | Artoirus]]></title>
   <link href="http://artori.us/blog/categories/o-dot-s/atom.xml" rel="self"/>
   <link href="http://artori.us/"/>
-  <updated>2013-08-01T09:20:14+08:00</updated>
+  <updated>2013-09-11T10:17:50+08:00</updated>
   <id>http://artori.us/</id>
   <author>
     <name><![CDATA[Arthur Wang]]></name>
@@ -158,9 +158,9 @@ sudo update-alternatives --config java
 <p>其实还有个我原创的比较弱智的办法</p>
 
 <ol>
-<li><p>直接运行jre-6u18-linux-i586.bin，会自解压</p></li>
-<li><p>之后cd到jre-6u18-linux-i586/bin这个目录里的话可以发现可以运行的二进制文件java。</p></li>
-<li><p>那么就改一下.bashrc文件，加上一行：</p></li>
+<li><p> 直接运行jre-6u18-linux-i586.bin，会自解压</p></li>
+<li><p> 之后cd到jre-6u18-linux-i586/bin这个目录里的话可以发现可以运行的二进制文件java。</p></li>
+<li><p> 那么就改一下.bashrc文件，加上一行：</p></li>
 </ol>
 
 
@@ -181,7 +181,7 @@ alias java='你的路径/jre-6u18-linux-i586/bin/java'
 
 <p><strong>以下的英文为最初版本，中文为更新时的翻译，跳过英文吧，只是因为一开始在ubuntu下没有安装中文输入法。</strong></p>
 
-<p>First time downloaded Ubuntu 9.04, and I strongly recommend you to download the one which fits your computer. Ubuntu officially release 7 versions to download. They're desktop, server, alternate for both i386 and amd64, also there's a dvd version for i386.</p>
+<p>First time downloaded Ubuntu 9.04, and I strongly recommend you to download the one which fits your computer. Ubuntu officially release 7 versions to download. They&rsquo;re desktop, server, alternate for both i386 and amd64, also there&rsquo;s a dvd version for i386.</p>
 
 <p>第一时间下载了Ubuntu 9.04，我强烈建议你们下载适合自己电脑的版本。Ubuntu官方正式发布了7个版本，它们是分别针对i386和amd64的桌面版、服务器版、定制版。</p>
 
@@ -209,7 +209,7 @@ alias java='你的路径/jre-6u18-linux-i586/bin/java'
 
 <p>跟着我看看新特性：</p>
 
-<p>1 -- <strong>Gnome 2.26</strong> as you see.</p>
+<p>1 &mdash; <strong>Gnome 2.26</strong> as you see.</p>
 
 <p>Gnome 2.26就像你看到的。个人感觉是相应速度变快了，因为后来断网了，所以没有装显卡驱动（我是N卡），究竟多华丽在这次是看不到了。</p>
 
@@ -219,13 +219,13 @@ alias java='你的路径/jre-6u18-linux-i586/bin/java'
 
 <p>看着截图，实话说我觉得变化不大，我希望它在我装了显卡驱动之后会变得好一些。</p>
 
-<p>2 -- <strong>OpenOffice.org 3.0</strong> (What a beautiful Sun logo)</p>
+<p>2 &mdash; <strong>OpenOffice.org 3.0</strong> (What a beautiful Sun logo)</p>
 
 <p>OpenOffice.org 3.0（多漂亮的Sun公司标志）。个人是不用桌面Office软件的，我觉得Google docs已经足够我所有的需求了，它不但轻便而且不用在意文档的最新版本存在了哪个U盘里了，并且它有版本管理，我想桌面办公软件对我来说完全没用，唯一的作用就是在发给需要微软doc（或OpenOffice格式）的人前，存为doc（或OpenOffice格式）前自己审核一下格式是不是好看。</p>
 
 <p><img src="/images/uploads/zb/Screenshot-AboutOpenOffice.org.png" alt="" /></p>
 
-<p>3 -- <strong>Speed</strong>. It was said we'll have a fantastic computer starting time, so what's mine. I'll count the seconds after grub menu. (Wait for my update please...)</p>
+<p>3 &mdash; <strong>Speed</strong>. It was said we&rsquo;ll have a fantastic computer starting time, so what&rsquo;s mine. I&rsquo;ll count the seconds after grub menu. (Wait for my update please&hellip;)</p>
 
 <p>速度。据说我们会有一个惊艳的开机速度，那么我的呢，我会在grub菜单之后开始数秒。（请等我的更新）</p>
 
@@ -233,15 +233,15 @@ alias java='你的路径/jre-6u18-linux-i586/bin/java'
 
 <p>还是注意看第一个停下的时间比较好，16.92，是grub引导到硬盘之后，也就是开机的进度条出现之后，到出现输入Username的登录界面，时间是16.92。网上有人说只有14秒，那也差不多吧，嘿嘿，比较激动，以为没停下来多按了几下。另外，之前最慢的是登陆之后到界面完全出现的速度，不过这一次却是快的一塌糊涂。几乎没有什么感觉了。</p>
 
-<p>4 -- Version. We have server version, desktop version(like mine), and Notebook Remix, it's fasion or something...(poor English)</p>
+<p>4 &mdash; Version. We have server version, desktop version(like mine), and Notebook Remix, it&rsquo;s fasion or something&hellip;(poor English)</p>
 
 <p>版本。我们还可以拥有服务器版本，桌面版，还有一个上网本的版本，这是顺应潮流之类的吧。</p>
 
-<p>5 -- 中文补充一个新特性吧，就是ext4文件系统。</p>
+<p>5 &mdash; 中文补充一个新特性吧，就是ext4文件系统。</p>
 
-<p>在分区的时候会要求选择文件系统，所以这次安装完全采用了新的分区工具（新的Paritioner），因为我是覆盖在原来的8.02上的，所以分区的时候才用了advance的方式，所以虽然默认是ext3，不过我还是看到了ext4的选项（尽管我最后还是选择了ext3，因为ext4在windows中无法挂载）。我用ext3格式化了之前的Ubuntu8.02，挂载了"/"项。虽然用法比较暴力，不过对我来说，其他的操作系统也的确就是玩玩的吧，除了装openSUSE的时候，的确做了些项目的。（后来的结果就是不当心格掉了，囧，害的丢失了很大一部分代码）</p>
+<p>在分区的时候会要求选择文件系统，所以这次安装完全采用了新的分区工具（新的Paritioner），因为我是覆盖在原来的8.02上的，所以分区的时候才用了advance的方式，所以虽然默认是ext3，不过我还是看到了ext4的选项（尽管我最后还是选择了ext3，因为ext4在windows中无法挂载）。我用ext3格式化了之前的Ubuntu8.02，挂载了"/&ldquo;项。虽然用法比较暴力，不过对我来说，其他的操作系统也的确就是玩玩的吧，除了装openSUSE的时候，的确做了些项目的。（后来的结果就是不当心格掉了，囧，害的丢失了很大一部分代码）</p>
 
-<p>It's just a glance. I even didn't install my video card driver. I will update the article, and if you like it, you must try it yourself. We are doing the important stuff what can save the world from Microsoft ;)</p>
+<p>It&rsquo;s just a glance. I even didn&rsquo;t install my video card driver. I will update the article, and if you like it, you must try it yourself. We are doing the important stuff what can save the world from Microsoft ;)</p>
 
 <p>以上只是一瞥，我甚至还没有装上显卡驱动（它提示我下载的时候实验室断网了）。我会更新这篇文章的。如果你喜欢它一定要自己试一下，我们在作者从微软手中拯救这个世界的重要的事情。</p>
 

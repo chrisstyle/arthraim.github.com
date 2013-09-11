@@ -95,7 +95,7 @@
 
 <p>然后是git的一个问题。在某个java工程，git pull 的时候遇到如下错误：</p>
 
-<blockquote><p>error: Untracked working tree file &#8216;webapp/WEB-INF/classes/com/arthraim/foo.class&#8217; would be overwritten by merge. Aborting</p></blockquote>
+<blockquote><p>error: Untracked working tree file &lsquo;webapp/WEB-INF/classes/com/arthraim/foo.class&rsquo; would be overwritten by merge. Aborting</p></blockquote>
 
 <p>不小心把.class加入到版本管理，并push到远程了。在另一个本地repo又把他们去掉了，于是就出了类似的错。解决方法大致是移出掉本地的文件（当然如果不是.class这样无所谓的文件的话，不妨备份他们先），并把他们从本地git仓库移出，确保在远程git仓库也移出。</p>
 
@@ -120,7 +120,7 @@
 
 <p>${some_double_number?string(0.######)}</p>
 
-<p>&#8217;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
+<p>&lsquo;#&#8217;的数量你懂的。更多具体的选项请看下面的链接。</p>
 
 <p>via: <a href="http://gongstring.javaeye.com/blog/405270">http://gongstring.javaeye.com/blog/405270</a></p>
 </div>

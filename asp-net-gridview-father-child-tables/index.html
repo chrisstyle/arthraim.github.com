@@ -80,7 +80,7 @@
 
 <p>虽然这样实现看上去不是很舒服，不过也算是简单的主从表的实现了。大体的思路就是在template列里面嵌套另外一个gridview。看下具体的实现方法……（无视业务相关的部分）</p>
 
-<p><strong>前台</strong> &#8212;- 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
+<p><strong>前台</strong> &mdash;&mdash; 先添加一个TemplateField在GridView中。 并且编辑好里面的GridView</p>
 
 <pre><code>&lt;asp:GridView ID="gvhandle" runat="server" Caption="已检查项目" AutoGenerateColumns="False" OnRowDataBound="gvhandle_RowDataBound"&gt;
 &lt;Columns&gt;
@@ -110,7 +110,7 @@
 &lt;/asp:GridView&gt;
 </code></pre>
 
-<p><strong>后台</strong> &#8212;- 写gvhandle的RowDataBound事件</p>
+<p><strong>后台</strong> &mdash;&mdash; 写gvhandle的RowDataBound事件</p>
 
 <pre><code>protected void gvhandle_RowDataBound(object sender, GridViewRowEventArgs e)
 {

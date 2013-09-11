@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO 这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。 &hellip;">
+	<meta name="description" content="XNA教程 &mdash; 2D游戏 &mdash; 08 &mdash; 摧毁UFO 这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -72,7 +72,7 @@
 	
 	<div id="content" class="inner"><article class="post">
 	<h2 class="title">XNA教程-2D游戏-08-摧毁UFO</h2>
-	<div class="entry-content"><p><strong>XNA教程 &#8211; 2D游戏 &#8211; 08 &#8211; 摧毁UFO</strong></p>
+	<div class="entry-content"><p><strong>XNA教程 &mdash; 2D游戏 &mdash; 08 &mdash; 摧毁UFO</strong></p>
 
 <p>这一次要做的是很NB的事情，碰撞检测（Collision Detection），具体到我们的例子，具象一点的，那么就是摧毁UFO，当然在无数游戏中，碰撞检测都是至关重要的东西，和随机比起来不相上下吧。无论是什么游戏类型，物体和物体之间的接触都是要处理的，尚且不说加上什么物理特性，光是这个例子里的子弹碰UFO总要有点反应吧。更不用说什么火星撞地球了………………</p>
 
@@ -81,9 +81,9 @@
 <p>大致的思路为：</p>
 
 <ol>
-<li><p>确定每个炮弹的范围大小和UFO的范围大小。</p></li>
-<li><p>遍历每个炮弹。</p></li>
-<li><p>遍历中每个炮弹再要遍历每个UFO。如果发生碰撞就同时摧毁两个（alive = false）</p></li>
+<li><p> 确定每个炮弹的范围大小和UFO的范围大小。</p></li>
+<li><p> 遍历每个炮弹。</p></li>
+<li><p> 遍历中每个炮弹再要遍历每个UFO。如果发生碰撞就同时摧毁两个（alive = false）</p></li>
 </ol>
 
 
@@ -130,11 +130,11 @@ foreach(GameObject enemy in enemies)
 
 <p>Sprite的这一特性在非常基本的碰撞检测中很实用，XNA Framework提供了一个Rectangle类，自己就拥有碰撞帮助的方法：ectangle.Intersects，和Rectangle.Contains。</p>
 
-<p>在基本的常识中，碰撞检测是基于相交检测的 &#8212;- 两块几何图形是否相交。如果两个几何图形相交，他们可以说是碰撞，游戏逻辑可以根据碰撞的物体产生适当的反应。</p>
+<p>在基本的常识中，碰撞检测是基于相交检测的 &mdash;&mdash; 两块几何图形是否相交。如果两个几何图形相交，他们可以说是碰撞，游戏逻辑可以根据碰撞的物体产生适当的反应。</p>
 
 <p>在我们的2D游戏中，我们关心加农炮是不是和地方UFO相交。如果加农炮的sprite的rectangle相交于敌人sprite的rectangle，那我们的游戏逻辑检测到了一个碰撞，并且同时摧毁两个物体。</p>
 
-<p>Rectangle很容易创建。Rectangle类初始化时需要4个参数 &#8212;- 矩形左上角的点的X和Y坐标，以及矩形的宽度和高度。所有矩形的其他点都会有这些信息计算出来。</p>
+<p>Rectangle很容易创建。Rectangle类初始化时需要4个参数 &mdash;&mdash; 矩形左上角的点的X和Y坐标，以及矩形的宽度和高度。所有矩形的其他点都会有这些信息计算出来。</p>
 
 <p>创建sprite占用的rectangle之间的碰撞，设置X和Y的值为游戏世界中的sprite的X和Y值，GameObject.position.X和GameObject.position.Y。设置宽度和高度为sprite中的Texture2D的宽度和高度，GameObject.sprite.Width和GameObject.sprite.Height。</p>
 

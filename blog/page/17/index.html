@@ -7,7 +7,7 @@
 	<meta name="author" content="Arthur Wang">
 
 	
-	<meta name="description" content="XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景 通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧， &hellip;">
+	<meta name="description" content="XNA教程 &mdash; 2D游戏 &mdash; 04 &mdash; 绘制背景 通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -81,11 +81,11 @@
 			XNA教程-2D游戏-04-绘制背景</a>
 	</h2>
 	<div class="entry-content">
-		<p><strong>XNA教程 &#8211; 2D游戏 &#8211; 04 &#8211; 绘制背景</strong></p>
+		<p><strong>XNA教程 &mdash; 2D游戏 &mdash; 04 &mdash; 绘制背景</strong></p>
 
 <p>通过前面三篇文章，大概可以知道做一个简单的小游戏的准备工作了。我们已经迈出了第一步。但是程序员们一定不高兴了，我们看了三篇文章，不但没有一行代码，还讲了VS怎么用，软件怎么安装这些无聊的事情。那么好吧，这一次我们要直接开始写一些代码，一些可以运行起来的代码。</p>
 
-<p>在我们做这个之前，首先建立工程，并且把asset加入到content里面。完成的同学举手～是的我也已经完成了。那么，在做这个之前，还是要再讲一些东西 &#8212;- Game1.cs。没错generate的文件中至关重要的就是Game1.cs这个东西，它在你的命名空间中自动生成了一个类，派生自Microsoft.Xna.Framework.Game，究竟Game类里实现了什么，你可以把dll找出来看看。（别告诉我.net的dll是不可读的，工具才是王道，哈哈）但是之前说了，微软还是奉行着不用关注底层的策略去做XNA的，所以大部分就不要关注了。</p>
+<p>在我们做这个之前，首先建立工程，并且把asset加入到content里面。完成的同学举手～是的我也已经完成了。那么，在做这个之前，还是要再讲一些东西 &mdash;&mdash; Game1.cs。没错generate的文件中至关重要的就是Game1.cs这个东西，它在你的命名空间中自动生成了一个类，派生自Microsoft.Xna.Framework.Game，究竟Game类里实现了什么，你可以把dll找出来看看。（别告诉我.net的dll是不可读的，工具才是王道，哈哈）但是之前说了，微软还是奉行着不用关注底层的策略去做XNA的，所以大部分就不要关注了。</p>
 
 <p>直接来看类的结构。有经验的人一定发现了，这个结构和directX的C#程序非常的接近，如果你和我一样用SharpDevelop直接新建过D3D的工程，那么一定看到过类似的代码。只不过仔细看看会发现很多东西不见了，也有些东西不能不见。比如熟悉的device变成了GraphicsDeviceManager。是换汤不换药吗？还是那句话，不要关注了。可能写完所有的教程我能讲讲。先大概讲一下：</p>
 
@@ -283,11 +283,11 @@ spriteBatch.End();
 
 <p>第一个是Asset名字。这是一个字符串，用来在你调用ContentManager.Load的时候定义内容名称。注意他的命名就是文件名去掉了后缀。</p>
 
-<p>第二个是Content导入器（importer）。它定义了从磁盘文件读取内容所使用的导入器的类型。一个导入器被调整接受某特定格式。只要文件一被导入，他会通过第三个道具&#8212;-Content处理器（Processor）。这些处理器转换传入的数据到可以在运行时被读取的格式，并且转换成一个类。</p>
+<p>第二个是Content导入器（importer）。它定义了从磁盘文件读取内容所使用的导入器的类型。一个导入器被调整接受某特定格式。只要文件一被导入，他会通过第三个道具&mdash;&mdash;Content处理器（Processor）。这些处理器转换传入的数据到可以在运行时被读取的格式，并且转换成一个类。</p>
 
 <p>任何独立的物件所对应的导入器和处理器可以通过第四个属性（名叫XNA Framework Content）的设置打开或关闭。如果设为true，这个内容就会完成之前提到过的导入和处理工作。如果设为false，Content Pipeline将不会导入或处理内容。</p>
 
-<p>当你添加一个物件到解决方案查看器，这些设置将按照默认值设置，并且在大多数情况下，他们不需要修改。想要完成你会经常在游戏类中完成的事情&#8212;-把内容加载到游戏中，所有你要做的事情就是调用ContentManager.Load方法了。</p></blockquote>
+<p>当你添加一个物件到解决方案查看器，这些设置将按照默认值设置，并且在大多数情况下，他们不需要修改。想要完成你会经常在游戏类中完成的事情&mdash;&mdash;把内容加载到游戏中，所有你要做的事情就是调用ContentManager.Load方法了。</p></blockquote>
 
 <p>看完这段翻译有些东西不得不讲一下：</p>
 
@@ -363,7 +363,7 @@ spriteBatch.End();
 	<div class="entry-content">
 		<p><a href="/images/uploads/zb/2009-06-13_WhatIsAssets.jpg"><img src="/images/uploads/zb/2009-06-13_WhatIsAssets.jpg" alt="" /></a></p>
 
-<p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 03 &#8211; 添加Asset</strong></p>
+<p><strong>XNA教程 &mdash; 2D游戏 &mdash; Chapter 03 &mdash; 添加Asset</strong></p>
 
 <p>这一部分我们将完成的工作是在工程中添加Asset，听上去好像很复杂，Asset是什么？添加到工程又是什么概念？那其实是很简单的事情，我会通过三个部分的解说包括实际的操作方法来说明这次的章节，看不懂的可以看视频的，那么接下去就正式开始写了。</p>
 
@@ -379,13 +379,13 @@ spriteBatch.End();
 
 <p>在XNA Game Studio项目中，你会频繁的听到&#8221;代码&#8221;和&#8221;asset&#8221;这样的措辞。&#8221;代码&#8221;指在程序说明中包含的.cs文件。这些说明告诉游戏怎么行动：怎么对用户操作进行反应，怎么移动物体，以及怎么显示给玩家看。</p>
 
-<p>另一方面的asset，不是唯一的一个文件类型。位图图形、声音文件、3D模型 &#8212;- 他们都是asset。总之，accets指数据（图形、声音或其他一些东西），他们被&#8221;代码&#8221;操控着。举个UFO图片的例子。这个UFO图片本身，存储为.tga或者.png文件，他是一个asset。代码可能载入这个UFO图像，并且把它显示在屏幕的不同位置，并给他一些移动的效果。如果有一组asset的话，它不被称为content。</p>
+<p>另一方面的asset，不是唯一的一个文件类型。位图图形、声音文件、3D模型 &mdash;&mdash; 他们都是asset。总之，accets指数据（图形、声音或其他一些东西），他们被&#8221;代码&#8221;操控着。举个UFO图片的例子。这个UFO图片本身，存储为.tga或者.png文件，他是一个asset。代码可能载入这个UFO图像，并且把它显示在屏幕的不同位置，并给他一些移动的效果。如果有一组asset的话，它不被称为content。</p>
 
 <p>在游戏中，你必须同时拥有&#8221;代码&#8221;和&#8221;asset&#8221;。典型的，asset表现出物体的外表和声音，你的代码代表了它的动作（行动）。</p>
 
 <p>这个规则有一个例外，就是一个asset的特殊类型，叫做shader。他是一些特别的代码，帮助绘制图形在屏幕上，但是它不是图片。Shader不会在这次的教程中使用到，但是在使用高级图形的游戏中它们经常被用到，并且要像代码一样的进行编辑就。</p>
 
-<p>在教程中，我们只使用两种类型的asset &#8212;- 2D texture（材质，还是不要翻译了）和font（字体）。2D texture只是一些图片文件。在教程中，我们每个游戏元素拥有一个图片 &#8212;- 我们玩家的加农炮，敌人的UFO，玩家可以发射的加农炮的子弹，还有一个背景。font字体是特殊的一种texture，代表了我们可以画在屏幕上的文本。它将在游戏中当我们需要跟踪玩家得分时帮助到我们。</p>
+<p>在教程中，我们只使用两种类型的asset &mdash;&mdash; 2D texture（材质，还是不要翻译了）和font（字体）。2D texture只是一些图片文件。在教程中，我们每个游戏元素拥有一个图片 &mdash;&mdash; 我们玩家的加农炮，敌人的UFO，玩家可以发射的加农炮的子弹，还有一个背景。font字体是特殊的一种texture，代表了我们可以画在屏幕上的文本。它将在游戏中当我们需要跟踪玩家得分时帮助到我们。</p>
 
 <p><strong>三、如何添加？</strong></p>
 
@@ -395,9 +395,9 @@ spriteBatch.End();
 
 <p>要加入到工程中很简单，两步走。</p>
 
-<p>1、右键单击Content &#8211; Add &#8211; New Folder。然后命名为Sprites。2D游戏里都这么称呼，那么我们就这么命名。（中文版自重）</p>
+<p>1、右键单击Content &mdash; Add &mdash; New Folder。然后命名为Sprites。2D游戏里都这么称呼，那么我们就这么命名。（中文版自重）</p>
 
-<p>2、右键单击Sprites文件夹 &#8211; Add &#8211; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
+<p>2、右键单击Sprites文件夹 &mdash; Add &mdash; Existing Items。然后选中你刚才解压缩出来的四个.tga文件，add就好了。（其实你愿意的话，把解压缩出来的文件夹复制到工程里也行，只是一样要add过而已）</p>
 
 <p><a href="/images/uploads/zb/2009-06-13_AddAssets.jpg"><img src="/images/uploads/zb/2009-06-13_AddAssets.jpg" alt="" /></a></p>
 
@@ -449,7 +449,7 @@ spriteBatch.End();
 	<div class="entry-content">
 		<p><a href="/images/uploads/zb/2009-06-13_PlatformerGameDemo.jpg"><img src="/images/uploads/zb/2009-06-13_PlatformerGameDemo.jpg" alt="" /></a></p>
 
-<p><strong> XNA教程 &#8211; 2D游戏 &#8211; Chapter 2 &#8211; 创建游戏工程</strong></p>
+<p><strong> XNA教程 &mdash; 2D游戏 &mdash; Chapter 2 &mdash; 创建游戏工程</strong></p>
 
 <p>从最开始学习XNA，那么首先我们需要自己的环境。微软提供XNA Game Studio给大家，当然还要有Visual Studio，如果愿意你可以在安装好Visual Studio 2005或更高版本的前提下安装XNA Game Studio（以下简称GS）。当然，本着XNA游戏开发是基本免费的原则，我们也可以使用Express版本，也是支持的。具体VS和GS的安装和配置请大家自己解决了，这里不赘述了。</p>
 
@@ -462,14 +462,14 @@ spriteBatch.End();
 <p><a href="/images/uploads/zb/2009-06-13_VS2008GS31.jpg"><img src="/images/uploads/zb/2009-06-13_VS2008GS31.jpg" alt="" /></a></p>
 
 <blockquote><ul>
-<li><p>Windows Game (3.1) &#8212;- XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
-<li><p>Windows Game Library (3.1) &#8212;- Windows游戏类库</p></li>
-<li><p>Xbox 360 Game (3.1) &#8212;- Xbox360游戏</p></li>
-<li><p>Xbox 360 Game Library (3.1) &#8212;- Xbox360游戏类库</p></li>
-<li><p>Zune Game (3.1) &#8212;- Zune游戏</p></li>
-<li><p>Zune Game Library (3.1) &#8212;- Zune游戏类库</p></li>
-<li><p>Content Pipeline Extension Library (3.1) &#8212;- Content管道扩展库</p></li>
-<li><p>Platformer Starter Kit (3.1) &#8212;- 一个游戏示例（提供windows x360 zune三种版本都有，本章顶部图为Windows版）</p></li>
+<li><p>Windows Game (3.1) &mdash;&mdash; XNA Game For Windows游戏的开发，很多游戏打着这个标志</p></li>
+<li><p>Windows Game Library (3.1) &mdash;&mdash; Windows游戏类库</p></li>
+<li><p>Xbox 360 Game (3.1) &mdash;&mdash; Xbox360游戏</p></li>
+<li><p>Xbox 360 Game Library (3.1) &mdash;&mdash; Xbox360游戏类库</p></li>
+<li><p>Zune Game (3.1) &mdash;&mdash; Zune游戏</p></li>
+<li><p>Zune Game Library (3.1) &mdash;&mdash; Zune游戏类库</p></li>
+<li><p>Content Pipeline Extension Library (3.1) &mdash;&mdash; Content管道扩展库</p></li>
+<li><p>Platformer Starter Kit (3.1) &mdash;&mdash; 一个游戏示例（提供windows x360 zune三种版本都有，本章顶部图为Windows版）</p></li>
 </ul>
 </blockquote>
 
@@ -486,11 +486,11 @@ spriteBatch.End();
 <p>可以看到IDE为我们创建了如图一些文件，具体都是什么呢？</p>
 
 <blockquote><ul>
-<li><p>Content &#8212;- 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
-<li><p>Game1.cs &#8212;- 游戏逻辑代码。</p></li>
-<li><p>Game.ico &#8212;- 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
-<li><p>GameThumbnail.png &#8212;- 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
-<li><p>Program.cs &#8212;- 就是程序的入口Main方法了。</p></li>
+<li><p>Content &mdash;&mdash; 就是一切我们需要的游戏资源，在XNA中存在Content Pipeline这个概念，而这里的所有资源可以之后在Content管道中直接调用加载。</p></li>
+<li><p>Game1.cs &mdash;&mdash; 游戏逻辑代码。</p></li>
+<li><p>Game.ico &mdash;&mdash; 不用多说，一个Xbox360的手柄样式的ico图标。</p></li>
+<li><p>GameThumbnail.png &mdash;&mdash; 正如他的名字，是一个缩略图，当然要你自己画的啦。</p></li>
+<li><p>Program.cs &mdash;&mdash; 就是程序的入口Main方法了。</p></li>
 </ul>
 </blockquote>
 
@@ -544,11 +544,11 @@ spriteBatch.End();
 	<div class="entry-content">
 		<p><a href="/images/uploads/zb/2009-06-13_XNA_logo.jpg"><img src="/images/uploads/zb/2009-06-13_XNA_logo.jpg" alt="" /></a></p>
 
-<p><strong>XNA教程 &#8211; 2D游戏 &#8211; Chapter 1.1 &#8211; 2D游戏教程简介</strong></p>
+<p><strong>XNA教程 &mdash; 2D游戏 &mdash; Chapter 1.1 &mdash; 2D游戏教程简介</strong></p>
 
 <p>从今天开始，我将分享对于XNA学习的所有过程，这是一个教程，但其实我也不懂，这是自己学习和所有一起学习的人的过程，我想通过这段时间的简单学习可以初步实现XNA的简单的小游戏，无论将来能够做出什么，能做出基本的demo就可以。也通过这段学习，比对一下先前使用过的一些游戏开发手段。比如GDI+,DirectX3D,DirectDraw还有psp sdk, nds PALib等。</p>
 
-<p>首先说明，本教程所有素材来源与XNA Creator Club的Beginner&#8217;s Guide。<a href="http://creators.xna.com/en-US/education/gettingstarted">该站点</a>提供了全部的视频教学，而我也是根据此视频教学进行学习的，如果说各位看官觉得我的翻译或讲解可以，那么和我一起学习下去，如果各位觉得我的进程相对缓慢，那么不妨自己去加速了。只不过，对于网速受限或者语言受限的朋友，我的教程应当会有用。</p>
+<p>首先说明，本教程所有素材来源与XNA Creator Club的Beginner&rsquo;s Guide。<a href="http://creators.xna.com/en-US/education/gettingstarted">该站点</a>提供了全部的视频教学，而我也是根据此视频教学进行学习的，如果说各位看官觉得我的翻译或讲解可以，那么和我一起学习下去，如果各位觉得我的进程相对缓慢，那么不妨自己去加速了。只不过，对于网速受限或者语言受限的朋友，我的教程应当会有用。</p>
 
 <p>正如前面的图片一样，我们使用的将是XNA Game Studio作为开发环境，应当说是配置起来最为方便的游戏开发环境了，他不但强大而且是免费的，介绍及下载请参见《<a href="http://arthraim.cn/post/2009/06/60.html">XNA Game Studio 3.1 Avalable</a>》这篇文章，它将告诉你如何配置好这个环境。</p>
 
@@ -602,11 +602,11 @@ spriteBatch.End();
 
 <p>引用一段WikiPedia对XNA的介绍～</p>
 
-<blockquote><p>Microsoft XNA (&#8216;XNA&#8217;s Not Acronymed&#8217;) is a set of tools with a managed runtime environment provided by Microsoft that facilitates computer game development and management. XNA attempts to free game developers from writing &#8220;repetitive boilerplate code&#8221; and bring different aspects of game production into a single system. The XNA toolset was announced March 24, 2004, at the Game Developers Conference in San Jose, California. A first Community Technology Preview of XNA Build was released on March 14, 2006. XNA Game Studio 2.0 was released in December 2007, followed by XNA Game Studio 3.0 on October 30, 2008.</p></blockquote>
+<blockquote><p>Microsoft XNA (&lsquo;XNA&rsquo;s Not Acronymed&rsquo;) is a set of tools with a managed runtime environment provided by Microsoft that facilitates computer game development and management. XNA attempts to free game developers from writing &ldquo;repetitive boilerplate code&rdquo; and bring different aspects of game production into a single system. The XNA toolset was announced March 24, 2004, at the Game Developers Conference in San Jose, California. A first Community Technology Preview of XNA Build was released on March 14, 2006. XNA Game Studio 2.0 was released in December 2007, followed by XNA Game Studio 3.0 on October 30, 2008.</p></blockquote>
 
 <p>首先XNA提供了一个框架，基于.NET Compact Framework 2.0和.NET Framework 2.0的框架，分别对应支持Xbox 360和Windows。这使得很多.net的工程师可以轻松来到XNA的开发工作当中。另外使用的语言是C#，这是.net框架决定的，但是它只支持C#，VB.NET就不可以。XNA framework和.net framework一样，不用开发者过度关注底层细节，让教学和开发变得更加简便。</p>
 
-<p>而XNA提供开发者的工具也是相当的便捷 &#8212;- XNA Game Studio。它不但提供了XNA库，还有一堆一堆的工具插件附加到Visual Studio上，所以几乎让习惯于.net开发的程序员不用做任何的习惯上的改变。昨天XNA GS 3.1正式公布了。</p>
+<p>而XNA提供开发者的工具也是相当的便捷 &mdash;&mdash; XNA Game Studio。它不但提供了XNA库，还有一堆一堆的工具插件附加到Visual Studio上，所以几乎让习惯于.net开发的程序员不用做任何的习惯上的改变。昨天XNA GS 3.1正式公布了。</p>
 
 <p><img src="/images/uploads/zb/2009-06-12_XNAGameSudio3.1.jpg" alt="" /></p>
 
@@ -895,77 +895,77 @@ public partial class _Default : System.Web.UI.Page
 </ul>
 
 
-<p><strong>- 现在支持PSP3000</strong></p>
+<p><strong>&ndash; 现在支持PSP3000</strong></p>
 
 <ul>
 <li>Graphical interface improved.</li>
 </ul>
 
 
-<p><strong>- 图形界面升级</strong></p>
+<p><strong>&ndash; 图形界面升级</strong></p>
 
 <ul>
 <li>Network update option added (Server Needed)</li>
 </ul>
 
 
-<p><strong>- 网络升级选项增加（需要服务器）</strong></p>
+<p><strong>&ndash; 网络升级选项增加（需要服务器）</strong></p>
 
 <ul>
 <li>Official network update blocking option.</li>
 </ul>
 
 
-<p><strong>- 禁止官方网络升级选项</strong></p>
+<p><strong>&ndash; 禁止官方网络升级选项</strong></p>
 
 <ul>
 <li>New configuration options.</li>
 </ul>
 
 
-<p><strong>- 新增设置选项</strong></p>
+<p><strong>&ndash; 新增设置选项</strong></p>
 
 <ul>
 <li>Free UMD Region.</li>
 </ul>
 
 
-<p><strong>- 自由UMD区域欺骗</strong></p>
+<p><strong>&ndash; 自由UMD区域欺骗</strong></p>
 
 <ul>
 <li>Pic0/Pic1 Hide.</li>
 </ul>
 
 
-<p><strong>- 可隐藏pic0/pic1（游戏菜单）</strong></p>
+<p><strong>&ndash; 可隐藏pic0/pic1（游戏菜单）</strong></p>
 
 <ul>
 <li>version.txt</li>
 </ul>
 
 
-<p><strong>- 支持version.txt</strong></p>
+<p><strong>&ndash; 支持version.txt</strong></p>
 
 <ul>
 <li>Registry Hacks.</li>
 </ul>
 
 
-<p><strong>- 注册信息（修改确认键，使flash,wav有效）</strong></p>
+<p><strong>&ndash; 注册信息（修改确认键，使flash,wav有效）</strong></p>
 
 <ul>
 <li>CPU overclocking.</li>
 </ul>
 
 
-<p><strong>- CPU超频（解除限制）</strong></p>
+<p><strong>&ndash; CPU超频（解除限制）</strong></p>
 
 <ul>
 <li>Solved several bugs.</li>
 </ul>
 
 
-<p><strong>- 解决几个bug</strong></p>
+<p><strong>&ndash; 解决几个bug</strong></p>
 
 <blockquote></blockquote>
 
@@ -1033,7 +1033,7 @@ public partial class _Default : System.Web.UI.Page
 
 <p>个人认为PSP3000一定不会停产，之前一直这么觉得，因为UMD的确是个麻烦的过渡产品。但是，上一篇文章《<a href="http://arthraim.cn/post/2009/06/56.html">psp3000有望正式宣告破解</a>》说到的&#8221;有望&#8221;两个字，最终被证实可以去掉了。连之前说过PSPGen是欺世盗名的小人的Dark_aleX也最终在<a href="http://sceners.org/?itemid=106">这里</a>确认这个消息属实，就足以证明是真的了，而事实上已经有大量的我认识的人刷了这个版本，绝对没有问题。<a href="http://www.pspgen.com/custom-firmware-5-03hen-for-hen-cf-pour-psp-3000-actualite-187940.html">PSPgen官网</a> | <a href="http://rapidshare.com/files/241302533/503gen-for-hen-pspgen_1244244166.zip">下载镜像</a></p>
 
-<p>但是，正如DA大神所说，这次的版本在recovery mode里还是存在着bug，而且的确，它是架构在5.03版本上的，修复了TIFF漏洞的5.50能不能最终升级到可以使用ISO的版本还很成问题，预装了新版本的新机器依然难以破解（除非是出来降级程序）。另外，众所周知的DA和PSPGen有过节，究竟能不能合作很成问题。只希望DA抱着击败他们的心情努力的破解这个东西，而不要抱着&#8221;就是不帮你&#8221;的心态。 &#8212;- 当然这是站在希望破解工作进展下去的立场上说的。如果站在希望PS家族长久发展下去，希望PSN发展下去的心情，我是大大的希望破解就这样停止的。因为盗版真的危害太大了，没有在E3公布进一步网络扩张计划的索尼，想让PSN赢过XBOX LIVE真的是太难太遥远了。只希望只能通过PSN方式的PSP GO不要被破解了。</p>
+<p>但是，正如DA大神所说，这次的版本在recovery mode里还是存在着bug，而且的确，它是架构在5.03版本上的，修复了TIFF漏洞的5.50能不能最终升级到可以使用ISO的版本还很成问题，预装了新版本的新机器依然难以破解（除非是出来降级程序）。另外，众所周知的DA和PSPGen有过节，究竟能不能合作很成问题。只希望DA抱着击败他们的心情努力的破解这个东西，而不要抱着&#8221;就是不帮你&#8221;的心态。 &mdash;&mdash; 当然这是站在希望破解工作进展下去的立场上说的。如果站在希望PS家族长久发展下去，希望PSN发展下去的心情，我是大大的希望破解就这样停止的。因为盗版真的危害太大了，没有在E3公布进一步网络扩张计划的索尼，想让PSN赢过XBOX LIVE真的是太难太遥远了。只希望只能通过PSN方式的PSP GO不要被破解了。</p>
 
 <hr />
 
@@ -1053,7 +1053,7 @@ public partial class _Default : System.Web.UI.Page
 
 <p>今天开始博客收录&#8221;亚瑟后语录&#8221;，是我女朋友的冷笑话，笑不笑随你，我觉得有趣就行。也许考试结束之后有空专门会写一个程序来放这些东西，或者开个微博的账户也是不错的想法，不过第一条，今天就记在这里吧。</p>
 
-<p>亚瑟后语录 &#8212;- No.1：</p>
+<p>亚瑟后语录 &mdash;&mdash; No.1：</p>
 
 <p>亚瑟王：岩田聪这个名字还真是不错。</p>
 

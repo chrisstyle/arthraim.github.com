@@ -85,8 +85,8 @@
 <p>最终可以把问题归结成2个。</p>
 
 <ol>
-<li><p>FCKeditor 存取数据库时去除了换行符。</p></li>
-<li><p>文章重建，也就是通过UBB生成html 静态页面的时候去除了换行符。</p></li>
+<li><p> FCKeditor 存取数据库时去除了换行符。</p></li>
+<li><p> 文章重建，也就是通过UBB生成html 静态页面的时候去除了换行符。</p></li>
 </ol>
 
 
@@ -96,7 +96,7 @@
 
 <p>Build 81206 的版本要插入pre，必须要注释掉去除换行符的代码。我当时找到这两行代码的时候发现其实已经注释掉了。这么说在这一版本中已经默认了保留换行符。而在Build 90619中，这部分代码又没有被注释了，不知出于什么原因又将策略改了回去。那么只要重新注释掉，就能解决FCKeditor存取的问题了。</p>
 
-<p>罪魁祸首就是下面的代码。function/c_system _event.asp 文件中的第298行。这四行分别控制了文章内容(Content)和摘要(Intro)CR,LF，LF的替换。可见都被替换成了&#8221;&#8220;。注释掉自己需要的就可以。我只是注释了298这一行，足矣。</p>
+<p>罪魁祸首就是下面的代码。function/c_system _event.asp 文件中的第298行。这四行分别控制了文章内容(Content)和摘要(Intro)CR,LF，LF的替换。可见都被替换成了&#8221;&ldquo;。注释掉自己需要的就可以。我只是注释了298这一行，足矣。</p>
 
 <pre><code>objArticle.Content=Replace(objArticle.Content,vbCrLf,"")
 objArticle.Content=Replace(objArticle.Content,vbLf,"")
@@ -104,7 +104,7 @@ objArticle.Intro=Replace(objArticle.Intro,vbCrLf,"")
 objArticle.Intro=Replace(objArticle.Intro,vbLf,"")
 </code></pre>
 
-<p>的另外，联系c_system_event.asp上下文可以看到，这只是CASE &#8220;fckeditor&#8221;，如果你没有使用这个默认的编辑器，那么把其他的case也都改掉吧。</p>
+<p>的另外，联系c_system_event.asp上下文可以看到，这只是CASE &ldquo;fckeditor&#8221;，如果你没有使用这个默认的编辑器，那么把其他的case也都改掉吧。</p>
 
 <p>很好，解决问题1之后，重建文章还是没有效果的，因为还有问题2困扰在这里。其实Arthur并不清楚Z-blog的代码是怎么组织的，所以生成HTML的代码究竟在哪里我也不知道，毕竟我也不是开发人员只是个使用者。跑去Z-blog的官方网站的wiki，看<a href="http://wiki.rainbowsoft.org/doku.php?id=wiki:changelog">更新日志</a>缩小范围。</p>
 
